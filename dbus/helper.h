@@ -33,7 +33,7 @@
 class QTimerEvent;
 
 
-class pyqtDBusHelper : public QObject
+class pyqt5DBusHelper : public QObject
 {
     Q_OBJECT
 
@@ -51,7 +51,7 @@ public:
     typedef QHash<int, DBusTimeout *> Timeouts;
     typedef QList<DBusConnection *>Connections;
 
-    pyqtDBusHelper();
+    pyqt5DBusHelper();
 
     Watchers watchers;
     Timeouts timeouts;

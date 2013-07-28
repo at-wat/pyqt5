@@ -59,7 +59,7 @@ class ModuleMetadata:
 
 # The module meta-data.
 MODULE_METADATA = {
-    'dbus':             ModuleMetadata(qmake_QT=['-gui'], qmake_TARGET='qt',
+    'dbus':             ModuleMetadata(qmake_QT=['-gui'], qmake_TARGET='pyqt5',
                                 in_consolidated=False),
     'QAxContainer':     ModuleMetadata(qmake_QT=['axcontainer']),
     'Qt':               ModuleMetadata(qmake_QT=['-core', '-gui'],
