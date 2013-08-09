@@ -64,7 +64,7 @@ public:
     QFlags<QTextOption::Flag> flags() const;
     qreal tabStop() const;
     void setTabArray(const QList<qreal> &tabStops);
-    QList<double> tabArray() const;
+    QList<qreal> tabArray() const;
     void setUseDesignMetrics(bool b);
     bool useDesignMetrics() const;
     void setAlignment(Qt::Alignment aalignment);

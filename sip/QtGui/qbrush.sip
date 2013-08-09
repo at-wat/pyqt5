@@ -119,7 +119,7 @@ public:
 
 QDataStream &operator>>(QDataStream &, QBrush & /Constrained/) /ReleaseGIL/;
 QDataStream &operator<<(QDataStream &, const QBrush & /Constrained/) /ReleaseGIL/;
-typedef QVector<QPair<double, QColor>> QGradientStops;
+typedef QVector<QPair<qreal, QColor>> QGradientStops;
 
 class QGradient
 {

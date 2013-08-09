@@ -154,8 +154,8 @@ public:
     void setCurveThreshold(qreal threshold);
     qreal curveThreshold() const;
     void setDashPattern(Qt::PenStyle);
-    void setDashPattern(const QVector<double> &dashPattern);
-    QVector<double> dashPattern() const;
+    void setDashPattern(const QVector<qreal> &dashPattern);
+    QVector<qreal> dashPattern() const;
     QPainterPath createStroke(const QPainterPath &path) const;
     void setDashOffset(qreal offset);
     qreal dashOffset() const;
