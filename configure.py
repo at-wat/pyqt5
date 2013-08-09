@@ -406,8 +406,10 @@ int main(int argc, char **argv)
     out << "PyQt_NoOpenGLES\\n";
 #endif
 
-    if (sizeof (qreal) != sizeof (double))
-        out << "PyQt_qreal_double\\n";
+// This is the test used in qglobal.h.
+#if defined(QT_NO_FPU) || defined(Q_PROCESSOR_ARM) || defined(Q_OS_WINCE)
+    out << "PyQt_qreal_double\\n";
+#endif
 
     return 0;
 }
