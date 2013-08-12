@@ -88,8 +88,8 @@ public:
     void setCapStyle(Qt::PenCapStyle pcs);
     Qt::PenJoinStyle joinStyle() const;
     void setJoinStyle(Qt::PenJoinStyle pcs);
-    QVector<double> dashPattern() const;
-    void setDashPattern(const QVector<double> &pattern);
+    QVector<qreal> dashPattern() const;
+    void setDashPattern(const QVector<qreal> &pattern);
     qreal miterLimit() const;
     void setMiterLimit(qreal limit);
     bool operator==(const QPen &p) const;
