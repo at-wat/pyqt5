@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the Qt support for the standard
 // Python DBus bindings.
 //
-// Copyright (c) 2012 Riverbank Computing Limited
+// Copyright (c) 2013 Riverbank Computing Limited
 //
 // Licensed under the Academic Free License version 2.1
 //
@@ -418,7 +418,7 @@ PyMODINIT_FUNC PyInit_pyqt5()
     return PyModule_Create(&module_def);
 }
 #else
-PyMODINIT_FUNC initqt()
+PyMODINIT_FUNC initpyqt5()
 {
     // Import the generic part of the Python DBus bindings.
     if (import_dbus_bindings("dbus.mainloop.pyqt5") < 0)
