@@ -1179,6 +1179,8 @@ def generate_plugin_makefile(target_config, verbose, plugin_dir, install_dir, pl
 
         if glob.glob('%s/lib/libpython%d.%d*' % (ducfg['exec_prefix'], py_major, py_minor)):
             lib_dir_flag = qmake_quote('-L%s/lib' % ducfg['exec_prefix'])
+        elif glob.glob('%s/lib/%s/libpython%d.%d*' % (ducfg['exec_prefix'], ducfg['MULTIARCH'], py_major, py_minor)):
+            lib_dir_flag = qmake_quote('-L%s/lib/%s' % (ducfg['exec_prefix'], ducfg['MULTIARCH']))
         elif glob.glob('%s/libpython%d.%d*' % (ducfg['LIBDIR'], py_major, py_minor)):
             lib_dir_flag = qmake_quote('-L%s' % ducfg['LIBDIR'])
         else:
