@@ -1331,6 +1331,8 @@ INCLUDEPATH += %s
 VPATH = %s
 ''' % (qmake_quote(sp_plugin_dir), qmake_quote(sp_plugin_dir)))
 
+    fout.write('\n'.join(target_config.qmake_variables) + '\n')
+
     fout.close()
 
     # Create the makefile.
@@ -1373,6 +1375,7 @@ def generate_application_makefile(target_config, verbose, src_dir):
         pro_lines.append('VPATH = %s' % qmake_quote(sp_src_dir))
 
     pro_lines.extend(pro_sources(sp_src_dir))
+    pro_lines.extend(target_config.qmake_variables)
 
     pro_name = os.path.join(src_dir, app + '.pro')
 
