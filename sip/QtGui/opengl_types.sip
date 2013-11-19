@@ -29,7 +29,9 @@ typedef qint32 GLsizei;
 typedef quint32 GLuint;
 typedef quint32 GLenum;
 typedef quint32 GLbitfield;
+%If (PyQt_Desktop_OpenGL)
 typedef quint64 GLuint64;
+%End
 typedef float GLfloat;
 typedef float GLclampf;
 typedef double GLdouble;
