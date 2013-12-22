@@ -19,6 +19,8 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
+%If (PyQt_Desktop_OpenGL)
+
 // QVector<GLuint64> is implemented as a Python list of integers.
 %MappedType QVector<GLuint64> /DocType="list-of-int"/
 {
@@ -69,3 +71,5 @@
     return sipGetState(sipTransferObj);
 %End
 };
+
+%End
