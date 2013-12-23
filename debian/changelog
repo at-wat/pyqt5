@@ -1,3 +1,12 @@
+pyqt5 (5.1.1+dfsg-3svn1) trusty; urgency=low
+
+  Upload the current Svn HEAD to add the forgotten XS-Testsuite header.
+
+  * Bump Standards-Version to 3.9.5, no changes needed.
+  * Add XS-Testsuite header for autopkgtest.
+
+ -- Dmitry Shachnev <mitya57@gmail.com>  Mon, 23 Dec 2013 14:19:47 +0400
+
 pyqt5 (5.1.1+dfsg-3) experimental; urgency=low
 
   * Upload to experimental to build against Qt 5.2.
