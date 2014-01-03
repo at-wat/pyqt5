@@ -1,3 +1,10 @@
+pyqt5 (5.1.1+dfsg-3svn2) trusty; urgency=low
+
+  * Rebuild to fix QtSensors and QtSerialPort modules that were broken
+    in previous build.
+
+ -- Dmitry Shachnev <mitya57@gmail.com>  Fri, 03 Jan 2014 18:53:12 +0400
+
 pyqt5 (5.1.1+dfsg-3svn1) trusty; urgency=low
 
   Upload the current Svn HEAD to add the forgotten XS-Testsuite header.
