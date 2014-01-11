@@ -1003,8 +1003,7 @@ def check_modules(target_config, verbose):
             'QDBusConnection::systemBus()')
     check_dbus(target_config, verbose)
 
-    if target_config.qt_version >= 0x050100:
-        check_5_1_modules(target_config, verbose)
+    check_5_1_modules(target_config, verbose)
 
     if target_config.qt_version >= 0x050200:
         check_5_2_modules(target_config, verbose)
