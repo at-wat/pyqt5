@@ -1,3 +1,9 @@
+pyqt5 (5.2+dfsg-1ubuntu4) trusty; urgency=medium
+
+  * Don’t set -x in import autopkgtest.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Sat, 11 Jan 2014 09:46:23 +0400
+
 pyqt5 (5.2+dfsg-1ubuntu3) trusty; urgency=medium
 
   * Make import autopkgtest depend on python3-all.
