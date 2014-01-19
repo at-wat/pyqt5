@@ -1044,7 +1044,7 @@ def check_5_1_modules(target_config, verbose):
     check_module(target_config, verbose, 'QtSerialPort', 'qserialport.h',
             'new QSerialPort()')
     check_module(target_config, verbose, 'QtX11Extras', 'QX11Info',
-            'QX11Info::isPlatformX11()')
+            'QX11Info::display()')
 
 
 def check_5_2_modules(target_config, verbose):
