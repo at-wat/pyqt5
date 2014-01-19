@@ -6,12 +6,15 @@ cd $ADTTMP
 
 cat <<EOF >test_import.py
 from PyQt5.QtCore import QFile
+from PyQt5.QtDBus import QDBusConnection
 from PyQt5.QtGui import QColor
 from PyQt5.QtMultimedia import QAudio
 from PyQt5.QtMultimediaWidgets import QGraphicsVideoItem
 from PyQt5.QtNetwork import QLocalSocket
 from PyQt5.QtQml import QQmlEngine
 from PyQt5.QtQuick import QQuickView
+from PyQt5.QtSensors import QSensor
+from PyQt5.QtSerialPort import QSerialPortInfo
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtSvg import QSvgRenderer
 from PyQt5.QtWebKit import QWebSettings
