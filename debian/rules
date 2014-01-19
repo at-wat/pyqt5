@@ -56,7 +56,9 @@ configure: $(PYTHON3S:%=build-%/configure-stamp) $(PYTHON3S:%=dbg-build-%/config
 build-%/configure-stamp:
 	dh_testdir
 	mkdir -p build-$*
-	ln -s ../sip build-$*/sip
+	cp -r sip build-$*
+	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' build-$*/sip/QtSensors/*.sip
+	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' build-$*/sip/QtSerialPort/*.sip
 	cd build-$* && python$* ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
 			-m $(shell python$*-config --configdir) \
 			-d /usr/lib/python$*/dist-packages \
@@ -67,7 +69,9 @@ build-%/configure-stamp:
 dbg-build-%/configure-stamp:
 	dh_testdir
 	mkdir -p dbg-build-$*
-	ln -s ../sip dbg-build-$*/sip
+	cp -r sip dbg-build-$*
+	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' dbg-build-$*/sip/QtSensors/*.sip
+	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' dbg-build-$*/sip/QtSerialPort/*.sip
 	cd dbg-build-$* && python$*-dbg ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
 			-m $(shell python$*-dbg-config --configdir) \
 			-l /usr/include/python$*$(if $(filter 3.2, $*),dmu,dm) \
