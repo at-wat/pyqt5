@@ -1,3 +1,9 @@
+pyqt5 (5.2+dfsg-1ubuntu6) trusty; urgency=medium
+
+  * Modify sip files in root directory, not in build directory.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Tue, 21 Jan 2014 21:16:59 +0400
+
 pyqt5 (5.2+dfsg-1ubuntu5) trusty; urgency=medium
 
   * Make sure QtSensors and QtSerialPort modules are really built,

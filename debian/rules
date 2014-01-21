@@ -56,27 +56,31 @@ configure: $(PYTHON3S:%=build-%/configure-stamp) $(PYTHON3S:%=dbg-build-%/config
 build-%/configure-stamp:
 	dh_testdir
 	mkdir -p build-$*
-	cp -r sip build-$*
-	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' build-$*/sip/QtSensors/*.sip
-	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' build-$*/sip/QtSerialPort/*.sip
+	cp -r sip sip.old
+	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' sip/QtSensors/*.sip
+	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' sip/QtSerialPort/*.sip
 	cd build-$* && python$* ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
 			-m $(shell python$*-config --configdir) \
 			-d /usr/lib/python$*/dist-packages \
 			--dbus /usr/include/dbus-1.0 \
 			$(if $(filter $(DEFAULT_PYTHON),$*),,--no-designer-plugin --no-qml-plugin)
+	rm -rf sip
+	mv sip.old sip
 	touch $@
 
 dbg-build-%/configure-stamp:
 	dh_testdir
 	mkdir -p dbg-build-$*
-	cp -r sip dbg-build-$*
-	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' dbg-build-$*/sip/QtSensors/*.sip
-	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' dbg-build-$*/sip/QtSerialPort/*.sip
+	cp -r sip sip.old
+	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' sip/QtSensors/*.sip
+	sed -i 's/Qt_5_1_0/Qt_5_0_0/g' sip/QtSerialPort/*.sip
 	cd dbg-build-$* && python$*-dbg ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
 			-m $(shell python$*-dbg-config --configdir) \
 			-l /usr/include/python$*$(if $(filter 3.2, $*),dmu,dm) \
 			-d /usr/lib/python$*/dist-packages \
 			--debug --no-designer-plugin --no-qml-plugin
+	rm -rf sip
+	mv sip.old sip
 	touch $@
 
 
