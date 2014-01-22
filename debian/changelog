@@ -1,3 +1,9 @@
+pyqt5 (5.2+dfsg-1ubuntu7) trusty; urgency=medium
+
+  * Also enable QList<QPair<int, int>> code that is needed for QtSensors.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Wed, 22 Jan 2014 18:53:52 +0400
+
 pyqt5 (5.2+dfsg-1ubuntu6) trusty; urgency=medium
 
   * Modify sip files in root directory, not in build directory.
