@@ -80,7 +80,6 @@ MODULE_METADATA = {
                                             'multimedia']),
     'QtNetwork':            ModuleMetadata(qmake_QT=['network', '-gui']),
     'QtOpenGL':             ModuleMetadata(qmake_QT=['opengl']),
-    'QtPositioning':        ModuleMetadata(qmake_QT=['positioning']),
     'QtPrintSupport':       ModuleMetadata(qmake_QT=['printsupport']),
     'QtQml':                ModuleMetadata(qmake_QT=['qml'], qpy_lib='qpyqml'),
     'QtQuick':              ModuleMetadata(qmake_QT=['quick'],
@@ -136,7 +135,7 @@ COMPOSITE_COMPONENTS = (
     'QtMultimedia', 'QtQml', 'QtWebKit', 'QtWidgets', 'QtXmlPatterns',
     'QtAxContainer', 'QtDesigner', 'QtHelp', 'QtMultimediaWidgets', 'QtOpenGL',
         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
-    'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
+    'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras',
     'QtWinExtras', 'QtX11Extras'
 )
 
@@ -1054,8 +1053,6 @@ def check_5_2_modules(target_config, verbose):
             'new QBluetoothAddress()')
     check_module(target_config, verbose, 'QtMacExtras', 'qmacpasteboardmime.h',
             'class Foo : public QMacPasteboardMime {}')
-    check_module(target_config, verbose, 'QtPositioning', 'qgeoaddress.h',
-            'new QGeoAddress()')
     check_module(target_config, verbose, 'QtWinExtras', 'QtWin',
             'QtWin::isCompositionEnabled()')
 
