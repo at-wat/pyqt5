@@ -1,0 +1,34 @@
+Description: disable QtPositioning module
+ This will be reverted once we have Qt 5.2 landed.
+Author: Dmitry Shachnev <mitya57@ubuntu.com>
+Forwarded: not-needed
+Last-Update: 2014-01-30
+
+--- a/configure.py
++++ b/configure.py
+@@ -80,7 +80,6 @@
+                                             'multimedia']),
+     'QtNetwork':            ModuleMetadata(qmake_QT=['network', '-gui']),
+     'QtOpenGL':             ModuleMetadata(qmake_QT=['opengl']),
+-    'QtPositioning':        ModuleMetadata(qmake_QT=['positioning']),
+     'QtPrintSupport':       ModuleMetadata(qmake_QT=['printsupport']),
+     'QtQml':                ModuleMetadata(qmake_QT=['qml'], qpy_lib='qpyqml'),
+     'QtQuick':              ModuleMetadata(qmake_QT=['quick'],
+@@ -136,7 +135,7 @@
+     'QtMultimedia', 'QtQml', 'QtWebKit', 'QtWidgets', 'QtXmlPatterns',
+     'QtAxContainer', 'QtDesigner', 'QtHelp', 'QtMultimediaWidgets', 'QtOpenGL',
+         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
+-    'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
++    'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras',
+     'QtWinExtras', 'QtX11Extras'
+ )
+ 
+@@ -1054,8 +1053,6 @@
+             'new QBluetoothAddress()')
+     check_module(target_config, verbose, 'QtMacExtras', 'qmacpasteboardmime.h',
+             'class Foo : public QMacPasteboardMime {}')
+-    check_module(target_config, verbose, 'QtPositioning', 'qgeoaddress.h',
+-            'new QGeoAddress()')
+     check_module(target_config, verbose, 'QtWinExtras', 'QtWin',
+             'QtWin::isCompositionEnabled()')
+ 

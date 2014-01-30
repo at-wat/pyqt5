@@ -1,3 +1,11 @@
+pyqt5 (5.2+dfsg-1ubuntu8) trusty; urgency=medium
+
+  * fix_qreal_check.diff: Fix qreal check for Qt 5.2 (LP: #1274128).
+  * no_positioning.diff: Disable positioning module until we have 5.2
+    in the archive.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Thu, 30 Jan 2014 09:56:39 +0400
+
 pyqt5 (5.2+dfsg-1ubuntu7) trusty; urgency=medium
 
   * Also enable QList<QPair<int, int>> code that is needed for QtSensors.
