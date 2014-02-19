@@ -1,3 +1,9 @@
+pyqt5 (5.2+dfsg-1ubuntu9) trusty; urgency=medium
+
+  * No-change rebuild for Python 3.4.
+
+ -- Matthias Klose <doko@ubuntu.com>  Wed, 19 Feb 2014 13:47:15 +0100
+
 pyqt5 (5.2+dfsg-1ubuntu8) trusty; urgency=medium
 
   * fix_qreal_check.diff: Fix qreal check for Qt 5.2 (LP: #1274128).
