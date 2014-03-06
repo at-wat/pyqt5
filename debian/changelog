@@ -1,3 +1,10 @@
+pyqt5 (5.2+dfsg-4ubuntu1) trusty; urgency=medium
+
+  * Add new package for QtPositioning module.
+    As a side-effect, this fixes a build failure.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Thu, 06 Mar 2014 17:14:08 +0400
+
 pyqt5 (5.2+dfsg-4) unstable; urgency=medium
 
   * Build-depend on libqt5x11extras5-dev instead of libqt5x11extras-dev,
