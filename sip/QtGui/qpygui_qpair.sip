@@ -21,6 +21,8 @@
 
 %If (Qt_5_2_0 -)
 
+%If (PyQt_OpenGL)
+
 %MappedType QPair<QOpenGLTexture::Filter, QOpenGLTexture::Filter>
         /DocType="tuple-of-QOpenGLTexture.Filter-QOpenGLTexture.Filter"/
 {
@@ -111,6 +113,8 @@
     return sipGetState(sipTransferObj);
 %End
 };
+
+%End
 
 %End
 
