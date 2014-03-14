@@ -27,9 +27,6 @@ class QWebSecurityOrigin
 %End
 
 public:
-%If (Qt_5_2_0 -)
-    explicit QWebSecurityOrigin(const QUrl &url);
-%End
     QWebSecurityOrigin(const QWebSecurityOrigin &other);
     ~QWebSecurityOrigin();
     static QList<QWebSecurityOrigin> allOrigins();
@@ -44,19 +41,4 @@ public:
     static void removeLocalScheme(const QString &scheme);
     static QStringList localSchemes();
     void setApplicationCacheQuota(qint64 quota);
-%If (Qt_5_2_0 -)
-
-    enum SubdomainSetting
-    {
-        AllowSubdomains,
-        DisallowSubdomains,
-    };
-
-%End
-%If (Qt_5_2_0 -)
-    void addAccessWhitelistEntry(const QString &scheme, const QString &host, QWebSecurityOrigin::SubdomainSetting subdomainSetting);
-%End
-%If (Qt_5_2_0 -)
-    void removeAccessWhitelistEntry(const QString &scheme, const QString &host, QWebSecurityOrigin::SubdomainSetting subdomainSetting);
-%End
 };

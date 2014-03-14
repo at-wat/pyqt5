@@ -114,27 +114,6 @@ public:
         StopScheduledPageRefresh,
         CopyImageUrlToClipboard,
         OpenLinkInThisWindow,
-%If (Qt_5_2_0 -)
-        DownloadMediaToDisk,
-%End
-%If (Qt_5_2_0 -)
-        CopyMediaUrlToClipboard,
-%End
-%If (Qt_5_2_0 -)
-        ToggleMediaControls,
-%End
-%If (Qt_5_2_0 -)
-        ToggleMediaLoop,
-%End
-%If (Qt_5_2_0 -)
-        ToggleMediaPlayPause,
-%End
-%If (Qt_5_2_0 -)
-        ToggleMediaMute,
-%End
-%If (Qt_5_2_0 -)
-        ToggleVideoFullscreen,
-%End
     };
 
     enum FindFlag
@@ -143,15 +122,6 @@ public:
         FindCaseSensitively,
         FindWrapsAroundDocument,
         HighlightAllOccurrences,
-%If (Qt_5_2_0 -)
-        FindAtWordBeginningsOnly,
-%End
-%If (Qt_5_2_0 -)
-        TreatMedialCapitalAsWordBeginning,
-%End
-%If (Qt_5_2_0 -)
-        FindBeginsInSelection,
-%End
     };
 
     typedef QFlags<QWebPage::FindFlag> FindFlags;
@@ -406,23 +376,6 @@ signals:
     void featurePermissionRequestCanceled(QWebFrame *frame, QWebPage::Feature feature);
 
 public:
-%If (Qt_5_2_0 -)
-
-    enum VisibilityState
-    {
-        VisibilityStateVisible,
-        VisibilityStateHidden,
-        VisibilityStatePrerender,
-        VisibilityStateUnloaded,
-    };
-
-%End
-%If (Qt_5_2_0 -)
-    QWebPage::VisibilityState visibilityState() const;
-%End
-%If (Qt_5_2_0 -)
-    void setVisibilityState(QWebPage::VisibilityState);
-%End
 };
 
 QFlags<QWebPage::FindFlag> operator|(QWebPage::FindFlag f1, QFlags<QWebPage::FindFlag> f2);
