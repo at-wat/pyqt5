@@ -51,9 +51,6 @@ public:
     QWebElement enclosingBlockElement() const;
     QWebElement linkElement() const;
     QWebElement element() const;
-%If (Qt_5_2_0 -)
-    QUrl mediaUrl() const;
-%End
 };
 
 class QWebFrame : QObject /NoDefaultCtors/
