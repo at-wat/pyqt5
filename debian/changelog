@@ -1,3 +1,9 @@
+pyqt5 (5.2+dfsg-4ubuntu2) trusty; urgency=medium
+
+  * No-change rebuild against QtWebkit 5.1.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 14 Mar 2014 01:02:38 +0000
+
 pyqt5 (5.2+dfsg-4ubuntu1) trusty; urgency=medium
 
   * Add new package for QtPositioning module.
