@@ -1,3 +1,11 @@
+pyqt5 (5.2.1+dfsg-1ubuntu1) trusty; urgency=medium
+
+  * Merge with Debian experimental, remaining changes:
+    - Add new package for QtPositioning module.
+    - Add a patch to build against QtWebKit 5.1.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Fri, 21 Mar 2014 10:56:57 +0400
+
 pyqt5 (5.2.1+dfsg-1) experimental; urgency=medium
 
   * New upstream bugfix release.
@@ -6,6 +14,28 @@ pyqt5 (5.2.1+dfsg-1) experimental; urgency=medium
   * Update licensing information for pylupdate and pyrcc modules.
 
  -- Dmitry Shachnev <mitya57@gmail.com>  Tue, 11 Mar 2014 12:45:18 +0400
+
+pyqt5 (5.2+dfsg-4ubuntu3) trusty; urgency=medium
+
+  * debian/patches/build_against_qtwebkit_5_1.patch:
+    - Dropping features that are only available in qtwebkit 5.2, so we
+      can build it against qtwebkit 5.1 (can be dropped once qtwebkit
+      5.2 gets published).
+
+ -- Ricardo Salveti de Araujo <ricardo.salveti@canonical.com>  Fri, 14 Mar 2014 00:25:24 -0300
+
+pyqt5 (5.2+dfsg-4ubuntu2) trusty; urgency=medium
+
+  * No-change rebuild against QtWebkit 5.1.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 14 Mar 2014 01:02:38 +0000
+
+pyqt5 (5.2+dfsg-4ubuntu1) trusty; urgency=medium
+
+  * Add new package for QtPositioning module.
+    As a side-effect, this fixes a build failure.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Thu, 06 Mar 2014 17:14:08 +0400
 
 pyqt5 (5.2+dfsg-4) unstable; urgency=medium
 
