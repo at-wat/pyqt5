@@ -1,0 +1,133 @@
+Description: remove code that is only compatible with QtWebKit 5.2
+ This is needed as our qtbase is 5.2.1 but we still want to keep qtwebkit
+ on 5.1.1. Can be dropped once qtwebkit >= 5.2.0 gets published.
+Author: Ricardo Salveti de Araujo <ricardo.salveti@canonical.com>
+Forwarded: not-needed
+Last-Update: 2014-03-21
+
+--- a/sip/QtWebKit/qwebsecurityorigin.sip
++++ b/sip/QtWebKit/qwebsecurityorigin.sip
+@@ -27,9 +27,6 @@
+ %End
+ 
+ public:
+-%If (Qt_5_2_0 -)
+-    explicit QWebSecurityOrigin(const QUrl &url);
+-%End
+     QWebSecurityOrigin(const QWebSecurityOrigin &other);
+     ~QWebSecurityOrigin();
+     static QList<QWebSecurityOrigin> allOrigins();
+@@ -44,19 +41,4 @@
+     static void removeLocalScheme(const QString &scheme);
+     static QStringList localSchemes();
+     void setApplicationCacheQuota(qint64 quota);
+-%If (Qt_5_2_0 -)
+-
+-    enum SubdomainSetting
+-    {
+-        AllowSubdomains,
+-        DisallowSubdomains,
+-    };
+-
+-%End
+-%If (Qt_5_2_0 -)
+-    void addAccessWhitelistEntry(const QString &scheme, const QString &host, QWebSecurityOrigin::SubdomainSetting subdomainSetting);
+-%End
+-%If (Qt_5_2_0 -)
+-    void removeAccessWhitelistEntry(const QString &scheme, const QString &host, QWebSecurityOrigin::SubdomainSetting subdomainSetting);
+-%End
+ };
+--- a/sip/QtWebKit/qwebsettings.sip
++++ b/sip/QtWebKit/qwebsettings.sip
+@@ -71,9 +71,6 @@
+         ScrollAnimatorEnabled,
+         CaretBrowsingEnabled,
+         NotificationsEnabled,
+-%If (Qt_5_2_0 -)
+-        WebAudioEnabled,
+-%End
+     };
+ 
+     enum WebGraphic
+--- a/sip/QtWebKitWidgets/qwebframe.sip
++++ b/sip/QtWebKitWidgets/qwebframe.sip
+@@ -51,9 +51,6 @@
+     QWebElement enclosingBlockElement() const;
+     QWebElement linkElement() const;
+     QWebElement element() const;
+-%If (Qt_5_2_0 -)
+-    QUrl mediaUrl() const;
+-%End
+ };
+ 
+ class QWebFrame : QObject /NoDefaultCtors/
+--- a/sip/QtWebKitWidgets/qwebpage.sip
++++ b/sip/QtWebKitWidgets/qwebpage.sip
+@@ -114,27 +114,6 @@
+         StopScheduledPageRefresh,
+         CopyImageUrlToClipboard,
+         OpenLinkInThisWindow,
+-%If (Qt_5_2_0 -)
+-        DownloadMediaToDisk,
+-%End
+-%If (Qt_5_2_0 -)
+-        CopyMediaUrlToClipboard,
+-%End
+-%If (Qt_5_2_0 -)
+-        ToggleMediaControls,
+-%End
+-%If (Qt_5_2_0 -)
+-        ToggleMediaLoop,
+-%End
+-%If (Qt_5_2_0 -)
+-        ToggleMediaPlayPause,
+-%End
+-%If (Qt_5_2_0 -)
+-        ToggleMediaMute,
+-%End
+-%If (Qt_5_2_0 -)
+-        ToggleVideoFullscreen,
+-%End
+     };
+ 
+     enum FindFlag
+@@ -143,15 +122,6 @@
+         FindCaseSensitively,
+         FindWrapsAroundDocument,
+         HighlightAllOccurrences,
+-%If (Qt_5_2_0 -)
+-        FindAtWordBeginningsOnly,
+-%End
+-%If (Qt_5_2_0 -)
+-        TreatMedialCapitalAsWordBeginning,
+-%End
+-%If (Qt_5_2_0 -)
+-        FindBeginsInSelection,
+-%End
+     };
+ 
+     typedef QFlags<QWebPage::FindFlag> FindFlags;
+@@ -406,23 +376,6 @@
+     void featurePermissionRequestCanceled(QWebFrame *frame, QWebPage::Feature feature);
+ 
+ public:
+-%If (Qt_5_2_0 -)
+-
+-    enum VisibilityState
+-    {
+-        VisibilityStateVisible,
+-        VisibilityStateHidden,
+-        VisibilityStatePrerender,
+-        VisibilityStateUnloaded,
+-    };
+-
+-%End
+-%If (Qt_5_2_0 -)
+-    QWebPage::VisibilityState visibilityState() const;
+-%End
+-%If (Qt_5_2_0 -)
+-    void setVisibilityState(QWebPage::VisibilityState);
+-%End
+ };
+ 
+ QFlags<QWebPage::FindFlag> operator|(QWebPage::FindFlag f1, QFlags<QWebPage::FindFlag> f2);
