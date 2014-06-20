@@ -1,3 +1,9 @@
+pyqt5 (5.3+dfsg-3build1) utopic; urgency=medium
+
+  * No-change rebuild against the new qtbase-opensource-src
+
+ -- Ricardo Salveti de Araujo <ricardo.salveti@canonical.com>  Fri, 20 Jun 2014 00:00:36 -0300
+
 pyqt5 (5.3+dfsg-3) unstable; urgency=medium
 
   * Added debian/patches/fix_implicit_qtablewidget.patch to fixed a pyuic
