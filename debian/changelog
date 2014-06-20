@@ -1,3 +1,10 @@
+pyqt5 (5.3+dfsg-3build2) utopic; urgency=medium
+
+  * No-change rebuild against the new qtbase-opensource-src (armhf build still
+    used the older package)
+
+ -- Ricardo Salveti de Araujo <ricardo.salveti@canonical.com>  Fri, 20 Jun 2014 01:08:46 -0300
+
 pyqt5 (5.3+dfsg-3build1) utopic; urgency=medium
 
   * No-change rebuild against the new qtbase-opensource-src
