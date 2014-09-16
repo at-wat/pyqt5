@@ -1,3 +1,9 @@
+pyqt5 (5.3.2+dfsg-1ubuntu1) utopic; urgency=medium
+
+  * Fix a typo in debian/tests/control.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Tue, 16 Sep 2014 18:43:11 +0400
+
 pyqt5 (5.3.2+dfsg-1) unstable; urgency=medium
 
   [ Dmitry Shachnev ]
