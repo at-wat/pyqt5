@@ -754,7 +754,17 @@ class UIParser(object):
                     self.row_counter += 1
 
     def setZOrder(self, elem):
-        getattr(self.toplevelWidget, elem.text).raise_()
+        # Designer can generate empty zorder elements.
+        if elem.text is None:
+            return
+
+        # Designer allows the z-order of spacer items to be specified even
+        # though they can't be raised, so ignore any missing raise_() method.
+        try:
+            getattr(self.toplevelWidget, elem.text).raise_()
+        except AttributeError:
+            # Note that uic issues a warning message.
+            pass
 
     def createAction(self, elem):
         self.setupObject("QAction", self.currentActionGroup or self.toplevelWidget,
