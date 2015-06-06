@@ -132,8 +132,8 @@ class _CustomWidgetLoader(object):
             _, module = self._widgets[widget]
             imports.setdefault(module, []).append(widget)
 
-        for module, classes in imports.items():
-            write_code("from %s import %s" % (module, ", ".join(classes)))
+        for module, classes in sorted(imports.items()):
+            write_code("from %s import %s" % (module, ", ".join(sorted(classes))))
 
 
 class CompilerCreatorPolicy(object):

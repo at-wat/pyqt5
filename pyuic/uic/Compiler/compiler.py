@@ -114,7 +114,7 @@ class UICompiler(UIParser):
 
         self.factory._cpolicy._writeOutImports()
 
-        for res in self._resources:
+        for res in sorted(self._resources):
             write_import(res, from_imports)
 
         return {"widgetname": str(w),
