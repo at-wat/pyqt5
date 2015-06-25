@@ -101,9 +101,10 @@ class UICompiler(UIParser):
         indenter.dedent()
         indenter.dedent()
 
-        # Make a copy of the resource modules to import because the parser will
-        # reset() before returning.
+        # Keep a reference to the resource modules to import because the parser
+        # will reset() before returning.
         self._resources = self.resources
+        self._resources.sort()
 
     def compileUi(self, input_stream, output_stream, from_imports, resource_suffix):
         createCodeIndenter(output_stream)
@@ -114,7 +115,7 @@ class UICompiler(UIParser):
 
         self.factory._cpolicy._writeOutImports()
 
-        for res in sorted(self._resources):
+        for res in self._resources:
             write_import(res, from_imports)
 
         return {"widgetname": str(w),
