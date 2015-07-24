@@ -1,3 +1,9 @@
+pyqt5 (5.4.2+dfsg-1build2) wily; urgency=medium
+
+  * No-change rebuild with fixed dh-python.  LP: #1477759
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 24 Jul 2015 11:12:51 -0700
+
 pyqt5 (5.4.2+dfsg-1build1) wily; urgency=medium
 
   * No-change rebuild for python3.5 transition
