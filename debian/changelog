@@ -1,3 +1,13 @@
+pyqt5 (5.5+dfsg-2) unstable; urgency=medium
+
+  * Remove gstreamer 0.10 packages from build-depends, no longer needed.
+  * Update Vcs fields for Git migration.
+  * Add support for Qt 5.5.1 (0001-Add-support-for-Qt-5.5.1.patch).
+  * Move python3-sphinx from Build-Depends to Build-Depends-Indep.
+  * Upload to unstable.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Thu, 22 Oct 2015 13:11:35 +0300
+
 pyqt5 (5.5+dfsg-1) experimental; urgency=medium
 
   * New upstream release.
