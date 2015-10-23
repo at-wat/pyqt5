@@ -1,3 +1,9 @@
+pyqt5 (5.4.2+dfsg-1ubuntu1) xenial; urgency=medium
+
+  * pyuic5: Call the unversioned python3 interpreter.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri, 23 Oct 2015 15:31:38 +0200
+
 pyqt5 (5.4.2+dfsg-1build3) wily; urgency=medium
 
   * No-change rebuild for python3.5 transition
