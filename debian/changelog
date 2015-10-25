@@ -1,3 +1,19 @@
+pyqt5 (5.5.1+dfsg-1) unstable; urgency=medium
+
+  [ Dmitry Shachnev ]
+  * New upstream release.
+  * Move fdupes from Build-Depends to Build-Depends-Indep, it is only
+    used to build pyqt5-examples package.
+  * Sort debian/pyqt5-dev-tools.manpages file.
+  * Remove examples/webkit/fancybrowser/__pycache__ from orig tarball,
+    it contains a compiled file without source.
+  * Remove uupdate call from debian/rules, not needed with git-dpm.
+
+  [ Matthias Klose ]
+  * pyuic5: Call the unversioned python3 interpreter.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Sun, 25 Oct 2015 19:17:22 +0300
+
 pyqt5 (5.5+dfsg-2) unstable; urgency=medium
 
   * Remove gstreamer 0.10 packages from build-depends, no longer needed.
