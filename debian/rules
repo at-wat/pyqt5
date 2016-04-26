@@ -58,7 +58,6 @@ build-%/configure-stamp:
 			-m $(shell python$*-config --configdir) \
 			-d /usr/lib/python$*/dist-packages \
 			--sip-incdir /usr/include/python$*$(if $(filter 3.%, $*),m,) \
-			--dbus /usr/include/dbus-1.0 \
 			$(if $(filter $(DEFAULT_PYTHON),$*),,--no-designer-plugin --no-qml-plugin --no-tools)
 	sed -i '/strip/d' build-$*/*/Makefile
 	touch $@
@@ -234,6 +233,7 @@ install-arch-2.%:
 	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtPositioning.so \
 	   $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtLocation.so \
 		debian/python-pyqt5.qtpositioning-dbg/usr/lib/python2.$*/dist-packages/PyQt5
+
 clean:
 	dh_testdir
 	dh_testroot
@@ -320,7 +320,4 @@ binary-arch: install-arch
 
 binary: binary-arch binary-indep
 
-get-orig-source:
-	uscan --verbose --download-current-version
-
-.PHONY: build-indep build-arch build clean binary-indep binary-arch binary configure get-orig-source
+.PHONY: build-indep build-arch build clean binary-indep binary-arch binary configure
