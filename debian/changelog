@@ -1,3 +1,10 @@
+pyqt5 (5.5.1+dfsg-3ubuntu5) yakkety; urgency=medium
+
+  * No-change rebuild to fix arm64 failure on calibre
+    2.55.0+dfsg-1build2 (missing symbols on pyqt5 library)
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 21 Jun 2016 07:50:03 +0200
+
 pyqt5 (5.5.1+dfsg-3ubuntu4) xenial; urgency=medium
 
   * No-change rebuild to drop python3.4 support.
