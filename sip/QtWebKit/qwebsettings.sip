@@ -71,9 +71,6 @@ public:
         ScrollAnimatorEnabled,
         CaretBrowsingEnabled,
         NotificationsEnabled,
-%If (Qt_5_2_0 -)
-        WebAudioEnabled,
-%End
     };
 
     enum WebGraphic
