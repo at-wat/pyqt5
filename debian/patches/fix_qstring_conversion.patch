@@ -1,0 +1,23 @@
+Description: fixed a bug in the conversion of QStrings with surrogate pairs
+Origin: upstream, changeset 16a9c19d08cf <5.2-maint>
+Bug: https://bugs.launchpad.net/bugs/1654840
+Last-Update: 2017-01-08
+
+--- a/qpy/QtCore/qpycore_qstring.cpp
++++ b/qpy/QtCore/qpycore_qstring.cpp
+@@ -87,12 +87,13 @@
+                     {
+                         maxchar = 0x10ffff;
+                         --py_len;
+-                        ++i;
+                         ++qch;
+                     }
+                 }
++
++                uch = (++qch)->unicode();
+             }
+-            while (++i < qstr.length());
++            while (!qch->isNull());
+ 
+             // Create the correctly sized object.
+             if ((obj = PyUnicode_New(py_len, maxchar)) == NULL)

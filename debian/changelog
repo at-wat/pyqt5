@@ -1,3 +1,11 @@
+pyqt5 (5.2.1+dfsg-1ubuntu2) trusty; urgency=medium
+
+  * Backport a change from upstream 5.2-maint branch to fix conversion
+    of QStrings with surrogate pairs (fix_qstring_conversion.patch).
+    Fixes LP: #1654840.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Sun, 08 Jan 2017 13:56:58 +0300
+
 pyqt5 (5.2.1+dfsg-1ubuntu1) trusty; urgency=medium
 
   * Merge with Debian experimental, remaining changes:
