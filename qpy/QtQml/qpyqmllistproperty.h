@@ -1,6 +1,6 @@
 // This is the definition of the QQmlListProperty class.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -25,12 +25,11 @@
 #include <Python.h>
 
 
-extern "C" {
+// The type object.
+extern PyTypeObject *qpyqml_QQmlListProperty_TypeObject;
 
-// This implements the QQmlListProperty type.
-extern PyTypeObject qpyqml_QQmlListProperty_Type;
 
-}
+bool qpyqml_QQmlListProperty_init_type();
 
 
 #endif

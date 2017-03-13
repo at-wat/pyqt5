@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QVector based mapped types
 // specific to the QtGui module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -46,7 +46,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, pobj);
+        PyList_SetItem(l, i, pobj);
     }
 
     return l;
@@ -101,7 +101,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'int' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qv;
@@ -150,7 +150,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, pobj);
+        PyList_SetItem(l, i, pobj);
     }
 
     return l;
@@ -205,7 +205,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'int' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qv;
@@ -256,7 +256,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, pobj);
+        PyList_SetItem(l, i, pobj);
     }
 
     return l;
@@ -311,7 +311,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'int' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qv;
@@ -367,7 +367,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, pobj);
+        PyList_SetItem(l, i, pobj);
     }
 
     return l;
@@ -422,7 +422,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'int' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qv;

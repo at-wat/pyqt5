@@ -1,6 +1,6 @@
 // This is the SIP interface definition for the QtMacExtras module of PyQt v5.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,13 +18,13 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Module(name=PyQt5.QtMacExtras, keyword_arguments="Optional")
+%Module(name=PyQt5.QtMacExtras, keyword_arguments="Optional", use_limited_api=True)
 
 %Import QtCore/QtCoremod.sip
 %Import QtGui/QtGuimod.sip
 
 %Copying
-Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt5.
 
@@ -47,3 +47,4 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qmacpasteboardmime.sip
 %Include qmactoolbar.sip
 %Include qmactoolbaritem.sip
+%Include qtmac.sip

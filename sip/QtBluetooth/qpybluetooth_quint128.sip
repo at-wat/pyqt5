@@ -1,6 +1,6 @@
 // This is the SIP interface definition for the quint128 mapped type.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -43,7 +43,7 @@
             return 0;
         }
 
-        PyTuple_SET_ITEM(t, i, pobj);
+        PyTuple_SetItem(t, i, pobj);
     }
 
     return t;
@@ -77,7 +77,7 @@
 
     for (Py_ssize_t i = 0; i < 16; ++i)
     {
-        PyObject *itm = PySequence_ITEM(sipPy, i);
+        PyObject *itm = PySequence_GetItem(sipPy, i);
 
         if (!itm)
         {
@@ -94,7 +94,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "element %zd has type '%s' but 'int' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qv;

@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QMap and
 // QMultiMap based mapped types.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -101,7 +101,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict key has type '%s' but '_TYPE1_' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qm;
 
@@ -117,7 +117,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict value has type '%s' but '_TYPE2_' is expected",
-                    Py_TYPE(vobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(vobj)));
 
             sipReleaseType(k, sipType__TYPE1_, kstate);
             delete qm;
@@ -215,7 +215,7 @@ template<int, _TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict key has type '%s' but 'int' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qm;
             *sipIsErr = 1;
@@ -232,7 +232,7 @@ template<int, _TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict value has type '%s' but '_TYPE_' is expected",
-                    Py_TYPE(vobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(vobj)));
 
             delete qm;
 
@@ -314,7 +314,7 @@ template<_TYPE1_, _TYPE2_>
                 return 0;
             }
 
-            PyList_SET_ITEM(vobj, i, svobj);
+            PyList_SetItem(vobj, i, svobj);
 
             ++vit;
         }

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebEngineCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -29,7 +29,7 @@ class QWebEngineUrlSchemeHandler : QObject
 %End
 
 public:
-    QWebEngineUrlSchemeHandler(QObject *parent = 0);
+    QWebEngineUrlSchemeHandler(QObject *parent /TransferThis/ = 0);
     virtual ~QWebEngineUrlSchemeHandler();
     virtual void requestStarted(QWebEngineUrlRequestJob *) = 0;
 

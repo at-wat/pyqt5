@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -46,7 +46,7 @@ if (sipPy == Py_None)
 #if PY_MAJOR_VERSION < 3
 if (PyString_Check(sipPy))
 {
-    *sipCppPtr = new QString(PyString_AS_STRING(sipPy));
+    *sipCppPtr = new QString(PyString_AsString(sipPy));
 
     return sipGetState(sipTransferObj);
 }

@@ -1,7 +1,7 @@
 /*
  * This is the interface of the Qt Designer plugin.
  *
- * Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+ * Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
  * 
  * This file is part of PyQt5.
  * 
@@ -48,7 +48,17 @@ public:
     virtual QList<QDesignerCustomWidgetInterface *> customWidgets() const;
 
 private:
+    bool importPlugins(const QString &dir, const QStringList &plugins);
     static PyObject *getModuleAttr(const char *module, const char *attr);
+
+    // The sys.path object if we need it.
+    PyObject *sys_path;
+
+    // The sip.unwrapinstance object if we need it.
+    PyObject *sip_unwrapinstance;
+
+    // The PyQt5.QtDesigner.QPyDesignerCustomWidgetPlugin object if we need it.
+    PyObject *qtdesigner_custom;
 
     QList<QDesignerCustomWidgetInterface *> widgets;
 };

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -20,14 +20,14 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Module(name=PyQt5.QtQuick, keyword_arguments="Optional")
+%Module(name=PyQt5.QtQuick, keyword_arguments="Optional", use_limited_api=True)
 
 %Import QtCore/QtCoremod.sip
 %Import QtGui/QtGuimod.sip
 %Import QtQml/QtQmlmod.sip
 
 %Copying
-Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt5.
 
@@ -60,8 +60,12 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qsgengine.sip
 %Include qsgflatcolormaterial.sip
 %Include qsggeometry.sip
+%Include qsgimagenode.sip
 %Include qsgmaterial.sip
 %Include qsgnode.sip
+%Include qsgrectanglenode.sip
+%Include qsgrendererinterface.sip
+%Include qsgrendernode.sip
 %Include qsgsimplerectnode.sip
 %Include qsgsimpletexturenode.sip
 %Include qsgtexture.sip

@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QMap and QMultiMap based mapped
 // types specific to the QtNetwork module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -98,7 +98,7 @@
                 return 0;
             }
 
-            PyList_SET_ITEM(vlobj, i, vobj);
+            PyList_SetItem(vlobj, i, vobj);
         }
     }
 
@@ -139,7 +139,7 @@
                 return 0;
             }
 
-            PyList_SET_ITEM(vlobj, i, vobj);
+            PyList_SetItem(vlobj, i, vobj);
         }
     }
 

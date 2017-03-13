@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QList based mapped types
 // specific to the QtGui module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -46,7 +46,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, eobj);
+        PyList_SetItem(l, i, eobj);
     }
 
     return l;
@@ -69,7 +69,7 @@
 
     for (Py_ssize_t i = 0; i < len; ++i)
     {
-        PyObject *itm = PySequence_ITEM(sipPy, i);
+        PyObject *itm = PySequence_GetItem(sipPy, i);
 
         if (!itm)
         {
@@ -83,7 +83,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "element %zd has type '%s' but 'QFontDatabase.WritingSystem' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;

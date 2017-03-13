@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QHash based
 // mapped types.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -101,7 +101,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict key has type '%s' but '_TYPE1_' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qh;
 
@@ -117,7 +117,7 @@ template<_TYPE1_, _TYPE2_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict value has type '%s' but '_TYPE2_' is expected",
-                    Py_TYPE(vobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(vobj)));
 
             sipReleaseType(k, sipType__TYPE1_, kstate);
             delete qh;
@@ -152,54 +152,60 @@ template<_TYPE1_, _TYPE2_ *>
 %End
 
 %ConvertFromTypeCode
+    int gc_enabled = sipEnableGC(0);
     PyObject *d = PyDict_New();
 
-    if (!d)
-        return 0;
-
-    QHash<_TYPE1_, _TYPE2_ *>::const_iterator it = sipCpp->constBegin();
-    QHash<_TYPE1_, _TYPE2_ *>::const_iterator end = sipCpp->constEnd();
-
-    while (it != end)
+    if (d)
     {
-        _TYPE1_ *k = new _TYPE1_(it.key());
-        PyObject *kobj = sipConvertFromNewType(k, sipType__TYPE1_,
-                sipTransferObj);
+        QHash<_TYPE1_, _TYPE2_ *>::const_iterator it = sipCpp->constBegin();
+        QHash<_TYPE1_, _TYPE2_ *>::const_iterator end = sipCpp->constEnd();
 
-        if (!kobj)
+        while (it != end)
         {
-            delete k;
-            Py_DECREF(d);
+            _TYPE1_ *k = new _TYPE1_(it.key());
+            PyObject *kobj = sipConvertFromNewType(k, sipType__TYPE1_,
+                    sipTransferObj);
 
-            return 0;
-        }
+            if (!kobj)
+            {
+                delete k;
+                Py_DECREF(d);
+                d = 0;
 
-        _TYPE2_ *v = it.value();
-        PyObject *vobj = sipConvertFromNewType(v, sipType__TYPE2_,
-                sipTransferObj);
+                break;
+            }
 
-        if (!vobj)
-        {
+            _TYPE2_ *v = it.value();
+            PyObject *vobj = sipConvertFromNewType(v, sipType__TYPE2_,
+                    sipTransferObj);
+
+            if (!vobj)
+            {
+                Py_DECREF(kobj);
+                Py_DECREF(d);
+                d = 0;
+
+                break;
+            }
+
+            int rc = PyDict_SetItem(d, kobj, vobj);
+
+            Py_DECREF(vobj);
             Py_DECREF(kobj);
-            Py_DECREF(d);
 
-            return 0;
+            if (rc < 0)
+            {
+                Py_DECREF(d);
+                d = 0;
+
+                break;
+            }
+
+            ++it;
         }
-
-        int rc = PyDict_SetItem(d, kobj, vobj);
-
-        Py_DECREF(vobj);
-        Py_DECREF(kobj);
-
-        if (rc < 0)
-        {
-            Py_DECREF(d);
-
-            return 0;
-        }
-
-        ++it;
     }
+
+    sipEnableGC(gc_enabled);
 
     return d;
 %End
@@ -224,7 +230,7 @@ template<_TYPE1_, _TYPE2_ *>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict key has type '%s' but '_TYPE1_' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qh;
 
@@ -239,7 +245,7 @@ template<_TYPE1_, _TYPE2_ *>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict value has type '%s' but '_TYPE2_' is expected",
-                    Py_TYPE(vobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(vobj)));
 
             sipReleaseType(k, sipType__TYPE1_, kstate);
             delete qh;
@@ -338,7 +344,7 @@ template<int, _TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict key has type '%s' but 'int' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qh;
             *sipIsErr = 1;
@@ -355,7 +361,7 @@ template<int, _TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "a dict value has type '%s' but '_TYPE_' is expected",
-                    Py_TYPE(vobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(vobj)));
 
             delete qh;
 
