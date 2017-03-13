@@ -1,7 +1,7 @@
 // This implements the conversion of a QVariant to a Python object and is part
 // of the public API.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -131,7 +131,7 @@ static PyObject *convert_list(const Chimera *ct, const QVariantList &value)
             return 0;
         }
 
-        PyList_SET_ITEM(list, i, el);
+        PyList_SetItem(list, i, el);
     }
 
     return list;

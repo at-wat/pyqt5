@@ -1,6 +1,6 @@
 // This is the support for QJSValue.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -88,7 +88,7 @@ int qpyqml_convertTo_QJSValue(PyObject *py, PyObject *transferObj,
 
     if (PyFloat_Check(py))
     {
-        *cpp = new QJSValue((double)PyFloat_AS_DOUBLE(py));
+        *cpp = new QJSValue((double)PyFloat_AsDouble(py));
 
         return sipGetState(transferObj);
     }

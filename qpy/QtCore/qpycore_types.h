@@ -1,6 +1,6 @@
 // This defines the interfaces for the meta-type used by PyQt.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -22,14 +22,10 @@
 #define _QPYCORE_TYPES_H
 
 
-#include <Python.h>
-
 #include <QList>
 #include <QMetaObject>
 
 #include "qpycore_pyqtproperty.h"
-
-#include "sipAPIQtCore.h"
 
 
 class PyQtSlot;
@@ -52,29 +48,9 @@ struct qpycore_metaobject
 };
 
 
-extern "C" {
-
-/*
- * The meta-type of a PyQt wrapper type.
- */
-typedef struct _pyqtWrapperType {
-    /*
-     * The super-meta-type.  This must be first in the structure so that it can
-     * be cast to a sipWrapperType *.
-     */
-    sipWrapperType super;
-
-    /*
-     * The type's dynamic metaobject (for QObject sub-classes) created by
-     * introspecting the Python type.
-     */
-    qpycore_metaobject *metaobject;
-} pyqtWrapperType;
-
-
-extern PyTypeObject qpycore_pyqtWrapperType_Type;
-
-}
+int qpycore_new_user_type_handler(sipWrapperType *wt);
+const QMetaObject *qpycore_get_qmetaobject(sipWrapperType *wt,
+        const sipTypeDef *base_td = 0);
 
 
 #endif

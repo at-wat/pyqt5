@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,14 +38,14 @@ if (sipIsErr == NULL)
 #if PY_MAJOR_VERSION < 3
 if (PyString_Check(sipPy))
 {
-    if (PyString_GET_SIZE(sipPy) != 1)
+    if (PyString_Size(sipPy) != 1)
     {
         PyErr_SetString(PyExc_ValueError, "string of length 1 expected");
         *sipIsErr = 1;
         return 0;
     }
 
-    *sipCppPtr = new QChar(*PyString_AS_STRING(sipPy));
+    *sipCppPtr = new QChar(*PyString_AsString(sipPy));
 
     return sipGetState(sipTransferObj);
 }

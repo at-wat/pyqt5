@@ -1,6 +1,6 @@
 // This contains the definitions for the implementation of pyqtProperty.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -69,11 +69,14 @@ typedef struct {
     uint pyqtprop_sequence;
 } qpycore_pyqtProperty;
 
-
-// This implements the PyQt version of the standard Python property type.
-extern PyTypeObject qpycore_pyqtProperty_Type;
-
 }
+
+
+// The type object.
+extern PyTypeObject *qpycore_pyqtProperty_TypeObject;
+
+
+bool qpycore_pyqtProperty_init_type();
 
 
 #endif

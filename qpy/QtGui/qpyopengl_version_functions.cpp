@@ -1,6 +1,6 @@
 // This contains the support for QOpenGLContext.versionFunctions().
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -98,7 +98,7 @@ PyObject *qpyopengl_version_functions(const QOpenGLContext *context,
     {
         PyTypeObject *ft = funcs_types.at(i);
 
-        if (name == ft->tp_name)
+        if (name == sipPyTypeName(ft))
         {
             funcs_type = ft;
             break;

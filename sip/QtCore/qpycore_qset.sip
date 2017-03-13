@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the majority of the QSet based
 // mapped types.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -110,7 +110,7 @@ template<_TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but '_TYPE_' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qs;
@@ -144,31 +144,35 @@ template<_TYPE_>
 %End
 
 %ConvertFromTypeCode
+    int gc_enabled = sipEnableGC(0);
     PyObject *s = PySet_New(0);
 
-    if (!s)
-        return 0;
-
-    QSet<_TYPE_ *>::const_iterator it = sipCpp->constBegin();
-    QSet<_TYPE_ *>::const_iterator end = sipCpp->constEnd();
-
-    while (it != end)
+    if (s)
     {
-        // The explicit (void *) cast allows _TYPE_ to be const.
-        PyObject *tobj = sipConvertFromType((void *)*it, sipType__TYPE_,
-                sipTransferObj);
+        QSet<_TYPE_ *>::const_iterator it = sipCpp->constBegin();
+        QSet<_TYPE_ *>::const_iterator end = sipCpp->constEnd();
 
-        if (!tobj)
+        while (it != end)
         {
-            Py_DECREF(s);
+            // The explicit (void *) cast allows _TYPE_ to be const.
+            PyObject *tobj = sipConvertFromType((void *)*it, sipType__TYPE_,
+                    sipTransferObj);
 
-            return 0;
+            if (!tobj)
+            {
+                Py_DECREF(s);
+                s = 0;
+
+                break;
+            }
+
+            PySet_Add(s, tobj);
+
+            ++it;
         }
-
-        PySet_Add(s, tobj);
-
-        ++it;
     }
+
+    sipEnableGC(gc_enabled);
 
     return s;
 %End
@@ -223,7 +227,7 @@ template<_TYPE_>
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but '_TYPE_' is expected", i,
-                    Py_TYPE(itm)->tp_name);
+                    sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete qs;

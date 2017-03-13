@@ -1,6 +1,6 @@
 // This defines the interfaces for the QQmlListPropertyWrapper type.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -44,11 +44,14 @@ typedef struct _qpyqml_QQmlListPropertyWrapper {
     PyObject *py_list;
 } qpyqml_QQmlListPropertyWrapper;
 
-extern PyTypeObject qpyqml_QQmlListPropertyWrapper_Type;
-
 }
 
 
+// The type object.
+extern PyTypeObject *qpyqml_QQmlListPropertyWrapper_TypeObject;
+
+
+bool qpyqml_QQmlListPropertyWrapper_init_type();
 PyObject *qpyqml_QQmlListPropertyWrapper_New(QQmlListProperty<QObject> *prop,
         PyObject *list);
 

@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QList based mapped types
 // specific to the QtWidgets module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -45,7 +45,7 @@
             return 0;
         }
 
-        PyList_SET_ITEM(l, i, eobj);
+        PyList_SetItem(l, i, eobj);
     }
 
     return l;
@@ -97,7 +97,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "index %zd has type '%s' but 'QWizard.WizardButton' is expected",
-                    i, Py_TYPE(itm)->tp_name);
+                    i, sipPyTypeName(Py_TYPE(itm)));
 
             Py_DECREF(itm);
             delete ql;

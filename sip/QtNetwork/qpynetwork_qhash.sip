@@ -1,7 +1,7 @@
 // This is the SIP interface definition for the QHash based mapped types
 // specific to the QtNetwork module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -94,7 +94,7 @@
         {
             PyErr_Format(PyExc_TypeError,
                     "a key has type '%s' but 'QNetworkRequest.Attribute' is expected",
-                    Py_TYPE(kobj)->tp_name);
+                    sipPyTypeName(Py_TYPE(kobj)));
 
             delete qh;
             *sipIsErr = 1;

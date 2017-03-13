@@ -1,6 +1,6 @@
 // This is the definition of the QPyQmlObject classes.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -126,7 +126,7 @@ protected:
     void connectNotify(const QMetaMethod &signal);
 
 private:
-    // These can by cast to sipWrapperType and pyqtWrapperType.
+    // These can by cast to sipWrapperType.
     static QList<PyTypeObject *> pyqt_types;
 
     // The wrapped proxied object.

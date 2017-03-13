@@ -1,6 +1,6 @@
 // This declares a number of objectified string objects.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,6 +27,11 @@
 
 // __name__
 extern PyObject *qpycore_dunder_name;
+
+#if PY_VERSION_HEX >= 0x03040000
+// __mro__
+extern PyObject *qpycore_dunder_mro;
+#endif
 
 // __pyqtSignature__
 extern PyObject *qpycore_dunder_pyqtsignature;
