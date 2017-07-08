@@ -1,0 +1,33 @@
+Description: fixes for the OpenGL detection needed by changes in Qt v5.8.0
+Origin: upstream, changeset bf6caed84fd3 (from 5.8.2 release)
+Last-Update: 2017-07-08
+
+--- a/configure.py
++++ b/configure.py
+@@ -618,7 +618,7 @@
+ 
+         out_file = 'qtdetail.out'
+ 
+-        source = '''#include <QCoreApplication>
++        source = '''#include <QGuiApplication>
+ #include <QFile>
+ #include <QLibraryInfo>
+ #include <QTextStream>
+@@ -676,7 +676,7 @@
+ #if defined(QT_NO_OPENGL)
+     out << "PyQt_OpenGL\\n";
+     out << "PyQt_Desktop_OpenGL\\n";
+-#elif defined(QT_OPENGL_ES_2)
++#elif defined(QT_OPENGL_ES) || defined(QT_OPENGL_ES_2) || defined(QT_OPENGL_ES_3)
+     out << "PyQt_Desktop_OpenGL\\n";
+ #endif
+ 
+@@ -696,7 +696,7 @@
+ }
+ ''' % out_file
+ 
+-        cmd = compile_qt_program(self, verbose, 'qtdetail', source, 'QtCore',
++        cmd = compile_qt_program(self, verbose, 'qtdetail', source, 'QtGui',
+                 debug=debug)
+ 
+         if cmd is None:
