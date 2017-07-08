@@ -23,7 +23,7 @@
 namespace QSql
 {
 %TypeHeaderCode
-#include <qsql.h>
+#include <qtsqlglobal.h>
 %End
 
     enum Location

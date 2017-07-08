@@ -527,8 +527,8 @@ callable.
     void setParent(QObject * /TransferThis/);
     void installEventFilter(QObject *);
     void removeEventFilter(QObject *);
-    void dumpObjectInfo();
-    void dumpObjectTree();
+    void dumpObjectInfo() const;
+    void dumpObjectTree() const;
     QList<QByteArray> dynamicPropertyNames() const;
     bool setProperty(const char *name, const QVariant &value);
     QVariant property(const char *name) const;

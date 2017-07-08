@@ -1,3 +1,13 @@
+pyqt5 (5.7+dfsg-5ubuntu1) artful; urgency=medium
+
+  * Enable webengine support on arm64 and armhf.
+  * Add patches from upstream to support Qt 5.9:
+    - no_license_check.diff
+    - qt59_support.diff
+    - opengl_detection.diff
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Sat, 08 Jul 2017 11:36:01 +0300
+
 pyqt5 (5.7+dfsg-5build1) artful; urgency=medium
 
   * No change rebuild to add Python 3.6 support.

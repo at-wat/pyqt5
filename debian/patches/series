@@ -1,2 +1,5 @@
 bytes_conversion.diff
 no_qml_debug.diff
+no_license_check.diff
+qt59_support.diff
+opengl_detection.diff
