@@ -1,3 +1,20 @@
+pyqt5 (5.9+dfsg-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Upstream no longer ships Sphinx documentation in this source.
+    - Stop building pyqt5-doc package.
+    - Update debian/copyright to not exclude doc/html from the tarball.
+    - Drop python3-sphinx build-dependency.
+  * Bump sip build-dependencies to 4.19.3, following configure.py.
+  * Remove unused variables from debian/rules.
+  * Build against Qt 5.9.1 in experimental.
+  * Copy config-tests directory to build directories before configure.
+  * Add explicit build-dependency on libjs-jquery.
+  * Enable Qt WebEngine support on arm64 and armhf (closes: #867733).
+  * Bump Standards-Version to 4.0.0, no changes needed.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Tue, 18 Jul 2017 11:30:02 +0300
+
 pyqt5 (5.8.2+dfsg-1) experimental; urgency=medium
 
   * New upstream release.
