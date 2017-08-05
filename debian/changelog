@@ -1,3 +1,9 @@
+pyqt5 (5.7+dfsg-5build3) artful; urgency=medium
+
+  * No-change rebuild to build to drop python3.5.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sat, 05 Aug 2017 16:27:07 +0000
+
 pyqt5 (5.7+dfsg-5build2) artful; urgency=medium
 
   * Rebuild against new python3.6.
