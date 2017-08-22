@@ -209,8 +209,6 @@ namespace Qt
         WindowContextHelpButtonHint,
         WindowShadeButtonHint,
         WindowStaysOnTopHint,
-        WindowOkButtonHint,
-        WindowCancelButtonHint,
         WindowStaysOnBottomHint,
         WindowCloseButtonHint,
         MacWindowToolBarButtonHint,
