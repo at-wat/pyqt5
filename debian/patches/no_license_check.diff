@@ -1,0 +1,110 @@
+From ebaaebe9bc3302ece02390c34b8db81967d7c60a Mon Sep 17 00:00:00 2001
+From: Dmitry Shachnev <mitya57@gmail.com>
+Date: Sat, 22 Jul 2017 10:08:54 +0300
+Subject: Disable Qt license check, does not work with new Qt
+
+Origin: upstream, from 5.8 release
+Patch-Name: no_license_check.diff
+---
+ configure.py | 37 +++++++------------------------------
+ 1 file changed, 7 insertions(+), 30 deletions(-)
+
+diff --git a/configure.py b/configure.py
+index cb580084..474aafce 100644
+--- a/configure.py
++++ b/configure.py
+@@ -32,10 +32,6 @@ PYQT_VERSION_STR = "5.7"
+ 
+ SIP_MIN_VERSION = '4.18'
+ 
+-# The different values QLibraryInfo::licensee() can return for the LGPL version
+-# of Qt.
+-OPEN_SOURCE_LICENSEES = ('Open Source', 'Builder Qt')
+-
+ 
+ class ModuleMetadata:
+     """ This class encapsulates the meta-data about a PyQt5 module. """
+@@ -531,7 +527,6 @@ class TargetConfiguration:
+         self.qml_plugin_dir = ''
+         self.qsci_api = False
+         self.qsci_api_dir = ''
+-        self.qt_licensee = ''
+         self.qtconf_prefix = ''
+         self.qt_shared = False
+         self.qt_version = 0
+@@ -638,8 +633,6 @@ int main(int argc, char **argv)
+ 
+     QTextStream out(&outf);
+ 
+-    out << QLibraryInfo::licensee() << '\\n';
+-
+ #if defined(QT_SHARED) || defined(QT_DLL)
+     out << "shared\\n";
+ #else
+@@ -721,9 +714,8 @@ int main(int argc, char **argv)
+         lines = f.read().split('\n')
+         f.close()
+ 
+-        self.qt_licensee = lines[0]
+-        self.qt_shared = (lines[1] == 'shared')
+-        self.pyqt_disabled_features = lines[2:-1]
++        self.qt_shared = (lines[0] == 'shared')
++        self.pyqt_disabled_features = lines[1:-1]
+ 
+         # Get the details of the Python interpreter library.
+         py_major = self.py_version >> 16
+@@ -1807,15 +1799,8 @@ def inform_user(target_config, sip_version):
+     the target configuration.  sip_version is the SIP version string.
+     """
+ 
+-    if target_config.qt_licensee == '':
+-        detail = ''
+-    elif target_config.qt_licensee in OPEN_SOURCE_LICENSEES:
+-        detail = " (Open Source)"
+-    else:
+-        detail = " licensed to %s" % target_config.qt_licensee
+-
+-    inform("Qt v%s%s is being used." % (
+-            version_to_string(target_config.qt_version), detail))
++    inform("Qt v%s is being used." %
++            version_to_string(target_config.qt_version))
+ 
+     inform("The qmake executable is %s." % target_config.qmake)
+ 
+@@ -2636,11 +2621,10 @@ def fix_license(src_lfile, dst_lfile):
+     f.close()
+ 
+ 
+-def check_license(target_config, license_confirmed, introspecting):
++def check_license(target_config, license_confirmed):
+     """ Handle the validation of the PyQt5 license.  target_config is the
+     target configuration.  license_confirmed is set if the user has already
+-    accepted the license.  introspecting is set if the configuration is being
+-    determined by introspection.
++    accepted the license.
+     """
+ 
+     try:
+@@ -2666,12 +2650,6 @@ def check_license(target_config, license_confirmed, introspecting):
+                     (ltype, PYQT_VERSION_STR, lname, sys.version.split()[0],
+                             sys.platform))
+ 
+-    # Common checks.
+-    if introspecting and target_config.qt_licensee not in OPEN_SOURCE_LICENSEES and ltype == 'GPL':
+-        error(
+-                "This version of PyQt5 and the commercial version of Qt have "
+-                "incompatible licenses.")
+-
+     # Confirm the license if not already done.
+     if not license_confirmed:
+         loptions = """
+@@ -2859,8 +2837,7 @@ def main(argv):
+     target_config.apply_post_options(opts)
+ 
+     # Check the licenses are compatible.
+-    check_license(target_config, opts.license_confirmed,
+-            (opts.config_file is None))
++    check_license(target_config, opts.license_confirmed)
+ 
+     # Check Python is what we need.
+     check_python(target_config)

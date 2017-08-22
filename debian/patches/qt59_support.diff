@@ -1,0 +1,96 @@
+From f6bbff36c7f6bae62e244757e32ea4dc7f933391 Mon Sep 17 00:00:00 2001
+From: Dmitry Shachnev <mitya57@gmail.com>
+Date: Sat, 22 Jul 2017 10:10:08 +0300
+Subject: Add support for Qt 5.9
+
+Origin: upstream, from 5.8 and 5.9 releases
+Patch-Name: qt59_support.diff
+---
+ sip/QtCore/QtCoremod.sip             | 2 +-
+ sip/QtCore/qnamespace.sip            | 2 --
+ sip/QtCore/qobject.sip               | 4 ++--
+ sip/QtQml/qqmlapplicationengine.sip  | 2 +-
+ sip/QtQuick/qquickitemgrabresult.sip | 2 +-
+ sip/QtSql/qsql.sip                   | 2 +-
+ 6 files changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/sip/QtCore/QtCoremod.sip b/sip/QtCore/QtCoremod.sip
+index 94601426..e0c247a3 100644
+--- a/sip/QtCore/QtCoremod.sip
++++ b/sip/QtCore/QtCoremod.sip
+@@ -22,7 +22,7 @@
+ 
+ %Module(name=PyQt5.QtCore, call_super_init=True, default_VirtualErrorHandler=PyQt5, keyword_arguments="Optional", version=1)
+ 
+-%Timeline {Qt_5_0_0 Qt_5_0_1 Qt_5_0_2 Qt_5_1_0 Qt_5_1_1 Qt_5_2_0 Qt_5_2_1 Qt_5_3_0 Qt_5_3_1 Qt_5_3_2 Qt_5_4_0 Qt_5_4_1 Qt_5_4_2 Qt_5_5_0 Qt_5_5_1 Qt_5_6_0 Qt_5_6_1 Qt_5_7_0}
++%Timeline {Qt_5_0_0 Qt_5_0_1 Qt_5_0_2 Qt_5_1_0 Qt_5_1_1 Qt_5_2_0 Qt_5_2_1 Qt_5_3_0 Qt_5_3_1 Qt_5_3_2 Qt_5_4_0 Qt_5_4_1 Qt_5_4_2 Qt_5_5_0 Qt_5_5_1 Qt_5_6_0 Qt_5_6_1 Qt_5_7_0 Qt_5_7_1 Qt_5_8_0 Qt_5_8_1 Qt_5_9_0 Qt_5_9_1}
+ 
+ %Platforms {WS_X11 WS_WIN WS_MACX}
+ 
+diff --git a/sip/QtCore/qnamespace.sip b/sip/QtCore/qnamespace.sip
+index 2db83b7c..559f4101 100644
+--- a/sip/QtCore/qnamespace.sip
++++ b/sip/QtCore/qnamespace.sip
+@@ -209,8 +209,6 @@ namespace Qt
+         WindowContextHelpButtonHint,
+         WindowShadeButtonHint,
+         WindowStaysOnTopHint,
+-        WindowOkButtonHint,
+-        WindowCancelButtonHint,
+         WindowStaysOnBottomHint,
+         WindowCloseButtonHint,
+         MacWindowToolBarButtonHint,
+diff --git a/sip/QtCore/qobject.sip b/sip/QtCore/qobject.sip
+index d4e02477..2d77ed76 100644
+--- a/sip/QtCore/qobject.sip
++++ b/sip/QtCore/qobject.sip
+@@ -527,8 +527,8 @@ callable.
+     void setParent(QObject * /TransferThis/);
+     void installEventFilter(QObject *);
+     void removeEventFilter(QObject *);
+-    void dumpObjectInfo();
+-    void dumpObjectTree();
++    void dumpObjectInfo() const;
++    void dumpObjectTree() const;
+     QList<QByteArray> dynamicPropertyNames() const;
+     bool setProperty(const char *name, const QVariant &value);
+     QVariant property(const char *name) const;
+diff --git a/sip/QtQml/qqmlapplicationengine.sip b/sip/QtQml/qqmlapplicationengine.sip
+index 529a3709..a8459741 100644
+--- a/sip/QtQml/qqmlapplicationengine.sip
++++ b/sip/QtQml/qqmlapplicationengine.sip
+@@ -33,7 +33,7 @@ public:
+     QQmlApplicationEngine(const QUrl &url, QObject *parent /TransferThis/ = 0);
+     QQmlApplicationEngine(const QString &filePath, QObject *parent /TransferThis/ = 0);
+     virtual ~QQmlApplicationEngine();
+-    QList<QObject *> rootObjects();
++    QList<QObject *> rootObjects() const;
+ 
+ public slots:
+     void load(const QUrl &url) /ReleaseGIL/;
+diff --git a/sip/QtQuick/qquickitemgrabresult.sip b/sip/QtQuick/qquickitemgrabresult.sip
+index 15ac42e0..6c27075c 100644
+--- a/sip/QtQuick/qquickitemgrabresult.sip
++++ b/sip/QtQuick/qquickitemgrabresult.sip
+@@ -31,7 +31,7 @@ class QQuickItemGrabResult : QObject
+ public:
+     QImage image() const;
+     QUrl url() const;
+-    bool saveToFile(const QString &fileName);
++    bool saveToFile(const QString &fileName) const;
+ 
+ protected:
+     virtual bool event(QEvent *);
+diff --git a/sip/QtSql/qsql.sip b/sip/QtSql/qsql.sip
+index f7d3e449..758362f1 100644
+--- a/sip/QtSql/qsql.sip
++++ b/sip/QtSql/qsql.sip
+@@ -23,7 +23,7 @@
+ namespace QSql
+ {
+ %TypeHeaderCode
+-#include <qsql.h>
++#include <qtsqlglobal.h>
+ %End
+ 
+     enum Location
