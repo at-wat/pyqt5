@@ -2168,10 +2168,8 @@ int main(int, char **)
     if source is None:
         for disabled in run_test_program(mname, test, verbose):
             if disabled:
-                inform("Disabled %s features: %s" % (mname,
-                        ', '.join(disabled)))
-
-            target_config.pyqt_disabled_features.extend(disabled)
+                inform("Disabled %s feature: %s" % (mname, disabled))
+                target_config.pyqt_disabled_features.append(disabled)
 
     # Include the module in the build.
     target_config.pyqt_modules.append(mname)
