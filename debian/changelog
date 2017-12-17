@@ -1,3 +1,9 @@
+pyqt5 (5.9.2+dfsg-1build1) bionic; urgency=medium
+
+  * No-change rebuild for qtdeclarative ABI bump.
+
+ -- Simon Quigley <tsimonq2@ubuntu.com>  Sat, 16 Dec 2017 21:02:10 -0600
+
 pyqt5 (5.9.2+dfsg-1) unstable; urgency=medium
 
   * New upstream release.
