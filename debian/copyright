@@ -1,10 +1,10 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Contact: pyqt@riverbankcomputing.com
 Files-Excluded: examples/webkit/fancybrowser/jquery.min.js
                 examples/webkit/fancybrowser/jquery_rc.py
 
 Files: *
-Copyright: 2017, Riverbank Computing Limited
+Copyright: 2018, Riverbank Computing Limited
 License: GPL-3
 
 Files: dbus/*
@@ -37,20 +37,20 @@ Files: examples/draganddrop/delayedencoding/images/example.svg
        examples/qtdemo/*
        examples/quick/*
        examples/richtext/textedit/textedit.py
-Copyright: 2010, Hans-Peter Jansen <hpj@urpla.net>
-           2010, Nokia Corporation and/or its subsidiary(-ies)
-           2013, Riverbank Computing Limited
+Copyright: 2010,      Hans-Peter Jansen <hpj@urpla.net>
+           2010,      Nokia Corporation and/or its subsidiary(-ies)
+           2013-2018, Riverbank Computing Limited
 License: LGPL-2.1 with Digia-1.1 exception or GPL-3
 
 Files: qpy/pylupdate/*
 Copyright: 2002-2007, Detlev Offenbach <detlev@die-offenbachs.de>
            2013,      Digia Plc and/or its subsidiary(-ies)
-           2016,      Riverbank Computing Limited
+           2016-2018, Riverbank Computing Limited
 License: LGPL-2.1 with Digia-1.1 exception or GPL-3
 
 Files: qpy/pyrcc/*
 Copyright: 2013, Digia Plc and/or its subsidiary(-ies)
-           2016, Riverbank Computing Limited
+           2017, Riverbank Computing Limited
 License: LGPL-2.1 with Digia-1.1 exception or GPL-3
 
 Files: pyuic/uic/Compiler/*.py
@@ -62,13 +62,13 @@ Files: pyuic/uic/Compiler/*.py
        pyuic/uic/uiparser.py
        pyuic/uic/widget-plugins/qtwebkit.py
 Copyright: 2005-2006, Thorsten Marek <shlomme@gmx.net>
-           2014-2017, Riverbank Computing Limited
+           2014-2018, Riverbank Computing Limited
 License: GPL-2 or BSD-3-clause
 
 Files: debian/*
 Copyright: 2006-2010, Thorsten Marek <shlomme@debian.org>
-           2011-2014, Scott Kitterman <scott@kitterman.com>
-           2013-2017, Dmitry Shachnev <mitya57@debian.org>
+           2011-2018, Scott Kitterman <scott@kitterman.com>
+           2013-2018, Dmitry Shachnev <mitya57@debian.org>
 License: GPL-2+
 
 License: GPL-2
