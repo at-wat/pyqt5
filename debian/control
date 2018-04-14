@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
 Uploaders: Dmitry Shachnev <mitya57@debian.org>,
            Scott Kitterman <scott@kitterman.com>
-Build-Depends: debhelper (>= 9),
+Build-Depends: debhelper (>= 10.3),
                dh-python,
                dpkg-dev (>= 1.16.1~),
                libdbus-1-dev (>= 1.0.2),
@@ -47,10 +47,10 @@ Build-Depends: debhelper (>= 9),
 Build-Depends-Indep: fdupes
 X-Python-Version: >= 2.7
 X-Python3-Version: >= 3.3
-Standards-Version: 4.1.2
+Standards-Version: 4.1.4
 Homepage: http://www.riverbankcomputing.co.uk/software/pyqt/
-Vcs-Git: https://anonscm.debian.org/git/python-modules/packages/pyqt5.git
-Vcs-Browser: https://anonscm.debian.org/cgit/python-modules/packages/pyqt5.git
+Vcs-Git: https://salsa.debian.org/python-team/modules/pyqt5.git
+Vcs-Browser: https://salsa.debian.org/python-team/modules/pyqt5
 
 Package: pyqt5-dev
 Architecture: all
@@ -865,7 +865,7 @@ Package: python-pyqt5.qtsensors
 Architecture: any
 Depends: python-pyqt5 (= ${binary:Version}),
          ${misc:Depends},
-         ${python3:Depends},
+         ${python:Depends},
          ${shlibs:Depends}
 Description: Python 2 bindings for QtSensors module
  The QtSensors module of PyQt5 provides a set of APIs to access sensors
@@ -891,7 +891,7 @@ Package: python-pyqt5.qtx11extras
 Architecture: any
 Depends: python-pyqt5 (= ${binary:Version}),
          ${misc:Depends},
-         ${python3:Depends},
+         ${python:Depends},
          ${shlibs:Depends}
 Description: Python 2 bindings for QtX11Extras module
  The QtX11Extras module of PyQt5 provides an API to access X11-specific

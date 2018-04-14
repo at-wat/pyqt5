@@ -1,3 +1,26 @@
+pyqt5 (5.10.1+dfsg-1) unstable; urgency=medium
+
+  [ Dmitry Shachnev ]
+  * New upstream release.
+  * Preserve timestamps when copying jquery.min.js, to make pyrcc generate
+    the resource file reproducibly.
+  * Install sip files directly in the .install file, to fix race condition
+    when doing arch+indep build.
+  * Update debhelper compatibility level to 10.
+  * Use dh_missing instead of deprecated dh_install --fail-missing.
+  * Bump Standards-Version to 4.1.4, no changes needed.
+  * Bump copyright years in debian/copyright.
+
+  [ Scott Kitterman ]
+  * Fix mismatch python:Version substitution variable for
+    python-pyqt5.qtsensors and python-pyqt5.qtx11extras
+
+  [ Ondřej Nový ]
+  * d/control: Set Vcs-* to salsa.debian.org
+  * d/copyright: Use https protocol in Format field
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Sat, 14 Apr 2018 22:32:24 +0300
+
 pyqt5 (5.9.2+dfsg-1) unstable; urgency=medium
 
   * New upstream release.
