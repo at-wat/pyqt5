@@ -37,6 +37,22 @@ static QList<PyTypeObject *> pyqt_types;
 static QQmlPrivate::RegisterType canned_types[NrOfQuickItemTypes];
 
 
+// Pick the correct meta-object, either the one from the super-class or the
+// static meta-object.
+const QMetaObject *qpyquick_pick_metaobject(const QMetaObject *super_mo,
+        const QMetaObject *static_mo)
+{
+    // If a Python type has been sub-classed in QML then we need to use the
+    // QtQuick supplied meta-object.  In this case it's super-class meta-object
+    // will be the meta-object of the Python type.  Otherwise we need to use
+    // the static meta-object (which is a copy of the meta-object of the Python
+    // type).  We use the class names held by the meta-objects to determine the
+    // correct meta-object to return.
+
+    return (qstrcmp(super_mo->superClass()->className(), static_mo->className()) == 0) ? super_mo : static_mo;
+}
+
+
 #define QPYQUICKITEM_INIT(n) \
     case n##U: \
         QPyQuickItem##n::staticMetaObject = *mo; \
@@ -139,6 +155,10 @@ void QPyQuickItem::createPyObject(QQuickItem *parent)
 QPyQuickItem##n::QPyQuickItem##n(QQuickItem *parent) : QPyQuickItem(parent) \
 { \
     createPyObject(parent); \
+} \
+const QMetaObject *QPyQuickItem##n::metaObject() const \
+{ \
+    return qpyquick_pick_metaobject(QPyQuickItem::metaObject(), &staticMetaObject); \
 } \
 QMetaObject QPyQuickItem##n::staticMetaObject
 
