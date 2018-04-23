@@ -36,6 +36,10 @@ static QList<PyTypeObject *> pyqt_types;
 // The registration data for the canned types.
 static QQmlPrivate::RegisterType canned_types[NrOfQuickPaintedItemTypes];
 
+// External declarations.
+extern const QMetaObject *qpyquick_pick_metaobject(const QMetaObject *super_mo,
+        const QMetaObject *static_mo);
+
 
 #define QPYQUICKPAINTEDITEM_INIT(n) \
     case n##U: \
@@ -140,6 +144,10 @@ void QPyQuickPaintedItem::createPyObject(QQuickItem *parent)
 QPyQuickPaintedItem##n::QPyQuickPaintedItem##n(QQuickItem *parent) : QPyQuickPaintedItem(parent) \
 { \
     createPyObject(parent); \
+} \
+const QMetaObject *QPyQuickPaintedItem##n::metaObject() const \
+{ \
+    return qpyquick_pick_metaobject(QPyQuickPaintedItem::metaObject(), &staticMetaObject); \
 } \
 QMetaObject QPyQuickPaintedItem##n::staticMetaObject
 
