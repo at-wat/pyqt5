@@ -2,7 +2,7 @@
 
 set -e
 
-cd $ADTTMP
+cd $AUTOPKGTEST_TMP
 
 cat <<EOF >test_import.py
 from PyQt5.QtCore import QFile

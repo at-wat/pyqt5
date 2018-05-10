@@ -45,8 +45,6 @@ Build-Depends: debhelper (>= 10.3),
                qttools5-dev (>= 5.9.1),
                qtwebengine5-dev (>= 5.9.1) [amd64 arm64 armhf i386 mipsel]
 Build-Depends-Indep: fdupes
-X-Python-Version: >= 2.7
-X-Python3-Version: >= 3.3
 Standards-Version: 4.1.4
 Homepage: http://www.riverbankcomputing.co.uk/software/pyqt/
 Vcs-Git: https://salsa.debian.org/python-team/modules/pyqt5.git
