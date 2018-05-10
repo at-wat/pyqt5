@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QQuickWindow : QWindow
+class QQuickWindow : QWindow /ExportDerived/
 {
 %TypeHeaderCode
 #include <qquickwindow.h>
