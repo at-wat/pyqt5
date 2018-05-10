@@ -1,4 +1,4 @@
-// This is the definition of the QPyQuickItem classes.
+// This is the definition of the QPyQuickWindow classes.
 //
 // Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
@@ -18,8 +18,8 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#ifndef _QPYQUICKITEM_H
-#define _QPYQUICKITEM_H
+#ifndef _QPYQUICKWINDOW_H
+#define _QPYQUICKWINDOW_H
 
 
 #include <Python.h>
@@ -27,72 +27,62 @@
 #include <qqmlprivate.h>
 #include <QByteArray>
 #include <QMetaObject>
-#include <QQuickItem>
+#include <QQuickWindow>
 
 #include "sipAPIQtQuick.h"
 
 
-class QPyQuickItem : public sipQQuickItem
+class QPyQuickWindow : public sipQQuickWindow
 {
 public:
-    QPyQuickItem(QQuickItem *parent = 0);
+    QPyQuickWindow(QWindow *parent = 0);
 
     virtual int typeNr() const = 0;
 
     static QQmlPrivate::RegisterType *addType(PyTypeObject *type,
             const QMetaObject *mo, const QByteArray &ptr_name,
             const QByteArray &list_name);
-    void createPyObject(QQuickItem *parent);
+    void createPyObject(QWindow *parent);
 
 private:
-    QPyQuickItem(const QPyQuickItem &);
+    QPyQuickWindow(const QPyQuickWindow &);
 };
 
 
 // The canned type declarations.
-#define QPYQUICKITEM_DECL(n) \
-class QPyQuickItem##n : public QPyQuickItem \
+#define QPYQUICKWINDOW_DECL(n) \
+class QPyQuickWindow##n : public QPyQuickWindow \
 { \
 public: \
-    QPyQuickItem##n(QQuickItem *parent = 0); \
+    QPyQuickWindow##n(QWindow *parent = 0); \
     static QMetaObject staticMetaObject; \
     virtual const QMetaObject *metaObject() const; \
     virtual int typeNr() const {return n##U;} \
 private: \
-    QPyQuickItem##n(const QPyQuickItem##n &); \
+    QPyQuickWindow##n(const QPyQuickWindow##n &); \
 }
 
 
-QPYQUICKITEM_DECL(0);
-QPYQUICKITEM_DECL(1);
-QPYQUICKITEM_DECL(2);
-QPYQUICKITEM_DECL(3);
-QPYQUICKITEM_DECL(4);
-QPYQUICKITEM_DECL(5);
-QPYQUICKITEM_DECL(6);
-QPYQUICKITEM_DECL(7);
-QPYQUICKITEM_DECL(8);
-QPYQUICKITEM_DECL(9);
-QPYQUICKITEM_DECL(10);
-QPYQUICKITEM_DECL(11);
-QPYQUICKITEM_DECL(12);
-QPYQUICKITEM_DECL(13);
-QPYQUICKITEM_DECL(14);
-QPYQUICKITEM_DECL(15);
-QPYQUICKITEM_DECL(16);
-QPYQUICKITEM_DECL(17);
-QPYQUICKITEM_DECL(18);
-QPYQUICKITEM_DECL(19);
-QPYQUICKITEM_DECL(20);
-QPYQUICKITEM_DECL(21);
-QPYQUICKITEM_DECL(22);
-QPYQUICKITEM_DECL(23);
-QPYQUICKITEM_DECL(24);
-QPYQUICKITEM_DECL(25);
-QPYQUICKITEM_DECL(26);
-QPYQUICKITEM_DECL(27);
-QPYQUICKITEM_DECL(28);
-QPYQUICKITEM_DECL(29);
+QPYQUICKWINDOW_DECL(0);
+QPYQUICKWINDOW_DECL(1);
+QPYQUICKWINDOW_DECL(2);
+QPYQUICKWINDOW_DECL(3);
+QPYQUICKWINDOW_DECL(4);
+QPYQUICKWINDOW_DECL(5);
+QPYQUICKWINDOW_DECL(6);
+QPYQUICKWINDOW_DECL(7);
+QPYQUICKWINDOW_DECL(8);
+QPYQUICKWINDOW_DECL(9);
+QPYQUICKWINDOW_DECL(10);
+QPYQUICKWINDOW_DECL(11);
+QPYQUICKWINDOW_DECL(12);
+QPYQUICKWINDOW_DECL(13);
+QPYQUICKWINDOW_DECL(14);
+QPYQUICKWINDOW_DECL(15);
+QPYQUICKWINDOW_DECL(16);
+QPYQUICKWINDOW_DECL(17);
+QPYQUICKWINDOW_DECL(18);
+QPYQUICKWINDOW_DECL(19);
 
 
 #endif

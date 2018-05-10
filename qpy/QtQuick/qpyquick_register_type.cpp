@@ -22,6 +22,8 @@
 #include "qpyquickframebufferobject.h"
 #include "qpyquickitem.h"
 #include "qpyquickpainteditem.h"
+#include "qpyquickview.h"
+#include "qpyquickwindow.h"
 
 #include "sipAPIQtQuick.h"
 
@@ -30,6 +32,9 @@ sipErrorState qpyquick_register_type(PyTypeObject *py_type,
         const QMetaObject *mo, const QByteArray &ptr_name,
         const QByteArray &list_name, QQmlPrivate::RegisterType **rtp)
 {
+    // Make sure the types are tested in the right order (ie. more specific
+    // types first).
+
 #if QT_VERSION >= 0x050200
     if (PyType_IsSubtype(py_type, sipTypeAsPyTypeObject(sipType_QQuickFramebufferObject)))
         return ((*rtp = QPyQuickFramebufferObject::addType(py_type, mo, ptr_name, list_name)) ? sipErrorNone : sipErrorFail);
@@ -40,6 +45,12 @@ sipErrorState qpyquick_register_type(PyTypeObject *py_type,
 
     if (PyType_IsSubtype(py_type, sipTypeAsPyTypeObject(sipType_QQuickItem)))
         return ((*rtp = QPyQuickItem::addType(py_type, mo, ptr_name, list_name)) ? sipErrorNone : sipErrorFail);
+
+    if (PyType_IsSubtype(py_type, sipTypeAsPyTypeObject(sipType_QQuickView)))
+        return ((*rtp = QPyQuickView::addType(py_type, mo, ptr_name, list_name)) ? sipErrorNone : sipErrorFail);
+
+    if (PyType_IsSubtype(py_type, sipTypeAsPyTypeObject(sipType_QQuickWindow)))
+        return ((*rtp = QPyQuickWindow::addType(py_type, mo, ptr_name, list_name)) ? sipErrorNone : sipErrorFail);
 
     // We don't recognise the type.
     return sipErrorContinue;
