@@ -606,10 +606,10 @@ QByteArray Chimera::resolve_types(const QByteArray &type)
 // Parse the given C++ type name.
 bool Chimera::parse_cpp_type(const QByteArray &type)
 {
-    _name = type;
+    _name = type.mid(type.startsWith("const ") ? 6 : 0);
 
     // Resolve any types.
-    QByteArray resolved = resolve_types(type);
+    QByteArray resolved = resolve_types(_name);
 
     if (resolved.isEmpty())
         return false;
@@ -633,6 +633,13 @@ bool Chimera::parse_cpp_type(const QByteArray &type)
     }
 
     _type = sipFindType(resolved.constData());
+
+    // If we didn't find the type and we have resolved some typedefs then try
+    // again with the original type.  This means that QVector<qreal> will work
+    // as a signal argument type.  It may be that we should always lookup the
+    // original type - but we don't want to risk breaking things.
+    if (!_type && _name != resolved)
+        _type = sipFindType(_name.constData());
 
     if (!_type)
     {
@@ -800,7 +807,7 @@ bool Chimera::fromPyObject(PyObject *py, void *cpp) const
         {
             QVariantMap qm;
 
-            if (to_QVariantMap(py, qm))
+            if (qpycore_toQVariantMap(py, qm))
                 *reinterpret_cast<QVariantMap *>(cpp) = qm;
             else
                 iserr = 1;
@@ -1107,7 +1114,7 @@ bool Chimera::fromPyObject(PyObject *py, QVariant *var, bool strict) const
         {
             QVariantMap qm;
 
-            if (to_QVariantMap(py, qm))
+            if (qpycore_toQVariantMap(py, qm))
             {
                 *var = QVariant(qm);
                 metatype_used = UnknownType;
@@ -1271,7 +1278,7 @@ PyObject *Chimera::toPyObject(const QVariant &var) const
         // Handle the reverse of non-strict conversions of dict to QVariantMap,
         // ie. we want a dict but we have a QVariantMap.
         if (_metatype == PyQt_PyObject::metatype && _py_type == &PyDict_Type && var.type() == QVariant::Map)
-            return from_QVariantMap(var.toMap());
+            return qpycore_fromQVariantMap(var.toMap());
 
         // A sanity check.
         if (_metatype != var.userType())
@@ -1459,7 +1466,7 @@ PyObject *Chimera::toPyObject(void *cpp) const
         }
 
     case QMetaType::QVariantMap:
-        py = from_QVariantMap(*reinterpret_cast<QVariantMap *>(cpp));
+        py = qpycore_fromQVariantMap(*reinterpret_cast<QVariantMap *>(cpp));
         break;
 
     case QMetaType::QVariantHash:
@@ -1471,7 +1478,7 @@ PyObject *Chimera::toPyObject(void *cpp) const
                 QVariantHash *qh = reinterpret_cast<QVariantHash *>(cpp);
 
                 for (QVariantHash::const_iterator it = qh->constBegin(); it != qh->constEnd(); ++it)
-                    if (!add_variant_to_dict(py, it.key(), it.value()))
+                    if (!addVariantToDict(py, it.key(), it.value()))
                     {
                         Py_DECREF(py);
                         py = 0;
@@ -1544,7 +1551,7 @@ PyObject *Chimera::toPyObject(void *cpp) const
 
 
 // Add a QVariant to a Python dict with a QString key.
-bool Chimera::add_variant_to_dict(PyObject *dict, const QString &key_ref,
+bool Chimera::addVariantToDict(PyObject *dict, const QString &key_ref,
         const QVariant &val_ref)
 {
     QString *key = new QString(key_ref);
@@ -1645,60 +1652,6 @@ bool Chimera::to_QVariantList(PyObject *py, QVariantList &cpp) const
     }
 
     return true;
-}
-
-
-// Convert a Python object to a QVariantMap and return true if there was no
-// error.
-bool Chimera::to_QVariantMap(PyObject *py, QVariantMap &cpp) const
-{
-    Q_ASSERT(PyDict_CheckExact(py));
-
-    PyObject *key_obj, *val_obj;
-    Py_ssize_t i;
-
-    i = 0;
-    while (PyDict_Next(py, &i, &key_obj, &val_obj))
-    {
-        int key_state, val_state, iserr = 0;
-
-        QString *key = reinterpret_cast<QString *>(sipForceConvertToType(
-                key_obj, sipType_QString, NULL, SIP_NOT_NONE, &key_state,
-                &iserr));
-
-        QVariant *val = reinterpret_cast<QVariant *>(sipForceConvertToType(
-                val_obj, sipType_QVariant, NULL, SIP_NOT_NONE, &val_state,
-                &iserr));
-
-        if (iserr)
-            return false;
-
-        cpp.insert(*key, *val);
-
-        sipReleaseType(key, sipType_QString, key_state);
-        sipReleaseType(val, sipType_QVariant, val_state);
-    }
-
-    return true;
-}
-
-
-// Convert a QVariantMap to a Python object.
-PyObject *Chimera::from_QVariantMap(const QVariantMap &qm)
-{
-    PyObject *py = PyDict_New();
-
-    if (!py)
-        return 0;
-
-    for (QVariantMap::const_iterator it = qm.constBegin(); it != qm.constEnd(); ++it)
-        if (!add_variant_to_dict(py, it.key(), it.value()))
-        {
-            Py_DECREF(py);
-            return 0;
-        }
-
-    return py;
 }
 
 

@@ -72,7 +72,4 @@ public:
     void setFormat(const QTextTableFormat &aformat);
     void appendRows(int count);
     void appendColumns(int count);
-
-private:
-    QTextTable(const QTextTable &);
 };

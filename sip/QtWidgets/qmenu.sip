@@ -160,7 +160,4 @@ public:
 %If (Qt_5_7_0 -)
     void showTearOffMenu(const QPoint &pos);
 %End
-
-private:
-    QMenu(const QMenu &);
 };

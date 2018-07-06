@@ -156,7 +156,4 @@ public:
 %If (Qt_5_4_0 -)
     void resetIndentation();
 %End
-
-private:
-    QTreeView(const QTreeView &);
 };

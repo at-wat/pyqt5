@@ -85,7 +85,4 @@ protected:
     QGraphicsProxyWidget *newProxyWidget(const QWidget *) /Factory/;
     virtual QVariant inputMethodQuery(Qt::InputMethodQuery query) const;
     virtual void inputMethodEvent(QInputMethodEvent *event);
-
-private:
-    QGraphicsProxyWidget(const QGraphicsProxyWidget &);
 };

@@ -44,7 +44,4 @@ signals:
 
 protected:
     virtual QVariant updateValue(const QString &key, const QVariant &input);
-
-private:
-    QQmlPropertyMap(const QQmlPropertyMap &);
 };

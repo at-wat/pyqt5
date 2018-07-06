@@ -46,6 +46,9 @@ public:
     void reply(const QByteArray &contentType, QIODevice *device);
     void fail(QWebEngineUrlRequestJob::Error error);
     void redirect(const QUrl &url);
+%If (Qt_5_11_0 -)
+    QUrl initiator() const;
+%End
 };
 
 %End

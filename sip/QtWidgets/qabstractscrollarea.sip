@@ -92,7 +92,4 @@ public:
 %If (Qt_5_2_0 -)
     void setSizeAdjustPolicy(QAbstractScrollArea::SizeAdjustPolicy policy);
 %End
-
-private:
-    QAbstractScrollArea(const QAbstractScrollArea &);
 };

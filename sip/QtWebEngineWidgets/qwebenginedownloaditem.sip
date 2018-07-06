@@ -22,7 +22,7 @@
 
 %If (Qt_5_5_0 -)
 
-class QWebEngineDownloadItem : QObject
+class QWebEngineDownloadItem : QObject /NoDefaultCtors/
 {
 %TypeHeaderCode
 #include <qwebenginedownloaditem.h>
@@ -147,8 +147,10 @@ signals:
     void isPausedChanged(bool isPaused);
 %End
 
-private:
-    QWebEngineDownloadItem(const QWebEngineDownloadItem &);
+public:
+%If (Qt_5_11_0 -)
+    bool isSavePageDownload() const;
+%End
 };
 
 %End

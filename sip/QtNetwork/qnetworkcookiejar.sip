@@ -39,7 +39,4 @@ protected:
     void setAllCookies(const QList<QNetworkCookie> &cookieList);
     QList<QNetworkCookie> allCookies() const;
     virtual bool validateCookie(const QNetworkCookie &cookie, const QUrl &url) const;
-
-private:
-    QNetworkCookieJar(const QNetworkCookieJar &);
 };

@@ -239,21 +239,17 @@ public:
 
     QByteArray operator[](SIP_PYSLICE slice) const;
 %MethodCode
-        Py_ssize_t len, start, stop, step, slicelength, i;
+        Py_ssize_t start, stop, step, slicelength;
         
-        len = sipCpp->length();
-        
-        #if PY_VERSION_HEX >= 0x03020000
-        if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-        #else
-        if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-        #endif
+        if (sipConvertFromSliceObject(a0, sipCpp->length(), &start, &stop, &step, &slicelength) < 0)
+        {
             sipIsErr = 1;
+        }
         else
         {
             sipRes = new QByteArray();
         
-            for (i = 0; i < slicelength; ++i)
+            for (Py_ssize_t i = 0; i < slicelength; ++i)
             {
                 sipRes -> append(sipCpp->at(start));
                 start += step;

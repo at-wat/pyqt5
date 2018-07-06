@@ -36,9 +36,6 @@ public:
     int formatIndex() const;
     QTextDocument *document() const;
     int objectIndex() const;
-
-private:
-    QTextObject(const QTextObject &);
 };
 
 class QTextBlockGroup : QTextObject
@@ -54,9 +51,6 @@ protected:
     virtual void blockRemoved(const QTextBlock &block);
     virtual void blockFormatChanged(const QTextBlock &block);
     QList<QTextBlock> blockList() const;
-
-private:
-    QTextBlockGroup(const QTextBlockGroup &);
 };
 
 class QTextFrame : QTextObject
@@ -116,9 +110,6 @@ public:
     QTextFrame::iterator begin() const;
     QTextFrame::iterator end() const;
     void setFrameFormat(const QTextFrameFormat &aformat);
-
-private:
-    QTextFrame(const QTextFrame &);
 };
 
 class QTextBlock /Supertype=sip.wrapper/

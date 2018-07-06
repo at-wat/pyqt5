@@ -171,9 +171,6 @@ public:
 %If (Qt_5_5_0 -)
     void setSelectionArea(const QPainterPath &path, Qt::ItemSelectionOperation selectionOperation, Qt::ItemSelectionMode mode = Qt::IntersectsItemShape, const QTransform &deviceTransform = QTransform());
 %End
-
-private:
-    QGraphicsScene(const QGraphicsScene &);
 };
 
 QFlags<QGraphicsScene::SceneLayer> operator|(QGraphicsScene::SceneLayer f1, QFlags<QGraphicsScene::SceneLayer> f2);

@@ -99,7 +99,7 @@ public:
     void setHttpCacheMaximumSize(int maxSize);
     QString httpAcceptLanguage() const;
     void setHttpAcceptLanguage(const QString &httpAcceptLanguage);
-    QWebEngineCookieStore *cookieStore() const;
+    QWebEngineCookieStore *cookieStore() const /Transfer/;
     void setRequestInterceptor(QWebEngineUrlRequestInterceptor *interceptor);
     const QWebEngineUrlSchemeHandler *urlSchemeHandler(const QByteArray &) const;
     void installUrlSchemeHandler(const QByteArray &scheme, QWebEngineUrlSchemeHandler *);
@@ -109,7 +109,7 @@ public:
 %If (Qt_5_7_0 -)
     void clearHttpCache();
 %End
-    static QQuickWebEngineProfile *defaultProfile();
+    static QQuickWebEngineProfile *defaultProfile() /Transfer/;
 
 signals:
     void storageNameChanged();

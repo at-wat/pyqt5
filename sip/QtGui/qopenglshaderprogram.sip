@@ -59,9 +59,6 @@ public:
     QString log() const;
     GLuint shaderId() const;
     static bool hasOpenGLShaders(QOpenGLShader::ShaderType type, QOpenGLContext *context = 0);
-
-private:
-    QOpenGLShader(const QOpenGLShader &);
 };
 
 %End
@@ -330,9 +327,6 @@ public:
 %If (Qt_5_9_0 -)
     bool addCacheableShaderFromSourceFile(QOpenGLShader::ShaderType type, const QString &fileName);
 %End
-
-private:
-    QOpenGLShaderProgram(const QOpenGLShaderProgram &);
 };
 
 %End

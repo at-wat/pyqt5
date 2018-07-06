@@ -53,7 +53,4 @@ signals:
 %If (Qt_5_2_0 -)
     void buttonToggled(int, bool);
 %End
-
-private:
-    QButtonGroup(const QButtonGroup &);
 };

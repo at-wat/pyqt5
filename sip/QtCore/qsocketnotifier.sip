@@ -48,7 +48,4 @@ signals:
 
 protected:
     virtual bool event(QEvent *);
-
-private:
-    QSocketNotifier(const QSocketNotifier &);
 };

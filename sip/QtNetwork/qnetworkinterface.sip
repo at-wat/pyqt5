@@ -41,6 +41,43 @@ public:
     int prefixLength() const;
     void setPrefixLength(int length);
     void swap(QNetworkAddressEntry &other /Constrained/);
+%If (Qt_5_11_0 -)
+
+    enum DnsEligibilityStatus
+    {
+        DnsEligibilityUnknown,
+        DnsIneligible,
+        DnsEligible,
+    };
+
+%End
+%If (Qt_5_11_0 -)
+    QNetworkAddressEntry::DnsEligibilityStatus dnsEligibility() const;
+%End
+%If (Qt_5_11_0 -)
+    void setDnsEligibility(QNetworkAddressEntry::DnsEligibilityStatus status);
+%End
+%If (Qt_5_11_0 -)
+    bool isLifetimeKnown() const;
+%End
+%If (Qt_5_11_0 -)
+    QDeadlineTimer preferredLifetime() const;
+%End
+%If (Qt_5_11_0 -)
+    QDeadlineTimer validityLifetime() const;
+%End
+%If (Qt_5_11_0 -)
+    void setAddressLifetime(QDeadlineTimer preferred, QDeadlineTimer validity);
+%End
+%If (Qt_5_11_0 -)
+    void clearAddressLifetime();
+%End
+%If (Qt_5_11_0 -)
+    bool isPermanent() const;
+%End
+%If (Qt_5_11_0 -)
+    bool isTemporary() const;
+%End
 };
 
 class QNetworkInterface
@@ -81,6 +118,34 @@ public:
 %End
 %If (Qt_5_7_0 -)
     static QString interfaceNameFromIndex(int index);
+%End
+%If (Qt_5_11_0 -)
+
+    enum InterfaceType
+    {
+        Unknown,
+        Loopback,
+        Virtual,
+        Ethernet,
+        Slip,
+        CanBus,
+        Ppp,
+        Fddi,
+        Wifi,
+        Ieee80211,
+        Phonet,
+        Ieee802154,
+        SixLoWPAN,
+        Ieee80216,
+        Ieee1394,
+    };
+
+%End
+%If (Qt_5_11_0 -)
+    QNetworkInterface::InterfaceType type() const;
+%End
+%If (Qt_5_11_0 -)
+    int maximumTransmissionUnit() const;
 %End
 };
 

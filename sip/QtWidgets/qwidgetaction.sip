@@ -40,7 +40,4 @@ protected:
     virtual QWidget *createWidget(QWidget *parent /TransferThis/) /Factory/;
     virtual void deleteWidget(QWidget *widget /Transfer/);
     QList<QWidget *> createdWidgets() const;
-
-private:
-    QWidgetAction(const QWidgetAction &);
 };

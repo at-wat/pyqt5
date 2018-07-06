@@ -46,7 +46,6 @@ protected:
 
 private:
     virtual void close();
-    QSaveFile(const QSaveFile &);
 };
 
 %End

@@ -167,7 +167,4 @@ public:
 %If (Qt_5_2_0 -)
     QLayoutItem *replaceWidget(QWidget *from, QWidget *to /Transfer/, Qt::FindChildOptions options = Qt::FindChildrenRecursively) /TransferBack/;
 %End
-
-private:
-    QLayout(const QLayout &);
 };

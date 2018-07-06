@@ -174,7 +174,10 @@ public:
 %If (Qt_5_5_0 -)
     void resetDefaultSectionSize();
 %End
-
-private:
-    QHeaderView(const QHeaderView &);
+%If (Qt_5_11_0 -)
+    void setFirstSectionMovable(bool movable);
+%End
+%If (Qt_5_11_0 -)
+    bool isFirstSectionMovable() const;
+%End
 };

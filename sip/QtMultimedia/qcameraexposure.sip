@@ -141,7 +141,6 @@ signals:
 private:
     explicit QCameraExposure(QCamera *parent /TransferThis/ = 0);
     virtual ~QCameraExposure();
-    QCameraExposure(const QCameraExposure &);
 };
 
 QFlags<QCameraExposure::FlashMode> operator|(QCameraExposure::FlashMode f1, QFlags<QCameraExposure::FlashMode> f2);

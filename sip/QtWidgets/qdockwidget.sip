@@ -68,9 +68,6 @@ protected:
     virtual void closeEvent(QCloseEvent *event);
     virtual void paintEvent(QPaintEvent *event);
     virtual bool event(QEvent *event);
-
-private:
-    QDockWidget(const QDockWidget &);
 };
 
 QFlags<QDockWidget::DockWidgetFeature> operator|(QDockWidget::DockWidgetFeature f1, QFlags<QDockWidget::DockWidgetFeature> f2);

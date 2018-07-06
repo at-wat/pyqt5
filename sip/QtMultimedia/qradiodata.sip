@@ -114,7 +114,4 @@ signals:
 
 protected:
     virtual bool setMediaObject(QMediaObject *);
-
-private:
-    QRadioData(const QRadioData &);
 };

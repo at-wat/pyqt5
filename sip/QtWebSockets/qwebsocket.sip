@@ -135,9 +135,6 @@ signals:
     void preSharedKeyAuthenticationRequired(QSslPreSharedKeyAuthenticator *authenticator);
 %End
 %End
-
-private:
-    QWebSocket(const QWebSocket &);
 };
 
 %End

@@ -90,9 +90,6 @@ public:
 
 signals:
     void itemChanged(QStandardItem *item);
-
-private:
-    QStandardItemModel(const QStandardItemModel &);
 };
 
 class QStandardItem /Supertype=sip.wrapper/

@@ -37,7 +37,4 @@ protected:
     virtual bool eventFilter(QObject *, QEvent *);
     virtual bool event(QEvent *e);
     virtual void paintEvent(QPaintEvent *);
-
-private:
-    QFocusFrame(const QFocusFrame &);
 };

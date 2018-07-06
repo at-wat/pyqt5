@@ -212,6 +212,106 @@ public:
             delete[] params;
 %End
 
+    SIP_PYOBJECT glReadPixels(GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type) /TypeHint="Union[Tuple[float, ...], Tuple[int, ...]]"/;
+%MethodCode
+        int components;
+        
+        switch (a4)
+        {
+            case GL_BGR:
+            case GL_RGB:
+            {
+                components = 3;
+                break;
+            }
+        
+            case GL_BGRA:
+            case GL_RGBA:
+            {
+                components = 4;
+                break;
+            }
+        
+            case GL_RED:
+            case GL_GREEN:
+            case GL_BLUE:
+            case GL_ALPHA:
+            case GL_DEPTH_COMPONENT:
+            case GL_STENCIL_INDEX:
+            case GL_DEPTH_STENCIL:
+            {
+                components = 1;
+                break;
+            }
+        
+            default:
+                components = 0;
+        }
+        
+        Py_ssize_t length = components * a2 * a3;
+        
+        switch (a5)
+        {
+            case GL_FLOAT:
+            {
+                GLfloat *data = new GLfloat[length];
+        
+                sipCpp->glReadPixels(a0, a1, a2, a3, a4, a5, data);
+                sipRes = qpyopengl_from_GLfloat(&sipIsErr, data, length);
+                delete [] data;
+        
+                break;
+            }
+        
+            case GL_INT:
+            {
+                GLint *data = new GLint[length];
+        
+                sipCpp->glReadPixels(a0, a1, a2, a3, a4, a5, data);
+                sipRes = qpyopengl_from_GLint(&sipIsErr, data, length);
+                delete [] data;
+        
+                break;
+            }
+        
+            case GL_UNSIGNED_INT:
+            case GL_UNSIGNED_INT_8_8_8_8:
+            case GL_UNSIGNED_INT_8_8_8_8_REV:
+            case GL_UNSIGNED_INT_10_10_10_2:
+            case GL_UNSIGNED_INT_2_10_10_10_REV:
+            case GL_UNSIGNED_INT_24_8:
+            case GL_UNSIGNED_INT_10F_11F_11F_REV:
+            case GL_UNSIGNED_INT_5_9_9_9_REV:
+            {
+                GLuint *data = new GLuint[length];
+        
+                sipCpp->glReadPixels(a0, a1, a2, a3, a4, a5, data);
+                sipRes = qpyopengl_from_GLuint(&sipIsErr, data, length);
+                delete [] data;
+        
+                break;
+            }
+        
+            case GL_SHORT:
+            case GL_UNSIGNED_SHORT:
+            case GL_UNSIGNED_SHORT_5_6_5:
+            case GL_UNSIGNED_SHORT_5_6_5_REV:
+            case GL_UNSIGNED_SHORT_4_4_4_4:
+            case GL_UNSIGNED_SHORT_4_4_4_4_REV:
+            case GL_UNSIGNED_SHORT_5_5_5_1:
+            case GL_UNSIGNED_SHORT_1_5_5_5_REV:
+            case GL_BYTE:
+            case GL_UNSIGNED_BYTE:
+            case GL_UNSIGNED_BYTE_3_3_2:
+            case GL_UNSIGNED_BYTE_2_3_3_REV:
+            case GL_HALF_FLOAT:
+            case GL_FLOAT_32_UNSIGNED_INT_24_8_REV:
+            default:
+                sipIsErr = 1;
+                PyErr_SetString(PyExc_ValueError, "pixel data format not supported");
+        }
+%End
+
     void glReadBuffer(GLenum mode);
     void glPixelStorei(GLenum pname, GLint param);
     void glPixelStoref(GLenum pname, GLfloat param);

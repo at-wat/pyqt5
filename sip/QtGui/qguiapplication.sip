@@ -221,14 +221,16 @@ signals:
 %If (Qt_5_2_0 -)
     void applicationStateChanged(Qt::ApplicationState state);
 %End
-
-public:
 %If (Qt_5_8_0 -)
     void applicationDisplayNameChanged();
 %End
+
+public:
     static void setApplicationDisplayName(const QString &name);
     static QString applicationDisplayName();
     static QWindow *modalWindow();
+    static QStyleHints *styleHints();
+    static QInputMethod *inputMethod();
     qreal devicePixelRatio() const;
 %If (PyQt_SessionManager)
     bool isSessionRestored() const;
@@ -297,8 +299,10 @@ public:
     static QScreen *screenAt(const QPoint &point);
 %End
 
-private:
-    QGuiApplication(const QGuiApplication &);
+signals:
+%If (Qt_5_11_0 -)
+    void fontChanged(const QFont &font);
+%End
 };
 
 %ModuleHeaderCode

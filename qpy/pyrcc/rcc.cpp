@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (c) 2017 Riverbank Computing Limited. All rights reserved.
+** Copyright (c) 2018 Riverbank Computing Limited. All rights reserved.
 ** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
 ** Contact: http://www.qt-project.org/legal
 **
@@ -559,8 +559,8 @@ bool RCCResourceLibrary::writeDataStructure(FILE *out, int version)
 bool
 RCCResourceLibrary::writeInitializer(FILE *out)
 {
-    fprintf(out, "qt_version = QtCore.qVersion().split('.')\n");
-    fprintf(out, "if qt_version < ['5', '8', '0']:\n");
+    fprintf(out, "qt_version = [int(v) for v in QtCore.qVersion().split('.')]\n");
+    fprintf(out, "if qt_version < [5, 8, 0]:\n");
     fprintf(out, "    rcc_version = 1\n");
     fprintf(out, "    qt_resource_struct = qt_resource_struct_v1\n");
     fprintf(out, "else:\n");

@@ -164,7 +164,7 @@ public slots:
 signals:
     void finished();
     void nameChanged(const QString &name);
-    void typeChanged(QDnsLookup::Type type);
+    void typeChanged(QDnsLookup::Type type /ScopesStripped=1/);
 
 public:
 %If (Qt_5_3_0 -)

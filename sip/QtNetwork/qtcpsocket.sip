@@ -29,7 +29,4 @@ class QTcpSocket : QAbstractSocket
 public:
     explicit QTcpSocket(QObject *parent /TransferThis/ = 0);
     virtual ~QTcpSocket();
-
-private:
-    QTcpSocket(const QTcpSocket &);
 };

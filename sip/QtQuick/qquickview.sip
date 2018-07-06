@@ -71,7 +71,4 @@ protected:
     virtual void mousePressEvent(QMouseEvent *);
     virtual void mouseReleaseEvent(QMouseEvent *);
     virtual void mouseMoveEvent(QMouseEvent *);
-
-private:
-    QQuickView(const QQuickView &);
 };

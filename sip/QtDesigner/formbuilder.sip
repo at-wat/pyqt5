@@ -33,5 +33,5 @@ public:
     void clearPluginPaths();
     void addPluginPath(const QString &pluginPath);
     void setPluginPath(const QStringList &pluginPaths);
-    QList<QDesignerCustomWidgetInterface*> customWidgets() const;
+    QList<QDesignerCustomWidgetInterface *> customWidgets() const;
 };

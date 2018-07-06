@@ -57,7 +57,4 @@ public:
     qreal volume() const;
     QString category() const;
     void setCategory(const QString &category);
-
-private:
-    QAudioOutput(const QAudioOutput &);
 };

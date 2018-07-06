@@ -117,6 +117,21 @@ public:
 %If (Qt_5_8_0 -)
     bool isEqual(const QHostAddress &address, QHostAddress::ConversionMode mode = QHostAddress::TolerantConversion) const;
 %End
+%If (Qt_5_11_0 -)
+    bool isGlobal() const;
+%End
+%If (Qt_5_11_0 -)
+    bool isLinkLocal() const;
+%End
+%If (Qt_5_11_0 -)
+    bool isSiteLocal() const;
+%End
+%If (Qt_5_11_0 -)
+    bool isUniqueLocalUnicast() const;
+%End
+%If (Qt_5_11_0 -)
+    bool isBroadcast() const;
+%End
 };
 
 bool operator==(QHostAddress::SpecialAddress address1, const QHostAddress &address2);

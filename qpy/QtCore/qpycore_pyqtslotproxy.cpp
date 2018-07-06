@@ -281,6 +281,33 @@ PyQtSlotProxy *PyQtSlotProxy::findSlotProxy(const QObject *transmitter,
 }
 
 
+// Delete any slot proxy for a particular connection.
+void PyQtSlotProxy::deleteSlotProxy(const QMetaObject::Connection *connection)
+{
+    mutex->lock();
+
+    ProxyHash::iterator it(proxy_slots.begin());
+    ProxyHash::iterator end(proxy_slots.end());
+
+    while (it != end)
+    {
+        PyQtSlotProxy *sp = it.value();
+
+        if (sp->connection == *connection)
+        {
+            proxy_slots.erase(it);
+            sp->disable();
+
+            break;
+        }
+
+        ++it;
+    }
+
+    mutex->unlock();
+}
+
+
 // Delete any slot proxies for a particular transmitter and optional signal
 // signature.
 void PyQtSlotProxy::deleteSlotProxies(const QObject *transmitter,

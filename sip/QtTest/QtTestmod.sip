@@ -46,6 +46,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 %DefaultSupertype sip.simplewrapper
 
+%Include qabstractitemmodeltester.sip
 %Include qsignalspy.sip
 %Include qtestcase.sip
 %Include qtestkeyboard.sip

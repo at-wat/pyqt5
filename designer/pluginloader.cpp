@@ -127,6 +127,12 @@ PyCustomWidgets::PyCustomWidgets(QObject *parent) : QObject(parent),
                 return;
 
             Py_Initialize();
+
+#ifdef WITH_THREAD
+            // Make sure we don't have the GIL.
+            PyEval_InitThreads();
+            PyEval_SaveThread();
+#endif
         }
 
         // Import the plugins with the GIL held.

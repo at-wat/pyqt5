@@ -98,7 +98,4 @@ public:
     void setUndoLimit(int limit);
     int undoLimit() const;
     const QUndoCommand *command(int index) const;
-
-private:
-    QUndoStack(const QUndoStack &);
 };

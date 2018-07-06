@@ -66,7 +66,4 @@ signals:
 %If (Qt_5_6_0 -)
     void defaultTransitionChanged();
 %End
-
-private:
-    QHistoryState(const QHistoryState &);
 };

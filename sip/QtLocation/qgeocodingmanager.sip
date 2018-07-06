@@ -22,7 +22,7 @@
 
 %If (Qt_5_5_0 -)
 
-class QGeoCodingManager : QObject
+class QGeoCodingManager : QObject /NoDefaultCtors/
 {
 %TypeHeaderCode
 #include <qgeocodingmanager.h>
@@ -41,9 +41,6 @@ public:
 signals:
     void finished(QGeoCodeReply *reply);
     void error(QGeoCodeReply *reply, QGeoCodeReply::Error error, QString errorString = QString());
-
-private:
-    QGeoCodingManager(const QGeoCodingManager &);
 };
 
 %End

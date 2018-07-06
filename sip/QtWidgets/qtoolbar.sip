@@ -108,7 +108,4 @@ public:
     bool isFloatable() const;
     void setFloatable(bool floatable);
     bool isFloating() const;
-
-private:
-    QToolBar(const QToolBar &);
 };

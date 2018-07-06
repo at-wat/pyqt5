@@ -60,6 +60,7 @@ public:
     void unislot(void **qargs);
     void disable();
 
+    static void deleteSlotProxy(const QMetaObject::Connection *connection);
     static void deleteSlotProxies(const QObject *transmitter,
             const QByteArray &signal_signature);
     static PyQtSlotProxy *findSlotProxy(const QObject *transmitter,
@@ -78,6 +79,9 @@ public:
 
     // The mutex around the proxies hash.
     static QMutex *mutex;
+
+    // The connection to the proxy.
+    QMetaObject::Connection connection;
 
 private:
     // The last QObject sender.

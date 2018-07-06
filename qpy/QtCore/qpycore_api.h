@@ -55,9 +55,15 @@ QString qpycore_PyObject_AsQString(PyObject *obj);
 PyObject *qpycore_PyObject_FromQVariant(const QVariant &qvar);
 QVariant qpycore_PyObject_AsQVariant(PyObject *obj, int *is_err);
 
-// Support for Q_CLASSINFO(), Q_ENUMS() and Q_FLAGS().
+// Support for converting between PyObject and QVariantMap.
+PyObject *qpycore_fromQVariantMap(const QVariantMap &qm);
+bool qpycore_toQVariantMap(PyObject *py, QVariantMap &cpp);
+
+// Support for Q_CLASSINFO(), Q_ENUM(), Q_ENUMS(), Q_FLAG() and Q_FLAGS().
 PyObject *qpycore_ClassInfo(const char *name, const char *value);
+PyObject *qpycore_Enum(PyObject *args);
 PyObject *qpycore_Enums(PyObject *args);
+PyObject *qpycore_Flag(PyObject *args);
 PyObject *qpycore_Flags(PyObject *args);
 
 // Support for creating QGenericArgument and QGenericReturnArgument instances.

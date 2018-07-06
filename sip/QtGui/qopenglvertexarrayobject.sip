@@ -65,9 +65,6 @@ public:
     private:
         Binder(const QOpenGLVertexArrayObject::Binder &);
     };
-
-private:
-    QOpenGLVertexArrayObject(const QOpenGLVertexArrayObject &);
 };
 
 %End

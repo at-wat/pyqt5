@@ -211,9 +211,6 @@ public:
 %If (Qt_5_10_0 -)
     QPagedPaintDevice::PdfVersion pdfVersion() const;
 %End
-
-private:
-    QPrinter(const QPrinter &);
 };
 
 %End

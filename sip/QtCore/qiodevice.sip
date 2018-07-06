@@ -37,6 +37,12 @@ public:
         Truncate,
         Text,
         Unbuffered,
+%If (Qt_5_11_0 -)
+        NewOnly,
+%End
+%If (Qt_5_11_0 -)
+        ExistingOnly,
+%End
     };
 
     typedef QFlags<QIODevice::OpenModeFlag> OpenMode;
@@ -336,9 +342,6 @@ public:
 %If (Qt_5_10_0 -)
     qint64 skip(qint64 maxSize);
 %End
-
-private:
-    QIODevice(const QIODevice &);
 };
 
 QFlags<QIODevice::OpenModeFlag> operator|(QIODevice::OpenModeFlag f1, QFlags<QIODevice::OpenModeFlag> f2);

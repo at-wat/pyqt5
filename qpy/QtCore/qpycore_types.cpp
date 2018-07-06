@@ -91,7 +91,7 @@ static qpycore_metaobject *create_dynamic_metaobject(sipWrapperType *wt)
     QList<ClassInfo> class_info_list = qpycore_get_class_info_list();
 
     // Get any enums/flags.
-    QList<EnumsFlags> enums_flags_list = qpycore_get_enums_flags_list();
+    QList<EnumFlag> enums_flags_list = qpycore_get_enums_flags_list();
 
     // Get the super-type's meta-object.
     PyTypeObject *tp_base;
@@ -137,10 +137,13 @@ static qpycore_metaobject *create_dynamic_metaobject(sipWrapperType *wt)
     // Set up any enums/flags.
     for (int i = 0; i < enums_flags_list.count(); ++i)
     {
-        const EnumsFlags &ef = enums_flags_list.at(i);
+        const EnumFlag &ef = enums_flags_list.at(i);
 
         QMetaEnumBuilder enum_builder = builder.addEnumerator(ef.name);
         enum_builder.setIsFlag(ef.isFlag);
+#if QT_VERSION >= 0x050800
+        enum_builder.setIsScoped(ef.isScoped);
+#endif
 
         QHash<QByteArray, int>::const_iterator it = ef.keys.constBegin();
 

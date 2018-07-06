@@ -107,7 +107,4 @@ public:
 %If (Qt_5_5_0 -)
     void setTransitionType(QAbstractTransition::TransitionType type);
 %End
-
-private:
-    QAbstractTransition(const QAbstractTransition &);
 };

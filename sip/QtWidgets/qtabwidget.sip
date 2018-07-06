@@ -135,7 +135,4 @@ public:
 %If (Qt_5_4_0 -)
     void setTabBarAutoHide(bool enabled);
 %End
-
-private:
-    QTabWidget(const QTabWidget &);
 };

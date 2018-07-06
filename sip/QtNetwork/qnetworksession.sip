@@ -95,7 +95,4 @@ public:
 
 signals:
     void usagePoliciesChanged(QNetworkSession::UsagePolicies usagePolicies);
-
-private:
-    QNetworkSession(const QNetworkSession &);
 };

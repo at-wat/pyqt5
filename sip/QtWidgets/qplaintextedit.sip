@@ -187,9 +187,6 @@ public:
 %If (Qt_5_10_0 -)
     void setTabStopDistance(qreal distance);
 %End
-
-private:
-    QPlainTextEdit(const QPlainTextEdit &);
 };
 
 class QPlainTextDocumentLayout : QAbstractTextDocumentLayout

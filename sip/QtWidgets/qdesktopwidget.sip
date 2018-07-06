@@ -52,7 +52,4 @@ signals:
 
 protected:
     virtual void resizeEvent(QResizeEvent *e);
-
-private:
-    QDesktopWidget(const QDesktopWidget &);
 };

@@ -117,7 +117,4 @@ public:
 
 signals:
     void geometryChanged();
-
-private:
-    QGraphicsWidget(const QGraphicsWidget &);
 };

@@ -62,7 +62,4 @@ protected:
 
 protected slots:
     virtual void currentChanged(const QModelIndex &current, const QModelIndex &previous);
-
-private:
-    QColumnView(const QColumnView &);
 };

@@ -167,9 +167,6 @@ public:
 %If (Qt_5_2_0 -)
     QCheckBox *checkBox() const;
 %End
-
-private:
-    QMessageBox(const QMessageBox &);
 };
 
 QFlags<QMessageBox::StandardButton> operator|(QMessageBox::StandardButton f1, QFlags<QMessageBox::StandardButton> f2);

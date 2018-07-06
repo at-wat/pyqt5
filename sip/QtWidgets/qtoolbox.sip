@@ -61,7 +61,4 @@ protected:
     virtual bool event(QEvent *e);
     virtual void showEvent(QShowEvent *e);
     virtual void changeEvent(QEvent *);
-
-private:
-    QToolBox(const QToolBox &);
 };

@@ -273,6 +273,9 @@ protected:
 %If (Qt_5_2_0 -)
     virtual QSize viewportSizeHint() const;
 %End
+%If (Qt_5_11_0 -)
+    virtual bool eventFilter(QObject *object, QEvent *event);
+%End
 
 public:
     void setDefaultDropAction(Qt::DropAction dropAction);
@@ -286,9 +289,6 @@ public:
 %If (Qt_5_10_0 -)
     bool isPersistentEditorOpen(const QModelIndex &index) const;
 %End
-
-private:
-    QAbstractItemView(const QAbstractItemView &);
 };
 
 QFlags<QAbstractItemView::EditTrigger> operator|(QAbstractItemView::EditTrigger f1, QFlags<QAbstractItemView::EditTrigger> f2);

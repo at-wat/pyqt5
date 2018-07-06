@@ -75,10 +75,7 @@ public:
     QAccelerometerReading *reading() const;
 
 signals:
-    void accelerationModeChanged(QAccelerometer::AccelerationMode accelerationMode);
-
-private:
-    QAccelerometer(const QAccelerometer &);
+    void accelerationModeChanged(QAccelerometer::AccelerationMode accelerationMode /ScopesStripped=1/);
 };
 
 %End

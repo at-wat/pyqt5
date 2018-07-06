@@ -136,7 +136,4 @@ public:
 protected:
     virtual void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
     virtual void currentChanged(const QModelIndex &current, const QModelIndex &previous);
-
-private:
-    QListView(const QListView &);
 };

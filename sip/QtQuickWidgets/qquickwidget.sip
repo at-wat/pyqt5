@@ -67,7 +67,7 @@ public:
     QSurfaceFormat format() const;
 
 public slots:
-    void setSource(const QUrl &);
+    void setSource(const QUrl &) /ReleaseGIL/;
 
 signals:
     void statusChanged(QQuickWidget::Status);
@@ -119,8 +119,10 @@ public:
     QQuickWindow *quickWindow() const;
 %End
 
-private:
-    QQuickWidget(const QQuickWidget &);
+protected:
+%If (Qt_5_11_0 -)
+    virtual bool focusNextPrevChild(bool next);
+%End
 };
 
 %End

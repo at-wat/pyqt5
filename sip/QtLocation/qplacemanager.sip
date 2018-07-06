@@ -22,7 +22,7 @@
 
 %If (Qt_5_5_0 -)
 
-class QPlaceManager : QObject
+class QPlaceManager : QObject /NoDefaultCtors/
 {
 %TypeHeaderCode
 #include <qplacemanager.h>
@@ -61,9 +61,6 @@ signals:
     void categoryUpdated(const QPlaceCategory &category, const QString &parentId);
     void categoryRemoved(const QString &categoryId, const QString &parentId);
     void dataChanged();
-
-private:
-    QPlaceManager(const QPlaceManager &);
 };
 
 %End

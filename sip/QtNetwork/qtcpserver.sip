@@ -55,7 +55,4 @@ protected:
 signals:
     void newConnection();
     void acceptError(QAbstractSocket::SocketError socketError);
-
-private:
-    QTcpServer(const QTcpServer &);
 };

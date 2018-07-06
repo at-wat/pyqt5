@@ -22,7 +22,7 @@
 
 %If (Qt_5_5_0 -)
 
-class QNearFieldShareTarget : QObject
+class QNearFieldShareTarget : QObject /NoDefaultCtors/
 {
 %TypeHeaderCode
 #include <qnearfieldsharetarget.h>
@@ -40,9 +40,6 @@ public:
 signals:
     void error(QNearFieldShareManager::ShareError error);
     void shareFinished();
-
-private:
-    QNearFieldShareTarget(const QNearFieldShareTarget &);
 };
 
 %End

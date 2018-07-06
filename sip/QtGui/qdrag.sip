@@ -58,7 +58,4 @@ public:
     static void cancel();
 %End
 %End
-
-private:
-    QDrag(const QDrag &);
 };

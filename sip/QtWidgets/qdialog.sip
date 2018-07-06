@@ -95,7 +95,4 @@ protected:
     virtual void resizeEvent(QResizeEvent *);
     virtual void contextMenuEvent(QContextMenuEvent *);
     virtual bool eventFilter(QObject *, QEvent *);
-
-private:
-    QDialog(const QDialog &);
 };

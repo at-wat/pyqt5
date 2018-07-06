@@ -41,7 +41,7 @@
 #############################################################################
 
 
-from PyQt5.QtCore import pyqtProperty, QRectF, QUrl
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, QRectF, QUrl
 from PyQt5.QtGui import QColor, QGuiApplication, QPainter, QPen
 from PyQt5.QtQml import qmlRegisterType
 from PyQt5.QtQuick import QQuickPaintedItem, QQuickView
@@ -49,13 +49,18 @@ from PyQt5.QtQuick import QQuickPaintedItem, QQuickView
 
 class PieChart(QQuickPaintedItem):
 
-    @pyqtProperty(str)
+    nameChanged = pyqtSignal(str)
+
+    @pyqtProperty(str, notify=nameChanged)
     def name(self):
         return self._name
 
     @name.setter
     def name(self, name):
-        self._name = name
+        if self._name != name:
+            self._name = name
+            self.nameChanged.emit(name)
+            self.update()
 
     @pyqtProperty(QColor)
     def color(self):

@@ -42,9 +42,6 @@ public:
 %If (Qt_5_7_0 -)
     QFileSelector *selector() const;
 %End
-
-private:
-    QQmlFileSelector(const QQmlFileSelector &);
 };
 
 %End

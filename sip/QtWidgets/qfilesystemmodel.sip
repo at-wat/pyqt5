@@ -96,7 +96,4 @@ public:
 %If (Qt_5_7_0 -)
     virtual QModelIndex sibling(int row, int column, const QModelIndex &idx) const;
 %End
-
-private:
-    QFileSystemModel(const QFileSystemModel &);
 };

@@ -79,9 +79,6 @@ public:
 %If (Qt_5_10_0 -)
     void setTextureFormat(GLenum texFormat);
 %End
-
-private:
-    QOpenGLWidget(const QOpenGLWidget &);
 };
 
 %End

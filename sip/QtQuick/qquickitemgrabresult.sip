@@ -35,7 +35,9 @@ public:
     bool saveToFile(const QString &fileName) const;
 %End
 %If (- Qt_5_9_0)
+%If (Qt_5_11_0 -)
     bool saveToFile(const QString &fileName);
+%End
 %End
 
 protected:

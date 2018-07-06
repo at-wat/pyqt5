@@ -49,7 +49,4 @@ protected:
 %If (Qt_5_2_0 -)
     virtual QSize viewportSizeHint() const;
 %End
-
-private:
-    QScrollArea(const QScrollArea &);
 };

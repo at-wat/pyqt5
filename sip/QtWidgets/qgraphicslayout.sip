@@ -42,7 +42,4 @@ public:
 
 protected:
     void addChildLayoutItem(QGraphicsLayoutItem *layoutItem /Transfer/);
-
-private:
-    QGraphicsLayout(const QGraphicsLayout &);
 };

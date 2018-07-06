@@ -47,9 +47,6 @@ public slots:
 
 signals:
     void objectCreated(QObject *object, const QUrl &url);
-
-private:
-    QQmlApplicationEngine(const QQmlApplicationEngine &);
 };
 
 %End

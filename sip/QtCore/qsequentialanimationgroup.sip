@@ -42,7 +42,4 @@ protected:
     virtual void updateCurrentTime(int);
     virtual void updateState(QAbstractAnimation::State newState, QAbstractAnimation::State oldState);
     virtual void updateDirection(QAbstractAnimation::Direction direction);
-
-private:
-    QSequentialAnimationGroup(const QSequentialAnimationGroup &);
 };

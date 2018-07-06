@@ -73,7 +73,84 @@ signals:
 
 private:
     explicit QWebEngineCookieStore(QObject *parent = 0);
-    QWebEngineCookieStore(const QWebEngineCookieStore &);
+
+public:
+%If (Qt_5_11_0 -)
+
+    struct FilterRequest
+    {
+%TypeHeaderCode
+#include <qwebenginecookiestore.h>
+%End
+
+        QUrl firstPartyUrl;
+        QUrl origin;
+        bool thirdParty;
+    };
+
+%End
+%If (Qt_5_11_0 -)
+    void setCookieFilter(SIP_PYCALLABLE filterCallback /AllowNone,KeepReference,TypeHint="Callable[[FilterRequest], bool]"/ = 0);
+%MethodCode
+        Py_BEGIN_ALLOW_THREADS
+        
+        sipCpp->setCookieFilter([a0](const QWebEngineCookieStore::FilterRequest &arg) {
+            int res_int = 1;
+            
+            if (a0)
+            {
+                SIP_BLOCK_THREADS
+            
+                PyObject *res;
+        
+                res = sipCallMethod(NULL, a0, "N",
+                        new QWebEngineCookieStore::FilterRequest(arg),
+                        sipType_QWebEngineCookieStore_FilterRequest, NULL);
+            
+                if (!res)
+                {
+                    res_int = -1;
+                }
+                else
+                {
+                    res_int = sipConvertToBool(res);
+                
+                    Py_DECREF(res);
+                }
+        
+                if (res_int < 0)
+                {
+                    pyqt5_qtwebenginecore_err_print();
+                    res_int = 0;
+                }
+        
+                SIP_UNBLOCK_THREADS
+            }
+        
+            return res_int;
+        });
+        
+        Py_END_ALLOW_THREADS
+%End
+
+%End
 };
 
+%End
+
+%ModuleHeaderCode
+// Imports from QtCore.
+typedef void (*pyqt5_qtwebenginecore_err_print_t)();
+extern pyqt5_qtwebenginecore_err_print_t pyqt5_qtwebenginecore_err_print;
+%End
+
+%ModuleCode
+// Imports from QtCore.
+pyqt5_qtwebenginecore_err_print_t pyqt5_qtwebenginecore_err_print;
+%End
+
+%PostInitialisationCode
+// Imports from QtCore.
+pyqt5_qtwebenginecore_err_print = (pyqt5_qtwebenginecore_err_print_t)sipImportSymbol("pyqt5_err_print");
+Q_ASSERT(pyqt5_qtwebenginecore_err_print);
 %End

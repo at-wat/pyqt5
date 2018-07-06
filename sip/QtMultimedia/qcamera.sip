@@ -189,9 +189,6 @@ public:
 %If (Qt_5_5_0 -)
     QList<QVideoFrame::PixelFormat> supportedViewfinderPixelFormats(const QCameraViewfinderSettings &settings = QCameraViewfinderSettings()) const;
 %End
-
-private:
-    QCamera(const QCamera &);
 };
 
 QFlags<QCamera::LockType> operator|(QCamera::LockType f1, QFlags<QCamera::LockType> f2);

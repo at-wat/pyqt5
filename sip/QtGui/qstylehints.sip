@@ -107,6 +107,14 @@ public:
 %If (Qt_5_10_0 -)
     bool showShortcutsInContextMenus() const;
 %End
+%If (Qt_5_11_0 -)
+    int mouseQuickSelectionThreshold() const;
+%End
+
+signals:
+%If (Qt_5_11_0 -)
+    void mouseQuickSelectionThresholdChanged(int threshold);
+%End
 
 private:
     QStyleHints();

@@ -61,9 +61,6 @@ public:
 %If (Qt_5_3_0 -)
     double userEquivalentRangeError() const;
 %End
-
-private:
-    QNmeaPositionInfoSource(const QNmeaPositionInfoSource &);
 };
 
 %End

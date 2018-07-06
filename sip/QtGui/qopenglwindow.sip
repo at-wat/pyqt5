@@ -67,9 +67,6 @@ protected:
     virtual void paintEvent(QPaintEvent *event);
     virtual void resizeEvent(QResizeEvent *event);
     virtual int metric(QPaintDevice::PaintDeviceMetric metric) const;
-
-private:
-    QOpenGLWindow(const QOpenGLWindow &);
 };
 
 %End

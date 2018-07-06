@@ -45,9 +45,6 @@ public:
 
 protected:
     void setId(const QString &identifier);
-
-private:
-    QPlaceIdReply(const QPlaceIdReply &);
 };
 
 %End

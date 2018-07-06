@@ -75,7 +75,4 @@ public slots:
 
 protected:
     explicit QAbstractNetworkCache(QObject *parent /TransferThis/ = 0);
-
-private:
-    QAbstractNetworkCache(const QAbstractNetworkCache &);
 };

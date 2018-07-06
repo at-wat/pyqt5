@@ -206,11 +206,11 @@ public slots:
 signals:
     void clientIdentifierChanged(const QString &clientIdentifier);
     void tokenChanged(const QString &token);
-    void statusChanged(QAbstractOAuth::Status status);
+    void statusChanged(QAbstractOAuth::Status status /ScopesStripped=1/);
     void authorizationUrlChanged(const QUrl &url);
     void extraTokensChanged(const QVariantMap &tokens);
-    void contentTypeChanged(QAbstractOAuth::ContentType contentType);
-    void requestFailed(const QAbstractOAuth::Error error);
+    void contentTypeChanged(QAbstractOAuth::ContentType contentType /ScopesStripped=1/);
+    void requestFailed(const QAbstractOAuth::Error error /ScopesStripped=1/);
     void authorizeWithBrowser(const QUrl &url);
     void granted();
     void finished(QNetworkReply *reply);

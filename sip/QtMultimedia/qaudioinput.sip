@@ -55,7 +55,4 @@ signals:
 public:
     void setVolume(qreal volume);
     qreal volume() const;
-
-private:
-    QAudioInput(const QAudioInput &);
 };

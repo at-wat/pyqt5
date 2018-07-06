@@ -36,9 +36,6 @@ public:
 
 protected:
     void setPlace(const QPlace &place);
-
-private:
-    QPlaceDetailsReply(const QPlaceDetailsReply &);
 };
 
 %End

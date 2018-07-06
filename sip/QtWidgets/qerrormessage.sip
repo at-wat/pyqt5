@@ -38,7 +38,4 @@ public slots:
 protected:
     virtual void changeEvent(QEvent *e);
     virtual void done(int);
-
-private:
-    QErrorMessage(const QErrorMessage &);
 };

@@ -107,7 +107,4 @@ public slots:
 
 protected:
     void invalidateFilter();
-
-private:
-    QSortFilterProxyModel(const QSortFilterProxyModel &);
 };

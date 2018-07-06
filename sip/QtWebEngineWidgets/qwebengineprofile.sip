@@ -68,7 +68,7 @@ public:
     bool visitedLinksContainsUrl(const QUrl &url) const;
     QWebEngineSettings *settings() const;
     QWebEngineScriptCollection *scripts() const;
-    static QWebEngineProfile *defaultProfile();
+    static QWebEngineProfile *defaultProfile() /Transfer/;
 
 signals:
     void downloadRequested(QWebEngineDownloadItem *download);
@@ -81,7 +81,7 @@ public:
     QString httpAcceptLanguage() const;
 %End
 %If (Qt_5_6_0 -)
-    QWebEngineCookieStore *cookieStore();
+    QWebEngineCookieStore *cookieStore() /Transfer/;
 %End
 %If (Qt_5_6_0 -)
     void setRequestInterceptor(QWebEngineUrlRequestInterceptor *interceptor);
