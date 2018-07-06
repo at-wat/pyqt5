@@ -52,7 +52,4 @@ protected:
     void hideOrShow();
     virtual bool event(QEvent *);
     virtual void showEvent(QShowEvent *);
-
-private:
-    QStatusBar(const QStatusBar &);
 };

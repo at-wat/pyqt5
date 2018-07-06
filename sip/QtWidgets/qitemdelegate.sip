@@ -48,7 +48,4 @@ protected:
     virtual void drawFocus(QPainter *painter, const QStyleOptionViewItem &option /NoCopy/, const QRect &rect) const;
     virtual bool eventFilter(QObject *object, QEvent *event);
     virtual bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option /NoCopy/, const QModelIndex &index);
-
-private:
-    QItemDelegate(const QItemDelegate &);
 };

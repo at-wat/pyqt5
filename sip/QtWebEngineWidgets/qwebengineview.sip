@@ -89,7 +89,7 @@ public:
     void triggerPageAction(QWebEnginePage::WebAction action, bool checked = false);
     qreal zoomFactor() const;
     void setZoomFactor(qreal factor);
-    void findText(const QString &subString, QFlags<QWebEnginePage::FindFlag> options = 0, SIP_PYCALLABLE resultCallback /AllowNone/ = 0);
+    void findText(const QString &subString, QWebEnginePage::FindFlags options = QWebEnginePage::FindFlags(), SIP_PYCALLABLE resultCallback /AllowNone,TypeHint="Callable[[bool], None]"/ = 0);
 %MethodCode
         // Make sure any callable doesn't get garbage collected.
         Py_XINCREF(a2);
@@ -173,11 +173,6 @@ protected:
 %End
 %If (Qt_5_7_0 -)
     virtual void dropEvent(QDropEvent *e);
-%End
-
-private:
-%If (Qt_5_6_0 -)
-    QWebEngineView(const QWebEngineView &);
 %End
 };
 

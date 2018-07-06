@@ -90,7 +90,4 @@ protected:
 public:
     bool isNativeMenuBar() const;
     void setNativeMenuBar(bool nativeMenuBar);
-
-private:
-    QMenuBar(const QMenuBar &);
 };

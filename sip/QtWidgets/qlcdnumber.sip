@@ -79,7 +79,4 @@ signals:
 protected:
     virtual bool event(QEvent *e);
     virtual void paintEvent(QPaintEvent *);
-
-private:
-    QLCDNumber(const QLCDNumber &);
 };

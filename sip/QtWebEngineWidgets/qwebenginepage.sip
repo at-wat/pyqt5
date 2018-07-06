@@ -213,7 +213,7 @@ public:
     QAction *action(QWebEnginePage::WebAction action) const;
     virtual void triggerAction(QWebEnginePage::WebAction action, bool checked = false);
     virtual bool event(QEvent *);
-    void findText(const QString &subString, QFlags<QWebEnginePage::FindFlag> options = 0, SIP_PYCALLABLE resultCallback /AllowNone/ = 0);
+    void findText(const QString &subString, QWebEnginePage::FindFlags options = QWebEnginePage::FindFlags(), SIP_PYCALLABLE resultCallback /AllowNone,TypeHint="Callable[[bool], None]"/ = 0);
 %MethodCode
         // Make sure any callable doesn't get garbage collected.
         Py_XINCREF(a2);
@@ -251,7 +251,7 @@ public:
 %End
     void setHtml(const QString &html, const QUrl &baseUrl = QUrl());
     void setContent(const QByteArray &data, const QString &mimeType = QString(), const QUrl &baseUrl = QUrl());
-    void toHtml(SIP_PYCALLABLE resultCallback) const;
+    void toHtml(SIP_PYCALLABLE resultCallback /TypeHint="Callable[[QString], None]"/) const;
 %MethodCode
         // Make sure the callable doesn't get garbage collected.
         Py_INCREF(a0);
@@ -278,7 +278,7 @@ public:
         Py_END_ALLOW_THREADS
 %End
 
-    void toPlainText(SIP_PYCALLABLE resultCallback) const;
+    void toPlainText(SIP_PYCALLABLE resultCallback /TypeHint="Callable[[QString], None]"/) const;
 %MethodCode
         // Make sure the callable doesn't get garbage collected.
         Py_INCREF(a0);
@@ -345,7 +345,7 @@ public:
 
 %End
     void runJavaScript(const QString &scriptSource);
-    void runJavaScript(const QString &scriptSource, SIP_PYCALLABLE resultCallback);
+    void runJavaScript(const QString &scriptSource, SIP_PYCALLABLE resultCallback /TypeHint="Callable[[Any], None]"/);
 %MethodCode
         // Make sure the callable doesn't get garbage collected.
         Py_INCREF(a1);
@@ -458,7 +458,7 @@ signals:
     void fullScreenRequested(QWebEngineFullScreenRequest fullScreenRequest);
 %End
 %If (Qt_5_6_0 -)
-    void renderProcessTerminated(QWebEnginePage::RenderProcessTerminationStatus terminationStatus, int exitCode);
+    void renderProcessTerminated(QWebEnginePage::RenderProcessTerminationStatus terminationStatus /ScopesStripped=1/, int exitCode);
 %End
 
 public:
@@ -484,7 +484,7 @@ public:
     void printToPdf(const QString &filePath, const QPageLayout &pageLayout = QPageLayout(QPageSize(QPageSize::PageSizeId::A4), QPageLayout::Orientation::Portrait, QMarginsF()));
 %End
 %If (Qt_5_7_0 -)
-    void printToPdf(SIP_PYCALLABLE resultCallback, const QPageLayout &pageLayout = QPageLayout(QPageSize(QPageSize::PageSizeId::A4), QPageLayout::Orientation::Portrait, QMarginsF()));
+    void printToPdf(SIP_PYCALLABLE resultCallback /TypeHint="Callable[[QByteArray], None]"/, const QPageLayout &pageLayout = QPageLayout(QPageSize(QPageSize::PageSizeId::A4), QPageLayout::Orientation::Portrait, QMarginsF()));
 %MethodCode
         // Make sure the callable doesn't get garbage collected.
         Py_INCREF(a0);
@@ -546,7 +546,7 @@ public:
 %If (Qt_5_8_0 -)
 %If (Py_v3)
 %If (PyQt_Printer)
-    void print(QPrinter *printer, SIP_PYCALLABLE resultCallback);
+    void print(QPrinter *printer, SIP_PYCALLABLE resultCallback /TypeHint="Callable[[bool], None]"/);
 %MethodCode
         // Make sure the callable doesn't get garbage collected.
         Py_INCREF(a1);
@@ -579,11 +579,29 @@ public:
 %If (Qt_5_10_0 -)
     void download(const QUrl &url, const QString &filename = QString());
 %End
+%If (Qt_5_11_0 -)
+    void setInspectedPage(QWebEnginePage *page);
+%End
+%If (Qt_5_11_0 -)
+    QWebEnginePage *inspectedPage() const;
+%End
+%If (Qt_5_11_0 -)
+    void setDevToolsPage(QWebEnginePage *page);
+%End
+%If (Qt_5_11_0 -)
+    QWebEnginePage *devToolsPage() const;
+%End
 
-private:
-%If (Qt_5_6_0 -)
-    QWebEnginePage(const QWebEnginePage &);
+signals:
+%If (Qt_5_11_0 -)
+    void quotaRequested(QWebEngineQuotaRequest quotaRequest);
+%End
+%If (Qt_5_11_0 -)
+    void registerProtocolHandlerRequested(QWebEngineRegisterProtocolHandlerRequest request);
 %End
 };
 
+%End
+%If (Qt_5_11_0 -)
+QFlags<QWebEnginePage::FindFlag> operator|(QWebEnginePage::FindFlag f1, QFlags<QWebEnginePage::FindFlag> f2);
 %End

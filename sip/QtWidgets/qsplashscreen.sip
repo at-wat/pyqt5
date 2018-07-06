@@ -49,7 +49,4 @@ protected:
     virtual void drawContents(QPainter *painter);
     virtual bool event(QEvent *e);
     virtual void mousePressEvent(QMouseEvent *);
-
-private:
-    QSplashScreen(const QSplashScreen &);
 };

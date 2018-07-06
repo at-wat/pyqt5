@@ -42,8 +42,6 @@ class QMessageLogContext /NoDefaultCtors/
 #include <qlogging.h>
 %End
 
-    QMessageLogContext(const QMessageLogContext &);
-
 public:
     int line;
     const char *file;

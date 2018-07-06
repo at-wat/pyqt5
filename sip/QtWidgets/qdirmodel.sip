@@ -76,7 +76,4 @@ public:
     QString fileName(const QModelIndex &index) const;
     QIcon fileIcon(const QModelIndex &index) const;
     QFileInfo fileInfo(const QModelIndex &index) const;
-
-private:
-    QDirModel(const QDirModel &);
 };

@@ -117,6 +117,18 @@ public:
     QGeoRouteRequest::SegmentDetail segmentDetail() const;
     void setManeuverDetail(QGeoRouteRequest::ManeuverDetail maneuverDetail);
     QGeoRouteRequest::ManeuverDetail maneuverDetail() const;
+%If (Qt_5_11_0 -)
+    void setWaypointsMetadata(const QList<QVariantMap> &waypointMetadata);
+%End
+%If (Qt_5_11_0 -)
+    QList<QVariantMap> waypointsMetadata() const;
+%End
+%If (Qt_5_11_0 -)
+    void setExtraParameters(const QVariantMap &extraParameters);
+%End
+%If (Qt_5_11_0 -)
+    QVariantMap extraParameters() const;
+%End
 };
 
 %End

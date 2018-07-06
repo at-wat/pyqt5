@@ -58,6 +58,7 @@ class QPyQuickFramebufferObject##n : public QPyQuickFramebufferObject \
 public: \
     QPyQuickFramebufferObject##n(QQuickItem *parent = 0); \
     static QMetaObject staticMetaObject; \
+    virtual const QMetaObject *metaObject() const; \
     virtual int typeNr() const {return n##U;} \
 private: \
     QPyQuickFramebufferObject##n(const QPyQuickFramebufferObject##n &); \

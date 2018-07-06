@@ -91,6 +91,9 @@ public:
 %If (Qt_5_8_0 -)
     int capHeight() const;
 %End
+%If (Qt_5_11_0 -)
+    int horizontalAdvance(const QString &, int length = -1) const;
+%End
 };
 
 class QFontMetricsF
@@ -154,6 +157,9 @@ public:
     void swap(QFontMetricsF &other /Constrained/);
 %If (Qt_5_8_0 -)
     qreal capHeight() const;
+%End
+%If (Qt_5_11_0 -)
+    qreal horizontalAdvance(const QString &string, int length = -1) const;
 %End
 };
 

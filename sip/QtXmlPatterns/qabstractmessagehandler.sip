@@ -62,7 +62,4 @@ public:
 
 protected:
     virtual void handleMessage(QtMsgType type, const QString &description, const QUrl &identifier, const QSourceLocation &sourceLocation) = 0;
-
-private:
-    QAbstractMessageHandler(const QAbstractMessageHandler &);
 };

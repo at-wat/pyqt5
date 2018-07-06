@@ -308,9 +308,17 @@ public:
 %If (Qt_5_10_0 -)
     void setAcceptTouchEvents(bool accept);
 %End
+%If (Qt_5_11_0 -)
+    QObject *containmentMask() const;
+%End
+%If (Qt_5_11_0 -)
+    void setContainmentMask(QObject *mask /KeepReference/);
+%End
 
-private:
-    QQuickItem(const QQuickItem &);
+signals:
+%If (Qt_5_11_0 -)
+    void containmentMaskChanged();
+%End
 };
 
 QFlags<QQuickItem::Flag> operator|(QQuickItem::Flag f1, QFlags<QQuickItem::Flag> f2);

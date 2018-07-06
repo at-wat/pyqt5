@@ -393,9 +393,6 @@ public:
     void setBrush(const QBrush &brush);
     virtual bool isObscuredBy(const QGraphicsItem *item) const;
     virtual QPainterPath opaqueArea() const;
-
-private:
-    QAbstractGraphicsShapeItem(const QAbstractGraphicsShapeItem &);
 };
 
 class QGraphicsPathItem : QAbstractGraphicsShapeItem
@@ -417,9 +414,6 @@ public:
     virtual bool isObscuredBy(const QGraphicsItem *item) const;
     virtual QPainterPath opaqueArea() const;
     virtual int type() const;
-
-private:
-    QGraphicsPathItem(const QGraphicsPathItem &);
 };
 
 class QGraphicsRectItem : QAbstractGraphicsShapeItem
@@ -443,9 +437,6 @@ public:
     virtual bool isObscuredBy(const QGraphicsItem *item) const;
     virtual QPainterPath opaqueArea() const;
     virtual int type() const;
-
-private:
-    QGraphicsRectItem(const QGraphicsRectItem &);
 };
 
 class QGraphicsEllipseItem : QAbstractGraphicsShapeItem
@@ -473,9 +464,6 @@ public:
     virtual bool isObscuredBy(const QGraphicsItem *item) const;
     virtual QPainterPath opaqueArea() const;
     virtual int type() const;
-
-private:
-    QGraphicsEllipseItem(const QGraphicsEllipseItem &);
 };
 
 class QGraphicsPolygonItem : QAbstractGraphicsShapeItem
@@ -499,9 +487,6 @@ public:
     virtual bool isObscuredBy(const QGraphicsItem *item) const;
     virtual QPainterPath opaqueArea() const;
     virtual int type() const;
-
-private:
-    QGraphicsPolygonItem(const QGraphicsPolygonItem &);
 };
 
 class QGraphicsLineItem : QGraphicsItem
@@ -527,9 +512,6 @@ public:
     virtual bool isObscuredBy(const QGraphicsItem *item) const;
     virtual QPainterPath opaqueArea() const;
     virtual int type() const;
-
-private:
-    QGraphicsLineItem(const QGraphicsLineItem &);
 };
 
 class QGraphicsPixmapItem : QGraphicsItem
@@ -565,9 +547,6 @@ public:
     virtual int type() const;
     QGraphicsPixmapItem::ShapeMode shapeMode() const;
     void setShapeMode(QGraphicsPixmapItem::ShapeMode mode);
-
-private:
-    QGraphicsPixmapItem(const QGraphicsPixmapItem &);
 };
 
 class QGraphicsSimpleTextItem : QAbstractGraphicsShapeItem
@@ -591,9 +570,6 @@ public:
     virtual bool isObscuredBy(const QGraphicsItem *item) const;
     virtual QPainterPath opaqueArea() const;
     virtual int type() const;
-
-private:
-    QGraphicsSimpleTextItem(const QGraphicsSimpleTextItem &);
 };
 
 class QGraphicsItemGroup : QGraphicsItem
@@ -623,9 +599,6 @@ public:
     virtual bool isObscuredBy(const QGraphicsItem *item) const;
     virtual QPainterPath opaqueArea() const;
     virtual int type() const;
-
-private:
-    QGraphicsItemGroup(const QGraphicsItemGroup &);
 };
 
 class QGraphicsObject : QObject, QGraphicsItem
@@ -721,9 +694,6 @@ protected:
     virtual void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
     virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
     virtual QVariant inputMethodQuery(Qt::InputMethodQuery query) const;
-
-private:
-    QGraphicsTextItem(const QGraphicsTextItem &);
 };
 
 %ModuleCode

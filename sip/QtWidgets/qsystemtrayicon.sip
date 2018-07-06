@@ -77,7 +77,4 @@ signals:
 
 protected:
     virtual bool event(QEvent *event);
-
-private:
-    QSystemTrayIcon(const QSystemTrayIcon &);
 };

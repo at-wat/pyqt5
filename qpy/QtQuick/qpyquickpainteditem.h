@@ -56,6 +56,7 @@ class QPyQuickPaintedItem##n : public QPyQuickPaintedItem \
 public: \
     QPyQuickPaintedItem##n(QQuickItem *parent = 0); \
     static QMetaObject staticMetaObject; \
+    virtual const QMetaObject *metaObject() const; \
     virtual int typeNr() const {return n##U;} \
 private: \
     QPyQuickPaintedItem##n(const QPyQuickPaintedItem##n &); \

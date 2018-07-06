@@ -42,7 +42,4 @@ protected:
     virtual void moveEvent(QMoveEvent *moveEvent);
     virtual void showEvent(QShowEvent *showEvent);
     virtual void hideEvent(QHideEvent *hideEvent);
-
-private:
-    QSizeGrip(const QSizeGrip &);
 };

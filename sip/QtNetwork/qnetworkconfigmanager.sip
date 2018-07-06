@@ -54,9 +54,6 @@ signals:
     void configurationChanged(const QNetworkConfiguration &config);
     void onlineStateChanged(bool isOnline);
     void updateCompleted();
-
-private:
-    QNetworkConfigurationManager(const QNetworkConfigurationManager &);
 };
 
 QFlags<QNetworkConfigurationManager::Capability> operator|(QNetworkConfigurationManager::Capability f1, QFlags<QNetworkConfigurationManager::Capability> f2);

@@ -118,9 +118,6 @@ public:
 %If (Qt_5_6_0 -)
     void resizeDocks(const QList<QDockWidget *> &docks, const QList<int> &sizes, Qt::Orientation orientation);
 %End
-
-private:
-    QMainWindow(const QMainWindow &);
 };
 
 QFlags<QMainWindow::DockOption> operator|(QMainWindow::DockOption f1, QFlags<QMainWindow::DockOption> f2);

@@ -38,7 +38,4 @@ public:
 
 protected:
     virtual bool setMediaObject(QMediaObject *object);
-
-private:
-    QCameraViewfinder(const QCameraViewfinder &);
 };

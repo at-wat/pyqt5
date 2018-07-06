@@ -72,7 +72,4 @@ public:
     QString errorString() const;
     void setNativeKey(const QString &key);
     QString nativeKey() const;
-
-private:
-    QSharedMemory(const QSharedMemory &);
 };

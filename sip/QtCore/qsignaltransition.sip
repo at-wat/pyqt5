@@ -63,7 +63,4 @@ signals:
 %If (Qt_5_4_0 -)
     void signalChanged();
 %End
-
-private:
-    QSignalTransition(const QSignalTransition &);
 };

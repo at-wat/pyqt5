@@ -175,7 +175,4 @@ public:
     void setAccessibleTabName(int index, const QString &name);
 %End
 %End
-
-private:
-    QTabBar(const QTabBar &);
 };

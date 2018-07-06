@@ -48,6 +48,8 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 %Include qwebenginecookiestore.sip
 %Include qwebenginehttprequest.sip
+%Include qwebenginequotarequest.sip
+%Include qwebengineregisterprotocolhandlerrequest.sip
 %Include qwebengineurlrequestinfo.sip
 %Include qwebengineurlrequestinterceptor.sip
 %Include qwebengineurlrequestjob.sip

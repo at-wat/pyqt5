@@ -140,7 +140,9 @@ public:
     qint64 toJulianDay() const;
     bool setDate(int year, int month, int date);
 %If (- Qt_5_7_0)
+%If (Qt_5_11_0 -)
     void getDate(int *year, int *month, int *day);
+%End
 %End
 %If (Qt_5_7_0 -)
     void getDate(int *year, int *month, int *day) const;

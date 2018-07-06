@@ -34,7 +34,4 @@ protected:
     virtual void onEntry(QEvent *event);
     virtual void onExit(QEvent *event);
     virtual bool event(QEvent *e);
-
-private:
-    QFinalState(const QFinalState &);
 };

@@ -85,7 +85,4 @@ protected:
     virtual qint64 writeData(const char *data /Array/, qint64 len /ArraySize/) /ReleaseGIL/;
     virtual void connectNotify(const QMetaMethod &);
     virtual void disconnectNotify(const QMetaMethod &);
-
-private:
-    QBuffer(const QBuffer &);
 };

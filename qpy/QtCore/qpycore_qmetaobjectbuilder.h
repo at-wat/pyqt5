@@ -108,6 +108,9 @@ public:
     QMetaEnumBuilder() : _mobj(0), _index(0) {}
 
     void setIsFlag(bool value);
+#if QT_VERSION >= 0x050800
+    void setIsScoped(bool value);
+#endif
     int addKey(const QByteArray &name, int value);
 
 private:

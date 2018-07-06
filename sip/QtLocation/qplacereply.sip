@@ -74,9 +74,6 @@ signals:
 protected:
     void setFinished(bool finished);
     void setError(QPlaceReply::Error error, const QString &errorString);
-
-private:
-    QPlaceReply(const QPlaceReply &);
 };
 
 %End

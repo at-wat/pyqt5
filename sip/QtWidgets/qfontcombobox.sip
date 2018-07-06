@@ -54,9 +54,6 @@ signals:
 
 protected:
     virtual bool event(QEvent *e);
-
-private:
-    QFontComboBox(const QFontComboBox &);
 };
 
 QFlags<QFontComboBox::FontFilter> operator|(QFontComboBox::FontFilter f1, QFlags<QFontComboBox::FontFilter> f2);

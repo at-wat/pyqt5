@@ -68,6 +68,9 @@ public:
     bool last() /ReleaseGIL/;
     void clear() /ReleaseGIL/;
     bool exec() /PyName=exec_,ReleaseGIL/;
+%If (Py_v3)
+    bool exec() /ReleaseGIL/;
+%End
     bool execBatch(QSqlQuery::BatchExecutionMode mode = QSqlQuery::ValuesAsRows);
     bool prepare(const QString &query) /ReleaseGIL/;
     void bindValue(const QString &placeholder, const QVariant &val, QSql::ParamType type = QSql::In);

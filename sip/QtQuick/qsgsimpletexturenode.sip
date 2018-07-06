@@ -52,10 +52,10 @@ public:
     typedef QFlags<QSGSimpleTextureNode::TextureCoordinatesTransformFlag> TextureCoordinatesTransformMode;
 %End
 %If (Qt_5_2_0 -)
-    void setTextureCoordinatesTransform(QFlags<QSGSimpleTextureNode::TextureCoordinatesTransformFlag> mode);
+    void setTextureCoordinatesTransform(QSGSimpleTextureNode::TextureCoordinatesTransformMode mode);
 %End
 %If (Qt_5_2_0 -)
-    QFlags<QSGSimpleTextureNode::TextureCoordinatesTransformFlag> textureCoordinatesTransform() const;
+    QSGSimpleTextureNode::TextureCoordinatesTransformMode textureCoordinatesTransform() const;
 %End
 %If (Qt_5_4_0 -)
     void setOwnsTexture(bool owns);

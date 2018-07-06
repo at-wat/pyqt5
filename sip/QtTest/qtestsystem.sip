@@ -27,18 +27,8 @@ namespace QTest
 %End
 
     void qWait(int ms) /ReleaseGIL/;
-%If (Qt_5_1_0 -)
     bool qWaitForWindowActive(QWindow *window, int timeout = 5000) /ReleaseGIL/;
-%End
-%If (- Qt_5_1_0)
-    bool qWaitForWindowActive(QWindow *window, int timeout = 1000) /ReleaseGIL/;
-%End
-%If (Qt_5_1_0 -)
     bool qWaitForWindowExposed(QWindow *window, int timeout = 5000) /ReleaseGIL/;
-%End
-%If (- Qt_5_1_0)
-    bool qWaitForWindowExposed(QWindow *window, int timeout = 1000) /ReleaseGIL/;
-%End
-    bool qWaitForWindowActive(QWidget *widget, int timeout = 1000) /ReleaseGIL/;
-    bool qWaitForWindowExposed(QWidget *widget, int timeout = 1000) /ReleaseGIL/;
+    bool qWaitForWindowActive(QWidget *widget, int timeout = 5000) /ReleaseGIL/;
+    bool qWaitForWindowExposed(QWidget *widget, int timeout = 5000) /ReleaseGIL/;
 };

@@ -47,7 +47,4 @@ public:
     virtual QPixmap generatedIconPixmap(QIcon::Mode iconMode, const QPixmap &pixmap, const QStyleOption *opt) const;
     virtual QIcon standardIcon(QStyle::StandardPixmap standardIcon, const QStyleOption *option = 0, const QWidget *widget = 0) const;
     virtual int layoutSpacing(QSizePolicy::ControlType control1, QSizePolicy::ControlType control2, Qt::Orientation orientation, const QStyleOption *option = 0, const QWidget *widget = 0) const;
-
-private:
-    QCommonStyle(const QCommonStyle &);
 };

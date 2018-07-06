@@ -570,44 +570,56 @@ static bool matchStringOrNone(QByteArray *s)
 }
 
 /*
- * match any expression that can return a number, which can be
- * 1. Literal number (e.g. '11')
- * 2. simple identifier (e.g. 'm_count')
- * 3. simple function call (e.g. 'size()' )
- * 4. function call on an object (e.g. 'list.size()')
- *
- * Other cases:
- * size(2,4)
- * list().size()
- * list(a,b).size(2,4)
- * etc...
+ * Match any expression that can return a number.  It may match invalid code
+ * but it shouldn't fail to match valid code.
  */
 static bool matchExpression()
 {
-    if (match(Tok_Integer)) {
-        return true;
-    }
+    bool matches = false;
 
-    int parenlevel = 0;
-    while (match(Tok_Ident) || parenlevel > 0) {
-        if (yyTok == Tok_RightParen) {
-            if (parenlevel == 0) break;
-            --parenlevel;
-            yyTok = getToken();
-        } else if (yyTok == Tok_LeftParen) {
-            yyTok = getToken();
-            if (yyTok == Tok_RightParen) {
-                yyTok = getToken();
-            } else {
-                ++parenlevel;
+    for (;;)
+    {
+        if (match(Tok_Integer))
+        {
+            matches = true;
+        }
+        else if (match(Tok_Ident))
+        {
+            matches = true;
+        }
+        else if (match(Tok_LeftParen))
+        {
+            int paren_level = 1;
+
+            matches = false;
+
+            while (!match(Tok_Eof))
+            {
+                if (match(Tok_LeftParen))
+                {
+                    ++paren_level;
+                }
+                else if (match(Tok_RightParen))
+                {
+                    if (--paren_level == 0)
+                    {
+                        matches = true;
+                        break;
+                    }
+                }
+                else
+                {
+                    yyTok = getToken();
+                }
             }
-        } else if (yyTok == Tok_Ident) {
-            continue;
-        } else if (parenlevel == 0) {
-            return false;
+        }
+        else
+        {
+            break;
         }
     }
-    return true;
+
+    return matches;
 }
 
 static void parse( MetaTranslator *tor, const char *initialContext,

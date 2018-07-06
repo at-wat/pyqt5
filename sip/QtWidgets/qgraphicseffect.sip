@@ -65,9 +65,6 @@ protected:
     QRectF sourceBoundingRect(Qt::CoordinateSystem system = Qt::LogicalCoordinates) const;
     void drawSource(QPainter *painter);
     QPixmap sourcePixmap(Qt::CoordinateSystem system = Qt::LogicalCoordinates, QPoint *offset /Out/ = 0, QGraphicsEffect::PixmapPadMode mode = QGraphicsEffect::PadToEffectiveBoundingRect) const;
-
-private:
-    QGraphicsEffect(const QGraphicsEffect &);
 };
 
 QFlags<QGraphicsEffect::ChangeFlag> operator|(QGraphicsEffect::ChangeFlag f1, QFlags<QGraphicsEffect::ChangeFlag> f2);
@@ -94,9 +91,6 @@ signals:
 
 protected:
     virtual void draw(QPainter *painter);
-
-private:
-    QGraphicsColorizeEffect(const QGraphicsColorizeEffect &);
 };
 
 class QGraphicsBlurEffect : QGraphicsEffect
@@ -126,13 +120,10 @@ public slots:
 
 signals:
     void blurRadiusChanged(qreal blurRadius);
-    void blurHintsChanged(QGraphicsBlurEffect::BlurHints hints);
+    void blurHintsChanged(QGraphicsBlurEffect::BlurHints hints /ScopesStripped=1/);
 
 protected:
     virtual void draw(QPainter *painter);
-
-private:
-    QGraphicsBlurEffect(const QGraphicsBlurEffect &);
 };
 
 QFlags<QGraphicsBlurEffect::BlurHint> operator|(QGraphicsBlurEffect::BlurHint f1, QFlags<QGraphicsBlurEffect::BlurHint> f2);
@@ -169,9 +160,6 @@ signals:
 
 protected:
     virtual void draw(QPainter *painter);
-
-private:
-    QGraphicsDropShadowEffect(const QGraphicsDropShadowEffect &);
 };
 
 class QGraphicsOpacityEffect : QGraphicsEffect
@@ -196,7 +184,4 @@ signals:
 
 protected:
     virtual void draw(QPainter *painter);
-
-private:
-    QGraphicsOpacityEffect(const QGraphicsOpacityEffect &);
 };

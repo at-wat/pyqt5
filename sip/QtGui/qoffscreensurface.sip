@@ -55,9 +55,6 @@ public:
 %If (Qt_5_9_0 -)
     void setNativeHandle(void *handle);
 %End
-
-private:
-    QOffscreenSurface(const QOffscreenSurface &);
 };
 
 %End

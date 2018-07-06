@@ -145,7 +145,4 @@ public:
 %If (Qt_5_10_0 -)
     bool isShortcutVisibleInContextMenu() const;
 %End
-
-private:
-    QAction(const QAction &);
 };

@@ -208,6 +208,10 @@ public:
     // Convert a QVariant to a Python object based on the type of the object.
     static PyObject *toAnyPyObject(const QVariant &var);
 
+    // Add a QVariant to a dict with a QString key.
+    static bool addVariantToDict(PyObject *dict, const QString &key_ref,
+            const QVariant &val_ref);
+
     // Returns the Qt meta-type id.  It will be QMetaType::UnknownType if the
     // type isn't known to Qt's meta-type system.
     int metatype() const {return _metatype;}
@@ -265,11 +269,7 @@ private:
     void set_qflags();
     bool isCppEnum() const {return (_type && sipTypeIsEnum(_type));}
     bool to_QVariantList(PyObject *py, QVariantList &cpp) const;
-    bool to_QVariantMap(PyObject *py, QVariantMap &cpp) const;
-    static PyObject *from_QVariantMap(const QVariantMap &qm);
     bool to_QVariantHash(PyObject *py, QVariantHash &cpp) const;
-    static bool add_variant_to_dict(PyObject *dict, const QString &key_ref,
-            const QVariant &val_ref);
     static void raiseParseCppException(const char *type,
             const char *context = 0);
     static QVariant keep_as_pyobject(PyObject *py);

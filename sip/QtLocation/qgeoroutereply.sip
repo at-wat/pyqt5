@@ -61,9 +61,6 @@ protected:
     void setFinished(bool finished);
     void setRoutes(const QList<QGeoRoute> &routes);
     void addRoutes(const QList<QGeoRoute> &routes);
-
-private:
-    QGeoRouteReply(const QGeoRouteReply &);
 };
 
 %End

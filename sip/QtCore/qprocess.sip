@@ -220,9 +220,6 @@ public:
 %If (Qt_5_3_0 -)
     qint64 processId() const;
 %End
-
-private:
-    QProcess(const QProcess &);
 };
 
 %End

@@ -47,9 +47,6 @@ protected:
     virtual void keyPressEvent(QKeyEvent *);
     virtual void keyReleaseEvent(QKeyEvent *);
     virtual void timerEvent(QTimerEvent *);
-
-private:
-    QKeySequenceEdit(const QKeySequenceEdit &);
 };
 
 %End

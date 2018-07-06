@@ -49,9 +49,6 @@ public:
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
     virtual int type() const;
-
-private:
-    QGraphicsSvgItem(const QGraphicsSvgItem &);
 };
 
 %ModuleHeaderCode

@@ -44,6 +44,7 @@ static int pyqtSignal_init(PyObject *self, PyObject *args, PyObject *kwd_args);
 static PyObject *pyqtSignal_repr(PyObject *self);
 static PyObject *pyqtSignal_mp_subscript(PyObject *self, PyObject *subscript);
 static PyObject *pyqtSignal_get_doc(PyObject *self, void *);
+static PyObject *pyqtSignal_get_signatures(PyObject *self, void *);
 }
 
 static int init_signal_from_types(qpycore_pyqtSignal *ps, const char *name,
@@ -53,13 +54,7 @@ static void append_overload(qpycore_pyqtSignal *ps);
 static bool is_signal_name(const char *sig, const QByteArray &name);
 
 
-// The getters/setters.
-static PyGetSetDef pyqtSignal_getset[] = {
-    {const_cast<char *>("__doc__"), pyqtSignal_get_doc, NULL, NULL, NULL},
-    {NULL, NULL, NULL, NULL, NULL}
-};
-
-
+// Doc-strings.
 PyDoc_STRVAR(pyqtSignal_doc,
 "pyqtSignal(*types, name: str = ..., revision: int = ..., arguments: Sequence = ...) -> PYQT_SIGNAL\n"
 "\n"
@@ -72,6 +67,18 @@ PyDoc_STRVAR(pyqtSignal_doc,
 "revision is the optional revision of the signal that is exported to QML.\n"
 "If it is not specified then 0 is used.\n"
 "arguments is the optional sequence of the names of the signal's arguments.\n");
+
+PyDoc_STRVAR(pyqtSignal_signatures_doc,
+"The signatures of each of the overloaded signals");
+
+
+// The getters/setters.
+static PyGetSetDef pyqtSignal_getset[] = {
+    {const_cast<char *>("__doc__"), pyqtSignal_get_doc, NULL, NULL, NULL},
+    {const_cast<char *>("signatures"), pyqtSignal_get_signatures, NULL,
+            const_cast<char *>(pyqtSignal_signatures_doc), NULL},
+    {NULL, NULL, NULL, NULL, NULL}
+};
 
 
 #if PY_VERSION_HEX >= 0x03040000
@@ -219,6 +226,43 @@ static PyObject *pyqtSignal_get_doc(PyObject *self, void *)
 }
 
 
+// The 'signatures' getter.
+static PyObject *pyqtSignal_get_signatures(PyObject *self, void *)
+{
+    qpycore_pyqtSignal *head = ((qpycore_pyqtSignal *)self)->default_signal;
+    qpycore_pyqtSignal *ps;
+    PyObject *sigs;
+    Py_ssize_t sig_nr;
+
+    // Count the number of overloads.
+    for (sig_nr = 0, ps = head; ps; ps = ps->next, ++sig_nr)
+        ;
+
+    sigs = PyTuple_New(sig_nr);
+    if (!sigs)
+        return 0;
+
+    for (sig_nr = 0, ps = head; ps; ps = ps->next, ++sig_nr)
+    {
+        PyObject *sig =
+#if PY_MAJOR_VERSION >= 3
+            PyUnicode_FromString
+#else
+            PyString_FromString
+#endif
+                (ps->parsed_signature->signature.constData() + 1);
+
+        if (!sig || PyTuple_SetItem(sigs, sig_nr, sig))
+        {
+            Py_DECREF(sigs);
+            return 0;
+        }
+    }
+
+    return sigs;
+}
+
+
 // The type repr slot.
 static PyObject *pyqtSignal_repr(PyObject *self)
 {
@@ -230,7 +274,7 @@ static PyObject *pyqtSignal_repr(PyObject *self)
 #else
         PyString_FromFormat
 #endif
-            ("<unbound PYQT_SIGNAL %s>", ps->parsed_signature->py_signature.constData());
+            ("<unbound PYQT_SIGNAL %s>", ps->parsed_signature->signature.constData() + 1);
 }
 
 
@@ -552,8 +596,12 @@ qpycore_pyqtSignal *qpycore_pyqtSignal_New(const char *signature, bool *fatal)
     if (fatal)
         *fatal = true;
 
-    Chimera::Signature *parsed_signature = Chimera::parse(signature,
-                "a signal argument");
+    // See if we have two variants of the signature, ie. one with namespaces
+    // stripped that we can use with connect() and another that we can parse.
+    const char *full_sig = strchr(signature, '|');
+
+    Chimera::Signature *parsed_signature = Chimera::parse(
+            (full_sig ? full_sig + 1 : signature), "a signal argument");
 
     // At first glance the parse should never fail because the signature
     // originates from the .sip file.  However it might if it includes a type
@@ -567,6 +615,11 @@ qpycore_pyqtSignal *qpycore_pyqtSignal_New(const char *signature, bool *fatal)
 
         return 0;
     }
+
+    if (full_sig)
+        // Use the variant with namespaces stripped.
+        parsed_signature->signature = QByteArray(signature,
+                full_sig - signature);
 
     parsed_signature->signature.prepend('2');
 

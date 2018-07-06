@@ -1,7 +1,35 @@
+v5.11.2 2nd July 2018
+  - Added the 'signatures' attribute to unbound signals.
+  - SIP v4.19.11 is required.
+
+v5.11.1 24th June 2018
+  - A pseudo-release to create a version number for updated wheels.
+
+v5.11 23rd June 2018
+  - Added support for Qt v5.11.0 and v5.11.1.
+  - Enum members are also visible as attributes of the enum in order to
+    emulate the behaviour of Python enums.  The traditional use, where a member
+    is visible at the same scope as the enum, is deprecated but will be
+    supported throughout the life of PyQt5.
+  - Versions of Python earlier than v3.4 require the enum34 package to be
+    installed from PyPI.
+  - The connect() method of a bound signal now returns a QMetaObject.Connection
+    object that can be passed to the disconnect() method.
+  - Added QtCore.Q_ENUM() and QtCore.Q_FLAG().
+  - Python enums can now be used with Q_ENUM() etc.
+  - Added the missing QGuiApplication.inputMethod() method.
+  - Added the missing QGuiApplication.styleHints() method.
+  - Added the missing QSqlQuery.exec() overload for Python v3.
+  - Added glReadPixels().
+  - A PEP 376 .dist-info directory is created on installation that provides
+    version information for dependent packages and allows pip to uninstall.
+  - Added the --no-dist-info option to configure.py.
+  - Added support for Python v3.7.
+
 v5.10.1 26th February 2018
   - Added support for Qt v5.10.1.
   - Added the missing qmlClearTypeRegistrations() to the QtQml module.
-  - Added the --disabled-feature option to configure.py.
+  - Added the --disable-feature option to configure.py.
 
 v5.10 23rd January 2018
   - Added support for Qt v5.10.0.

@@ -71,7 +71,4 @@ public slots:
 signals:
     void statusChanged(QQmlComponent::Status);
     void progressChanged(qreal);
-
-private:
-    QQmlComponent(const QQmlComponent &);
 };

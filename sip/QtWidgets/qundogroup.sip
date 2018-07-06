@@ -54,7 +54,4 @@ signals:
     void indexChanged(int idx);
     void redoTextChanged(const QString &redoText);
     void undoTextChanged(const QString &undoText);
-
-private:
-    QUndoGroup(const QUndoGroup &);
 };

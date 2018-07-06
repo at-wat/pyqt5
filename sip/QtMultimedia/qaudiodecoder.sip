@@ -82,7 +82,4 @@ signals:
 public:
     virtual bool bind(QObject *);
     virtual void unbind(QObject *);
-
-private:
-    QAudioDecoder(const QAudioDecoder &);
 };

@@ -46,7 +46,4 @@ public:
 
 protected:
     virtual bool open(QIODevice::OpenMode flags) /ReleaseGIL/;
-
-private:
-    QTemporaryFile(const QTemporaryFile &);
 };

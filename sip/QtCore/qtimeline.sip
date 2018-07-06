@@ -94,7 +94,4 @@ protected:
 public:
     QEasingCurve easingCurve() const;
     void setEasingCurve(const QEasingCurve &curve);
-
-private:
-    QTimeLine(const QTimeLine &);
 };

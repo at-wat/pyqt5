@@ -74,7 +74,4 @@ public:
 
 signals:
     void historyChanged();
-
-private:
-    QTextBrowser(const QTextBrowser &);
 };

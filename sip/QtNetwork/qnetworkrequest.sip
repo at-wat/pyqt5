@@ -81,6 +81,9 @@ public:
 %If (Qt_5_9_0 -)
         RedirectPolicyAttribute,
 %End
+%If (Qt_5_11_0 -)
+        Http2DirectAttribute,
+%End
         User,
         UserMax,
     };

@@ -130,7 +130,4 @@ protected:
 %End
 
     virtual qint64 writeData(const char * /Array/, qint64 /ArraySize/) /ReleaseGIL/;
-
-private:
-    QLocalSocket(const QLocalSocket &);
 };

@@ -55,6 +55,12 @@ public:
     bool isValid() const;
     QModelIndex parent() const;
     QModelIndex sibling(int arow, int acolumn) const;
+%If (Qt_5_11_0 -)
+    QModelIndex siblingAtColumn(int column) const;
+%End
+%If (Qt_5_11_0 -)
+    QModelIndex siblingAtRow(int row) const;
+%End
     bool operator==(const QModelIndex &other) const;
     bool operator<(const QModelIndex &other) const;
     bool operator!=(const QModelIndex &other) const;
@@ -249,9 +255,23 @@ public:
     virtual bool moveColumns(const QModelIndex &sourceParent, int sourceColumn, int count, const QModelIndex &destinationParent, int destinationChild);
     bool moveRow(const QModelIndex &sourceParent, int sourceRow, const QModelIndex &destinationParent, int destinationChild);
     bool moveColumn(const QModelIndex &sourceParent, int sourceColumn, const QModelIndex &destinationParent, int destinationChild);
+%If (Qt_5_11_0 -)
 
-private:
-    QAbstractItemModel(const QAbstractItemModel &);
+    enum class CheckIndexOption
+    {
+        NoOption,
+        IndexIsValid,
+        DoNotUseParent,
+        ParentIsInvalid,
+    };
+
+%End
+%If (Qt_5_11_0 -)
+    typedef QFlags<QAbstractItemModel::CheckIndexOption> CheckIndexOptions;
+%End
+%If (Qt_5_11_0 -)
+    bool checkIndex(const QModelIndex &index, QAbstractItemModel::CheckIndexOptions options = QAbstractItemModel::CheckIndexOption::NoOption) const;
+%End
 };
 
 class QAbstractTableModel : QAbstractItemModel
@@ -276,7 +296,6 @@ public:
 %End
 
 private:
-    QAbstractTableModel(const QAbstractTableModel &);
     virtual QModelIndex parent(const QModelIndex &child) const;
     virtual bool hasChildren(const QModelIndex &parent) const;
 };
@@ -303,8 +322,11 @@ public:
 %End
 
 private:
-    QAbstractListModel(const QAbstractListModel &);
     virtual QModelIndex parent(const QModelIndex &child) const;
     virtual int columnCount(const QModelIndex &parent) const;
     virtual bool hasChildren(const QModelIndex &parent) const;
 };
+
+%If (Qt_5_11_0 -)
+QFlags<QAbstractItemModel::CheckIndexOption> operator|(QAbstractItemModel::CheckIndexOption f1, QFlags<QAbstractItemModel::CheckIndexOption> f2);
+%End

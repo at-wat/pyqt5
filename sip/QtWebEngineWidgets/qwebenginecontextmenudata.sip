@@ -58,6 +58,57 @@ public:
 %If (Qt_5_8_0 -)
     QStringList spellCheckerSuggestions() const;
 %End
+%If (Qt_5_11_0 -)
+
+    enum MediaFlag
+    {
+        MediaInError,
+        MediaPaused,
+        MediaMuted,
+        MediaLoop,
+        MediaCanSave,
+        MediaHasAudio,
+        MediaCanToggleControls,
+        MediaControls,
+        MediaCanPrint,
+        MediaCanRotate,
+    };
+
+%End
+%If (Qt_5_11_0 -)
+    typedef QFlags<QWebEngineContextMenuData::MediaFlag> MediaFlags;
+%End
+%If (Qt_5_11_0 -)
+
+    enum EditFlag
+    {
+        CanUndo,
+        CanRedo,
+        CanCut,
+        CanCopy,
+        CanPaste,
+        CanDelete,
+        CanSelectAll,
+        CanTranslate,
+        CanEditRichly,
+    };
+
+%End
+%If (Qt_5_11_0 -)
+    typedef QFlags<QWebEngineContextMenuData::EditFlag> EditFlags;
+%End
+%If (Qt_5_11_0 -)
+    QWebEngineContextMenuData::MediaFlags mediaFlags() const;
+%End
+%If (Qt_5_11_0 -)
+    QWebEngineContextMenuData::EditFlags editFlags() const;
+%End
 };
 
+%End
+%If (Qt_5_11_0 -)
+QFlags<QWebEngineContextMenuData::MediaFlag> operator|(QWebEngineContextMenuData::MediaFlag f1, QFlags<QWebEngineContextMenuData::MediaFlag> f2);
+%End
+%If (Qt_5_11_0 -)
+QFlags<QWebEngineContextMenuData::EditFlag> operator|(QWebEngineContextMenuData::EditFlag f1, QFlags<QWebEngineContextMenuData::EditFlag> f2);
 %End

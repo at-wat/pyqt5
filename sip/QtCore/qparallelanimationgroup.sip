@@ -36,7 +36,4 @@ protected:
     virtual void updateCurrentTime(int currentTime);
     virtual void updateState(QAbstractAnimation::State newState, QAbstractAnimation::State oldState);
     virtual void updateDirection(QAbstractAnimation::Direction direction);
-
-private:
-    QParallelAnimationGroup(const QParallelAnimationGroup &);
 };

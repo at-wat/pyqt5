@@ -40,7 +40,4 @@ public:
 
 protected:
     virtual bool event(QEvent *event);
-
-private:
-    QAnimationGroup(const QAnimationGroup &);
 };

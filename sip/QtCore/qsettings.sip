@@ -107,7 +107,4 @@ public:
 
 protected:
     virtual bool event(QEvent *event);
-
-private:
-    QSettings(const QSettings &);
 };

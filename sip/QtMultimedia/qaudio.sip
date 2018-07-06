@@ -66,6 +66,9 @@ namespace QAudio
         AccessibilityRole,
         SonificationRole,
         GameRole,
+%If (Qt_5_11_0 -)
+        CustomRole,
+%End
     };
 
 %End

@@ -109,11 +109,10 @@ signals:
     void metaDataAvailableChanged(bool available);
     void metaDataWritableChanged(bool writable);
     void metaDataChanged(const QString &key, const QVariant &value);
-    void availabilityChanged(QMultimedia::AvailabilityStatus availability);
+    void metaDataChanged();
+    void availabilityChanged(QMultimedia::AvailabilityStatus availability /Constrained/);
+    void availabilityChanged(bool available);
 
 protected:
     virtual bool setMediaObject(QMediaObject *object);
-
-private:
-    QMediaRecorder(const QMediaRecorder &);
 };

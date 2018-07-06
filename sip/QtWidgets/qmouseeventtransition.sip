@@ -40,7 +40,4 @@ public:
 protected:
     virtual void onTransition(QEvent *event);
     virtual bool eventTest(QEvent *event);
-
-private:
-    QMouseEventTransition(const QMouseEventTransition &);
 };

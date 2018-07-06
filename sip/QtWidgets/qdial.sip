@@ -50,7 +50,4 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *me);
     virtual void mouseMoveEvent(QMouseEvent *me);
     virtual void sliderChange(QAbstractSlider::SliderChange change);
-
-private:
-    QDial(const QDial &);
 };

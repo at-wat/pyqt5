@@ -144,7 +144,4 @@ protected:
     virtual void onEntry(QEvent *event);
     virtual void onExit(QEvent *event);
     virtual bool event(QEvent *e);
-
-private:
-    QStateMachine(const QStateMachine &);
 };

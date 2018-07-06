@@ -95,6 +95,12 @@ public:
 %If (Qt_5_6_0 -)
     bool isMask() const;
 %End
+%If (Qt_5_11_0 -)
+    static QStringList fallbackSearchPaths();
+%End
+%If (Qt_5_11_0 -)
+    static void setFallbackSearchPaths(const QStringList &paths);
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QIcon & /Constrained/) /ReleaseGIL/;

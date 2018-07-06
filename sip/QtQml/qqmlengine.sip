@@ -168,7 +168,4 @@ public slots:
 %If (Qt_5_10_0 -)
     void retranslate();
 %End
-
-private:
-    QQmlEngine(const QQmlEngine &);
 };

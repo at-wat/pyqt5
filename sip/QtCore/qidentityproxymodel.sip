@@ -51,7 +51,4 @@ public:
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 %End
     virtual QModelIndex sibling(int row, int column, const QModelIndex &idx) const;
-
-private:
-    QIdentityProxyModel(const QIdentityProxyModel &);
 };

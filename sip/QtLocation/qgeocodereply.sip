@@ -72,9 +72,6 @@ protected:
     void setLocations(const QList<QGeoLocation> &locations);
     void setLimit(int limit);
     void setOffset(int offset);
-
-private:
-    QGeoCodeReply(const QGeoCodeReply &);
 };
 
 %End

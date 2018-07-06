@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-class QQuickView : QQuickWindow
+class QQuickView : QQuickWindow /ExportDerived/
 {
 %TypeHeaderCode
 #include <qquickview.h>
@@ -71,7 +71,4 @@ protected:
     virtual void mousePressEvent(QMouseEvent *);
     virtual void mouseReleaseEvent(QMouseEvent *);
     virtual void mouseMoveEvent(QMouseEvent *);
-
-private:
-    QQuickView(const QQuickView &);
 };

@@ -443,9 +443,6 @@ public:
 %If (Qt_5_9_0 -)
     void setWindowFlag(Qt::WindowType, bool on = true);
 %End
-
-private:
-    QWidget(const QWidget &);
 };
 
 QFlags<QWidget::RenderFlag> operator|(QWidget::RenderFlag f1, QFlags<QWidget::RenderFlag> f2);

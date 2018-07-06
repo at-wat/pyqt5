@@ -325,9 +325,6 @@ protected:
 public:
     GLuint bindTexture(const QImage &image, GLenum target, GLint format, QGLContext::BindOptions options);
     GLuint bindTexture(const QPixmap &pixmap, GLenum target, GLint format, QGLContext::BindOptions options);
-
-private:
-    QGLWidget(const QGLWidget &);
 };
 
 %End

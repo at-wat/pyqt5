@@ -38,9 +38,6 @@ public:
 protected:
     void setPlaces(const QList<QPlace> &results);
     void setRequest(const QPlaceMatchRequest &request);
-
-private:
-    QPlaceMatchReply(const QPlaceMatchReply &);
 };
 
 %End

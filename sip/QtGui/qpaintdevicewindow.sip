@@ -40,9 +40,6 @@ protected:
     virtual int metric(QPaintDevice::PaintDeviceMetric metric) const;
     virtual void exposeEvent(QExposeEvent *);
     virtual bool event(QEvent *event);
-
-private:
-    QPaintDeviceWindow(const QPaintDeviceWindow &);
 };
 
 %End

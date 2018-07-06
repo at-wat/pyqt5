@@ -62,6 +62,7 @@ public:
 signals:
     void serviceRegistered(const QString &service);
     void serviceUnregistered(const QString &service);
+    void serviceOwnerChanged(const QString &name, const QString &oldOwner, const QString &newOwner);
     void callWithCallbackFailed(const QDBusError &error, const QDBusMessage &call);
 
 protected:

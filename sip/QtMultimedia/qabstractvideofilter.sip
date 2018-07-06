@@ -59,9 +59,6 @@ public:
 
 signals:
     void activeChanged();
-
-private:
-    QAbstractVideoFilter(const QAbstractVideoFilter &);
 };
 
 %End

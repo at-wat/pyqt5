@@ -95,7 +95,4 @@ protected:
     virtual void timerEvent(QTimerEvent *);
     virtual void wheelEvent(QWheelEvent *e);
     virtual void changeEvent(QEvent *e);
-
-private:
-    QAbstractSlider(const QAbstractSlider &);
 };

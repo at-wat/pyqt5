@@ -164,7 +164,4 @@ public:
 %If (Qt_5_10_0 -)
     int selectionLength() const;
 %End
-
-private:
-    QLineEdit(const QLineEdit &);
 };

@@ -28,6 +28,11 @@ class QSignalSpy : QObject
 
 %ConvertToSubClassCode
     sipType = (sipCpp->inherits("QSignalSpy") ? sipType_QSignalSpy : 0);
+    
+    #if QT_VERSION >= 0x050b00
+    if (!sipType && sipCpp->inherits("QAbstractItemModelTester"))
+        sipType = sipType_QAbstractItemModelTester;
+    #endif
 %End
 
 public:
@@ -72,11 +77,7 @@ public:
 
     void __delitem__(int i);
 %MethodCode
-        int len;
-        
-        len = sipCpp->count();
-        
-        if ((a0 = (int)sipConvertFromSequenceIndex(a0, len)) < 0)
+        if ((a0 = (int)sipConvertFromSequenceIndex(a0, sipCpp->count())) < 0)
             sipIsErr = 1;
         else
             sipCpp->removeAt(a0);

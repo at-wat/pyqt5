@@ -45,7 +45,4 @@ public slots:
 signals:
     void audioInputChanged(const QString &name);
     void availableAudioInputsChanged();
-
-private:
-    QAudioRecorder(const QAudioRecorder &);
 };

@@ -73,7 +73,7 @@ public:
         }
 %End
 
-    void addWidget(QWidget * /GetWrapper/, int row, int column, Qt::Alignment alignment = 0);
+    void addWidget(QWidget * /GetWrapper/, int row, int column, Qt::Alignment alignment = Qt::Alignment());
 %MethodCode
         Py_BEGIN_ALLOW_THREADS
         sipCpp->addWidget(a0, a1, a2, *a3);
@@ -97,7 +97,7 @@ public:
         }
 %End
 
-    void addWidget(QWidget * /GetWrapper/, int row, int column, int rowSpan, int columnSpan, Qt::Alignment alignment = 0);
+    void addWidget(QWidget * /GetWrapper/, int row, int column, int rowSpan, int columnSpan, Qt::Alignment alignment = Qt::Alignment());
 %MethodCode
         Py_BEGIN_ALLOW_THREADS
         sipCpp->addWidget(a0, a1, a2, a3, a4, *a5);
@@ -142,7 +142,4 @@ public:
 
 protected:
     virtual void addItem(QLayoutItem * /Transfer/);
-
-private:
-    QGridLayout(const QGridLayout &);
 };

@@ -34,7 +34,4 @@ public:
 %If (Qt_5_1_0 -)
     QUrl baseUrl() const;
 %End
-
-private:
-    QQmlExtensionPlugin(const QQmlExtensionPlugin &);
 };

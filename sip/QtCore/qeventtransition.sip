@@ -39,7 +39,4 @@ protected:
     virtual bool eventTest(QEvent *event);
     virtual void onTransition(QEvent *event);
     virtual bool event(QEvent *e);
-
-private:
-    QEventTransition(const QEventTransition &);
 };

@@ -40,7 +40,4 @@ protected:
     virtual QSize minimumSizeHint() const;
     virtual bool event(QEvent *e);
     virtual void paintEvent(QPaintEvent *);
-
-private:
-    QCommandLinkButton(const QCommandLinkButton &);
 };

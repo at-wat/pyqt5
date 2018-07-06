@@ -88,7 +88,4 @@ signals:
 %If (Qt_5_4_0 -)
     void errorStateChanged();
 %End
-
-private:
-    QState(const QState &);
 };

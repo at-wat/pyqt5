@@ -189,9 +189,6 @@ public:
 %If (Qt_5_4_0 -)
     static QString sslLibraryBuildVersionString();
 %End
-
-private:
-    QSslSocket(const QSslSocket &);
 };
 
 %End

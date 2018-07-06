@@ -87,7 +87,4 @@ public:
     bool hasSelectedText() const;
     QString selectedText() const;
     int selectionStart() const;
-
-private:
-    QLabel(const QLabel &);
 };

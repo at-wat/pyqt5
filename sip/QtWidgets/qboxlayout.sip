@@ -43,7 +43,7 @@ public:
     void setDirection(QBoxLayout::Direction);
     void addSpacing(int size);
     void addStretch(int stretch = 0);
-    void addWidget(QWidget * /GetWrapper/, int stretch = 0, Qt::Alignment alignment = 0);
+    void addWidget(QWidget * /GetWrapper/, int stretch = 0, Qt::Alignment alignment = Qt::Alignment());
 %MethodCode
         Py_BEGIN_ALLOW_THREADS
         sipCpp->addWidget(a0, a1, *a2);
@@ -72,7 +72,7 @@ public:
     virtual void addItem(QLayoutItem * /Transfer/);
     void insertSpacing(int index, int size);
     void insertStretch(int index, int stretch = 0);
-    void insertWidget(int index, QWidget *widget /GetWrapper/, int stretch = 0, Qt::Alignment alignment = 0);
+    void insertWidget(int index, QWidget *widget /GetWrapper/, int stretch = 0, Qt::Alignment alignment = Qt::Alignment());
 %MethodCode
         Py_BEGIN_ALLOW_THREADS
         sipCpp->insertWidget(a0, a1, a2, *a3);
@@ -118,9 +118,6 @@ public:
     void setStretch(int index, int stretch);
     int stretch(int index) const;
     void insertItem(int index, QLayoutItem * /TransferThis/);
-
-private:
-    QBoxLayout(const QBoxLayout &);
 };
 
 class QHBoxLayout : QBoxLayout
@@ -133,9 +130,6 @@ public:
     QHBoxLayout();
     explicit QHBoxLayout(QWidget *parent /TransferThis/);
     virtual ~QHBoxLayout();
-
-private:
-    QHBoxLayout(const QHBoxLayout &);
 };
 
 class QVBoxLayout : QBoxLayout
@@ -148,7 +142,4 @@ public:
     QVBoxLayout();
     explicit QVBoxLayout(QWidget *parent /TransferThis/);
     virtual ~QVBoxLayout();
-
-private:
-    QVBoxLayout(const QVBoxLayout &);
 };

@@ -82,7 +82,4 @@ public:
             sipError = sipBadCallableArg(0, a0);
         }
 %End
-
-private:
-    QProgressDialog(const QProgressDialog &);
 };

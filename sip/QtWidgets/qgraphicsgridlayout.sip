@@ -97,7 +97,4 @@ public:
     virtual void setGeometry(const QRectF &rect);
     virtual QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint = QSizeF()) const;
     void removeItem(QGraphicsLayoutItem *item /TransferBack/);
-
-private:
-    QGraphicsGridLayout(const QGraphicsGridLayout &);
 };

@@ -92,7 +92,4 @@ public:
 %If (Qt_5_10_0 -)
     QString lastErrorString() const;
 %End
-
-private:
-    QMovie(const QMovie &);
 };

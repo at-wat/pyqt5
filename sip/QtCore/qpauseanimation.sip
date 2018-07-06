@@ -36,7 +36,4 @@ public:
 protected:
     virtual bool event(QEvent *e);
     virtual void updateCurrentTime(int);
-
-private:
-    QPauseAnimation(const QPauseAnimation &);
 };

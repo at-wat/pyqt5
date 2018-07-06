@@ -57,9 +57,6 @@ protected:
     void setSupportedRouteOptimizations(QGeoRouteRequest::RouteOptimizations optimizations);
     void setSupportedSegmentDetails(QGeoRouteRequest::SegmentDetails segmentDetails);
     void setSupportedManeuverDetails(QGeoRouteRequest::ManeuverDetails maneuverDetails);
-
-private:
-    QGeoRoutingManagerEngine(const QGeoRoutingManagerEngine &);
 };
 
 %End
