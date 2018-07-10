@@ -642,15 +642,6 @@ class TargetConfiguration:
                     "Unable to import enum.  Please install the enum34 "
                     "package from PyPI.")
 
-        # Check there is a private copy of the sip module already installed.
-        try:
-            from PyQt5 import sip
-        except ImportError:
-            error(
-                    "Unable to import PyQt5.sip.  Make sure you have "
-                    "configured SIP to create a private copy of the sip "
-                    "module.")
-
         # Get the details of the Python interpreter library.
         py_major = self.py_version >> 16
         py_minor = (self.py_version >> 8) & 0x0ff
@@ -2438,7 +2429,7 @@ def get_sip_flags(target_config):
     the target configuration.
     """
 
-    sip_flags = ['-n', 'PyQt5.sip']
+    sip_flags = ['-n', 'sip']
 
     # If we don't check for signed interpreters, we exclude the 'VendorID'
     # feature
@@ -2913,14 +2904,6 @@ def check_sip(target_config):
     """ Check that the version of sip is good enough and return its version.
     target_config is the target configuration.
     """
-
-    # Check there is a private copy of the sip module already installed.
-    try:
-        from PyQt5 import sip
-    except ImportError:
-        error(
-                "Unable to import PyQt5.sip.  Make sure you have configured "
-                "SIP to create a private copy of the sip module.")
 
     if target_config.sip is None:
         error(
