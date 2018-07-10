@@ -1,3 +1,9 @@
+pyqt5 (5.11.2+dfsg-1ubuntu1) cosmic; urgency=medium
+
+  * Do not use QMetaEnumBuilder::setIsScoped() that does not exist in Qt 5.9.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Tue, 10 Jul 2018 13:21:53 +0300
+
 pyqt5 (5.11.2+dfsg-1) unstable; urgency=medium
 
   * New upstream release.

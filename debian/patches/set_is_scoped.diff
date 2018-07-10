@@ -1,0 +1,36 @@
+From: Dmitry Shachnev <mitya57@debian.org>
+Date: Tue, 10 Jul 2018 13:17:08 +0300
+Subject: QMetaEnumBuilder::setIsScoped() was added in Qt v5.10.0
+
+See https://codereview.qt-project.org/192376.
+---
+ qpy/QtCore/qpycore_qmetaobjectbuilder.h | 2 +-
+ qpy/QtCore/qpycore_types.cpp            | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/qpy/QtCore/qpycore_qmetaobjectbuilder.h b/qpy/QtCore/qpycore_qmetaobjectbuilder.h
+index 4c3c933..d3bb8f6 100644
+--- a/qpy/QtCore/qpycore_qmetaobjectbuilder.h
++++ b/qpy/QtCore/qpycore_qmetaobjectbuilder.h
+@@ -108,7 +108,7 @@ public:
+     QMetaEnumBuilder() : _mobj(0), _index(0) {}
+ 
+     void setIsFlag(bool value);
+-#if QT_VERSION >= 0x050800
++#if QT_VERSION >= 0x050a00
+     void setIsScoped(bool value);
+ #endif
+     int addKey(const QByteArray &name, int value);
+diff --git a/qpy/QtCore/qpycore_types.cpp b/qpy/QtCore/qpycore_types.cpp
+index 01ae52f..4e23612 100644
+--- a/qpy/QtCore/qpycore_types.cpp
++++ b/qpy/QtCore/qpycore_types.cpp
+@@ -141,7 +141,7 @@ static qpycore_metaobject *create_dynamic_metaobject(sipWrapperType *wt)
+ 
+         QMetaEnumBuilder enum_builder = builder.addEnumerator(ef.name);
+         enum_builder.setIsFlag(ef.isFlag);
+-#if QT_VERSION >= 0x050800
++#if QT_VERSION >= 0x050a00
+         enum_builder.setIsScoped(ef.isScoped);
+ #endif
+ 
