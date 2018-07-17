@@ -1,7 +1,8 @@
 Source: pyqt5
 Section: python
 Priority: optional
-Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
 Uploaders: Dmitry Shachnev <mitya57@debian.org>,
            Scott Kitterman <scott@kitterman.com>
 Build-Depends: debhelper (>= 11),
