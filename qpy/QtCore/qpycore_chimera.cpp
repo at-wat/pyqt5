@@ -606,10 +606,11 @@ QByteArray Chimera::resolve_types(const QByteArray &type)
 // Parse the given C++ type name.
 bool Chimera::parse_cpp_type(const QByteArray &type)
 {
-    _name = type.mid(type.startsWith("const ") ? 6 : 0);
+    _name = type;
+    QByteArray nonconst_name = type.mid(type.startsWith("const ") ? 6 : 0);
 
     // Resolve any types.
-    QByteArray resolved = resolve_types(_name);
+    QByteArray resolved = resolve_types(nonconst_name);
 
     if (resolved.isEmpty())
         return false;
@@ -638,8 +639,8 @@ bool Chimera::parse_cpp_type(const QByteArray &type)
     // again with the original type.  This means that QVector<qreal> will work
     // as a signal argument type.  It may be that we should always lookup the
     // original type - but we don't want to risk breaking things.
-    if (!_type && _name != resolved)
-        _type = sipFindType(_name.constData());
+    if (!_type && nonconst_name != resolved)
+        _type = sipFindType(nonconst_name.constData());
 
     if (!_type)
     {
@@ -651,7 +652,7 @@ bool Chimera::parse_cpp_type(const QByteArray &type)
         if (_metatype != PyQt_PyObject::metatype && !is_ptr)
             return true;
 
-        if ((resolved == "char" || resolved == "const char") && is_ptr)
+        if (resolved == "char" && is_ptr)
         {
             // This is a special value meaning a (hopefully) '\0' terminated
             // string.

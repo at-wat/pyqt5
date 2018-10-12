@@ -1,3 +1,17 @@
+pyqt5 (5.11.3+dfsg-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * d/watch: Use https protocol
+
+  [ Dmitry Shachnev ]
+  * New upstream release.
+  * Update public_sip.diff, revert some more upstream changes.
+  * Do not override default dh_builddeb parameters.
+  * Install both upstream changelog and NEWS, per Policy 12.7.
+  * Bump Standards-Version to 4.2.1, no changes needed.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Fri, 12 Oct 2018 12:35:34 +0300
+
 pyqt5 (5.11.2+dfsg-1) unstable; urgency=medium
 
   * New upstream release.

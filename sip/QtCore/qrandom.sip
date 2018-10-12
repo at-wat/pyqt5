@@ -44,7 +44,7 @@ public:
     static QRandomGenerator::result_type min();
     static QRandomGenerator::result_type max();
     static QRandomGenerator *system();
-    static QRandomGenerator *global();
+    static QRandomGenerator *global() /PyName=global_/;
     static QRandomGenerator securelySeeded();
 };
 

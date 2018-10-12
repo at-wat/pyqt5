@@ -144,6 +144,18 @@ void qFatal(const char *msg) /ReleaseGIL/;
     Py_END_ALLOW_THREADS
 %End
 
+%If (Qt_5_5_0 -)
+void qInfo(const char *msg) /ReleaseGIL/;
+%MethodCode
+    const char *file, *function;
+    int line = qpycore_current_context(&file, &function);
+    
+    Py_BEGIN_ALLOW_THREADS
+    QMessageLogger(file, line, function).info("%s", a0);
+    Py_END_ALLOW_THREADS
+%End
+
+%End
 void qWarning(const char *msg) /ReleaseGIL/;
 %MethodCode
     const char *file, *function;
