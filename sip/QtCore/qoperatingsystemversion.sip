@@ -51,6 +51,9 @@ public:
 %If (Qt_5_9_1 -)
     static const QOperatingSystemVersion MacOSHighSierra;
 %End
+%If (Qt_5_11_2 -)
+    static const QOperatingSystemVersion MacOSMojave;
+%End
     static const QOperatingSystemVersion AndroidJellyBean;
     static const QOperatingSystemVersion AndroidJellyBean_MR1;
     static const QOperatingSystemVersion AndroidJellyBean_MR2;

@@ -28,7 +28,7 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.11.2"
+PYQT_VERSION_STR = "5.11.3"
 
 SIP_MIN_VERSION = '4.19.11'
 
@@ -641,15 +641,6 @@ class TargetConfiguration:
             error(
                     "Unable to import enum.  Please install the enum34 "
                     "package from PyPI.")
-
-        # Check there is a private copy of the sip module already installed.
-        try:
-            from PyQt5 import sip
-        except ImportError:
-            error(
-                    "Unable to import PyQt5.sip.  Make sure you have "
-                    "configured SIP to create a private copy of the sip "
-                    "module.")
 
         # Get the details of the Python interpreter library.
         py_major = self.py_version >> 16
@@ -1632,12 +1623,11 @@ def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings, d
 
     root_dir = qmake_quote(target_config.pyqt_module_dir + '/PyQt5')
 
-    mod_ext = '.pyd' if sys.platform == 'win32' else '.so'
-
     for mname in pyqt_modules:
-        all_installs.append(root_dir + '/' + mname + mod_ext)
+        all_installs.append(
+                root_dir + '/' + module_file_name(target_config, mname))
 
-    all_installs.append(root_dir + '/Qt' + mod_ext)
+    all_installs.append(root_dir + '/' + module_file_name(target_config, 'Qt'))
 
     out_f.write('''TEMPLATE = subdirs
 CONFIG += ordered nostrip
@@ -1736,13 +1726,14 @@ INSTALLS += qscintilla_api
         # The command to run to generate the .dist-info directory.
         distinfo_dir = os.path.join(target_config.pyqt_module_dir,
                 'PyQt5-' + PYQT_VERSION_STR + '.dist-info')
-        mk_distinfo = sys.executable + ' mk_distinfo.py $(INSTALL_ROOT)' + distinfo_dir + ' installed.txt'
+        run_mk_distinfo = '%s %s \\"$(INSTALL_ROOT)\\" %s installed.txt' % (
+                sys.executable, source_path('mk_distinfo.py'), distinfo_dir)
 
         out_f.write('''
 distinfo.extra = %s
 distinfo.path = %s
 INSTALLS += distinfo
-''' % (mk_distinfo, root_dir))
+''' % (run_mk_distinfo, root_dir))
 
         # Create the file containing all installed files.
         installed = open('installed.txt', 'w')
@@ -1862,6 +1853,17 @@ def pro_sources(src_dir, other_headers=None, other_sources=None):
         pro_lines.append('OBJECTIVE_SOURCES = %s' % ' '.join([qmake_quote(s) for s in objective_sources]))
 
     return pro_lines
+
+
+def module_file_name(target_config, name):
+    """ Return the name of a file implementing a module. """
+
+    if sys.platform == 'win32':
+        fs = '{}.lib' if target_config.static else '{}.pyd'
+    else:
+        fs = 'lib{}.a' if target_config.static else '{}.so'
+
+    return fs.format(name)
 
 
 def generate_tool_wrapper(target_config, wrapper, module):
@@ -2750,7 +2752,7 @@ target.files = $$PY_MODULE
     if metadata.qpy_lib:
         # This is the easiest way to make sure it is set for handwritten code.
         if not target_config.py_debug:
-            pro_lines.append('DEFINES += Py_LIMITED_API=0x03070000')
+            pro_lines.append('DEFINES += Py_LIMITED_API=0x03040000')
 
         pro_lines.append('INCLUDEPATH += %s' %
                 qmake_quote(os.path.relpath(source_path('qpy', mname), mname)))
@@ -2913,14 +2915,6 @@ def check_sip(target_config):
     """ Check that the version of sip is good enough and return its version.
     target_config is the target configuration.
     """
-
-    # Check there is a private copy of the sip module already installed.
-    try:
-        from PyQt5 import sip
-    except ImportError:
-        error(
-                "Unable to import PyQt5.sip.  Make sure you have configured "
-                "SIP to create a private copy of the sip module.")
 
     if target_config.sip is None:
         error(

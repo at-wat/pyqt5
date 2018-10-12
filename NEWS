@@ -1,3 +1,8 @@
+v5.11.3 1st October 2018
+  - Added support for Qt v5.11.2.
+  - Added the missing qInfo().
+  - QRandomGenerator.global() is renamed to global_().
+
 v5.11.2 2nd July 2018
   - Added the 'signatures' attribute to unbound signals.
   - SIP v4.19.11 is required.

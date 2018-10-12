@@ -194,7 +194,17 @@ static bool trawl_members(PyObject *members, EnumFlag &enum_flag)
     Py_ssize_t nr_items;
 
     // Get the contents of __members__.
+#if PY_MAJOR_VERSION >= 3
     items = PyMapping_Items(members);
+#else
+    // Python v2 implements PyMapping_Items() as a macro that expands to the
+    // following - but without the const_cast.  It isn't a problem for the
+    // version of MSVC supported by Python v2 but the const_cast is needed by
+    // later versions of MSVC and people will want to use them even though they
+    // are not supported.
+    items = PyObject_CallMethod(members, const_cast<char *>("items"), NULL);
+#endif
+
     if (!items)
         goto return_error;
 

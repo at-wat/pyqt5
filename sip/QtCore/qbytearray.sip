@@ -226,8 +226,8 @@ public:
     int length() const;
     bool isNull() const;
     int size() const;
-    char at(int i) const;
-    char operator[](int i) const;
+    char at(int i) const /Encoding="None"/;
+    char operator[](int i) const /Encoding="None"/;
 %MethodCode
         Py_ssize_t idx = sipConvertFromSequenceIndex(a0, sipCpp->count());
         
