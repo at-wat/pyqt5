@@ -1,3 +1,9 @@
+pyqt5 (5.11.2+dfsg-1ubuntu3) disco; urgency=medium
+
+  * No-change rebuild to build for python3.7 as the default.
+
+ -- Matthias Klose <doko@ubuntu.com>  Tue, 30 Oct 2018 18:18:41 +0000
+
 pyqt5 (5.11.2+dfsg-1ubuntu2) cosmic; urgency=medium
 
   * No-change rebuild against qtbase-abi-5-11-0.
