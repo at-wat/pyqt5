@@ -1,3 +1,9 @@
+pyqt5 (5.11.2+dfsg-1ubuntu4) disco; urgency=medium
+
+  * No-change rebuild to build without python3.6 support.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sat, 03 Nov 2018 11:52:12 +0000
+
 pyqt5 (5.11.2+dfsg-1ubuntu3) disco; urgency=medium
 
   * No-change rebuild to build for python3.7 as the default.
