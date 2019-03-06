@@ -1,6 +1,6 @@
 // This defines the definition of the PyQtSlot class.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -34,7 +34,7 @@ public:
     {
         Succeeded,  // The invocation was successful.
         Failed,     // The invocation failed.
-        Ignored     // The invocation was ignore because the receiver has gone.
+        Ignored     // The invocation was ignored because the receiver has gone.
     };
 
     PyQtSlot(PyObject *method, PyObject *type,

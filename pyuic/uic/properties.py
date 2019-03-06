@@ -131,7 +131,7 @@ class Properties(object):
     def _number(self, prop):
         return int(prop.text)
 
-    _uInt = _longLong = _uLongLong = _number
+    _UInt = _uInt = _longLong = _uLongLong = _number
 
     def _double(self, prop):
         return float(prop.text)

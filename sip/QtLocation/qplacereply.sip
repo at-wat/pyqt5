@@ -2,7 +2,7 @@
 //
 // This file is part of the QtLocation Python extension module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -70,6 +70,9 @@ signals:
 %End
     void finished();
     void error(QPlaceReply::Error error, const QString &errorString = QString());
+%If (Qt_5_12_0 -)
+    void contentUpdated();
+%End
 
 protected:
     void setFinished(bool finished);
