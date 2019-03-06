@@ -31,13 +31,9 @@ PYTHON := 2.7
 ALLPYTHONS := $(PYTHON3S) $(PYTHON)
 
 DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
-QTWEBENGINE_ARCHS := amd64 arm64 armhf i386 mipsel
 
 PYQT_MODULES := opengl sql webchannel webkit websockets xmlpatterns svg \
 	multimedia quick serialport sensors x11extras positioning
-ifneq (,$(filter $(DEB_HOST_ARCH),$(QTWEBENGINE_ARCHS)))
-	PYQT_MODULES += webengine
-endif
 
 PY_PACKAGE_NAMES := pyqt5 $(PYQT_MODULES:%=pyqt5.qt%) dbus.mainloop.pyqt5
 
@@ -66,9 +62,8 @@ build-%/configure-stamp:
 			-m $(shell python$*-config --configdir) \
 			-d /usr/lib/python$*/dist-packages \
 			--sip-incdir /usr/include/python$*$(if $(filter 3.%, $*),m,) \
-			--no-dist-info \
 			--no-sip-files \
-			$(if $(filter $(DEFAULT_PYTHON),$*),,--no-designer-plugin --no-qml-plugin --no-tools)
+			$(if $(filter $(DEFAULT_PYTHON),$*),,--no-designer-plugin --no-qml-plugin) $(if $(filter 3.%,$*),,--no-tools)
 	sed -i '/strip/d' build-$*/*/Makefile
 	touch $@
 
@@ -81,7 +76,6 @@ dbg-build-%/configure-stamp:
 			-l /usr/include/python$*$(if $(filter 3.%, $*),dm,_d) \
 			-d /usr/lib/python$*/dist-packages \
 			--sip-incdir /usr/include/python$*$(if $(filter 3.%, $*),dm,_d) \
-			--no-dist-info \
 			--debug --no-designer-plugin --no-qml-plugin --no-tools --no-sip-files
 	sed -i '/strip/d' dbg-build-$*/*/Makefile
 	sed -i 's/-isystem/-I/' dbg-build-$*/*/Makefile
@@ -206,10 +200,6 @@ install-arch-3.%:
 	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtPositioning.so \
 	   $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtLocation.so \
 		debian/python3-pyqt5.qtpositioning-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-ifneq (,$(filter $(DEB_HOST_ARCH),$(QTWEBENGINE_ARCHS)))
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtWebEngine*.so \
-		debian/python3-pyqt5.qtwebengine-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-endif
 
 
 d_qt5_dbg = debian/python-pyqt5-dbg
@@ -259,10 +249,6 @@ install-arch-2.%:
 	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtPositioning.so \
 	   $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtLocation.so \
 		debian/python-pyqt5.qtpositioning-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-ifneq (,$(filter $(DEB_HOST_ARCH),$(QTWEBENGINE_ARCHS)))
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtWebEngine*.so \
-		debian/python-pyqt5.qtwebengine-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-endif
 
 clean:
 	dh_testdir

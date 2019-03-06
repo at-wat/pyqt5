@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNfc Python extension module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -127,6 +127,27 @@ public:
 signals:
     void targetDetected(QNearFieldTarget *target);
     void targetLost(QNearFieldTarget *target);
+
+public:
+%If (Qt_5_12_0 -)
+
+    enum class AdapterState
+    {
+        Offline,
+        TurningOn,
+        Online,
+        TurningOff,
+    };
+
+%End
+%If (Qt_5_12_0 -)
+    bool isSupported() const;
+%End
+
+signals:
+%If (Qt_5_12_0 -)
+    void adapterStateChanged(QNearFieldManager::AdapterState state /ScopesStripped=1/);
+%End
 };
 
 %End

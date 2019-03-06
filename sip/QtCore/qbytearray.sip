@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -211,14 +211,82 @@ public:
     float toFloat(bool *ok = 0) const;
     double toDouble(bool *ok = 0) const;
     QByteArray toBase64() const;
-    QByteArray &setNum(int n /Constrained/, int base = 10);
     QByteArray &setNum(double n /Constrained/, char format = 'g', int precision = 6);
-    QByteArray &setNum(qlonglong n, int base = 10);
-    QByteArray &setNum(qulonglong n, int base = 10);
-    static QByteArray number(int n /Constrained/, int base = 10);
+    QByteArray &setNum(SIP_PYOBJECT n /TypeHint="int"/, int base = 10);
+%MethodCode
+        #if PY_MAJOR_VERSION < 3
+        if (PyInt_Check(a0))
+        {
+            qlonglong val = PyInt_AsLong(a0);
+        
+            sipRes = &sipCpp->setNum(val, a1);
+        }
+        else
+        #endif
+        {
+            qlonglong val = sipLong_AsLongLong(a0);
+        
+            if (!PyErr_Occurred())
+            {
+                sipRes = &sipCpp->setNum(val, a1);
+            }
+            else
+            {
+                // If it is positive then it might fit an unsigned long long.
+        
+                qulonglong uval = sipLong_AsUnsignedLongLong(a0);
+        
+                if (!PyErr_Occurred())
+                {
+                    sipRes = &sipCpp->setNum(uval, a1);
+                }
+                else
+                {
+                    sipError = (PyErr_ExceptionMatches(PyExc_OverflowError)
+                            ? sipErrorFail : sipErrorContinue);
+                }
+            }
+        }
+%End
+
     static QByteArray number(double n /Constrained/, char format = 'g', int precision = 6);
-    static QByteArray number(qlonglong n, int base = 10);
-    static QByteArray number(qulonglong n, int base = 10);
+    static QByteArray number(SIP_PYOBJECT n /TypeHint="int"/, int base = 10);
+%MethodCode
+        #if PY_MAJOR_VERSION < 3
+        if (PyInt_Check(a0))
+        {
+            qlonglong val = PyInt_AsLong(a0);
+        
+            sipRes = new QByteArray(QByteArray::number(val, a1));
+        }
+        else
+        #endif
+        {
+            qlonglong val = sipLong_AsLongLong(a0);
+        
+            if (!PyErr_Occurred())
+            {
+                sipRes = new QByteArray(QByteArray::number(val, a1));
+            }
+            else
+            {
+                // If it is positive then it might fit an unsigned long long.
+        
+                qulonglong uval = sipLong_AsUnsignedLongLong(a0);
+        
+                if (!PyErr_Occurred())
+                {
+                    sipRes = new QByteArray(QByteArray::number(uval, a1));
+                }
+                else
+                {
+                    sipError = (PyErr_ExceptionMatches(PyExc_OverflowError)
+                            ? sipErrorFail : sipErrorContinue);
+                }
+            }
+        }
+%End
+
     static QByteArray fromBase64(const QByteArray &base64);
     static QByteArray fromRawData(const char * /Array/, int size /ArraySize/);
     static QByteArray fromHex(const QByteArray &hexEncoded);
@@ -395,6 +463,15 @@ public:
 %End
 %If (Qt_5_10_0 -)
     QByteArray chopped(int len) const;
+%End
+%If (Qt_5_12_0 -)
+    int compare(const QByteArray &a, Qt::CaseSensitivity cs = Qt::CaseSensitive) const;
+%End
+%If (Qt_5_12_0 -)
+    bool isUpper() const;
+%End
+%If (Qt_5_12_0 -)
+    bool isLower() const;
 %End
 };
 

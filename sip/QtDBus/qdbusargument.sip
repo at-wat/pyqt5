@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -95,7 +95,7 @@ static PyObject *qdbusargument_add(QDBusArgument *arg, PyObject *obj, int mtype)
         else
         {
             PyErr_Format(PyExc_ValueError,
-                    "%d is an invalid QMetaType::Type for an interger object",
+                    "%d is an invalid QMetaType::Type for an integer object",
                     mtype);
             iserr = 1;
         }

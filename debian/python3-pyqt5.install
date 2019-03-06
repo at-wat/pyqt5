@@ -22,3 +22,5 @@ usr/lib/python3*/dist-packages/PyQt5/QtXml.pyi
 usr/lib/python3*/dist-packages/PyQt5/QtXml.so
 usr/lib/python3*/dist-packages/PyQt5/__init__.py
 usr/lib/python3*/dist-packages/PyQt5/uic/*
+usr/lib/python3*/dist-packages/PyQt5-5.*.dist-info/METADATA
+usr/lib/python3*/dist-packages/PyQt5-5.*.dist-info/INSTALLER

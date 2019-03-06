@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -35,16 +35,26 @@ public:
     virtual QItemSelection mapSelectionToSource(const QItemSelection &proxySelection) const;
     virtual QItemSelection mapSelectionFromSource(const QItemSelection &sourceSelection) const;
     QRegExp filterRegExp() const;
-    void setFilterRegExp(const QRegExp &regExp);
+%If (Qt_5_12_0 -)
+    QRegularExpression filterRegularExpression() const;
+%End
     int filterKeyColumn() const;
     void setFilterKeyColumn(int column);
     Qt::CaseSensitivity filterCaseSensitivity() const;
     void setFilterCaseSensitivity(Qt::CaseSensitivity cs);
 
 public slots:
-    void setFilterRegExp(const QString &pattern);
-    void setFilterWildcard(const QString &pattern);
+    void invalidate();
     void setFilterFixedString(const QString &pattern);
+    void setFilterRegExp(const QRegExp &regExp);
+    void setFilterRegExp(const QString &pattern);
+%If (Qt_5_12_0 -)
+    void setFilterRegularExpression(const QRegularExpression &regularExpression);
+%End
+%If (Qt_5_12_0 -)
+    void setFilterRegularExpression(const QString &pattern);
+%End
+    void setFilterWildcard(const QString &pattern);
 
 protected:
     virtual bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
@@ -101,9 +111,6 @@ public:
 %If (Qt_5_10_0 -)
     void setRecursiveFilteringEnabled(bool recursive);
 %End
-
-public slots:
-    void invalidate();
 
 protected:
     void invalidateFilter();

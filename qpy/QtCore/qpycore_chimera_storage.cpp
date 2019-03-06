@@ -1,6 +1,6 @@
 // This is the implementation of the Chimera::Storage class.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -59,7 +59,11 @@ Chimera::Storage::Storage(const Chimera *ct)
     if (!isPointerType())
     {
         // Create a default fundamental or value type.
-        _value_storage = QVariant(_parsed_type->metatype(), (const void *)0);
+        if (_parsed_type->metatype() == QMetaType::Void)
+            _value_storage = QVariant();
+        else
+            _value_storage = QVariant(_parsed_type->metatype(),
+                    (const void *)0);
     }
 }
 

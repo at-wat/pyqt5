@@ -1,6 +1,6 @@
 // This contains the meta-type used by PyQt.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -407,10 +407,25 @@ static int trawl_type(PyTypeObject *pytype, qpycore_metaobject *qo,
                     PyObject *decoration = PyList_GetItem(sig_obj, i);
                     Chimera::Signature *slot_signature = Chimera::Signature::fromPyObject(decoration);
 
-                    PyQtSlot *slot = new PyQtSlot(value, (PyObject *)pytype,
-                            slot_signature);;
+                    // Check if a slot of the same signature has already been
+                    // defined.  This typically happens with sub-classed
+                    // mixins.
+                    bool overridden = false;
 
-                    qo->pslots.append(slot);
+                    for (int i = 0; i < qo->pslots.size(); ++i)
+                        if (qo->pslots.at(i)->slotSignature()->signature == slot_signature->signature)
+                        {
+                            overridden = true;
+                            break;
+                        }
+
+                    if (!overridden)
+                    {
+                        PyQtSlot *slot = new PyQtSlot(value,
+                                (PyObject *)pytype, slot_signature);
+
+                        qo->pslots.append(slot);
+                    }
                 }
             }
 

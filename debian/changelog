@@ -1,3 +1,23 @@
+pyqt5 (5.12+dfsg-1) experimental; urgency=medium
+
+  [ Bastian Germann ]
+  * Provide dist-info metadata (closes: #890200; LP: #1814019).
+
+  [ Scott Kitterman ]
+  * Remove myself from uploaders
+
+  [ Dmitry Shachnev ]
+  * Build the tools for all supported Python 3 versions.
+  * Bump Standards-Version to 4.3.0, no changes needed.
+  * Update debian/watch to use the new tarballs location.
+  * New upstream release.
+  * Refresh debian/patches/public_sip.diff.
+  * Drop Qt WebEngine packages, they are now in a separate source.
+  * Update debian/copyright.
+  * Bump sip build-dependencies to 4.19.14, following configure.py.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Wed, 06 Mar 2019 14:34:54 +0300
+
 pyqt5 (5.11.3+dfsg-1) unstable; urgency=medium
 
   [ Ondřej Nový ]

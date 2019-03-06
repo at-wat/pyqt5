@@ -2,7 +2,7 @@
 //
 // This file is part of the QtPositioning Python extension module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -50,6 +50,32 @@ public:
     void removeCoordinate(const QGeoCoordinate &coordinate);
     void removeCoordinate(int index);
     QString toString() const;
+%If (Qt_5_12_0 -)
+    void addHole(const QList<QGeoCoordinate> &holePath);
+%End
+%If (Qt_5_12_0 -)
+    void addHole(const QVariant &holePath);
+%End
+%If (Qt_5_12_0 -)
+    const QVariantList hole(int index) const;
+%End
+%If (Qt_5_12_0 -)
+    const QList<QGeoCoordinate> holePath(int index) const;
+%End
+%If (Qt_5_12_0 -)
+    void removeHole(int index);
+%End
+%If (Qt_5_12_0 -)
+    int holesCount() const;
+%End
+
+protected:
+%If (Qt_5_12_0 -)
+    void setPerimeter(const QVariantList &path);
+%End
+%If (Qt_5_12_0 -)
+    QVariantList perimeter() const;
+%End
 };
 
 %End
