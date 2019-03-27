@@ -26,23 +26,6 @@ class QGraphicsWebView : QGraphicsWidget
 #include <qgraphicswebview.h>
 %End
 
-%ConvertToSubClassCode
-    sipType = 0;
-    
-    // For some reason Qt doesn't allocate a new type for this so we have to test
-    // the numeric and QObject types.
-    if (sipCpp->type() == 11)
-    {
-        QGraphicsWidget *gw = static_cast<QGraphicsWidget *>(sipCpp);
-    
-        if (gw->inherits("QGraphicsWebView"))
-        {
-            *sipCppRet = static_cast<QGraphicsWebView *>(gw);
-            sipType = sipType_QGraphicsWebView;
-        }
-    }
-%End
-
 public:
     explicit QGraphicsWebView(QGraphicsItem *parent /TransferThis/ = 0);
     virtual ~QGraphicsWebView();
@@ -119,7 +102,7 @@ public:
     void setRenderHint(QPainter::RenderHint hint, bool enabled = true);
 };
 
-%ModuleHeaderCode
+%ModuleCode
 // This is needed by the %ConvertSubClassCode.
 #include <QGraphicsWebView>
 

@@ -31,9 +31,9 @@ class QGraphicsVideoItem : QGraphicsObject, QMediaBindableInterface
     // with the default.
     if (sipCpp->type() == QGraphicsItem::UserType)
     {
-        // We need to explicitly cast because of the multiple inheritance.
+        // Switch to the QObject convertor.
         *sipCppRet = static_cast<QGraphicsVideoItem *>(sipCpp);
-        sipType = sipType_QGraphicsVideoItem;
+        sipType = sipType_QObject;
     }
     else
     {
@@ -69,7 +69,7 @@ protected:
     virtual bool setMediaObject(QMediaObject *object);
 };
 
-%ModuleHeaderCode
+%ModuleCode
 // This is needed by the %ConvertToSubClassCode.
 #include <QGraphicsVideoItem>
 %End

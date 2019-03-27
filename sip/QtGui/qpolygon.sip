@@ -27,10 +27,11 @@ class QPolygon
 %End
 
 %TypeCode
-// Set the points of a polygon from a Python list.
-static bool setPointsFromList(QPolygon *poly, PyObject *l)
+// Get a set of coordinate pairs of a polygon from a Python list.
+static int *coordsFromList(PyObject *l, int &nr_points)
 {
     int *coords = new int[PyList_Size(l)];
+    nr_points = PyList_Size(l) >> 1;
 
     for (Py_ssize_t i = 0; i < PyList_Size(l); ++i)
     {
@@ -39,14 +40,11 @@ static bool setPointsFromList(QPolygon *poly, PyObject *l)
         if (PyErr_Occurred() != NULL)
         {
             delete[] coords;
-            return false;
+            return 0;
         }
     }
 
-    poly->setPoints(PyList_Size(l) >> 1, coords);
-
-    delete[] coords;
-    return true;
+    return coords;
 }
 %End
 
@@ -70,21 +68,27 @@ public:
     QPolygon();
     ~QPolygon();
     QPolygon(const QPolygon &a);
-    QPolygon(const QVector<QPoint> &v);
-    QPolygon(const QRect &rectangle, bool closed = false);
-    explicit QPolygon(int asize);
     QPolygon(SIP_PYLIST points /TypeHint="List[int]"/) /NoDerived/;
 %MethodCode
-        sipCpp = new QPolygon();
+        int nr_points;
+        int *coords = coordsFromList(a0, nr_points);
         
-        if (!setPointsFromList(sipCpp, a0))
+        if (coords)
         {
-            delete sipCpp;
-            sipCpp = 0;
-            sipIsErr = 1;
+            sipCpp = new QPolygon();
+            sipCpp->setPoints(nr_points, coords);
+            delete[] coords;
+        }
+        else
+        {
+            // Invoke the subsequent QVector<QPoint> overload.
+            sipError = sipErrorContinue;
         }
 %End
 
+    QPolygon(const QVector<QPoint> &v);
+    QPolygon(const QRect &rectangle, bool closed = false);
+    explicit QPolygon(int asize);
     QPolygon(const QVariant &variant /GetWrapper/) /NoDerived/;
 %MethodCode
         if (a0->canConvert<QPolygon>())
@@ -98,8 +102,18 @@ public:
     QPoint point(int index) const;
     void setPoints(SIP_PYLIST points /TypeHint="List[int]"/);
 %MethodCode
-        if (!setPointsFromList(sipCpp, a0))
+        int nr_points;
+        int *coords = coordsFromList(a0, nr_points);
+        
+        if (coords)
+        {
+            sipCpp->setPoints(nr_points, coords);
+            delete[] coords;
+        }
+        else
+        {
             sipIsErr = 1;
+        }
 %End
 
     void setPoints(int firstx, int firsty, ...);

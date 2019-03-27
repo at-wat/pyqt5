@@ -132,8 +132,6 @@ private:
     // The wrapped proxied object.
     PyObject *py_proxied;
 
-    static QByteArray signalSignature(const QMetaMethod &signal);
-
     QPyQmlObjectProxy(const QPyQmlObjectProxy &);
 };
 

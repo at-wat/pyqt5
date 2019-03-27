@@ -1,4 +1,67 @@
+2019-03-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.12.1.
+	[19c22cf8059b] [5.12.1] <5.12-maint>
+
+	* PyQt5.msp:
+	Fixed QIcon(QIconEngine) to reflect that the engine is explicitly
+	shared between every copy of the icon.
+	[85ce20a0fa09] <5.12-maint>
+
+2019-03-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Updated the NEWS file.
+	[cc3a848d0b27] <5.12-maint>
+
+2019-03-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated for Qt v5.12.2.
+	[71df8ce4b154] <5.12-maint>
+
+2019-03-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtQml/qpyqmlobject.cpp, qpy/QtQml/qpyqmlobject.h:
+	Eliminated a warning message from QObject::connect() in (hopefully)
+	benign circumstances.
+	[0950192b85ee] <5.12-maint>
+
+	* qpy/QtQuick/qpyquickitem.cpp, qpy/QtQuick/qpyquickitem.h:
+	Increased the number of QQuickItem types that can be registered from
+	30 to 60.
+	[1916f00c5b9e] <5.12-maint>
+
+	* PyQt5.msp:
+	Fixed the QPolygon ctors that take a list argument so that
+	unpickling works.
+	[329dbcbceeb7] <5.12-maint>
+
+2019-02-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated sub-class convertors to switch to the QObject convertor
+	rather than resolve (in a limited way) QObject based QGraphicItems.
+	Make sure the QObject base type is always used when switching.
+	[e83237b00873] <5.12-maint>
+
+2019-02-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/properties.py:
+	Fixed pyuic's handling of 'sizePolicy' properties.
+	[23a0e1edccc3] <5.12-maint>
+
+	* qpy/pylupdate/fetchtr.cpp:
+	Fixed pylupdate to handle empty strings at the end of a line so that
+	the line number remains correct.
+	[df2d5e1f4012] <5.12-maint>
+
 2019-02-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.12 for changeset 526660b54717
+	[41a56ae09f54]
 
 	* NEWS:
 	Released as v5.12.

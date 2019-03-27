@@ -37,9 +37,9 @@ class QLayoutItem /Supertype=sip.wrapper/
     }
     else
     {
-        // Cause a restart looking for a QLayout.
+        // Switch to the QObject convertor.
         *sipCppRet = sipCpp->layout();
-        sipType = sipType_QLayout;
+        sipType = sipType_QObject;
     }
 %End
 
