@@ -1,5 +1,5 @@
 /**********************************************************************
-** Copyright (C) 2016 Riverbank Computing Limited
+** Copyright (C) 2019 Riverbank Computing Limited
 ** Copyright (C) 2002-2007 Detlev Offenbach <detlev@die-offenbachs.de>
 **
 ** This is a modified version of lupdate. The original is part of Qt-Linguist.
@@ -157,15 +157,18 @@ static int getCharFromFile()
 {
     int c;
 
-    if ( buf < 0 ) {            // Empty buffer?
+    if (buf < 0 )
+    {
         c = getTranslatedCharFromFile();
-    } else {
+
+        if (c == '\n')          // This is after universal newline translation
+            yyCurLineNo++;      // (i.e., a "logical" newline character).
+    }
+    else
+    {
         c = buf;
         buf = -1;               // Declare the buffer empty.
     }
-
-    if ( c == '\n' )            // This is after universal newline translation
-        yyCurLineNo++;          // (i.e., a "logical" newline character).
 
     return c;
 }

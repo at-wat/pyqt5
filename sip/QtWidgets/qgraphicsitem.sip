@@ -54,9 +54,9 @@ class QGraphicsItem /Supertype=sip.wrapper/
         break;
     
     case 8:
-        // We need to explicitly cast because of the multiple inheritance.
+        // Switch to the QObject convertor.
         *sipCppRet = static_cast<QGraphicsTextItem *>(sipCpp);
-        sipType = sipType_QGraphicsTextItem;
+        sipType = sipType_QObject;
         break;
     
     case 9:
@@ -68,15 +68,15 @@ class QGraphicsItem /Supertype=sip.wrapper/
         break;
     
     case 11:
-        // We need to explicitly cast because of the multiple inheritance.
+        // Switch to the QObject convertor.
         *sipCppRet = static_cast<QGraphicsWidget *>(sipCpp);
-        sipType = sipType_QGraphicsWidget;
+        sipType = sipType_QObject;
         break;
     
     case 12:
-        // We need to explicitly cast because of the multiple inheritance.
+        // Switch to the QObject convertor.
         *sipCppRet = static_cast<QGraphicsProxyWidget *>(sipCpp);
-        sipType = sipType_QGraphicsProxyWidget;
+        sipType = sipType_QObject;
         break;
     
     default:

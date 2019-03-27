@@ -45,7 +45,17 @@ public:
     QIcon(const QPixmap &pixmap);
     QIcon(const QIcon &other);
     explicit QIcon(const QString &fileName);
-    explicit QIcon(QIconEngine *engine /Transfer/);
+    explicit QIcon(QIconEngine *engine /GetWrapper/);
+%MethodCode
+        sipCpp = new QIcon(a0);
+        
+        // The QIconEngine is implicitly shared by copies of the QIcon and is destroyed
+        // by C++ when the last copy is destroyed.  Therefore we need to transfer
+        // ownership but not to associate it with this QIcon.  The Python object will
+        // get tidied up when the virtual dtor gets called.
+        sipTransferTo(a0Wrapper, Py_None);
+%End
+
     QIcon(const QVariant &variant /GetWrapper/) /NoDerived/;
 %MethodCode
         if (a0->canConvert<QIcon>())
