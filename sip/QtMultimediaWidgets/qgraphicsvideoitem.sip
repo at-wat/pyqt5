@@ -26,21 +26,6 @@ class QGraphicsVideoItem : QGraphicsObject, QMediaBindableInterface
 #include <qgraphicsvideoitem.h>
 %End
 
-%ConvertToSubClassCode
-    // QGraphicsVideoItem doesn't reimplement type() so we hope nothing collides
-    // with the default.
-    if (sipCpp->type() == QGraphicsItem::UserType)
-    {
-        // Switch to the QObject convertor.
-        *sipCppRet = static_cast<QGraphicsVideoItem *>(sipCpp);
-        sipType = sipType_QObject;
-    }
-    else
-    {
-        sipType = 0;
-    }
-%End
-
 public:
 %If (Qt_5_6_1 -)
     explicit QGraphicsVideoItem(QGraphicsItem *parent /TransferThis/ = 0);

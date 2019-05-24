@@ -30,8 +30,8 @@
 
 enum class QCborSimpleType
 {
-    False,
-    True,
+    False /PyName=False_/,
+    True /PyName=True_/,
     Null,
     Undefined,
 };

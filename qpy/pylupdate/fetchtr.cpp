@@ -262,6 +262,7 @@ static int getToken()
                     if ( strcmp(yyIdent + 1, "lass") == 0 )
                         return Tok_class;
                     break;
+
                 case 'f':
                     /*
                      * QTranslator::findMessage() has the same parameters as
@@ -269,7 +270,16 @@ static int getToken()
                      */
                     if ( strcmp(yyIdent + 1, "indMessage") == 0 )
                         return Tok_translate;
+
+                    /* Drop through. */
+
+                case 'F':
+                    if (yyIdent[1] == '\0')
+                        might_be_str = true;
+                    else if ((yyIdent[1] == 'r' || yyIdent[1] == 'R') && yyIdent[2] == '\0')
+                        might_be_str = true;
                     break;
+
                 case 'r':
                     if ( strcmp(yyIdent + 1, "eturn") == 0 )
                         return Tok_return;
@@ -279,16 +289,26 @@ static int getToken()
                 case 'R':
                     if (yyIdent[1] == '\0')
                         might_be_str = true;
+                    else if ((yyIdent[1] == 'f' || yyIdent[1] == 'F') && yyIdent[2] == '\0')
+                        might_be_str = true;
+                    else if ((yyIdent[1] == 'b' || yyIdent[1] == 'B') && yyIdent[2] == '\0')
+                        might_be_str = true;
                     break;
+
                 case 'b':
                 case 'B':
-                case 'u':
-                case 'U':
                     if (yyIdent[1] == '\0')
                         might_be_str = true;
                     else if ((yyIdent[1] == 'r' || yyIdent[1] == 'R') && yyIdent[2] == '\0')
                         might_be_str = true;
                     break;
+
+                case 'u':
+                case 'U':
+                    if (yyIdent[1] == '\0')
+                        might_be_str = true;
+                    break;
+
                 case 't':
                     if ( strcmp(yyIdent + 1, "r") == 0 ) {
                         yyParsingUtf8 = false;
