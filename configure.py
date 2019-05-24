@@ -28,7 +28,7 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.12.1"
+PYQT_VERSION_STR = "5.12.2"
 
 SIP_MIN_VERSION = '4.19.14'
 
@@ -541,8 +541,7 @@ class TargetConfiguration:
         self.qt_shared = False
         self.qt_version = 0
         self.sip = self._find_exe('sip5', 'sip')
-        self.sip_h_version = None
-        self.sip_inc_dir = self.py_venv_inc_dir
+        self.sip_inc_dir = None
         self.static = False
         self.sysroot = ''
         self.vend_enabled = False
@@ -622,8 +621,6 @@ class TargetConfiguration:
                 self.pyqt_sip_dir)
         self.pyuic_interpreter = parser.get(section, 'pyuic_interpreter',
                 self.pyuic_interpreter)
-
-        self.sip_inc_dir = self.py_venv_inc_dir
  
     def from_introspection(self, verbose, debug):
         """ Initialise the configuration by introspecting the system. """
@@ -702,17 +699,14 @@ class TargetConfiguration:
         inform("Determining the details of your Qt installation...")
 
         # Compile and run the QtCore test program.
-        test = compile_test_program(self, verbose, 'QtCore', debug=debug,
-                uses_sip_h=True)
+        test = compile_test_program(self, verbose, 'QtCore', debug=debug)
         if test is None:
             error("Failed to determine the detail of your Qt installation. Try again using the --verbose flag to see more detail about the problem.")
 
         lines = run_test_program('QtCore', test, verbose)
 
-        self.sip_h_version = lines[0]
-
-        self.qt_shared = (lines[1] == 'shared')
-        self.pyqt_disabled_features = lines[2:-1]
+        self.qt_shared = (lines[0] == 'shared')
+        self.pyqt_disabled_features = lines[1:-1]
 
         if self.pyqt_disabled_features:
             inform("Disabled QtCore features: %s" % ', '.join(
@@ -2324,7 +2318,7 @@ int main(int, char **)
     target_config.pyqt_modules.append(mname)
 
 
-def compile_test_program(target_config, verbose, mname, source=None, debug=None, uses_sip_h=False):
+def compile_test_program(target_config, verbose, mname, source=None, debug=None):
     """ Compile the source of a Qt program and return the name of the
     executable or None if it couldn't be created.  target_config is the target
     configuration.  verbose is set if the output is to be displayed.  mname is
@@ -2332,7 +2326,7 @@ def compile_test_program(target_config, verbose, mname, source=None, debug=None,
     program.  If it is None then the source is expected to be found in the
     config-tests directory.  debug is set if debug, rather than release, mode
     is to be used.  If it is None then the mode is taken from the target
-    configuration.  uses_sip_h is set if the test program uses sip.h.
+    configuration.
     """
 
     metadata = MODULE_METADATA[mname]
@@ -2355,9 +2349,6 @@ def compile_test_program(target_config, verbose, mname, source=None, debug=None,
     pro_lines = []
     pro_add_qt_dependencies(target_config, metadata, pro_lines, debug)
     pro_lines.append('TARGET = %s' % name)
-
-    if uses_sip_h:
-        target_config.add_sip_h_directives(pro_lines)
 
     pro_lines.append('SOURCES = %s' % qmake_quote(name_source))
 
@@ -2904,7 +2895,7 @@ def check_python(target_config):
         error("PyQt5 requires Python v2.6 or later.")
 
 
-def check_sip(target_config):
+def check_sip(target_config, verbose):
     """ Check that the version of sip is good enough and return its version.
     target_config is the target configuration.
     """
@@ -2924,7 +2915,13 @@ def check_sip(target_config):
 
     pipe.close()
 
-    if '.dev' not in version_str and 'snapshot' not in version_str:
+    if '.dev' in version_str or 'snapshot' in version_str:
+        # We only need to distinguish between sip v4 and sip v5.
+        if version_str.startswith('5.') or version_str.startswith('4.20.'):
+            version = 0x050000
+        else:
+            version = 0x040000
+    else:
         version = version_from_string(version_str)
         if version is None:
             error(
@@ -2936,6 +2933,27 @@ def check_sip(target_config):
             error(
                     "This version of PyQt5 requires sip %s or later." %
                             SIP_MIN_VERSION)
+
+    if version >= 0x050000:
+        # Install the sip.h file for the private sip module.
+        if target_config.sip_inc_dir is None:
+            target_config.sip_inc_dir = os.path.join(
+                    os.path.abspath(os.getcwd()), 'include')
+
+            inform("Installing sip.h in %s..." % target_config.sip_inc_dir)
+
+            os.makedirs(target_config.sip_inc_dir, exist_ok=True)
+            run_command(
+                    'sip5-module --include-dir %s PyQt5.sip' % target_config.sip_inc_dir,
+                    verbose)
+
+            if not os.access(os.path.join(target_config.sip_inc_dir, 'sip.h'), os.F_OK):
+                error(
+                        "sip5-module failed to install sip.h int %s." %
+                                target_config.sip_inc_dir)
+    else:
+        if target_config.sip_inc_dir is None:
+            target_config.sip_inc_dir = target_config.py_venv_inc_dir
 
     return version_str
 
@@ -3022,14 +3040,7 @@ def main(argv):
     check_python(target_config)
 
     # Check SIP is what we need.
-    sip_version = check_sip(target_config)
-
-    if target_config.sip_h_version is not None:
-        if target_config.sip_h_version != sip_version:
-            error("%s has version %s but %s has version %s." % (
-                    os.path.join(target_config.sip_inc_dir, 'sip.h'),
-                    target_config.sip_h_version, target_config.sip,
-                    sip_version))
+    sip_version = check_sip(target_config, opts.verbose)
 
     # Check Qt is what we need.
     check_qt(target_config)

@@ -1,5 +1,3 @@
-#include <sip.h>
-
 #include <QCoreApplication>
 #include <QFile>
 #include <QLibraryInfo>
@@ -15,10 +13,6 @@ int main(int argc, char **argv)
         return 1;
 
     QTextStream out(&outf);
-
-    // This allows the version of sip.h to be checked against the code
-    // generator.
-    out << SIP_VERSION_STR << '\n';
 
     // This is not a feature and needs to be handled separately.
 #if defined(QT_SHARED) || defined(QT_DLL)

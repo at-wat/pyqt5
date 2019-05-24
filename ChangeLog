@@ -1,4 +1,63 @@
+2019-05-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.12.2.
+	[37e48229d59a] [5.12.2] <5.12-maint>
+
+	* NEWS:
+	Updated the NEWS file.
+	[d5e5edec0d1d] <5.12-maint>
+
+2019-05-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Removed the sub-class convertor code for QGraphicsVideoItem as the
+	assumption it is based on is too unsafe.
+	[350a409dc097] <5.12-maint>
+
+	* PyQt5.msp:
+	Renamed the True and False members of QCborSimpleType.
+	[ef294140ba74] <5.12-maint>
+
+2019-04-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated for Qt v5.12.3.
+	[2477434943e9] <5.12-maint>
+
+2019-04-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Check that sip5-module ran successfully.
+	[1db5050c67fe] <5.12-maint>
+
+2019-04-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* config-tests/cfgtest_QtCore.cpp, lib/configure.py:
+	Use sip v5 if it is installed.
+	[604795867c85] <5.12-maint>
+
+	* PyQt5.msp:
+	Added QOpenGLContext.getProcAddress().
+	[4cdfeee895e1] <5.12-maint>
+
+2019-04-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rb-product:
+	Added the 'RequiresDist' field to the product file.
+	[273e02f87c28] <5.12-maint>
+
+2019-04-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/pylupdate/fetchtr.cpp:
+	Added support for Python fstrings to pylupdate.
+	[1000b6b9b7a8] <5.12-maint>
+
 2019-03-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.12.1 for changeset 19c22cf8059b
+	[33d51713a566] <5.12-maint>
 
 	* NEWS:
 	Released as v5.12.1.
