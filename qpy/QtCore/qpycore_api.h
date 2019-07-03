@@ -101,10 +101,8 @@ int qpycore_canConvertTo_QJsonValue(PyObject *py);
 int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
         QJsonValue **cpp, int *isErr);
 
-#if defined(PYQT_QTCONF_PREFIX)
 // Support for an embedded qt.conf.
 bool qpycore_qt_conf();
-#endif
 
 // Utilities.
 #if PY_MAJOR_VERSION >= 3

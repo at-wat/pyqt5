@@ -1,4 +1,74 @@
+2019-06-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.12.3.
+	[8c3a9f671ec5] [5.12.3] <5.12-maint>
+
+	* NEWS:
+	Updated the NEWS file.
+	[6b074b64e411] <5.12-maint>
+
+	* lib/configure.py, qpy/QtCore/qpycore_api.h,
+	qpy/QtCore/qpycore_post_init.cpp.in, qpy/QtCore/qpycore_qt_conf.cpp:
+	The support for qt.conf is now enabled at run time rather than
+	compile time.
+	[59568b1d96e6] <5.12-maint>
+
+	* lib/configure.py:
+	Fixed __init__.py on Windows for the bundled copy of OpenSSL.
+	[e84650f7cf69] <5.12-maint>
+
+2019-06-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	QObject.__getattr__() now accepts a utf-8 encoded attribute name.
+	[8d83d3192363] <5.12-maint>
+
+	* lib/configure.py:
+	Fixes for Python v3.8 on Windows.
+	[f42c4fc95380] <5.12-maint>
+
+2019-06-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added support for Qt v5.12.4.
+	[8f10c119b8c0] <5.12-maint>
+
+	* lib/configure.py:
+	Added the --abi-version option to configire.py.
+	[0769b17197a0] <5.12-maint>
+
+2019-06-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	QCoreApplication can now be used as a context manager.
+	[8c5ae57d1d1b] <5.12-maint>
+
+2019-06-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Update configure.py for the latest sip5 changes.
+	[2c5923582a51] <5.12-maint>
+
+2019-06-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added WA_ContentsMarginsRespectsSafeArea as if it as added in Qt
+	v5.11.0 although it was actually added (undocumented) in Qt v5.10.1.
+	[f846f255111c] <5.12-maint>
+
+2019-05-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/Compiler/compiler.py, pyuic/uic/__init__.py,
+	pyuic/uic/uiparser.py:
+	Make pyuic more resilient when given non-ui files.
+	[7f9ad7d2b87d] <5.12-maint>
+
 2019-05-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.12.2 for changeset 37e48229d59a
+	[bec1f0ae4bd3] <5.12-maint>
 
 	* NEWS:
 	Released as v5.12.2.

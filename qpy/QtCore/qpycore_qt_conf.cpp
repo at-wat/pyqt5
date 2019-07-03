@@ -18,13 +18,12 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#if defined(PYQT_QTCONF_PREFIX)
-
 #include <Python.h>
 
 #include <QByteArray>
 #include <QDir>
 #include <QFileInfo>
+#include <QLatin1String>
 
 #include "qpycore_api.h"
 
@@ -88,28 +87,30 @@ bool qpycore_qt_conf()
 
     // Get the directory containing the PyQt5 extension modules.
     QDir pyqt5_dir = QFileInfo(QDir::fromNativeSeparators(init_impl)).absoluteDir();
+    QString qt_dir_name = pyqt5_dir.absoluteFilePath(QLatin1String("Qt"));
 
-    // Get the prefix path with non-native separators.
-    static QByteArray qt_conf = pyqt5_dir.absoluteFilePath(PYQT_QTCONF_PREFIX).toLocal8Bit();
-
-    qt_conf.prepend("[Paths]\nPrefix = ");
-    qt_conf.append("\n");
-
-
-    // Prepend the 4-byte size.
-    int size = qt_conf.size();
-
-    for (int i = 0; i < 4; ++i)
+    // Check if there is a bundled copy of Qt.
+    if (QFileInfo(qt_dir_name).exists())
     {
-        qt_conf.prepend(size & 0xff);
-        size >>= 8;
-    }
+        // Get the prefix path with non-native separators.
+        static QByteArray qt_conf = qt_dir_name.toLocal8Bit();
 
-    // Register the structures.
-    qRegisterResourceData(0x01, qt_resource_struct, qt_resource_name,
-            (const unsigned char *)qt_conf.constData());
+        qt_conf.prepend("[Paths]\nPrefix = ");
+        qt_conf.append("\n");
+
+        // Prepend the 4-byte size.
+        int size = qt_conf.size();
+
+        for (int i = 0; i < 4; ++i)
+        {
+            qt_conf.prepend(size & 0xff);
+            size >>= 8;
+        }
+
+        // Register the structures.
+        qRegisterResourceData(0x01, qt_resource_struct, qt_resource_name,
+                (const unsigned char *)qt_conf.constData());
+    }
 
     return true;
 }
-
-#endif
