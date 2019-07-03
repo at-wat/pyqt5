@@ -152,9 +152,7 @@ void qpycore_post_init(PyObject *module_dict)
     // guarantee things are done in the right order.
     PyQtSlotProxy::mutex = new QMutex(QMutex::Recursive);
 
-#if defined(PYQT_QTCONF_PREFIX)
-    // Load the embedded qt.conf file.
+    // Load the embedded qt.conf file if there is a bundled copy of Qt.
     if (!qpycore_qt_conf())
         Py_FatalError("PyQt5.QtCore: Unable to embed qt.conf");
-#endif
 }

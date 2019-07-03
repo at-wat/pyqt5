@@ -161,7 +161,14 @@ PyObject *qpycore_PyObject_FromQString(const QString &qstr)
 // Convert a Python Unicode object to a QString.
 QString qpycore_PyObject_AsQString(PyObject *obj)
 {
-#if defined(PYQT_PEP_393)
+#if PY_MAJOR_VERSION <= 2
+    const char *obj_s = PyString_AsString(obj);
+
+    if (!obj_s)
+        return QString();
+
+    return QString::fromUtf8(obj_s);
+#elif defined(PYQT_PEP_393)
     int char_size;
     Py_ssize_t len;
     void *data = sipUnicodeData(obj, &char_size, &len);
