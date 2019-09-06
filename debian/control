@@ -3,7 +3,7 @@ Section: python
 Priority: optional
 Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
 Uploaders: Dmitry Shachnev <mitya57@debian.org>
-Build-Depends: debhelper (>= 11),
+Build-Depends: debhelper-compat (= 11),
                dh-python,
                dpkg-dev (>= 1.16.1~),
                libdbus-1-dev (>= 1.0.2),
@@ -43,7 +43,7 @@ Build-Depends: debhelper (>= 11),
                qtpositioning5-dev (>= 5.9.1),
                qttools5-dev (>= 5.9.1)
 Build-Depends-Indep: fdupes
-Standards-Version: 4.3.0
+Standards-Version: 4.4.0
 Homepage: https://riverbankcomputing.com/software/pyqt/intro
 Vcs-Git: https://salsa.debian.org/python-team/modules/pyqt5.git
 Vcs-Browser: https://salsa.debian.org/python-team/modules/pyqt5

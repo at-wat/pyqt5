@@ -1,3 +1,17 @@
+pyqt5 (5.12.3+dfsg-2) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * Use debhelper-compat instead of debian/compat.
+  * Bump Standards-Version to 4.4.0.
+
+  [ Dmitry Shachnev ]
+  * Update python2_qstring.diff with the latest changes from upstream.
+  * Update Policy URL in the description of public_sip.diff.
+  * Add Qt 5.12.5 to the timeline (qt_5_12_5.diff).
+  * Upload to unstable.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Fri, 06 Sep 2019 14:40:10 +0300
+
 pyqt5 (5.12.3+dfsg-1) experimental; urgency=medium
 
   * New upstream release.

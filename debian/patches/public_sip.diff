@@ -2,7 +2,7 @@ From: Dmitry Shachnev <mitya57@debian.org>
 Date: Tue, 3 Jul 2018 09:46:42 +0300
 Subject: Use the public version of sip module
 
-Per https://www.debian.org/doc/debian-policy/#convenience-copies-of-code.
+Per https://www.debian.org/doc/debian-policy/ch-source.html#convenience-copies-of-code.
 ---
  configure.py              | 2 +-
  designer/pluginloader.cpp | 2 +-
