@@ -1,3 +1,9 @@
+pyqt5 (5.12.3+dfsg-2build1) focal; urgency=medium
+
+  * No-change rebuild to build with python3.8.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri, 18 Oct 2019 18:32:05 +0000
+
 pyqt5 (5.12.3+dfsg-2) unstable; urgency=medium
 
   [ Ondřej Nový ]
