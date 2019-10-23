@@ -29,6 +29,7 @@ PYTHON3S := $(shell  py3versions -vr)
 DEFAULT_PYTHON := $(shell py3versions -vd)
 PYTHON := 2.7
 ALLPYTHONS := $(PYTHON3S) $(PYTHON)
+PYTHON_INCDIR = $(shell $(1) -c 'from distutils import sysconfig; print(sysconfig.get_python_inc())')
 
 DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 
@@ -61,7 +62,7 @@ build-%/configure-stamp:
 	cd build-$* && python$* ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
 			-m $(shell python$*-config --configdir) \
 			-d /usr/lib/python$*/dist-packages \
-			--sip-incdir /usr/include/python$*$(if $(filter 3.%, $*),m,) \
+			--sip-incdir $(call PYTHON_INCDIR, python$*) \
 			--no-sip-files \
 			$(if $(filter $(DEFAULT_PYTHON),$*),,--no-designer-plugin --no-qml-plugin) $(if $(filter 3.%,$*),,--no-tools)
 	sed -i '/strip/d' build-$*/*/Makefile
@@ -73,9 +74,8 @@ dbg-build-%/configure-stamp:
 	cp -r config-tests dbg-build-$*/
 	cd dbg-build-$* && python$*-dbg ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
 			-m $(shell python$*-dbg-config --configdir) \
-			-l /usr/include/python$*$(if $(filter 3.%, $*),dm,_d) \
 			-d /usr/lib/python$*/dist-packages \
-			--sip-incdir /usr/include/python$*$(if $(filter 3.%, $*),dm,_d) \
+			--sip-incdir $(call PYTHON_INCDIR, python$*-dbg) \
 			--debug --no-designer-plugin --no-qml-plugin --no-tools --no-sip-files
 	sed -i '/strip/d' dbg-build-$*/*/Makefile
 	sed -i 's/-isystem/-I/' dbg-build-$*/*/Makefile

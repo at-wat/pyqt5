@@ -43,7 +43,7 @@ Build-Depends: debhelper-compat (= 11),
                qtpositioning5-dev (>= 5.9.1),
                qttools5-dev (>= 5.9.1)
 Build-Depends-Indep: fdupes
-Standards-Version: 4.4.0
+Standards-Version: 4.4.1
 Homepage: https://riverbankcomputing.com/software/pyqt/intro
 Vcs-Git: https://salsa.debian.org/python-team/modules/pyqt5.git
 Vcs-Browser: https://salsa.debian.org/python-team/modules/pyqt5
