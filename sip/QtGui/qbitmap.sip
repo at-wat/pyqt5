@@ -45,7 +45,7 @@ public:
 
     virtual ~QBitmap();
     void clear();
-    static QBitmap fromImage(const QImage &image, Qt::ImageConversionFlags flags = Qt::AutoColor);
+    static QBitmap fromImage(const QImage &image, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor);
     static QBitmap fromData(const QSize &size, const uchar *bits, QImage::Format format = QImage::Format_MonoLSB);
     QBitmap transformed(const QTransform &matrix) const;
     void swap(QBitmap &other /Constrained/);

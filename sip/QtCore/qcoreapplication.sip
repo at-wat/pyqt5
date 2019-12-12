@@ -57,6 +57,10 @@ public:
 %End
 
     virtual ~QCoreApplication() /ReleaseGIL/;
+%MethodCode
+        pyqt5_cleanup_qobjects();
+%End
+
     static void setOrganizationDomain(const QString &orgDomain);
     static QString organizationDomain();
     static void setOrganizationName(const QString &orgName);

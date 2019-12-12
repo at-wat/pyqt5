@@ -25,7 +25,10 @@
 
 // The singleton that monitors the destruction of QObject instances created by
 // C++.
-static PyQtMonitor *monitor = NULL;
+PyQtMonitor *PyQtMonitor::instance = SIP_NULLPTR;
+
+// Set if monitoring is enabled.
+bool PyQtMonitor::enabled = true;
 
 
 // Forward declarations.
@@ -37,7 +40,7 @@ static void collecting_wrapper_eh(sipSimpleWrapper *self);
 void qpycore_register_event_handlers()
 {
     // Create the monitor.
-    monitor = new PyQtMonitor;
+    PyQtMonitor::instance = new PyQtMonitor;
 
     // Register the handlers.
     sipRegisterEventHandler(sipEventWrappedInstance, sipType_QObject,
@@ -50,14 +53,16 @@ void qpycore_register_event_handlers()
 // Invoked when a QObject that is created by C++ is wrapped.
 static void wrapped_instance_eh(void *cpp)
 {
-    monitor->monitor(reinterpret_cast<QObject *>(cpp));
+    if (PyQtMonitor::instance && PyQtMonitor::enabled)
+        PyQtMonitor::instance->monitor(reinterpret_cast<QObject *>(cpp));
 }
 
 
 // Invoked when the Python wrapper of a QObject is garbage collected.
 static void collecting_wrapper_eh(sipSimpleWrapper *self)
 {
-    monitor->ignore(self);
+    if (PyQtMonitor::instance && PyQtMonitor::enabled)
+        PyQtMonitor::instance->ignore(self);
 }
 
 
@@ -105,10 +110,14 @@ void PyQtMonitor::on_destroyed(QObject *cppInst)
 
         if (sipGetInterpreter())
         {
+            SIP_BLOCK_THREADS
+
             PyObject *pyObj = sipGetPyObject(cppInst, sipType_QObject);
 
             if (pyObj)
                 sipInstanceDestroyed((sipSimpleWrapper *)pyObj);
+
+            SIP_UNBLOCK_THREADS
         }
     }
 }

@@ -30,7 +30,7 @@ public:
     QPixmap();
     QPixmap(int w, int h);
     explicit QPixmap(const QSize &);
-    QPixmap(const QString &fileName, const char *format = 0, Qt::ImageConversionFlags flags = Qt::AutoColor);
+    QPixmap(const QString &fileName, const char *format = 0, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor);
     QPixmap(SIP_PYLIST xpm /TypeHint="List[str]"/) [(const char **xpm)];
 %MethodCode
         // The Python interface is a list of strings that make up the image.
@@ -64,7 +64,7 @@ public:
     QRect rect() const;
     int depth() const;
     static int defaultDepth();
-    void fill(const QColor &color = Qt::white);
+    void fill(const QColor &color = Qt::GlobalColor::white);
     QBitmap mask() const;
     void setMask(const QBitmap &);
     bool hasAlpha() const;

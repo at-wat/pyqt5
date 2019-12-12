@@ -32,13 +32,18 @@ class QHelpEngineCore : QObject
         sipTypeDef **type;
         int yes, no;
     } graph[] = {
-        {sipName_QHelpIndexModel, &sipType_QHelpIndexModel, -1, 1},
-        {sipName_QHelpSearchEngine, &sipType_QHelpSearchEngine, -1, 2},
-        {sipName_QHelpContentWidget, &sipType_QHelpContentWidget, -1, 3},
-        {sipName_QHelpEngineCore, &sipType_QHelpEngineCore, 8, 4},
-        {sipName_QHelpIndexWidget, &sipType_QHelpIndexWidget, -1, 5},
-        {sipName_QHelpContentModel, &sipType_QHelpContentModel, -1, 6},
-        {sipName_QHelpSearchQueryWidget, &sipType_QHelpSearchQueryWidget, -1, 7},
+        {sipName_QHelpContentModel, &sipType_QHelpContentModel, -1, 1},
+        {sipName_QHelpContentWidget, &sipType_QHelpContentWidget, -1, 2},
+        {sipName_QHelpEngineCore, &sipType_QHelpEngineCore, 9, 3},
+    #if QT_VERSION >= 0x050d00
+        {sipName_QHelpFilterEngine, &sipType_QHelpFilterEngine, -1, 4},
+    #else
+        {0, 0, -1, 4},
+    #endif
+        {sipName_QHelpIndexModel, &sipType_QHelpIndexModel, -1, 5},
+        {sipName_QHelpIndexWidget, &sipType_QHelpIndexWidget, -1, 6},
+        {sipName_QHelpSearchEngine, &sipType_QHelpSearchEngine, -1, 7},
+        {sipName_QHelpSearchQueryWidget, &sipType_QHelpSearchQueryWidget, -1, 8},
         {sipName_QHelpSearchResultWidget, &sipType_QHelpSearchResultWidget, -1, -1},
         {sipName_QHelpEngine, &sipType_QHelpEngine, -1, -1},
     };
@@ -104,5 +109,19 @@ signals:
     void warning(const QString &msg);
 %If (Qt_5_4_0 -)
     void readersAboutToBeInvalidated();
+%End
+
+public:
+%If (Qt_5_13_0 -)
+    QHelpFilterEngine *filterEngine() const;
+%End
+%If (Qt_5_13_0 -)
+    QList<QUrl> files(const QString namespaceName, const QString &filterName, const QString &extensionFilter = QString());
+%End
+%If (Qt_5_13_0 -)
+    void setUsesFilterEngine(bool uses);
+%End
+%If (Qt_5_13_0 -)
+    bool usesFilterEngine() const;
 %End
 };

@@ -142,6 +142,12 @@ public:
 %If (Qt_5_11_0 -)
     void setBackendConfiguration(const QMap<QByteArray, QVariant> &backendConfiguration = QMap<QByteArray, QVariant>());
 %End
+%If (Qt_5_13_0 -)
+    void setOcspStaplingEnabled(bool enable);
+%End
+%If (Qt_5_13_0 -)
+    bool ocspStaplingEnabled() const;
+%End
 };
 
 %End

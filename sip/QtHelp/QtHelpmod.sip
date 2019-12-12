@@ -47,9 +47,12 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 %DefaultSupertype sip.simplewrapper
 
+%Include qcompressedhelpinfo.sip
 %Include qhelpcontentwidget.sip
 %Include qhelpengine.sip
 %Include qhelpenginecore.sip
+%Include qhelpfilterdata.sip
+%Include qhelpfilterengine.sip
 %Include qhelpindexwidget.sip
 %Include qhelpsearchengine.sip
 %Include qhelpsearchquerywidget.sip

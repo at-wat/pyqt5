@@ -60,7 +60,6 @@ build-%/configure-stamp:
 	mkdir -p build-$*
 	cp -r config-tests build-$*/
 	cd build-$* && python$* ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
-			-m $(shell python$*-config --configdir) \
 			-d /usr/lib/python$*/dist-packages \
 			--sip-incdir $(call PYTHON_INCDIR, python$*) \
 			--no-sip-files \
@@ -73,7 +72,6 @@ dbg-build-%/configure-stamp:
 	mkdir -p dbg-build-$*
 	cp -r config-tests dbg-build-$*/
 	cd dbg-build-$* && python$*-dbg ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
-			-m $(shell python$*-dbg-config --configdir) \
 			-d /usr/lib/python$*/dist-packages \
 			--sip-incdir $(call PYTHON_INCDIR, python$*-dbg) \
 			--debug --no-designer-plugin --no-qml-plugin --no-tools --no-sip-files

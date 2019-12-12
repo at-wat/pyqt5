@@ -27,6 +27,32 @@
 
 #include "sipAPIQtCore.h"
 
+#include <QCoreApplication>
+
+
+// This is called to clean up on exit.  It is done in case the QCoreApplication
+// dealloc code hasn't been called.
+static PyObject *cleanup_on_exit(PyObject *, PyObject *)
+{
+    //pyqt5_cleanup_qobjects();
+    if (pyqt5_cleanup_qobjects())
+    {
+        // Implement the new scheme.
+
+        QCoreApplication *app = QCoreApplication::instance();
+
+        if (app)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            delete app;
+            Py_END_ALLOW_THREADS
+        }
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 
 // Perform any required initialisation.
 void qpycore_init()
@@ -41,6 +67,7 @@ void qpycore_init()
             (void *)PyQtSlotProxy::lastSender);
 
     // Export the public API.
+    sipExportSymbol("pyqt5_cleanup_qobjects", (void *)pyqt5_cleanup_qobjects);
     sipExportSymbol("pyqt5_err_print", (void *)pyqt5_err_print);
     sipExportSymbol("pyqt5_from_argv_list", (void *)pyqt5_from_argv_list);
     sipExportSymbol("pyqt5_from_qvariant_by_type",
@@ -61,4 +88,11 @@ void qpycore_init()
     sipExportSymbol("pyqt5_register_to_qvariant_data_convertor",
             (void *)pyqt5_register_to_qvariant_data_convertor);
     sipExportSymbol("pyqt5_update_argv_list", (void *)pyqt5_update_argv_list);
+
+    // Register the cleanup function.
+    static PyMethodDef cleanup_md = {
+        "_qtcore_cleanup", cleanup_on_exit, METH_NOARGS, SIP_NULLPTR
+    };
+
+    sipRegisterExitNotifier(&cleanup_md);
 }

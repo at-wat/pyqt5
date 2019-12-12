@@ -48,12 +48,18 @@ namespace QSsl
 %If (Qt_5_5_0 -)
         Ec,
 %End
+%If (Qt_5_13_0 -)
+        Dh,
+%End
     };
 
     enum AlternativeNameEntryType
     {
         EmailEntry,
         DnsEntry,
+%If (Qt_5_13_0 -)
+        IpAddressEntry,
+%End
     };
 
     enum SslProtocol

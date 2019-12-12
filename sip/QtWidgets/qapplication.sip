@@ -228,19 +228,20 @@ public:
 
     virtual ~QApplication() /ReleaseGIL/;
 %MethodCode
-        // Make sure all top level widgets are not owned by Python and so won't be
-        // destroyed by the garbage collector after QApplication is destroyed.  Note
-        // that it could still mean that widgets outlive the QApplication (which is
-        // probably not good).  However experimentation shows that deleting top level
-        // widgets in the wrong order can cause crashes (so we don't try and do that).
-        QWidgetList tlw = QApplication::topLevelWidgets();
-        
-        for (int i = 0; i < tlw.count(); ++i)
+        //pyqt5_qtwidgets_cleanup_qobjects();
+        if (!pyqt5_qtwidgets_cleanup_qobjects())
         {
-            PyObject *sw = sipGetPyObject(tlw.at(i), sipType_QWidget);
+            // Implement the old scheme.
         
-            if (sw)
-                sipTransferTo(sw, 0);
+            QWidgetList tlw = QApplication::topLevelWidgets();
+        
+            for (int i = 0; i < tlw.count(); ++i)
+            {
+                PyObject *sw = sipGetPyObject(tlw.at(i), sipType_QWidget);
+        
+                if (sw)
+                    sipTransferTo(sw, 0);
+            }
         }
 %End
 
@@ -321,6 +322,10 @@ protected:
 
 %ModuleHeaderCode
 // Imports from QtCore.
+//typedef void (*pyqt5_qtwidgets_cleanup_qobjects_t)();
+typedef bool (*pyqt5_qtwidgets_cleanup_qobjects_t)();
+extern pyqt5_qtwidgets_cleanup_qobjects_t pyqt5_qtwidgets_cleanup_qobjects;
+
 typedef char **(*pyqt5_qtwidgets_from_argv_list_t)(PyObject *, int &);
 extern pyqt5_qtwidgets_from_argv_list_t pyqt5_qtwidgets_from_argv_list;
 
@@ -343,6 +348,7 @@ extern pyqt5_qtwidgets_update_argv_list_t pyqt5_qtwidgets_update_argv_list;
 #include "qpywidgets_api.h"
 
 // Imports from QtCore.
+pyqt5_qtwidgets_cleanup_qobjects_t pyqt5_qtwidgets_cleanup_qobjects;
 pyqt5_qtwidgets_from_argv_list_t pyqt5_qtwidgets_from_argv_list;
 pyqt5_qtwidgets_get_connection_parts_t pyqt5_qtwidgets_get_connection_parts;
 pyqt5_qtwidgets_get_signal_signature_t pyqt5_qtwidgets_get_signal_signature;
@@ -351,6 +357,9 @@ pyqt5_qtwidgets_update_argv_list_t pyqt5_qtwidgets_update_argv_list;
 
 %PostInitialisationCode
 // Imports from QtCore.
+pyqt5_qtwidgets_cleanup_qobjects = (pyqt5_qtwidgets_cleanup_qobjects_t)sipImportSymbol("pyqt5_cleanup_qobjects");
+Q_ASSERT(pyqt5_qtwidgets_cleanup_qobjects);
+
 pyqt5_qtwidgets_from_argv_list = (pyqt5_qtwidgets_from_argv_list_t)sipImportSymbol("pyqt5_from_argv_list");
 Q_ASSERT(pyqt5_qtwidgets_from_argv_list);
 

@@ -189,6 +189,9 @@ public:
 %If (Qt_5_4_0 -)
     static QString sslLibraryBuildVersionString();
 %End
+%If (Qt_5_13_0 -)
+    QVector<QOcspResponse> ocspResponses() const;
+%End
 };
 
 %End

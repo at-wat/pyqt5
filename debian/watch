@@ -1,4 +1,4 @@
 version=3
 opts=dversionmangle=s/\+dfsg//,repacksuffix=+dfsg \
 https://www.riverbankcomputing.com/software/pyqt/download5 \
-/static/Downloads/PyQt5/[\d.]+/PyQt5_gpl-([\d.]+)\.tar\.gz
+/static/Downloads/PyQt5/[\d.]+/PyQt5-([\d.]+)\.tar\.gz

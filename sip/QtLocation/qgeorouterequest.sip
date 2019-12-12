@@ -129,6 +129,12 @@ public:
 %If (Qt_5_11_0 -)
     QVariantMap extraParameters() const;
 %End
+%If (Qt_5_13_0 -)
+    void setDepartureTime(const QDateTime &departureTime);
+%End
+%If (Qt_5_13_0 -)
+    QDateTime departureTime() const;
+%End
 };
 
 %End

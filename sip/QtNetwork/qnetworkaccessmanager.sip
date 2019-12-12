@@ -109,6 +109,11 @@ public:
     void connectToHostEncrypted(const QString &hostName, quint16 port = 443, const QSslConfiguration &sslConfiguration = QSslConfiguration::defaultConfiguration());
 %End
 %End
+%If (Qt_5_13_0 -)
+%If (PyQt_SSL)
+    void connectToHostEncrypted(const QString &hostName, quint16 port, const QSslConfiguration &sslConfiguration, const QString &peerName);
+%End
+%End
 %If (Qt_5_2_0 -)
     void connectToHost(const QString &hostName, quint16 port = 80);
 %End

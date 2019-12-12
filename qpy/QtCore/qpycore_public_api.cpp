@@ -22,11 +22,71 @@
 #include <QHash>
 
 #include "qpycore_chimera.h"
+#include "qpycore_event_handlers.h"
 #include "qpycore_objectified_strings.h"
 #include "qpycore_public_api.h"
 #include "qpycore_pyqtboundsignal.h"
 #include "qpycore_pyqtsignal.h"
 #include "qpycore_types.h"
+
+#include <QCoreApplication>
+#include <QThread>
+
+
+// The visitor called for each wrapper to clean up if it is a QObject.
+static void cleanup_qobject(sipSimpleWrapper *sw, void *closure)
+{
+    // Ignore any wrapper for QCoreApplication (or sub-class) instances or that
+    // have already been destroyed.
+    void *addr = sipGetAddress(sw);
+
+    if (!addr || addr == closure)
+        return;
+
+    // Ignore anything not owned by Python.
+    if (!sipIsOwnedByPython(sw))
+        return;
+
+    // Ignore non-QObjects.
+    if (!PyObject_TypeCheck((PyObject *)sw, sipTypeAsPyTypeObject(sipType_QObject)))
+        return;
+
+    // Ignore running threads.
+    if (PyObject_TypeCheck((PyObject *)sw, sipTypeAsPyTypeObject(sipType_QThread)))
+    {
+        QThread *thr = reinterpret_cast<QThread *>(addr);
+
+        if (thr->isRunning())
+            return;
+    }
+
+    sipTransferTo((PyObject *)sw, SIP_NULLPTR);
+
+    Py_BEGIN_ALLOW_THREADS
+    delete reinterpret_cast<QObject *>(addr);
+    Py_END_ALLOW_THREADS
+}
+
+
+// Call the C++ dtors of all QObject instances (except for QCoreApplication
+// instances) owned by Python.
+//void pyqt5_cleanup_qobjects()
+bool pyqt5_cleanup_qobjects()
+{
+    if (pyqt5_get_scheme_state())
+    {
+        // Disable any monitoring.
+        PyQtMonitor::enabled = false;
+
+        sipVisitWrappers(cleanup_qobject, QCoreApplication::instance());
+
+        // The new scheme is in use.
+        return true;
+    }
+
+    // The old scheme is in use.
+    return false;
+}
 
 
 // A replacement for PyErr_Print() that passes the exception to qFatal().
