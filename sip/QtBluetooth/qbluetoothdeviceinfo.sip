@@ -35,6 +35,9 @@ public:
         ComputerDevice,
         PhoneDevice,
         LANAccessDevice,
+%If (Qt_5_13_0 -)
+        NetworkDevice,
+%End
         AudioVideoDevice,
         PeripheralDevice,
         ImagingDevice,
@@ -201,6 +204,9 @@ public:
     qint16 rssi() const;
     void setRssi(qint16 signal);
     void setServiceUuids(const QList<QBluetoothUuid> &uuids, QBluetoothDeviceInfo::DataCompleteness completeness);
+%If (Qt_5_13_0 -)
+    void setServiceUuids(const QVector<QBluetoothUuid> &uuids);
+%End
     QList<QBluetoothUuid> serviceUuids(QBluetoothDeviceInfo::DataCompleteness *completeness /Out/ = 0) const;
     QBluetoothDeviceInfo::DataCompleteness serviceUuidsCompleteness() const;
 %If (Qt_5_4_0 -)

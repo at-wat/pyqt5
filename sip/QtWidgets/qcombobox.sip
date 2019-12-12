@@ -98,7 +98,7 @@ public:
     void removeItem(int index);
     void setItemText(int index, const QString &text);
     void setItemIcon(int index, const QIcon &icon);
-    void setItemData(int index, const QVariant &value, int role = Qt::UserRole);
+    void setItemData(int index, const QVariant &value, int role = Qt::ItemDataRole::UserRole);
     QAbstractItemView *view() const;
     void setView(QAbstractItemView *itemView /Transfer/);
     virtual QSize sizeHint() const;
@@ -146,7 +146,7 @@ protected:
 public:
     virtual QVariant inputMethodQuery(Qt::InputMethodQuery) const;
 %If (Qt_5_2_0 -)
-    QVariant currentData(int role = Qt::UserRole) const;
+    QVariant currentData(int role = Qt::ItemDataRole::UserRole) const;
 %End
 %If (Qt_5_7_0 -)
     QVariant inputMethodQuery(Qt::InputMethodQuery query, const QVariant &argument) const;

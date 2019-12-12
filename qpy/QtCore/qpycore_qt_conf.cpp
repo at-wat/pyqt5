@@ -60,8 +60,10 @@ static const unsigned char qt_resource_struct[] = {
 };
 
 
+QT_BEGIN_NAMESPACE
 bool qRegisterResourceData(int, const unsigned char *, const unsigned char *,
         const unsigned char *);
+QT_END_NAMESPACE
 
 
 // Embed a qt.conf file.

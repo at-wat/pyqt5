@@ -156,4 +156,9 @@ public:
 %If (Qt_5_4_0 -)
     void resetIndentation();
 %End
+
+public slots:
+%If (Qt_5_13_0 -)
+    void expandRecursively(const QModelIndex &index, int depth = -1);
+%End
 };

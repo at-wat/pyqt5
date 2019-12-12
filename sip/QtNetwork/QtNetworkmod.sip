@@ -67,6 +67,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qnetworkreply.sip
 %Include qnetworkrequest.sip
 %Include qnetworksession.sip
+%Include qocspresponse.sip
 %Include qpassworddigestor.sip
 %Include qssl.sip
 %Include qsslcertificate.sip

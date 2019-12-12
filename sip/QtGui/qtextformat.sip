@@ -178,6 +178,12 @@ public:
 %If (Qt_5_12_0 -)
         ImageQuality,
 %End
+%If (Qt_5_13_0 -)
+        FontFamilies,
+%End
+%If (Qt_5_13_0 -)
+        FontStyleName,
+%End
         UserProperty,
     };
 
@@ -349,6 +355,18 @@ public:
 %End
 %If (Qt_5_3_0 -)
     void setFont(const QFont &font, QTextCharFormat::FontPropertiesInheritanceBehavior behavior);
+%End
+%If (Qt_5_13_0 -)
+    void setFontFamilies(const QStringList &families);
+%End
+%If (Qt_5_13_0 -)
+    QVariant fontFamilies() const;
+%End
+%If (Qt_5_13_0 -)
+    void setFontStyleName(const QString &styleName);
+%End
+%If (Qt_5_13_0 -)
+    QVariant fontStyleName() const;
 %End
 };
 

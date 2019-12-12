@@ -74,6 +74,8 @@
 
             return 0;
         }
+
+        ++it;
     }
 
     return d;

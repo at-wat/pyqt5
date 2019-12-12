@@ -56,6 +56,12 @@ public:
 %If (Qt_5_12_0 -)
     QList<QGeoRouteLeg> routeLegs() const;
 %End
+%If (Qt_5_13_0 -)
+    void setExtendedAttributes(const QVariantMap &extendedAttributes);
+%End
+%If (Qt_5_13_0 -)
+    QVariantMap extendedAttributes() const;
+%End
 };
 
 %End

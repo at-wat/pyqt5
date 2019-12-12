@@ -78,6 +78,9 @@ protected:
     void setup(QNetworkRequest *request, const QVariantMap &signingParameters, QNetworkAccessManager::Operation operation);
     static QByteArray nonce();
     static QByteArray generateAuthorizationHeader(const QVariantMap &oauthParams);
+%If (Qt_5_13_0 -)
+    void setup(QNetworkRequest *request, const QVariantMap &signingParameters, const QByteArray &operationVerb);
+%End
 };
 
 %End

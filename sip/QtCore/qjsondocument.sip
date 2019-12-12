@@ -107,3 +107,10 @@ public:
     const QJsonValue operator[](int i) const;
 %End
 };
+
+%If (Qt_5_13_0 -)
+QDataStream &operator<<(QDataStream &, const QJsonDocument & /Constrained/) /ReleaseGIL/;
+%End
+%If (Qt_5_13_0 -)
+QDataStream &operator>>(QDataStream &, QJsonDocument & /Constrained/) /ReleaseGIL/;
+%End

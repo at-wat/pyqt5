@@ -57,6 +57,42 @@ public:
         HostNameMismatch,
         NoSslSupport,
         CertificateBlacklisted,
+%If (Qt_5_13_0 -)
+        CertificateStatusUnknown,
+%End
+%If (Qt_5_13_0 -)
+        OcspNoResponseFound,
+%End
+%If (Qt_5_13_0 -)
+        OcspMalformedRequest,
+%End
+%If (Qt_5_13_0 -)
+        OcspMalformedResponse,
+%End
+%If (Qt_5_13_0 -)
+        OcspInternalError,
+%End
+%If (Qt_5_13_0 -)
+        OcspTryLater,
+%End
+%If (Qt_5_13_0 -)
+        OcspSigRequred,
+%End
+%If (Qt_5_13_0 -)
+        OcspUnauthorized,
+%End
+%If (Qt_5_13_0 -)
+        OcspResponseCannotBeTrusted,
+%End
+%If (Qt_5_13_0 -)
+        OcspResponseCertIdUnknown,
+%End
+%If (Qt_5_13_0 -)
+        OcspResponseExpired,
+%End
+%If (Qt_5_13_0 -)
+        OcspStatusUnknown,
+%End
     };
 
     QSslError();

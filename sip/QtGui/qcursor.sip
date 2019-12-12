@@ -69,6 +69,9 @@ public:
     static QPoint pos();
     static void setPos(int x, int y);
     static void setPos(const QPoint &p);
+    static QPoint pos(const QScreen *screen);
+    static void setPos(QScreen *screen, int x, int y);
+    static void setPos(QScreen *screen, const QPoint &p);
 %If (Qt_5_7_0 -)
     void swap(QCursor &other);
 %End

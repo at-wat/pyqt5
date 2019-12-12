@@ -178,6 +178,9 @@ public:
 %If (Qt_5_3_0 -)
     bool find(const QRegExp &exp, QTextDocument::FindFlags options = QTextDocument::FindFlags());
 %End
+%If (Qt_5_13_0 -)
+    bool find(const QRegularExpression &exp, QTextDocument::FindFlags options = QTextDocument::FindFlags());
+%End
 %If (Qt_5_3_0 -)
     QVariant inputMethodQuery(Qt::InputMethodQuery query, QVariant argument) const;
 %End

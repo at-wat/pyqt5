@@ -1,3 +1,17 @@
+pyqt5 (5.13.2+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update debian/watch for removal of _gpl from tarball names.
+  * Drop patches, applied in the new release:
+    - python2_qstring.diff
+    - remove_deprecated_sip_option.diff
+  * Also drop qt_5_12_5.diff, no longer needed.
+  * Refresh public_sip.diff.
+  * Bump sip build-dependencies to 4.19.19, following configure.py.
+  * Stop passing wrong -m option to configure.py.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Thu, 12 Dec 2019 10:47:38 +0300
+
 pyqt5 (5.12.3+dfsg-3) unstable; urgency=medium
 
   [ Ondřej Nový ]

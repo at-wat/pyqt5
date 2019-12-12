@@ -1,4 +1,4 @@
-// This is the definition of the API of the event handlers.
+// This is the SIP specification of pyqt5_enable_new_onexit_scheme().
 //
 // Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
@@ -18,36 +18,31 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#ifndef _QPYCORE_EVENT_HANDLERS_H
-#define _QPYCORE_EVENT_HANDLERS_H
+%ModuleHeaderCode
+bool pyqt5_get_scheme_state();
+bool pyqt5_set_scheme_state(bool enabled);
+%End
 
 
-#include <sip.h>
+%ModuleCode
+static bool pyqt5_scheme_state = false;
 
-#include <QObject>
-#include <QSet>
-
-
-class PyQtMonitor : public QObject
+bool pyqt5_get_scheme_state()
 {
-    Q_OBJECT
+    return pyqt5_scheme_state;
+}
 
-public:
-    void monitor(QObject *cppInst);
-    void ignore(sipSimpleWrapper *pyObj);
+bool pyqt5_set_scheme_state(bool enabled)
+{
+    bool old_state = pyqt5_scheme_state;
+    pyqt5_scheme_state = enabled;
 
-    static PyQtMonitor *instance;
-    static bool enabled;
-
-private Q_SLOTS:
-    void on_destroyed(QObject *);
-
-private:
-    QSet<QObject *> monitored;
-};
+    return old_state;
+}
+%End
 
 
-void qpycore_register_event_handlers();
-
-
-#endif
+bool pyqt5_enable_new_onexit_scheme(bool);
+%MethodCode
+    sipRes = pyqt5_set_scheme_state(a0);
+%End

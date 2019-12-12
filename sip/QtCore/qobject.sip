@@ -313,71 +313,81 @@ static PyObject *qtcore_FindChildren(const QObject *parent, PyObject *types, con
         sipTypeDef **type;
         int yes, no;
     } graph[] = {
-        {sipName_QSettings, &sipType_QSettings, -1, 1},
-        {sipName_QAbstractAnimation, &sipType_QAbstractAnimation, 25, 2},
-        {sipName_QAbstractState, &sipType_QAbstractState, 31, 3},
+        {sipName_QAbstractAnimation, &sipType_QAbstractAnimation, 25, 1},
+        {sipName_QAbstractEventDispatcher, &sipType_QAbstractEventDispatcher, -1, 2},
+        {sipName_QAbstractItemModel, &sipType_QAbstractItemModel, 31, 3},
+        {sipName_QAbstractState, &sipType_QAbstractState, 39, 4},
+        {sipName_QAbstractTransition, &sipType_QAbstractTransition, 43, 5},
+        {sipName_QIODevice, &sipType_QIODevice, 45, 6},
+        {sipName_QCoreApplication, &sipType_QCoreApplication, -1, 7},
+        {sipName_QEventLoop, &sipType_QEventLoop, -1, 8},
     #if QT_VERSION >= 0x050200
-        {sipName_QFileSelector, &sipType_QFileSelector, -1, 4},
+        {sipName_QFileSelector, &sipType_QFileSelector, -1, 9},
     #else
-        {0, 0, -1, 4},
+        {0, 0, -1, 9},
     #endif
-        {sipName_QTimer, &sipType_QTimer, -1, 5},
-        {sipName_QItemSelectionModel, &sipType_QItemSelectionModel, -1, 6},
-        {sipName_QSocketNotifier, &sipType_QSocketNotifier, -1, 7},
-        {sipName_QIODevice, &sipType_QIODevice, 35, 8},
-        {sipName_QObjectCleanupHandler, &sipType_QObjectCleanupHandler, -1, 9},
-        {sipName_QAbstractTransition, &sipType_QAbstractTransition, 41, 10},
-        {sipName_QThread, &sipType_QThread, -1, 11},
-        {sipName_QTranslator, &sipType_QTranslator, -1, 12},
-        {sipName_QPluginLoader, &sipType_QPluginLoader, -1, 13},
+        {sipName_QFileSystemWatcher, &sipType_QFileSystemWatcher, -1, 10},
+        {sipName_QItemSelectionModel, &sipType_QItemSelectionModel, -1, 11},
+        {sipName_QLibrary, &sipType_QLibrary, -1, 12},
+        {sipName_QMimeData, &sipType_QMimeData, -1, 13},
+        {sipName_QObjectCleanupHandler, &sipType_QObjectCleanupHandler, -1, 14},
+        {sipName_QPluginLoader, &sipType_QPluginLoader, -1, 15},
+        {sipName_QSettings, &sipType_QSettings, -1, 16},
+        {sipName_QSharedMemory, &sipType_QSharedMemory, -1, 17},
+        {sipName_QSignalMapper, &sipType_QSignalMapper, -1, 18},
+        {sipName_QSocketNotifier, &sipType_QSocketNotifier, -1, 19},
+        {sipName_QThread, &sipType_QThread, -1, 20},
+        {sipName_QThreadPool, &sipType_QThreadPool, -1, 21},
+        {sipName_QTimeLine, &sipType_QTimeLine, -1, 22},
+        {sipName_QTimer, &sipType_QTimer, -1, 23},
+        {sipName_QTranslator, &sipType_QTranslator, -1, 24},
     #if defined(Q_OS_WIN)
-        {sipName_QWinEventNotifier, &sipType_QWinEventNotifier, -1, 14},
+        {sipName_QWinEventNotifier, &sipType_QWinEventNotifier, -1, -1},
     #else
-        {0, 0, -1, 14},
+        {0, 0, -1, -1},
     #endif
-        {sipName_QMimeData, &sipType_QMimeData, -1, 15},
-        {sipName_QSignalMapper, &sipType_QSignalMapper, -1, 16},
-        {sipName_QAbstractEventDispatcher, &sipType_QAbstractEventDispatcher, -1, 17},
-        {sipName_QThreadPool, &sipType_QThreadPool, -1, 18},
-        {sipName_QCoreApplication, &sipType_QCoreApplication, -1, 19},
-        {sipName_QFileSystemWatcher, &sipType_QFileSystemWatcher, -1, 20},
-        {sipName_QSharedMemory, &sipType_QSharedMemory, -1, 21},
-        {sipName_QAbstractItemModel, &sipType_QAbstractItemModel, 43, 22},
-        {sipName_QEventLoop, &sipType_QEventLoop, -1, 23},
-        {sipName_QLibrary, &sipType_QLibrary, -1, 24},
-        {sipName_QTimeLine, &sipType_QTimeLine, -1, -1},
-        {sipName_QPauseAnimation, &sipType_QPauseAnimation, -1, 26},
-        {sipName_QAnimationGroup, &sipType_QAnimationGroup, 28, 27},
+        {sipName_QAnimationGroup, &sipType_QAnimationGroup, 28, 26},
+        {sipName_QPauseAnimation, &sipType_QPauseAnimation, -1, 27},
         {sipName_QVariantAnimation, &sipType_QVariantAnimation, 30, -1},
-        {sipName_QSequentialAnimationGroup, &sipType_QSequentialAnimationGroup, -1, 29},
-        {sipName_QParallelAnimationGroup, &sipType_QParallelAnimationGroup, -1, -1},
+        {sipName_QParallelAnimationGroup, &sipType_QParallelAnimationGroup, -1, 29},
+        {sipName_QSequentialAnimationGroup, &sipType_QSequentialAnimationGroup, -1, -1},
         {sipName_QPropertyAnimation, &sipType_QPropertyAnimation, -1, -1},
-        {sipName_QHistoryState, &sipType_QHistoryState, -1, 32},
-        {sipName_QFinalState, &sipType_QFinalState, -1, 33},
-        {sipName_QState, &sipType_QState, 34, -1},
+        {sipName_QAbstractListModel, &sipType_QAbstractListModel, 35, 32},
+        {sipName_QAbstractProxyModel, &sipType_QAbstractProxyModel, 36, 33},
+        {sipName_QAbstractTableModel, &sipType_QAbstractTableModel, -1, 34},
+    #if QT_VERSION >= 0x050d00
+        {sipName_QConcatenateTablesProxyModel, &sipType_QConcatenateTablesProxyModel, -1, -1},
+    #else
+        {0, 0, -1, -1},
+    #endif
+        {sipName_QStringListModel, &sipType_QStringListModel, -1, -1},
+        {sipName_QIdentityProxyModel, &sipType_QIdentityProxyModel, -1, 37},
+        {sipName_QSortFilterProxyModel, &sipType_QSortFilterProxyModel, -1, 38},
+    #if QT_VERSION >= 0x050d00
+        {sipName_QTransposeProxyModel, &sipType_QTransposeProxyModel, -1, -1},
+    #else
+        {0, 0, -1, -1},
+    #endif
+        {sipName_QFinalState, &sipType_QFinalState, -1, 40},
+        {sipName_QHistoryState, &sipType_QHistoryState, -1, 41},
+        {sipName_QState, &sipType_QState, 42, -1},
         {sipName_QStateMachine, &sipType_QStateMachine, -1, -1},
-        {sipName_QBuffer, &sipType_QBuffer, -1, 36},
-        {sipName_QFileDevice, &sipType_QFileDevice, 38, 37},
+        {sipName_QEventTransition, &sipType_QEventTransition, -1, 44},
+        {sipName_QSignalTransition, &sipType_QSignalTransition, -1, -1},
+        {sipName_QBuffer, &sipType_QBuffer, -1, 46},
+        {sipName_QFileDevice, &sipType_QFileDevice, 48, 47},
     #if !defined(QT_NO_PROCESS)
         {sipName_QProcess, &sipType_QProcess, -1, -1},
     #else
         {0, 0, -1, -1},
     #endif
+        {sipName_QFile, &sipType_QFile, 50, 49},
     #if QT_VERSION >= 0x050100
-        {sipName_QSaveFile, &sipType_QSaveFile, -1, 39},
+        {sipName_QSaveFile, &sipType_QSaveFile, -1, -1},
     #else
-        {0, 0, -1, 39},
+        {0, 0, -1, -1},
     #endif
-        {sipName_QFile, &sipType_QFile, 40, -1},
         {sipName_QTemporaryFile, &sipType_QTemporaryFile, -1, -1},
-        {sipName_QSignalTransition, &sipType_QSignalTransition, -1, 42},
-        {sipName_QEventTransition, &sipType_QEventTransition, -1, -1},
-        {sipName_QAbstractListModel, &sipType_QAbstractListModel, 46, 44},
-        {sipName_QAbstractProxyModel, &sipType_QAbstractProxyModel, 47, 45},
-        {sipName_QAbstractTableModel, &sipType_QAbstractTableModel, -1, -1},
-        {sipName_QStringListModel, &sipType_QStringListModel, -1, -1},
-        {sipName_QSortFilterProxyModel, &sipType_QSortFilterProxyModel, -1, 48},
-        {sipName_QIdentityProxyModel, &sipType_QIdentityProxyModel, -1, -1},
     };
     
     int i = 0;
@@ -628,6 +638,7 @@ protected:
     bool isSignalConnected(const QMetaMethod &signal) const;
 
 public:
+    static bool disconnect(const QMetaObject::Connection &);
     SIP_PYOBJECT disconnect() const /TypeHint=""/;
 %MethodCode
         sipRes = qpycore_qobject_disconnect(sipCpp);

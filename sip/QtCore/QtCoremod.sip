@@ -22,7 +22,7 @@
 
 %Module(name=PyQt5.QtCore, call_super_init=True, default_VirtualErrorHandler=PyQt5, keyword_arguments="Optional", use_limited_api=True)
 
-%Timeline {Qt_5_0_0 Qt_5_0_1 Qt_5_0_2 Qt_5_1_0 Qt_5_1_1 Qt_5_2_0 Qt_5_2_1 Qt_5_3_0 Qt_5_3_1 Qt_5_3_2 Qt_5_4_0 Qt_5_4_1 Qt_5_4_2 Qt_5_5_0 Qt_5_5_1 Qt_5_6_0 Qt_5_6_1 Qt_5_6_2 Qt_5_6_3 Qt_5_6_4 Qt_5_6_5 Qt_5_6_6 Qt_5_6_7 Qt_5_6_8 Qt_5_6_9 Qt_5_7_0 Qt_5_7_1 Qt_5_8_0 Qt_5_8_1 Qt_5_9_0 Qt_5_9_1 Qt_5_9_2 Qt_5_9_3 Qt_5_9_4 Qt_5_9_5 Qt_5_9_6 Qt_5_9_7 Qt_5_9_8 Qt_5_9_9 Qt_5_10_0 Qt_5_10_1 Qt_5_11_0 Qt_5_11_1 Qt_5_11_2 Qt_5_11_3 Qt_5_12_0 Qt_5_12_1 Qt_5_12_2 Qt_5_12_3 Qt_5_12_4}
+%Timeline {Qt_5_0_0 Qt_5_0_1 Qt_5_0_2 Qt_5_1_0 Qt_5_1_1 Qt_5_2_0 Qt_5_2_1 Qt_5_3_0 Qt_5_3_1 Qt_5_3_2 Qt_5_4_0 Qt_5_4_1 Qt_5_4_2 Qt_5_5_0 Qt_5_5_1 Qt_5_6_0 Qt_5_6_1 Qt_5_6_2 Qt_5_6_3 Qt_5_6_4 Qt_5_6_5 Qt_5_6_6 Qt_5_6_7 Qt_5_6_8 Qt_5_6_9 Qt_5_7_0 Qt_5_7_1 Qt_5_8_0 Qt_5_8_1 Qt_5_9_0 Qt_5_9_1 Qt_5_9_2 Qt_5_9_3 Qt_5_9_4 Qt_5_9_5 Qt_5_9_6 Qt_5_9_7 Qt_5_9_8 Qt_5_9_9 Qt_5_10_0 Qt_5_10_1 Qt_5_11_0 Qt_5_11_1 Qt_5_11_2 Qt_5_11_3 Qt_5_12_0 Qt_5_12_1 Qt_5_12_2 Qt_5_12_3 Qt_5_12_4 Qt_5_13_0}
 
 %Platforms {WS_X11 WS_WIN WS_MACX}
 
@@ -41,6 +41,7 @@
 %Feature PyQt_NotBootstrapped
 %Feature PyQt_Process
 %Feature PyQt_MacOSXOnly
+%Feature PyQt_WebChannel
 
 %Copying
 Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
@@ -117,6 +118,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qcollator.sip
 %Include qcommandlineoption.sip
 %Include qcommandlineparser.sip
+%Include qconcatenatetablesproxymodel.sip
 %Include qcoreapplication.sip
 %Include qcoreevent.sip
 %Include qcryptographichash.sip
@@ -202,6 +204,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qtimer.sip
 %Include qtimezone.sip
 %Include qtranslator.sip
+%Include qtransposeproxymodel.sip
 %Include qurl.sip
 %Include qurlquery.sip
 %Include quuid.sip
@@ -216,6 +219,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qpycore_qlist.sip
 %Include qwineventnotifier.sip
 %Include qstringlist.sip
+%Include qpycore_onexit.sip
 %Include qjsonarray.sip
 %Include qpycore_virtual_error_handler.sip
 %Include qpycore_qvariantmap.sip

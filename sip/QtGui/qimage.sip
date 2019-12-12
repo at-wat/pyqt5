@@ -87,6 +87,9 @@ public:
 %If (Qt_5_12_0 -)
         Format_RGBA64_Premultiplied,
 %End
+%If (Qt_5_13_0 -)
+        Format_Grayscale16,
+%End
     };
 
     QImage();
@@ -131,8 +134,8 @@ public:
     QImage copy(const QRect &rect = QRect()) const;
     QImage copy(int x, int y, int w, int h) const;
     QImage::Format format() const;
-    QImage convertToFormat(QImage::Format format, Qt::ImageConversionFlags flags = Qt::AutoColor) const;
-    QImage convertToFormat(QImage::Format format, const QVector<unsigned int> &colorTable, Qt::ImageConversionFlags flags = Qt::AutoColor) const;
+    QImage convertToFormat(QImage::Format f, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor) const;
+    QImage convertToFormat(QImage::Format f, const QVector<unsigned int> &colorTable, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor) const;
     int width() const;
     int height() const;
     QSize size() const;
@@ -161,7 +164,7 @@ public:
     void fill(const QColor &color);
     void fill(uint pixel);
     bool hasAlphaChannel() const;
-    QImage createAlphaMask(Qt::ImageConversionFlags flags = Qt::AutoColor) const;
+    QImage createAlphaMask(Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor) const;
     QImage createHeuristicMask(bool clipTight = true) const;
     QImage scaled(int width, int height, Qt::AspectRatioMode aspectRatioMode = Qt::IgnoreAspectRatio, Qt::TransformationMode transformMode = Qt::FastTransformation) const;
     QImage scaled(const QSize &size, Qt::AspectRatioMode aspectRatioMode = Qt::IgnoreAspectRatio, Qt::TransformationMode transformMode = Qt::FastTransformation) const;
@@ -233,6 +236,9 @@ public:
 %End
 %If (Qt_5_10_0 -)
     SIP_SSIZE_T sizeInBytes() const [qsizetype ()];
+%End
+%If (Qt_5_13_0 -)
+    void convertTo(QImage::Format f, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor);
 %End
 };
 

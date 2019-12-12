@@ -51,6 +51,9 @@ public:
     QSettings(QSettings::Scope scope, const QString &organization, const QString &application = QString(), QObject *parent /TransferThis/ = 0);
     QSettings(QSettings::Format format, QSettings::Scope scope, const QString &organization, const QString &application = QString(), QObject *parent /TransferThis/ = 0);
     QSettings(const QString &fileName, QSettings::Format format, QObject *parent /TransferThis/ = 0);
+%If (Qt_5_13_0 -)
+    QSettings(QSettings::Scope scope, QObject *parent /TransferThis/ = 0);
+%End
     explicit QSettings(QObject *parent /TransferThis/ = 0);
     virtual ~QSettings();
     void clear();

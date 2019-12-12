@@ -76,6 +76,9 @@ public:
     static QSqlDatabase addDatabase(const QString &type, const QString &connectionName = QLatin1String(QSqlDatabase::defaultConnection));
     static QSqlDatabase addDatabase(QSqlDriver *driver, const QString &connectionName = QLatin1String(QSqlDatabase::defaultConnection));
     static QSqlDatabase cloneDatabase(const QSqlDatabase &other, const QString &connectionName);
+%If (Qt_5_13_0 -)
+    static QSqlDatabase cloneDatabase(const QString &other, const QString &connectionName);
+%End
     static QSqlDatabase database(const QString &connectionName = QLatin1String(QSqlDatabase::defaultConnection), bool open = true);
     static void removeDatabase(const QString &connectionName);
     static bool contains(const QString &connectionName = QLatin1String(QSqlDatabase::defaultConnection));

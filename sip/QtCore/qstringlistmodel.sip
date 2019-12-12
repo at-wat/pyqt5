@@ -40,4 +40,13 @@ public:
     virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
     virtual Qt::DropActions supportedDropActions() const;
     virtual QModelIndex sibling(int row, int column, const QModelIndex &idx) const;
+%If (Qt_5_13_0 -)
+    virtual bool moveRows(const QModelIndex &sourceParent, int sourceRow, int count, const QModelIndex &destinationParent, int destinationChild);
+%End
+%If (Qt_5_13_0 -)
+    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const;
+%End
+%If (Qt_5_13_0 -)
+    virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles);
+%End
 };

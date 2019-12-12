@@ -146,6 +146,9 @@ public:
     bool isValid() const;
     bool isRegistered() const;
     static const QMetaObject *metaObjectForType(int type);
+%If (Qt_5_13_0 -)
+    int id() const;
+%End
 
 private:
     QMetaType(const QMetaType &other);

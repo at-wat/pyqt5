@@ -35,22 +35,6 @@ if (sipIsErr == NULL)
     return PyUnicode_Check(sipPy);
 #endif
 
-#if PY_MAJOR_VERSION < 3
-if (PyString_Check(sipPy))
-{
-    if (PyString_Size(sipPy) != 1)
-    {
-        PyErr_SetString(PyExc_ValueError, "string of length 1 expected");
-        *sipIsErr = 1;
-        return 0;
-    }
-
-    *sipCppPtr = new QChar(*PyString_AsString(sipPy));
-
-    return sipGetState(sipTransferObj);
-}
-#endif
-
 QString qs = qpycore_PyObject_AsQString(sipPy);
 
 if (qs.size() != 1)

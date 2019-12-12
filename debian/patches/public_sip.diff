@@ -10,10 +10,10 @@ Per https://www.debian.org/doc/debian-policy/ch-source.html#convenience-copies-o
  3 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/configure.py b/configure.py
-index d85f778..7ab57c3 100644
+index a361cf1..74f28af 100644
 --- a/configure.py
 +++ b/configure.py
-@@ -2465,7 +2465,7 @@ def get_sip_flags(target_config):
+@@ -2491,7 +2491,7 @@ def get_sip_flags(target_config):
      the target configuration.
      """
  
