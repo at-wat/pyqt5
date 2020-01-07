@@ -2,7 +2,7 @@
 //
 // This file is part of the QtPositioning Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -40,7 +40,13 @@ public:
     explicit QGeoSatelliteInfoSource(QObject *parent /TransferThis/);
     virtual ~QGeoSatelliteInfoSource();
     static QGeoSatelliteInfoSource *createDefaultSource(QObject *parent /TransferThis/) /Factory/;
+%If (Qt_5_14_0 -)
+    static QGeoSatelliteInfoSource *createDefaultSource(const QVariantMap &parameters, QObject *parent /TransferThis/) /Factory/;
+%End
     static QGeoSatelliteInfoSource *createSource(const QString &sourceName, QObject *parent /TransferThis/) /Factory/;
+%If (Qt_5_14_0 -)
+    static QGeoSatelliteInfoSource *createSource(const QString &sourceName, const QVariantMap &parameters, QObject *parent /TransferThis/) /Factory/;
+%End
     static QStringList availableSources();
     QString sourceName() const;
     virtual void setUpdateInterval(int msec);

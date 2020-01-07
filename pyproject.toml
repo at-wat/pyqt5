@@ -1,12 +1,12 @@
-# Specify PyQt-builder v1 as the build system for the package.
+# Specify the build system requirements.
 [build-system]
-requires = ["PyQt-builder >=1, <2"]
+requires = ["sip >=5.0.1, <6", "PyQt-builder >=1.1.0, <2"]
 build-backend = "sipbuild.api"
 
 # Specify the PEP 566 metadata for the project.
 [tool.sip.metadata]
 name = "PyQt5"
-version = "5.13.2"
+version = "5.14.1"
 summary = "Python bindings for the Qt cross platform application toolkit"
 home-page = "https://www.riverbankcomputing.com/software/pyqt/"
 author = "Riverbank Computing Limited"

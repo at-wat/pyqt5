@@ -25,7 +25,9 @@ from PyQt5.QtWebSockets import QWebSocket
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtXmlPatterns import QXmlSchema
 from PyQt5.QtX11Extras import QX11Info
-from dbus.mainloop.pyqt5 import DBusQtMainLoop
+import sys
+if sys.version_info.major >= 3:
+    from dbus.mainloop.pyqt5 import DBusQtMainLoop
 EOF
 
 for py in $(pyversions -s) $(py3versions -s); do

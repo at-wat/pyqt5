@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -48,6 +48,26 @@ public slots:
 signals:
     void triggered(QAction *);
     void hovered(QAction *);
+
+public:
+%If (Qt_5_14_0 -)
+
+    enum class ExclusionPolicy
+    {
+        None,
+        Exclusive,
+        ExclusiveOptional,
+    };
+
+%End
+%If (Qt_5_14_0 -)
+    QActionGroup::ExclusionPolicy exclusionPolicy() const;
+%End
+
+public slots:
+%If (Qt_5_14_0 -)
+    void setExclusionPolicy(QActionGroup::ExclusionPolicy policy);
+%End
 
 private:
     QActionGroup(const QActionGroup &);

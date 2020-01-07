@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -383,6 +383,18 @@ enum /NoScope/
         IntType,
         UnsignedIntType,
         FloatType,
+%If (Qt_5_14_0 -)
+        Bytes2Type,
+%End
+%If (Qt_5_14_0 -)
+        Bytes3Type,
+%End
+%If (Qt_5_14_0 -)
+        Bytes4Type,
+%End
+%If (Qt_5_14_0 -)
+        DoubleType,
+%End
     };
 
 %End

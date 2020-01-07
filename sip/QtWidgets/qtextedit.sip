@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -216,6 +216,14 @@ public:
 %End
 %If (Qt_5_10_0 -)
     void setTabStopDistance(qreal distance);
+%End
+%If (Qt_5_14_0 -)
+    QString toMarkdown(QTextDocument::MarkdownFeatures features = QTextDocument::MarkdownDialectGitHub) const;
+%End
+
+public slots:
+%If (Qt_5_14_0 -)
+    void setMarkdown(const QString &markdown);
 %End
 };
 

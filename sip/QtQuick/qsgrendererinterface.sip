@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -38,6 +38,21 @@ public:
 %If (Qt_5_9_0 -)
         OpenVG,
 %End
+%If (Qt_5_14_0 -)
+        OpenGLRhi,
+%End
+%If (Qt_5_14_0 -)
+        Direct3D11Rhi,
+%End
+%If (Qt_5_14_0 -)
+        VulkanRhi,
+%End
+%If (Qt_5_14_0 -)
+        MetalRhi,
+%End
+%If (Qt_5_14_0 -)
+        NullRhi,
+%End
     };
 
     enum Resource
@@ -46,6 +61,27 @@ public:
         CommandQueueResource,
         CommandListResource,
         PainterResource,
+%If (Qt_5_14_0 -)
+        RhiResource,
+%End
+%If (Qt_5_14_0 -)
+        PhysicalDeviceResource,
+%End
+%If (Qt_5_14_0 -)
+        OpenGLContextResource,
+%End
+%If (Qt_5_14_0 -)
+        DeviceContextResource,
+%End
+%If (Qt_5_14_0 -)
+        CommandEncoderResource,
+%End
+%If (Qt_5_14_0 -)
+        VulkanInstanceResource,
+%End
+%If (Qt_5_14_0 -)
+        RenderPassResource,
+%End
     };
 
     enum ShaderType
@@ -53,6 +89,9 @@ public:
         UnknownShadingLanguage,
         GLSL,
         HLSL,
+%If (Qt_5_14_0 -)
+        RhiShader,
+%End
     };
 
     enum ShaderCompilationType
@@ -78,6 +117,9 @@ public:
     virtual QSGRendererInterface::ShaderType shaderType() const = 0;
     virtual QSGRendererInterface::ShaderCompilationTypes shaderCompilationType() const = 0;
     virtual QSGRendererInterface::ShaderSourceTypes shaderSourceType() const = 0;
+%If (Qt_5_14_0 -)
+    static bool isApiRhiBased(QSGRendererInterface::GraphicsApi api);
+%End
 };
 
 %End

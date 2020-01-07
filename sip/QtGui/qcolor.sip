@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -60,6 +60,9 @@ public:
         Hsv,
         Cmyk,
         Hsl,
+%If (Qt_5_14_0 -)
+        ExtendedRgb,
+%End
     };
 
     QColor(Qt::GlobalColor color /Constrained/);
@@ -188,7 +191,196 @@ public:
 %If (Qt_5_6_0 -)
     static QColor fromRgba64(QRgba64 rgba);
 %End
+%If (Qt_5_14_0 -)
+    QColor toExtendedRgb() const;
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QColor & /Constrained/) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &, QColor & /Constrained/) /ReleaseGIL/;
+%If (Qt_5_14_0 -)
+
+namespace QColorConstants
+{
+%TypeHeaderCode
+#include <qcolor.h>
+%End
+
+    const QColor Color0;
+    const QColor Color1;
+    const QColor Black;
+    const QColor White;
+    const QColor DarkGray;
+    const QColor Gray;
+    const QColor LightGray;
+    const QColor Red;
+    const QColor Green;
+    const QColor Blue;
+    const QColor Cyan;
+    const QColor Magenta;
+    const QColor Yellow;
+    const QColor DarkRed;
+    const QColor DarkGreen;
+    const QColor DarkBlue;
+    const QColor DarkCyan;
+    const QColor DarkMagenta;
+    const QColor DarkYellow;
+    const QColor Transparent;
+
+    namespace Svg
+    {
+%TypeHeaderCode
+#include <qcolor.h>
+%End
+
+        const QColor aliceblue;
+        const QColor antiquewhite;
+        const QColor aqua;
+        const QColor aquamarine;
+        const QColor azure;
+        const QColor beige;
+        const QColor bisque;
+        const QColor black;
+        const QColor blanchedalmond;
+        const QColor blue;
+        const QColor blueviolet;
+        const QColor brown;
+        const QColor burlywood;
+        const QColor cadetblue;
+        const QColor chartreuse;
+        const QColor chocolate;
+        const QColor coral;
+        const QColor cornflowerblue;
+        const QColor cornsilk;
+        const QColor crimson;
+        const QColor cyan;
+        const QColor darkblue;
+        const QColor darkcyan;
+        const QColor darkgoldenrod;
+        const QColor darkgray;
+        const QColor darkgreen;
+        const QColor darkgrey;
+        const QColor darkkhaki;
+        const QColor darkmagenta;
+        const QColor darkolivegreen;
+        const QColor darkorange;
+        const QColor darkorchid;
+        const QColor darkred;
+        const QColor darksalmon;
+        const QColor darkseagreen;
+        const QColor darkslateblue;
+        const QColor darkslategray;
+        const QColor darkslategrey;
+        const QColor darkturquoise;
+        const QColor darkviolet;
+        const QColor deeppink;
+        const QColor deepskyblue;
+        const QColor dimgray;
+        const QColor dimgrey;
+        const QColor dodgerblue;
+        const QColor firebrick;
+        const QColor floralwhite;
+        const QColor forestgreen;
+        const QColor fuchsia;
+        const QColor gainsboro;
+        const QColor ghostwhite;
+        const QColor gold;
+        const QColor goldenrod;
+        const QColor gray;
+        const QColor green;
+        const QColor greenyellow;
+        const QColor grey;
+        const QColor honeydew;
+        const QColor hotpink;
+        const QColor indianred;
+        const QColor indigo;
+        const QColor ivory;
+        const QColor khaki;
+        const QColor lavender;
+        const QColor lavenderblush;
+        const QColor lawngreen;
+        const QColor lemonchiffon;
+        const QColor lightblue;
+        const QColor lightcoral;
+        const QColor lightcyan;
+        const QColor lightgoldenrodyellow;
+        const QColor lightgray;
+        const QColor lightgreen;
+        const QColor lightgrey;
+        const QColor lightpink;
+        const QColor lightsalmon;
+        const QColor lightseagreen;
+        const QColor lightskyblue;
+        const QColor lightslategray;
+        const QColor lightslategrey;
+        const QColor lightsteelblue;
+        const QColor lightyellow;
+        const QColor lime;
+        const QColor limegreen;
+        const QColor linen;
+        const QColor magenta;
+        const QColor maroon;
+        const QColor mediumaquamarine;
+        const QColor mediumblue;
+        const QColor mediumorchid;
+        const QColor mediumpurple;
+        const QColor mediumseagreen;
+        const QColor mediumslateblue;
+        const QColor mediumspringgreen;
+        const QColor mediumturquoise;
+        const QColor mediumvioletred;
+        const QColor midnightblue;
+        const QColor mintcream;
+        const QColor mistyrose;
+        const QColor moccasin;
+        const QColor navajowhite;
+        const QColor navy;
+        const QColor oldlace;
+        const QColor olive;
+        const QColor olivedrab;
+        const QColor orange;
+        const QColor orangered;
+        const QColor orchid;
+        const QColor palegoldenrod;
+        const QColor palegreen;
+        const QColor paleturquoise;
+        const QColor palevioletred;
+        const QColor papayawhip;
+        const QColor peachpuff;
+        const QColor peru;
+        const QColor pink;
+        const QColor plum;
+        const QColor powderblue;
+        const QColor purple;
+        const QColor red;
+        const QColor rosybrown;
+        const QColor royalblue;
+        const QColor saddlebrown;
+        const QColor salmon;
+        const QColor sandybrown;
+        const QColor seagreen;
+        const QColor seashell;
+        const QColor sienna;
+        const QColor silver;
+        const QColor skyblue;
+        const QColor slateblue;
+        const QColor slategray;
+        const QColor slategrey;
+        const QColor snow;
+        const QColor springgreen;
+        const QColor steelblue;
+        const QColor tan;
+        const QColor teal;
+        const QColor thistle;
+        const QColor tomato;
+        const QColor turquoise;
+        const QColor violet;
+        const QColor wheat;
+        const QColor white;
+        const QColor whitesmoke;
+        const QColor yellow;
+        const QColor yellowgreen;
+    };
+};
+
+%End

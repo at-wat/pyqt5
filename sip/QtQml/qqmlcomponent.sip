@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -58,6 +58,9 @@ public:
     qreal progress() const;
     QUrl url() const;
     virtual QObject *create(QQmlContext *context = 0) /TransferBack/;
+%If (Qt_5_14_0 -)
+    QObject *createWithInitialProperties(const QVariantMap &initialProperties, QQmlContext *context = 0) /TransferBack/;
+%End
     virtual QObject *beginCreate(QQmlContext *) /TransferBack/;
     virtual void completeCreate();
     void create(QQmlIncubator &, QQmlContext *context = 0, QQmlContext *forContext = 0);
@@ -75,5 +78,8 @@ signals:
 public:
 %If (Qt_5_12_0 -)
     QQmlEngine *engine() const;
+%End
+%If (Qt_5_14_0 -)
+    void setInitialProperties(QObject *component, const QVariantMap &properties);
 %End
 };

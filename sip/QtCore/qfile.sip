@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -50,7 +50,7 @@ public:
     bool copy(const QString &newName) /ReleaseGIL/;
     static bool copy(const QString &fileName, const QString &newName) /ReleaseGIL/;
     virtual bool open(QIODevice::OpenMode flags) /ReleaseGIL/;
-    bool open(int fd, QIODevice::OpenMode ioFlags, QFileDevice::FileHandleFlags handleFlags = QFileDevice::DontCloseHandle) /ReleaseGIL/;
+    bool open(int fd, QIODevice::OpenMode ioFlags, QFileDevice::FileHandleFlags handleFlags = QFileDevice::FileHandleFlag::DontCloseHandle) /ReleaseGIL/;
     virtual qint64 size() const;
     virtual bool resize(qint64 sz);
     static bool resize(const QString &filename, qint64 sz);

@@ -1,3 +1,9 @@
+v5.14.1 6th January 2020
+  - This is a bug fix release.
+
+v5.14.0 18th December 2019
+  - Added support for Qt v5.14.0.
+
 v5.13.2 3rd November 2019
   - Added the missing pos() and setPos() overloads to QCursor.
   - A QVariant for a pointer to an unknown type will now be converted to a SIP

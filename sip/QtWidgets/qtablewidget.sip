@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -52,9 +52,9 @@ public:
         UserType,
     };
 
-    explicit QTableWidgetItem(int type = Type);
-    QTableWidgetItem(const QString &text, int type = Type);
-    QTableWidgetItem(const QIcon &icon, const QString &text, int type = Type);
+    explicit QTableWidgetItem(int type = QTableWidgetItem::ItemType::Type);
+    QTableWidgetItem(const QString &text, int type = QTableWidgetItem::ItemType::Type);
+    QTableWidgetItem(const QIcon &icon, const QString &text, int type = QTableWidgetItem::ItemType::Type);
     QTableWidgetItem(const QTableWidgetItem &other);
     virtual ~QTableWidgetItem();
     virtual QTableWidgetItem *clone() const /Factory/;

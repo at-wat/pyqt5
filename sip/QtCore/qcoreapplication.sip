@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -73,11 +73,11 @@ public:
 %If (Py_v3)
     static int exec() /PostHook=__pyQtPostEventLoopHook__,PreHook=__pyQtPreEventLoopHook__,ReleaseGIL/;
 %End
-    static void processEvents(QEventLoop::ProcessEventsFlags flags = QEventLoop::AllEvents) /ReleaseGIL/;
+    static void processEvents(QEventLoop::ProcessEventsFlags flags = QEventLoop::ProcessEventsFlag::AllEvents) /ReleaseGIL/;
     static void processEvents(QEventLoop::ProcessEventsFlags flags, int maxtime) /ReleaseGIL/;
     static void exit(int returnCode = 0);
     static bool sendEvent(QObject *receiver, QEvent *event) /ReleaseGIL/;
-    static void postEvent(QObject *receiver, QEvent *event /Transfer/, int priority = Qt::NormalEventPriority);
+    static void postEvent(QObject *receiver, QEvent *event /Transfer/, int priority = Qt::EventPriority::NormalEventPriority);
     static void sendPostedEvents(QObject *receiver = 0, int eventType = 0) /ReleaseGIL/;
     static void removePostedEvents(QObject *receiver, int eventType = 0);
     static bool hasPendingEvents();

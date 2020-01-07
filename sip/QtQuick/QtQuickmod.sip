@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -27,7 +27,7 @@
 %Import QtQml/QtQmlmod.sip
 
 %Copying
-Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt5.
 
@@ -62,6 +62,7 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qsggeometry.sip
 %Include qsgimagenode.sip
 %Include qsgmaterial.sip
+%Include qsgmaterialrhishader.sip
 %Include qsgnode.sip
 %Include qsgrectanglenode.sip
 %Include qsgrendererinterface.sip

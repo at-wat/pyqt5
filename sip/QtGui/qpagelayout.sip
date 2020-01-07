@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -52,7 +52,7 @@ public:
     };
 
     QPageLayout();
-    QPageLayout(const QPageSize &pageSize, QPageLayout::Orientation orientation, const QMarginsF &margins, QPageLayout::Unit units = QPageLayout::Point, const QMarginsF &minMargins = QMarginsF(0.0, 0.0, 0.0, 0.0));
+    QPageLayout(const QPageSize &pageSize, QPageLayout::Orientation orientation, const QMarginsF &margins, QPageLayout::Unit units = QPageLayout::Point, const QMarginsF &minMargins = QMarginsF(0, 0, 0, 0));
     QPageLayout(const QPageLayout &other);
     ~QPageLayout();
     void swap(QPageLayout &other /Constrained/);
@@ -60,7 +60,7 @@ public:
     bool isValid() const;
     void setMode(QPageLayout::Mode mode);
     QPageLayout::Mode mode() const;
-    void setPageSize(const QPageSize &pageSize, const QMarginsF &minMargins = QMarginsF(0.0, 0.0, 0.0, 0.0));
+    void setPageSize(const QPageSize &pageSize, const QMarginsF &minMargins = QMarginsF(0, 0, 0, 0));
     QPageSize pageSize() const;
     void setOrientation(QPageLayout::Orientation orientation);
     QPageLayout::Orientation orientation() const;

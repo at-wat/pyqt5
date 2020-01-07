@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -228,21 +228,7 @@ public:
 
     virtual ~QApplication() /ReleaseGIL/;
 %MethodCode
-        //pyqt5_qtwidgets_cleanup_qobjects();
-        if (!pyqt5_qtwidgets_cleanup_qobjects())
-        {
-            // Implement the old scheme.
-        
-            QWidgetList tlw = QApplication::topLevelWidgets();
-        
-            for (int i = 0; i < tlw.count(); ++i)
-            {
-                PyObject *sw = sipGetPyObject(tlw.at(i), sipType_QWidget);
-        
-                if (sw)
-                    sipTransferTo(sw, 0);
-            }
-        }
+        pyqt5_qtwidgets_cleanup_qobjects();
 %End
 
     static QStyle *style();
@@ -322,8 +308,7 @@ protected:
 
 %ModuleHeaderCode
 // Imports from QtCore.
-//typedef void (*pyqt5_qtwidgets_cleanup_qobjects_t)();
-typedef bool (*pyqt5_qtwidgets_cleanup_qobjects_t)();
+typedef void (*pyqt5_qtwidgets_cleanup_qobjects_t)();
 extern pyqt5_qtwidgets_cleanup_qobjects_t pyqt5_qtwidgets_cleanup_qobjects;
 
 typedef char **(*pyqt5_qtwidgets_from_argv_list_t)(PyObject *, int &);
