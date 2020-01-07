@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -89,6 +89,9 @@ public:
 %End
 %If (Qt_5_13_0 -)
         Format_Grayscale16,
+%End
+%If (Qt_5_14_0 -)
+        Format_BGR888,
 %End
     };
 
@@ -239,6 +242,21 @@ public:
 %End
 %If (Qt_5_13_0 -)
     void convertTo(QImage::Format f, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor);
+%End
+%If (Qt_5_14_0 -)
+    QColorSpace colorSpace() const;
+%End
+%If (Qt_5_14_0 -)
+    QImage convertedToColorSpace(const QColorSpace &) const;
+%End
+%If (Qt_5_14_0 -)
+    void convertToColorSpace(const QColorSpace &);
+%End
+%If (Qt_5_14_0 -)
+    void setColorSpace(const QColorSpace &);
+%End
+%If (Qt_5_14_0 -)
+    void applyColorTransform(const QColorTransform &transform);
 %End
 };
 

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtTest Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -47,6 +47,9 @@ public:
             sipError = sipBadCallableArg(0, a0);
 %End
 
+%If (Qt_5_14_0 -)
+    QSignalSpy(const QObject *obj, const QMetaMethod &signal);
+%End
     bool isValid() const;
     QByteArray signal() const;
     bool wait(int timeout = 5000) /ReleaseGIL/;

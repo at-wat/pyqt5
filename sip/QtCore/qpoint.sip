@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -73,6 +73,9 @@ public:
     QPoint &operator/=(qreal c);
 %If (Qt_5_1_0 -)
     static int dotProduct(const QPoint &p1, const QPoint &p2);
+%End
+%If (Qt_5_14_0 -)
+    QPoint transposed() const;
 %End
 };
 
@@ -186,6 +189,9 @@ public:
     qreal manhattanLength() const;
 %If (Qt_5_1_0 -)
     static qreal dotProduct(const QPointF &p1, const QPointF &p2);
+%End
+%If (Qt_5_14_0 -)
+    QPointF transposed() const;
 %End
 };
 

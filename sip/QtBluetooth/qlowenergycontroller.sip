@@ -2,7 +2,7 @@
 //
 // This file is part of the QtBluetooth Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -44,6 +44,9 @@ public:
 %End
 %If (Qt_5_10_0 -)
         RemoteHostClosedError,
+%End
+%If (Qt_5_14_0 -)
+        AuthorizationError,
 %End
     };
 
@@ -108,6 +111,9 @@ public:
 %End
 %If (Qt_5_7_0 -)
     static QLowEnergyController *createCentral(const QBluetoothDeviceInfo &remoteDevice, QObject *parent /TransferThis/ = 0) /Factory/;
+%End
+%If (Qt_5_14_0 -)
+    static QLowEnergyController *createCentral(const QBluetoothAddress &remoteDevice, const QBluetoothAddress &localDevice, QObject *parent /TransferThis/ = 0) /Factory/;
 %End
 %If (Qt_5_7_0 -)
     static QLowEnergyController *createPeripheral(QObject *parent /TransferThis/ = 0) /Factory/;

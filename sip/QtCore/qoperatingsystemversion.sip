@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -53,6 +53,9 @@ public:
 %End
 %If (Qt_5_11_2 -)
     static const QOperatingSystemVersion MacOSMojave;
+%End
+%If (Qt_5_14_0 -)
+    static const QOperatingSystemVersion MacOSCatalina;
 %End
     static const QOperatingSystemVersion AndroidJellyBean;
     static const QOperatingSystemVersion AndroidJellyBean_MR1;

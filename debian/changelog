@@ -1,3 +1,12 @@
+pyqt5 (5.14.1+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update debian/watch again, upstream tarballs are now on PyPI.
+  * Bump sip build-dependencies to 4.19.20, following configure.py.
+  * Drop Python 2 dbus.mainloop.pyqt5 packages.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Tue, 07 Jan 2020 18:02:01 +0300
+
 pyqt5 (5.13.2+dfsg-1) unstable; urgency=medium
 
   * New upstream release.

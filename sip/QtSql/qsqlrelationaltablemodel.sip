@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSql Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -47,8 +47,8 @@ class QSqlRelationalTableModel : QSqlTableModel
 public:
     QSqlRelationalTableModel(QObject *parent /TransferThis/ = 0, QSqlDatabase db = QSqlDatabase());
     virtual ~QSqlRelationalTableModel();
-    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+    virtual QVariant data(const QModelIndex &item, int role = Qt::ItemDataRole::DisplayRole) const;
+    virtual bool setData(const QModelIndex &item, const QVariant &value, int role = Qt::ItemDataRole::EditRole);
     virtual void clear();
     virtual bool select();
     virtual void setTable(const QString &tableName);

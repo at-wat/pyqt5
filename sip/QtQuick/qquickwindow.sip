@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -134,7 +134,10 @@ public:
 %If (Qt_5_2_0 -)
     QSGTexture *createTextureFromImage(const QImage &image, QQuickWindow::CreateTextureOptions options) const /Factory/;
 %End
-    QSGTexture *createTextureFromId(uint id, const QSize &size, QQuickWindow::CreateTextureOptions options = QQuickWindow::CreateTextureOption()) const;
+    QSGTexture *createTextureFromId(uint id, const QSize &size, QQuickWindow::CreateTextureOptions options = QQuickWindow::CreateTextureOption()) const /Factory/;
+%If (Qt_5_14_0 -)
+    QSGTexture *createTextureFromNativeObject(QQuickWindow::NativeObjectType type, const void *nativeObjectPtr, int nativeLayout, const QSize &size, QQuickWindow::CreateTextureOptions options = QQuickWindow::CreateTextureOption()) const /Factory/;
+%End
     void setClearBeforeRendering(bool enabled);
     bool clearBeforeRendering() const;
     void setColor(const QColor &color);
@@ -277,6 +280,28 @@ public:
 %End
 %If (Qt_5_10_0 -)
     static void setTextRenderType(QQuickWindow::TextRenderType renderType);
+%End
+%If (Qt_5_14_0 -)
+
+    enum NativeObjectType
+    {
+        NativeObjectTexture,
+    };
+
+%End
+%If (Qt_5_14_0 -)
+    void beginExternalCommands();
+%End
+%If (Qt_5_14_0 -)
+    void endExternalCommands();
+%End
+
+signals:
+%If (Qt_5_14_0 -)
+    void beforeRenderPassRecording();
+%End
+%If (Qt_5_14_0 -)
+    void afterRenderPassRecording();
 %End
 };
 

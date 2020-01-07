@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -1068,6 +1068,9 @@ namespace Qt
         PlainText,
         RichText,
         AutoText,
+%If (Qt_5_14_0 -)
+        MarkdownText,
+%End
     };
 
     enum AspectRatioMode
@@ -1442,6 +1445,9 @@ namespace Qt
 %If (Qt_5_10_0 -)
         AA_DisableWindowContextHelpButton,
 %End
+%If (Qt_5_14_0 -)
+        AA_DisableSessionManager,
+%End
     };
 
     enum ItemSelectionMode
@@ -1780,6 +1786,18 @@ namespace Qt
     {
         ChecksumIso3309,
         ChecksumItuV41,
+    };
+
+%End
+%If (Qt_5_14_0 -)
+
+    enum class HighDpiScaleFactorRoundingPolicy
+    {
+        Round,
+        Ceil,
+        Floor,
+        RoundPreferFloor,
+        PassThrough,
     };
 
 %End

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -88,6 +88,9 @@ public:
 %End
 %If (Qt_5_8_0 -)
     QTextFormat formatAt(const QPointF &pos) const;
+%End
+%If (Qt_5_14_0 -)
+    QTextBlock blockWithMarkerAt(const QPointF &pos) const;
 %End
 };
 

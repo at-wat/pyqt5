@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -79,6 +79,12 @@ public:
     QSize scaled(const QSize &s, Qt::AspectRatioMode mode) const;
     QSize scaled(int w, int h, Qt::AspectRatioMode mode) const;
     QSize transposed() const;
+%If (Qt_5_14_0 -)
+    QSize grownBy(QMargins m) const;
+%End
+%If (Qt_5_14_0 -)
+    QSize shrunkBy(QMargins m) const;
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QSize & /Constrained/) /ReleaseGIL/;
@@ -163,6 +169,12 @@ public:
     QSizeF scaled(const QSizeF &s, Qt::AspectRatioMode mode) const;
     QSizeF scaled(qreal w, qreal h, Qt::AspectRatioMode mode) const;
     QSizeF transposed() const;
+%If (Qt_5_14_0 -)
+    QSizeF grownBy(QMarginsF m) const;
+%End
+%If (Qt_5_14_0 -)
+    QSizeF shrunkBy(QMarginsF m) const;
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QSizeF & /Constrained/) /ReleaseGIL/;

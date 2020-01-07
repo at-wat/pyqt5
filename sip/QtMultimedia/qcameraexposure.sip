@@ -2,7 +2,7 @@
 //
 // This file is part of the QtMultimedia Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -140,7 +140,16 @@ signals:
 
 private:
     explicit QCameraExposure(QCamera *parent /TransferThis/ = 0);
+
+protected:
+%If (Qt_5_14_0 -)
     virtual ~QCameraExposure();
+%End
+
+private:
+%If (- Qt_5_14_0)
+    virtual ~QCameraExposure();
+%End
 };
 
 QFlags<QCameraExposure::FlashMode> operator|(QCameraExposure::FlashMode f1, QFlags<QCameraExposure::FlashMode> f2);

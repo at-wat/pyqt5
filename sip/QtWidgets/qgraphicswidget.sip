@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -46,8 +46,14 @@ public:
     QSizeF size() const;
     virtual void setGeometry(const QRectF &rect);
     QRectF rect() const;
+%If (Qt_5_14_0 -)
+    void setContentsMargins(QMarginsF margins);
+%End
     void setContentsMargins(qreal left, qreal top, qreal right, qreal bottom);
     virtual void getContentsMargins(qreal *left, qreal *top, qreal *right, qreal *bottom) const;
+%If (Qt_5_14_0 -)
+    void setWindowFrameMargins(QMarginsF margins);
+%End
     void setWindowFrameMargins(qreal left, qreal top, qreal right, qreal bottom);
     void getWindowFrameMargins(qreal *left, qreal *top, qreal *right, qreal *bottom) const;
     void unsetWindowFrameMargins();

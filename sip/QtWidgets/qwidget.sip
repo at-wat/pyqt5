@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -372,8 +372,8 @@ public:
     };
 
     typedef QFlags<QWidget::RenderFlag> RenderFlags;
-    void render(QPaintDevice *target, const QPoint &targetOffset = QPoint(), const QRegion &sourceRegion = QRegion(), QWidget::RenderFlags flags = QWidget::RenderFlags(QWidget::DrawWindowBackground | QWidget::DrawChildren));
-    void render(QPainter *painter, const QPoint &targetOffset = QPoint(), const QRegion &sourceRegion = QRegion(), QWidget::RenderFlags flags = QWidget::RenderFlags(QWidget::DrawWindowBackground | QWidget::DrawChildren));
+    void render(QPaintDevice *target, const QPoint &targetOffset = QPoint(), const QRegion &sourceRegion = QRegion(), QWidget::RenderFlags flags = QWidget::RenderFlags(QWidget::RenderFlag::DrawWindowBackground | QWidget::RenderFlag::DrawChildren));
+    void render(QPainter *painter, const QPoint &targetOffset = QPoint(), const QRegion &sourceRegion = QRegion(), QWidget::RenderFlags flags = QWidget::RenderFlags(QWidget::RenderFlag::DrawWindowBackground | QWidget::RenderFlag::DrawChildren));
     void setLocale(const QLocale &locale);
     QLocale locale() const;
     void unsetLocale();
@@ -442,6 +442,9 @@ public:
 %End
 %If (Qt_5_9_0 -)
     void setWindowFlag(Qt::WindowType, bool on = true);
+%End
+%If (Qt_5_14_0 -)
+    QScreen *screen() const;
 %End
 };
 

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -174,6 +174,12 @@ public:
         RequiresFullMatrix,
 %If (Qt_5_2_0 -)
         CustomCompileStep,
+%End
+%If (Qt_5_14_0 -)
+        SupportsRhiShader,
+%End
+%If (Qt_5_14_0 -)
+        RhiShaderWanted,
 %End
     };
 
