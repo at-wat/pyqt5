@@ -504,7 +504,7 @@ Description: Python 2 bindings for Qt5
 Package: python-pyqt5-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5 (= ${binary:Version}),
          python-sip-dbg,
          ${misc:Depends},
@@ -529,7 +529,7 @@ Description: Python 2 bindings for Qt5's OpenGL module
 Package: python-pyqt5.qtopengl-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtopengl (= ${binary:Version}),
          ${misc:Depends},
@@ -555,7 +555,7 @@ Description: Python 2 bindings for Qt5's SQL module
 Package: python-pyqt5.qtsql-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtsql (= ${binary:Version}),
          ${misc:Depends},
@@ -583,7 +583,7 @@ Description: Python 2 bindings for Qt5's WebChannel module
 Package: python-pyqt5.qtwebchannel-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtwebchannel (= ${binary:Version}),
          ${misc:Depends},
@@ -611,7 +611,7 @@ Description: Python 2 bindings for Qt5's WebKit module
 Package: python-pyqt5.qtwebkit-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtwebkit (= ${binary:Version}),
          ${misc:Depends},
@@ -637,7 +637,7 @@ Description: Python 2 bindings for Qt5's WebSockets module
 Package: python-pyqt5.qtwebsockets-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtwebsockets (= ${binary:Version}),
          ${misc:Depends},
@@ -663,7 +663,7 @@ Description: Python 2 bindings for Qt5's XmlPatterns module
 Package: python-pyqt5.qtxmlpatterns-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtxmlpatterns (= ${binary:Version}),
          ${misc:Depends},
@@ -689,7 +689,7 @@ Description: Python 2 bindings for Qt5's SVG module
 Package: python-pyqt5.qtsvg-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtsvg (= ${binary:Version}),
          ${misc:Depends},
@@ -715,7 +715,7 @@ Description: Python 2 bindings for Qt5's Multimedia module
 Package: python-pyqt5.qtmultimedia-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtmultimedia (= ${binary:Version}),
          ${misc:Depends},
@@ -741,7 +741,7 @@ Description: Python 2 bindings for QtQuick module
 Package: python-pyqt5.qtquick-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtquick (= ${binary:Version}),
          ${misc:Depends},
@@ -767,7 +767,7 @@ Description: Python 2 bindings for QtSerialPort module
 Package: python-pyqt5.qtserialport-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtserialport (= ${binary:Version}),
          ${misc:Depends},
@@ -793,7 +793,7 @@ Description: Python 2 bindings for QtSensors module
 Package: python-pyqt5.qtsensors-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtsensors (= ${binary:Version}),
          ${misc:Depends},
@@ -819,7 +819,7 @@ Description: Python 2 bindings for QtX11Extras module
 Package: python-pyqt5.qtx11extras-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtx11extras (= ${binary:Version}),
          ${misc:Depends},
@@ -845,7 +845,7 @@ Description: Python 2 bindings for QtPositioning module
 Package: python-pyqt5.qtpositioning-dbg
 Section: debug
 Architecture: any
-Depends: python-dbg,
+Depends: python2-dbg,
          python-pyqt5-dbg (= ${binary:Version}),
          python-pyqt5.qtpositioning (= ${binary:Version}),
          ${misc:Depends},
