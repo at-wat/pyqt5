@@ -1,3 +1,9 @@
+pyqt5 (5.14.1+dfsg-1ubuntu1) focal; urgency=medium
+
+  * python-*-dbg: Depend on python2-dbg instead of python-dbg.
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu, 09 Jan 2020 13:41:05 +0100
+
 pyqt5 (5.14.1+dfsg-1) unstable; urgency=medium
 
   * New upstream release.
