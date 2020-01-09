@@ -1,3 +1,11 @@
+pyqt5 (5.14.1+dfsg-2) unstable; urgency=medium
+
+  [ Emmanuel Arias ]
+  * python-*-dbg depends on python2-dbg instead of python-dbg. (Closes: #948495)
+    - Patch by Matthias Klose
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Thu, 09 Jan 2020 20:19:41 +0300
+
 pyqt5 (5.14.1+dfsg-1) unstable; urgency=medium
 
   * New upstream release.
