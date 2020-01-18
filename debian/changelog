@@ -1,3 +1,9 @@
+pyqt5 (5.14.1+dfsg-2build1) focal; urgency=medium
+
+  * No-change rebuild to fix broken python3.8-dbg build on arm64.
+
+ -- Dmitry Shachnev <mitya57@ubuntu.com>  Sat, 18 Jan 2020 16:34:37 +0300
+
 pyqt5 (5.14.1+dfsg-2) unstable; urgency=medium
 
   [ Emmanuel Arias ]
