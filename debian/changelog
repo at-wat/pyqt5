@@ -1,3 +1,9 @@
+pyqt5 (5.14.1+dfsg-2build2) focal; urgency=medium
+
+  * No-change rebuild to drop python3.7.
+
+ -- Matthias Klose <doko@ubuntu.com>  Tue, 18 Feb 2020 10:45:12 +0100
+
 pyqt5 (5.14.1+dfsg-2build1) focal; urgency=medium
 
   * No-change rebuild to fix broken python3.8-dbg build on arm64.
