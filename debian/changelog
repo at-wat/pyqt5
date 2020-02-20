@@ -1,3 +1,10 @@
+pyqt5 (5.14.1+dfsg-3) unstable; urgency=medium
+
+  * Drop Python 2 support (closes: #937513).
+  * Bump Standards-Version to 4.5.0, no changes needed.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Thu, 20 Feb 2020 15:30:37 +0300
+
 pyqt5 (5.14.1+dfsg-2) unstable; urgency=medium
 
   [ Emmanuel Arias ]

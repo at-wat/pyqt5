@@ -24,10 +24,8 @@ LDFLAGS += -Wl,-O1 -Wl,--as-needed
 
 SPLIT=10
 
-PYTHON3S := $(shell  py3versions -vr)
 DEFAULT_PYTHON := $(shell py3versions -vd)
-PYTHON := 2.7
-ALLPYTHONS := $(PYTHON3S) $(PYTHON)
+ALLPYTHONS := $(shell py3versions -vr)
 PYTHON_INCDIR = $(shell $(1) -c 'from distutils import sysconfig; print(sysconfig.get_python_inc())')
 
 DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
@@ -35,7 +33,7 @@ DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 PYQT_MODULES := opengl sql webchannel webkit websockets xmlpatterns svg \
 	multimedia quick serialport sensors x11extras positioning
 
-PY_PACKAGE_NAMES := pyqt5 $(PYQT_MODULES:%=pyqt5.qt%)
+PY_PACKAGE_NAMES := pyqt5 $(PYQT_MODULES:%=pyqt5.qt%) dbus.mainloop.pyqt5
 
 export QT_SELECT=qt5
 
@@ -62,8 +60,7 @@ build-%/configure-stamp:
 			-d /usr/lib/python$*/dist-packages \
 			--sip-incdir $(call PYTHON_INCDIR, python$*) \
 			--no-sip-files \
-			$(if $(filter $(DEFAULT_PYTHON),$*),,--no-designer-plugin --no-qml-plugin) \
-			$(if $(filter 3.%,$*),,--no-tools --no-python-dbus)
+			$(if $(filter $(DEFAULT_PYTHON),$*),,--no-designer-plugin --no-qml-plugin)
 	sed -i '/strip/d' build-$*/*/Makefile
 	touch $@
 
@@ -74,7 +71,6 @@ dbg-build-%/configure-stamp:
 	cd dbg-build-$* && python$*-dbg ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
 			-d /usr/lib/python$*/dist-packages \
 			--sip-incdir $(call PYTHON_INCDIR, python$*-dbg) \
-			$(if $(filter 3.%,$*),,--no-python-dbus) \
 			--debug --no-designer-plugin --no-qml-plugin --no-tools --no-sip-files
 	sed -i '/strip/d' dbg-build-$*/*/Makefile
 	sed -i 's/-isystem/-I/' dbg-build-$*/*/Makefile
@@ -147,11 +143,6 @@ install-arch: build-arch
 	find debian/python*-dbg ! -type d \
 		! \( -name '*.so' -o -name '*config_*d*.py' \) | xargs rm -f
 
-	for i in $$(find debian/python-*-dbg -name '*.so'); do \
-		b=$$(basename $$i .so); \
-		mv $$i $$(dirname $$i)/$${b}_d.so; \
-		done
-
 d3_qt5_dbg = debian/python3-pyqt5-dbg
 
 install-arch-3.%:
@@ -200,47 +191,6 @@ install-arch-3.%:
 	   $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtLocation.so \
 		debian/python3-pyqt5.qtpositioning-dbg/usr/lib/python3.$*/dist-packages/PyQt5
 
-
-d_qt5_dbg = debian/python-pyqt5-dbg
-
-install-arch-2.%:
-	$(MAKE) -C build-2.$* install INSTALL_ROOT=$(CURDIR)/debian/tmp DESTDIR=$(CURDIR)/debian/tmp
-	$(MAKE) -C dbg-build-2.$* install INSTALL_ROOT=$(CURDIR)/$(d_qt5_dbg) DESTDIR=$(CURDIR)/$(d_qt5_dbg)
-
-	# Don't initiate the uic/widget-plugins
-	touch $(CURDIR)/debian/tmp/usr/lib/python2.$*/dist-packages/PyQt5/uic/widget-plugins/.noinit
-	for module in $(PYQT_MODULES); do \
-		mkdir -p debian/python-pyqt5.qt$$module-dbg/usr/lib/python2.$*/dist-packages/PyQt5; \
-	done
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/*OpenGL*.so \
-		debian/python-pyqt5.qtopengl-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtSql.so \
-		debian/python-pyqt5.qtsql-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtWebChannel.so \
-		debian/python-pyqt5.qtwebchannel-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtWebKit*.so \
-		debian/python-pyqt5.qtwebkit-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtWebSockets.so \
-		debian/python-pyqt5.qtwebsockets-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtXmlPatterns.so \
-		debian/python-pyqt5.qtxmlpatterns-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtSvg.so \
-		debian/python-pyqt5.qtsvg-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtMultimedia*.so \
-		debian/python-pyqt5.qtmultimedia-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtQml.so \
-	   $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtQuick*.so \
-		debian/python-pyqt5.qtquick-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtSerialPort.so \
-		debian/python-pyqt5.qtserialport-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtSensors.so \
-		debian/python-pyqt5.qtsensors-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtX11Extras.so \
-		debian/python-pyqt5.qtx11extras-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-	mv $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtPositioning.so \
-	   $(d_qt5_dbg)/usr/lib/python2.$*/dist-packages/PyQt5/QtLocation.so \
-		debian/python-pyqt5.qtpositioning-dbg/usr/lib/python2.$*/dist-packages/PyQt5
-
 clean:
 	dh_testdir
 	dh_testroot
@@ -262,22 +212,17 @@ binary-common:
 	dh_installman
 	dh_installchangelogs
 	dh_installdocs -A NEWS
-	dh_sip
 	dh_sip3
 ifeq (,$(findstring -i, $(DH_OPTIONS)))
 	DH_OPTIONS= dh_strip -ppyqt5-dev-tools
 	set -e; \
-	for p in $(PY_PACKAGE_NAMES:%=python3-%) python3-dbus.mainloop.pyqt5 $(PY_PACKAGE_NAMES:%=python-%); do \
+	for p in $(PY_PACKAGE_NAMES:%=python3-%); do \
 		DH_OPTIONS= dh_strip -p$$p --dbg-package=$$p-dbg; \
 		rm -rf debian/$$p-dbg/usr/share/doc/$$p-dbg; \
 		mkdir -p debian/$$p-dbg/usr/share/doc; \
 		ln -s $$p debian/$$p-dbg/usr/share/doc/$$p-dbg; \
 	done
 endif
-	dh_python2 --no-dbg-cleaning -N pyqt5-dev-tools -N pyqt5-examples
-	rm -rf $(CURDIR)/debian/python-pyqt5/usr/lib/python2.7/dist-packages/PyQt5/uic/port_v3
-	rm -rf $(CURDIR)/debian/python-pyqt5-dbg/usr/bin
-	rm -rf $(CURDIR)/debian/python-pyqt5-dbg/usr/lib/python2.7/dist-packages/PyQt5/uic
 	dh_python3 --no-dbg-cleaning -N pyqt5-examples
 	rm -rf $(CURDIR)/debian/python3-pyqt5/usr/lib/python3/dist-packages/PyQt5/uic/port_v2
 	rm -rf $(CURDIR)/debian/python3-pyqt5-dbg/usr/bin
