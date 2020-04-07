@@ -1,4 +1,58 @@
+2020-04-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.14.2.
+	[f6efe33af484] [5.14.2] <5.14-maint>
+
+	* NEWS:
+	Updated the NEWS file.
+	[73d621910b73] <5.14-maint>
+
+	* PyQt5.msp:
+	Added the missing QTextCodec.convertFromUnicode() so that QTextCodec
+	can now be instantiated from Python.
+	[71aabcec4eb4] <5.14-maint>
+
+2020-03-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qjsonarray.sip, qpy/QtCore/qpycore_qjsonvalue.cpp:
+	Fixed a regression introduced when QJsonValue became iterable.
+	[b03590b430ce] <5.14-maint>
+
+2020-02-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/pyproject.toml:
+	Fixed METADATA for the commercial wheels.
+	[5da20453cf42] <5.14-maint>
+
+2020-02-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Fixed glReadPixels() in the ES2 support.
+	[c104737f6f05] <5.14-maint>
+
+2020-02-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Enabled the OpenGL ES bindings.
+	[d15fbceb7632] <5.14-maint>
+
+2020-01-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Implement QFlags.__index__() to replicate the behaviour of Python's
+	enum.IntFlag type and avoid a deprecation warning in Python v3.8.
+	[541f2dcf2b27] <5.14-maint>
+
+	* .hgignore:
+	Ignore the new distribution directories.
+	[ca61cf227382] <5.14-maint>
+
 2020-01-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.14.1 for changeset 71a24375c1af
+	[9807854bd906] <5.14-maint>
 
 	* NEWS:
 	Released as v5.14.1.
