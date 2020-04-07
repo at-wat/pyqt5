@@ -157,8 +157,6 @@ install-arch-3.%:
 	mv $(CURDIR)/debian/python3-pyqt5-dbg$(py3_dbusmoddir)/pyqt5.so \
 	   $(CURDIR)/debian/python3-dbus.mainloop.pyqt5-dbg/usr/lib/python3.$*/dist-packages/dbus/mainloop; \
 
-	# Don't initiate the uic/widget-plugins
-	touch $(CURDIR)/debian/tmp/usr/lib/python3.$*/dist-packages/PyQt5/uic/widget-plugins/.noinit
 	for module in $(PYQT_MODULES); do \
 		mkdir -p debian/python3-pyqt5.qt$$module-dbg/usr/lib/python3.$*/dist-packages/PyQt5; \
 	done

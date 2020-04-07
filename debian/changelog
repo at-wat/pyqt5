@@ -1,3 +1,12 @@
+pyqt5 (5.14.2+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Drop the creation of .noinit file. It was needed for python-support
+    long time ago, and never used in this package.
+  * Rebuild the designer and QML plugins with Python 3.8 (closes: #955621).
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Tue, 07 Apr 2020 20:20:29 +0300
+
 pyqt5 (5.14.1+dfsg-3) unstable; urgency=medium
 
   * Drop Python 2 support (closes: #937513).
