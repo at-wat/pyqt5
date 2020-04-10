@@ -1,3 +1,9 @@
+pyqt5 (5.14.1+dfsg-3build1) focal; urgency=medium
+
+  * No-change rebuild against qtbase-abi-5-12-8.
+
+ -- Rik Mills <rikmills@kde.org>  Fri, 10 Apr 2020 20:04:18 +0100
+
 pyqt5 (5.14.1+dfsg-3) unstable; urgency=medium
 
   * Drop Python 2 support (closes: #937513).
