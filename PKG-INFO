@@ -1,13 +1,13 @@
 Metadata-Version: 2.1
 Name: PyQt5
-Version: 5.14.2
+Version: 5.15.0
 Requires-Python: >=3.5
 Summary: Python bindings for the Qt cross platform application toolkit
 Home-Page: https://www.riverbankcomputing.com/software/pyqt/
 Author: Riverbank Computing Limited
 Author-Email: info@riverbankcomputing.com
 License: GPL v3
-Requires-Dist: PyQt5-sip (>=12.7, <13)
+Requires-Dist: PyQt5-sip (>=12.8, <13)
 
 PyQt5 - Comprehensive Python Bindings for Qt v5
 ===============================================
