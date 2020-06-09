@@ -1,3 +1,11 @@
+v5.15.0 1st June 2020
+  - Added support for Qt v5.15.0.
+  - Added the QtQuick3D module.
+  - Added a callStaticMethod() overload to QAndroidJniObject that takes a
+    QJsonDocument as the method argument and returns another QJsonDocument.
+  - Added the missing QMultimedia control classes.
+  - pyuic5 now supports QUndoView.
+
 v5.14.2 3rd April 2020
   - Added the missing QTextCodec.convertFromUnicode().
   - Added the OpenGL ES bindings.

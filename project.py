@@ -33,7 +33,7 @@ class PyQt(PyQtProject):
     def __init__(self):
         """ Initialise the project. """
 
-        super().__init__(dunder_init=True, tag_prefix='Qt',
+        super().__init__(abi_version='12.8', dunder_init=True, tag_prefix='Qt',
                 console_scripts=[
                     'pylupdate5 = PyQt5.pylupdate_main:main',
                     'pyrcc5 = PyQt5.pyrcc_main:main',
@@ -44,7 +44,7 @@ class PyQt(PyQtProject):
             QtQml, QAxContainer, QtAndroidExtras, QtBluetooth, QtDBus,
             QtDesigner, Enginio, QtHelp, QtMacExtras, QtMultimedia,
             QtMultimediaWidgets, QtNetworkAuth, QtNfc, QtOpenGL, QtPositioning,
-            QtLocation, QtPrintSupport, QtQuick, QtQuickWidgets,
+            QtLocation, QtPrintSupport, QtQuick, QtQuick3D, QtQuickWidgets,
             QtRemoteObjects, QtSensors, QtSerialPort, QtSql, QtSvg, QtTest,
             QtWebChannel, QtWebKit, QtWebKitWidgets, QtWebSockets, QtWinExtras,
             QtX11Extras, QtXml, QtXmlPatterns, _QOpenGLFunctions_2_0,
@@ -189,20 +189,29 @@ del find_qt
         installable.files.append(os.path.join(self.root_dir, 'pyuic', 'uic'))
         self.installables.append(installable)
 
+        # If any set of bindings is being built as a debug version then assume
+        # the plugins and DBus support should as well.
+        for bindings in self.bindings.values():
+            if bindings.debug:
+                others_debug = True
+                break
+        else:
+            others_debug = self.py_debug
+
         # Add the plugins.  For the moment we don't include them in wheels.
         # This may change when we improve the bundling of Qt.
         if tool in ('build', 'install'):
             if self.designer_plugin and 'QtDesigner' in self.bindings:
                 self._add_plugin('designer', "Qt Designer", 'pyqt5',
-                        'designer')
+                        'designer', others_debug)
 
             if self.qml_plugin and 'QtQml' in self.bindings:
                 self._add_plugin('qmlscene', "qmlscene", 'pyqt5qmlplugin',
-                        'PyQt5')
+                        'PyQt5', others_debug)
 
         # Add the dbus-python support.
         if self.dbus_python:
-            self._add_dbus()
+            self._add_dbus(others_debug)
 
     def _add_composite_module(self, tool):
         """ Add the bindings for the composite module. """
@@ -224,7 +233,7 @@ del find_qt
 
         self.bindings['Qt'].sip_file = sip_file
 
-    def _add_dbus(self):
+    def _add_dbus(self, debug):
         """ Add the dbus-python support. """
 
         self.progress(
@@ -287,11 +296,11 @@ del find_qt
         buildable.include_dirs.extend(dbus_inc_dirs)
         buildable.library_dirs.extend(dbus_lib_dirs)
         buildable.libraries.extend(dbus_libs)
-        buildable.debug = self.py_debug
+        buildable.debug = debug
 
         self.buildables.append(buildable)
 
-    def _add_plugin(self, name, user_name, target_name, target_subdir):
+    def _add_plugin(self, name, user_name, target_name, target_subdir, debug):
         """ Add a plugin to the project buildables. """
 
         builder = self.builder
@@ -330,8 +339,7 @@ del find_qt
         with open(os.path.join(root_plugin_dir, name + '.pro-in')) as f:
             prj = f.read()
 
-        prj = prj.replace('@QTCONFIG@',
-                'debug' if self.py_debug else 'release')
+        prj = prj.replace('@QTCONFIG@', 'debug' if debug else 'release')
         prj = prj.replace('@PYINCDIR@',
                 builder.qmake_quote(self.py_include_dir))
         prj = prj.replace('@SIPINCDIR@', builder.qmake_quote(self.build_dir))
@@ -820,6 +828,17 @@ class QtQuick(PyQtBindings):
         super().__init__(project, 'QtQuick', qmake_QT=['quick'],
                 test_headers=['qquickwindow.h'],
                 test_statement='new QQuickWindow()')
+
+
+class QtQuick3D(PyQtBindings):
+    """ The QtQuick3D bindings. """
+
+    def __init__(self, project):
+        """ Initialise the bindings. """
+
+        super().__init__(project, 'QtQuick3D', qmake_QT=['quick3d'],
+                test_headers=['qquick3d.h'],
+                test_statement='QQuick3D::idealSurfaceFormat()')
 
 
 class QtQuickWidgets(PyQtBindings):

@@ -64,11 +64,7 @@ int qpycore_qobject_qt_metacall(sipSimpleWrapper *pySelf, sipTypeDef *base,
     if (!pySelf)
         return -1;
 
-    SIP_BLOCK_THREADS
-    _id = qt_metacall_worker(pySelf, Py_TYPE(pySelf), base, _c, _id, _a);
-    SIP_UNBLOCK_THREADS
-
-    return _id;
+    return qt_metacall_worker(pySelf, Py_TYPE(pySelf), base, _c, _id, _a);
 }
 
 
