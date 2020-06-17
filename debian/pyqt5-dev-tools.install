@@ -1,5 +1,5 @@
 usr/bin/*
-usr/lib/python3*/dist-packages/PyQt5/pylupdate.so
-usr/lib/python3*/dist-packages/PyQt5/pylupdate_main.py
-usr/lib/python3*/dist-packages/PyQt5/pyrcc.so
-usr/lib/python3*/dist-packages/PyQt5/pyrcc_main.py
+usr/lib/python3/dist-packages/PyQt5/pylupdate.abi3.so
+usr/lib/python3/dist-packages/PyQt5/pylupdate_main.py
+usr/lib/python3/dist-packages/PyQt5/pyrcc.abi3.so
+usr/lib/python3/dist-packages/PyQt5/pyrcc_main.py

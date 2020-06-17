@@ -1,4 +1,4 @@
-usr/lib/python3*/dist-packages/PyQt5/QtWebKit.pyi
-usr/lib/python3*/dist-packages/PyQt5/QtWebKit.so
-usr/lib/python3*/dist-packages/PyQt5/QtWebKitWidgets.pyi
-usr/lib/python3*/dist-packages/PyQt5/QtWebKitWidgets.so
+usr/lib/python3/dist-packages/PyQt5/QtWebKit.abi3.so
+usr/lib/python3/dist-packages/PyQt5/QtWebKit.pyi
+usr/lib/python3/dist-packages/PyQt5/QtWebKitWidgets.abi3.so
+usr/lib/python3/dist-packages/PyQt5/QtWebKitWidgets.pyi

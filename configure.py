@@ -2506,7 +2506,7 @@ def get_sip_flags(target_config):
     the target configuration.
     """
 
-    sip_flags = ['-n', 'sip']
+    sip_flags = ['-n', 'PyQt5.sip']
 
     # If we don't check for signed interpreters, we exclude the 'VendorID'
     # feature

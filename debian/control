@@ -3,7 +3,7 @@ Section: python
 Priority: optional
 Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
 Uploaders: Dmitry Shachnev <mitya57@debian.org>
-Build-Depends: debhelper-compat (= 11),
+Build-Depends: debhelper-compat (= 13),
                dh-python,
                dpkg-dev (>= 1.16.1~),
                libdbus-1-dev (>= 1.0.2),
@@ -29,14 +29,16 @@ Build-Depends: debhelper-compat (= 11),
                python3-all-dev (>= 3.3.2-5~),
                python3-dbus,
                python3-dbus-dbg,
-               python3-sip-dbg,
-               python3-sip-dev (>= 4.19.23~),
+               python3-pyqtbuild,
+               python3-sipbuild (>= 5.3),
+               python3-sipbuild-dbg (>= 5.3),
                qtdeclarative5-dev (>= 5.9.1),
                qtlocation5-dev (>= 5.9.1),
                qtmultimedia5-dev (>= 5.9.1),
                qtpositioning5-dev (>= 5.9.1),
-               qttools5-dev (>= 5.9.1)
-Build-Depends-Indep: fdupes
+               qttools5-dev (>= 5.9.1),
+               sip5-tools (>= 5.3.0+dfsg-2~)
+Build-Depends-Indep: fdupes, python3-pyqt5.sip (>= 12.8)
 Standards-Version: 4.5.0
 Homepage: https://riverbankcomputing.com/software/pyqt/intro
 Vcs-Git: https://salsa.debian.org/python-team/modules/pyqt5.git
@@ -44,7 +46,7 @@ Vcs-Browser: https://salsa.debian.org/python-team/modules/pyqt5
 
 Package: pyqt5-dev
 Architecture: all
-Depends: python3-sip-dev, ${misc:Depends}
+Depends: ${misc:Depends}
 Description: Development files for PyQt5
  This package contains the source SIP files from which the Python
  bindings for Qt5 are created. They are needed for building PyQt5
@@ -80,11 +82,15 @@ Description: Examples and demos for PyQt5
 
 Package: python3-pyqt5
 Architecture: any
-Depends: ${misc:Depends},
+Depends: python3-pyqt5.sip (<< 13),
+         python3-pyqt5.sip (>= 12.8),
+         ${misc:Depends},
          ${python3:Depends},
-         ${shlibs:Depends},
-         ${sip3:Depends}
+         ${shlibs:Depends}
 Suggests: python3-pyqt5-dbg
+Breaks: python3-pyqt5.qsci (<< 2.11.5~),
+        python3-pyqt5.qtchart (<< 5.15~),
+        python3-pyqt5.qtwebengine (<< 5.15.0-1+exp1~)
 Description: Python 3 bindings for Qt5
  PyQt5 exposes the Qt5 API to Python 3. This package contains the following
  modules:
@@ -104,7 +110,7 @@ Section: debug
 Architecture: any
 Depends: python3-dbg,
          python3-pyqt5 (= ${binary:Version}),
-         python3-sip-dbg,
+         python3-pyqt5.sip-dbg (>= 12.8),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Python 3 bindings for Qt5 (debug extensions)
