@@ -1,0 +1,11 @@
+usr/lib/python3/dist-packages/PyQt5/Qt.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtCore.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtDBus.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtDesigner.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtGui.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtHelp.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtNetwork.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtPrintSupport.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtTest.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtWidgets.cpython-*.so
+usr/lib/python3/dist-packages/PyQt5/QtXml.cpython-*.so

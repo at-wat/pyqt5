@@ -1,3 +1,19 @@
+pyqt5 (5.15.0+dfsg-1+exp1) experimental; urgency=medium
+
+  * Switch from sip4 to sip5:
+    - Update build-dependencies.
+    - Build with sip-build instead of configure.py.
+    - Drop debian/patches/public_sip.diff, not needed with sip5.
+    - Install .sip files into the new location.
+    - Update runtime dependency of python3-pyqt5{,-dbg} and pyqt5-dev.
+  * Drop -Wl,--as-needed from LDFLAGS, it is default in Bullseye.
+  * Update to debhelper compat level 13.
+  * Use dh sequencer.
+  * Break some reverse dependencies, they need to build with sip5 too
+    (closes: #962846).
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Wed, 17 Jun 2020 14:12:56 +0300
+
 pyqt5 (5.15.0+dfsg-1) unstable; urgency=medium
 
   * New upstream release.

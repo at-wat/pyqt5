@@ -4,8 +4,6 @@
 
 export DH_OPTIONS=${EXTRA_DH_OPTIONS}
 
-py3_dbusmoddir = $(shell python3 -c 'import dbus.mainloop; print(dbus.mainloop.__path__[0])')
-
 CFLAGS=
 CPPFLAGS=
 CXXFLAGS=
@@ -20,15 +18,12 @@ else
 	LDFLAGS += $(shell dpkg-buildflags --get LDFLAGS)
 endif
 
-LDFLAGS += -Wl,-O1 -Wl,--as-needed
+LDFLAGS += -Wl,-O1
 
 SPLIT=10
 
 DEFAULT_PYTHON := $(shell py3versions -vd)
 ALLPYTHONS := $(shell py3versions -vr)
-PYTHON_INCDIR = $(shell $(1) -c 'from distutils import sysconfig; print(sysconfig.get_python_inc())')
-
-DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 
 PYQT_MODULES := opengl sql webchannel webkit websockets xmlpatterns svg \
 	multimedia quick serialport sensors x11extras positioning
@@ -37,49 +32,43 @@ PY_PACKAGE_NAMES := pyqt5 $(PYQT_MODULES:%=pyqt5.qt%) dbus.mainloop.pyqt5
 
 export QT_SELECT=qt5
 
-# LIBS_* is unset to avoid linking to too many libraries
 # STRIP is unset to let stripping be handled by dh_strip
 SHARED_CONFIGURE_OPTIONS=--confirm-license --verbose \
-	-q /usr/bin/qmake -c -j $(SPLIT) \
-	STRIP="" MOC=/usr/bin/moc \
-	LIBS_OPENGL="" LIBS_X11="" LIBS_THREAD="" \
-	QMAKE_CFLAGS+="${CFLAGS} ${CPPFLAGS}" \
-	QMAKE_CXXFLAGS+="${CXXFLAGS} ${CPPFLAGS}" \
-	QMAKE_LFLAGS+="${LDFLAGS}"
+	--target-dir /usr/lib/python3/dist-packages \
+	--concatenate $(SPLIT) \
+	--no-make \
+	--qmake-setting 'QMAKE_CFLAGS += "${CFLAGS} ${CPPFLAGS}"' \
+	--qmake-setting 'QMAKE_CXXFLAGS += "${CXXFLAGS} ${CPPFLAGS}"' \
+	--qmake-setting 'QMAKE_LFLAGS += "${LDFLAGS}"'
 
 
-.PRECIOUS: build-%/configure-stamp dbg-build-%/configure-stamp
+%:
+	dh $@ --with python3
 
-configure: $(ALLPYTHONS:%=build-%/configure-stamp) $(ALLPYTHONS:%=dbg-build-%/configure-stamp)
+override_dh_auto_configure-arch: $(ALLPYTHONS:%=build-%/configure-stamp) $(ALLPYTHONS:%=dbg-build-%/configure-stamp)
+
+override_dh_auto_configure-indep: build-$(DEFAULT_PYTHON)/configure-stamp
 
 build-%/configure-stamp:
 	dh_testdir
-	mkdir -p build-$*
-	cp -r config-tests build-$*/
-	cd build-$* && python$* ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
-			-d /usr/lib/python$*/dist-packages \
-			--sip-incdir $(call PYTHON_INCDIR, python$*) \
-			--no-sip-files \
-			$(if $(filter $(DEFAULT_PYTHON),$*),,--no-designer-plugin --no-qml-plugin)
+	python$* /usr/bin/sip-build $(SHARED_CONFIGURE_OPTIONS) \
+			--build-dir build-$* \
+			$(if $(filter $(DEFAULT_PYTHON),$*),--pep484-pyi,--no-designer-plugin --no-qml-plugin)
 	sed -i '/strip/d' build-$*/*/Makefile
 	touch $@
 
 dbg-build-%/configure-stamp:
 	dh_testdir
-	mkdir -p dbg-build-$*
-	cp -r config-tests dbg-build-$*/
-	cd dbg-build-$* && python$*-dbg ../configure.py $(SHARED_CONFIGURE_OPTIONS) \
-			-d /usr/lib/python$*/dist-packages \
-			--sip-incdir $(call PYTHON_INCDIR, python$*-dbg) \
-			--debug --no-designer-plugin --no-qml-plugin --no-tools --no-sip-files
+	python$*-dbg /usr/bin/sip-build $(SHARED_CONFIGURE_OPTIONS) \
+			--build-dir dbg-build-$* \
+			--debug --no-designer-plugin --no-qml-plugin --no-tools
 	sed -i '/strip/d' dbg-build-$*/*/Makefile
 	sed -i 's/-isystem/-I/' dbg-build-$*/*/Makefile
 	touch $@
 
+override_dh_auto_build-arch: $(ALLPYTHONS:%=build-%/build-stamp) $(ALLPYTHONS:%=dbg-build-%/build-stamp)
 
-build: build-arch build-indep
-build-arch: $(ALLPYTHONS:%=build-%/build-stamp) $(ALLPYTHONS:%=dbg-build-%/build-stamp)
-build-indep: build-$(DEFAULT_PYTHON)/build-stamp
+override_dh_auto_build-indep: build-$(DEFAULT_PYTHON)/build-stamp
 
 build-%/build-stamp: build-%/configure-stamp
 	dh_testdir
@@ -91,25 +80,18 @@ dbg-build-%/build-stamp: dbg-build-%/configure-stamp
 	dh_auto_build --parallel -B dbg-build-$*
 	touch $@
 
-install-indep: build-indep
-	dh_testdir
-	dh_testroot
-	dh_prep -i
+override_dh_auto_install-indep:
+	$(MAKE) -C build-$(DEFAULT_PYTHON) install INSTALL_ROOT=$(CURDIR)/debian/tmp
 
-	# Install the files to temporary location to be able to use pyrcc5 below
-	mkdir -p tmp_install_root
-	$(MAKE) -C build-$(DEFAULT_PYTHON) install INSTALL_ROOT=$(CURDIR)/tmp_install_root
-
-	dh_installdirs -i
-	dh_install -i
+override_dh_installexamples-indep:
 	dh_installexamples -Xactiveqt -i
 	# Use python3 shebangs and regenerate resource files
-	export PYTHONPATH=$(CURDIR)/tmp_install_root/usr/lib/python$(DEFAULT_PYTHON)/dist-packages; \
+	export PYTHONPATH=$(CURDIR)/debian/tmp/usr/lib/python3/dist-packages; \
 	cd $(CURDIR)/debian/pyqt5-examples/usr/share/doc/pyqt5-examples/examples/; \
 		cp --preserve=timestamps /usr/share/javascript/jquery/jquery.min.js webkit/fancybrowser/; \
 		find . -name '*.py' -exec sed -i 's/\/env python/\/python3/g' {} +; \
 		find . -name '*.qrc' | sed 's/\.qrc//g' | QT_HASH_SEED=0 xargs -I {} \
-		$(CURDIR)/tmp_install_root/usr/bin/pyrcc5 {}.qrc -o {}_rc.py
+		$(CURDIR)/debian/tmp/usr/bin/pyrcc5 {}.qrc -o {}_rc.py
 	# Symlink duplicate files in examples. Based on Andrew Starr-Bochicchio's
 	# code in ubuntu-packaging-guide.
 	cd $(CURDIR)/debian/pyqt5-examples && \
@@ -120,132 +102,37 @@ install-indep: build-indep
 			rm $$d; ln -s /$$f $$d; \
 		done; \
 	done
-	dh_link -i
 
-install-arch: build-arch
-	dh_testdir
-	dh_testroot
-	dh_prep -a
-	dh_installdirs -a
-	# This is needed to enforce that the install-arch-% rules are
-	# not run in parallel. Both rules install into the same directory,
-	# and therefore might try to access the same files at the same time.
-	# Therefore, instead of depending on the install-arch-% rules,
-	# we invoke them explicitly.
-	for p in $(ALLPYTHONS) ; do \
-		$(MAKE) -f debian/rules install-arch-$$p;\
+override_dh_auto_install-arch:
+	set -e; for p in $(ALLPYTHONS); do \
+		$(MAKE) -C build-$$p install INSTALL_ROOT=$(CURDIR)/debian/tmp; \
+		$(MAKE) -C dbg-build-$$p install INSTALL_ROOT=$(CURDIR)/debian/tmp; \
 	done
 
-	dh_install -a
-	dh_missing --fail-missing
+execute_after_dh_install-arch:
 	sed -i 's,/usr/bin/python3[.0-9]*,/usr/bin/python3,' debian/pyqt5-dev-tools/usr/bin/*
+	rm -rfv debian/python3-pyqt5/usr/lib/python3/dist-packages/PyQt5/uic/port_v2
 
-	find debian/python*-dbg ! -type d \
-		! \( -name '*.so' -o -name '*config_*d*.py' \) | xargs rm -f
-
-d3_qt5_dbg = debian/python3-pyqt5-dbg
-
-install-arch-3.%:
-	$(MAKE) -C build-3.$* install INSTALL_ROOT=$(CURDIR)/debian/tmp DESTDIR=$(CURDIR)/debian/tmp
-	$(MAKE) -C dbg-build-3.$* install INSTALL_ROOT=$(CURDIR)/$(d3_qt5_dbg) DESTDIR=$(CURDIR)/$(d3_qt5_dbg)
-
-	mkdir -p $(CURDIR)/debian/python3-dbus.mainloop.pyqt5/usr/lib/python3.$*/dist-packages/dbus/mainloop; \
-	mv $(CURDIR)/debian/tmp$(py3_dbusmoddir)/pyqt5.so \
-	   $(CURDIR)/debian/python3-dbus.mainloop.pyqt5/usr/lib/python3.$*/dist-packages/dbus/mainloop; \
-
-	mkdir -p $(CURDIR)/debian/python3-dbus.mainloop.pyqt5-dbg/usr/lib/python3.$*/dist-packages/dbus/mainloop; \
-	mv $(CURDIR)/debian/python3-pyqt5-dbg$(py3_dbusmoddir)/pyqt5.so \
-	   $(CURDIR)/debian/python3-dbus.mainloop.pyqt5-dbg/usr/lib/python3.$*/dist-packages/dbus/mainloop; \
-
-	for module in $(PYQT_MODULES); do \
-		mkdir -p debian/python3-pyqt5.qt$$module-dbg/usr/lib/python3.$*/dist-packages/PyQt5; \
-	done
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/*OpenGL*.so \
-		debian/python3-pyqt5.qtopengl-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtSql.so \
-		debian/python3-pyqt5.qtsql-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtWebChannel.so \
-		debian/python3-pyqt5.qtwebchannel-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtWebKit*.so \
-		debian/python3-pyqt5.qtwebkit-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtWebSockets.so \
-		debian/python3-pyqt5.qtwebsockets-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtXmlPatterns.so \
-		debian/python3-pyqt5.qtxmlpatterns-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtSvg.so \
-		debian/python3-pyqt5.qtsvg-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtMultimedia*.so \
-		debian/python3-pyqt5.qtmultimedia-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtQml.so \
-	   $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtQuick*.so \
-		debian/python3-pyqt5.qtquick-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtSerialPort.so \
-		debian/python3-pyqt5.qtserialport-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtSensors.so \
-		debian/python3-pyqt5.qtsensors-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtX11Extras.so \
-		debian/python3-pyqt5.qtx11extras-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-	mv $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtPositioning.so \
-	   $(d3_qt5_dbg)/usr/lib/python3.$*/dist-packages/PyQt5/QtLocation.so \
-		debian/python3-pyqt5.qtpositioning-dbg/usr/lib/python3.$*/dist-packages/PyQt5
-
-clean:
-	dh_testdir
-	dh_testroot
+override_dh_auto_clean:
 	rm -rf $(ALLPYTHONS:%=build-%) $(ALLPYTHONS:%=dbg-build-%)
-	rm -rf tmp_install_root
 	find . -type f -name .DS_Store -delete
 	find . -type f -name *.pyc -delete
 	find . -type d -name __pycache__ -delete
 	cd sip; rm -rf Qt opengl_types.sip pyqt-gpl.sip5
 	rm -f examples/quick/tutorials/extending/chapter6-plugins/Charts/qmldir
-	dh_clean
 
-# Must not depend on anything. This is to be called by
-# binary-arch/binary-indep
-# in another 'make' thread.
-binary-common:
-	dh_testdir
-	dh_testroot
-	dh_installman
-	dh_installchangelogs
-	dh_installdocs -A NEWS
-	dh_sip3
-ifeq (,$(findstring -i, $(DH_OPTIONS)))
-	DH_OPTIONS= dh_strip -ppyqt5-dev-tools
+override_dh_installdocs:
+	set -e; for p in $(PY_PACKAGE_NAMES:%=python3-%); do \
+		dh_installdocs -p$$p-dbg --link-doc=$$p; \
+	done
+	dh_installdocs --remaining-packages -A NEWS
+
+override_dh_strip-arch:
+	dh_strip -ppyqt5-dev-tools
 	set -e; \
 	for p in $(PY_PACKAGE_NAMES:%=python3-%); do \
 		DH_OPTIONS= dh_strip -p$$p --dbg-package=$$p-dbg; \
-		rm -rf debian/$$p-dbg/usr/share/doc/$$p-dbg; \
-		mkdir -p debian/$$p-dbg/usr/share/doc; \
-		ln -s $$p debian/$$p-dbg/usr/share/doc/$$p-dbg; \
 	done
-endif
+
+override_dh_python3:
 	dh_python3 --no-dbg-cleaning -N pyqt5-examples
-	rm -rf $(CURDIR)/debian/python3-pyqt5/usr/lib/python3/dist-packages/PyQt5/uic/port_v2
-	rm -rf $(CURDIR)/debian/python3-pyqt5-dbg/usr/bin
-	rm -rf $(CURDIR)/debian/python3-pyqt5-dbg/usr/lib/python3/dist-packages/PyQt5/uic
-	rm -rf $(CURDIR)/debian/python3-pyqt5-dbg/usr/lib/python3/dist-packages/dbus
-	rm -rf $(CURDIR)/debian/pyqt5-examples/usr/share/doc/pyqt5-examples/examples/webkit/googlechat
-	rm -rf $(CURDIR)/debian/pyqt5-examples/usr/share/doc/pyqt5-examples/examples/designer/plugins/python/__pycache__
-	rm -rf $(CURDIR)/debian/pyqt5-examples/usr/share/doc/pyqt5-examples/examples/designer/plugins/widgets/__pycache__
-	dh_fixperms
-	dh_compress -X/examples
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-# Build architecture independant packages using the common target.
-binary-indep: install-indep
-	$(MAKE) -f debian/rules DH_OPTIONS="-i ${EXTRA_DH_OPTIONS}" binary-common
-
-# Build architecture dependant packages using the common target.
-binary-arch: install-arch
-	$(MAKE) -f debian/rules DH_OPTIONS="-a ${EXTRA_DH_OPTIONS}" binary-common
-
-
-binary: binary-arch binary-indep
-
-.PHONY: build-indep build-arch build clean binary-indep binary-arch binary configure
