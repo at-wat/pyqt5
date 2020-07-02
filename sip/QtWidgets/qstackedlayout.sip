@@ -110,7 +110,4 @@ public:
     void setStackingMode(QStackedLayout::StackingMode stackingMode);
     virtual bool hasHeightForWidth() const;
     virtual int heightForWidth(int width) const;
-
-private:
-    QStackedLayout(const QStackedLayout &);
 };

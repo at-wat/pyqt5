@@ -72,7 +72,4 @@ signals:
 public slots:
     void play();
     void stop();
-
-private:
-    QSoundEffect(const QSoundEffect &);
 };

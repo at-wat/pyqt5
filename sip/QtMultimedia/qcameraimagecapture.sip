@@ -86,9 +86,6 @@ signals:
 
 protected:
     virtual bool setMediaObject(QMediaObject *);
-
-private:
-    QCameraImageCapture(const QCameraImageCapture &);
 };
 
 QFlags<QCameraImageCapture::CaptureDestination> operator|(QCameraImageCapture::CaptureDestination f1, QFlags<QCameraImageCapture::CaptureDestination> f2);

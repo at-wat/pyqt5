@@ -113,9 +113,6 @@ signals:
 protected:
     virtual void changeEvent(QEvent *event);
     virtual bool event(QEvent *event);
-
-private:
-    QDialogButtonBox(const QDialogButtonBox &);
 };
 
 QFlags<QDialogButtonBox::StandardButton> operator|(QDialogButtonBox::StandardButton f1, QFlags<QDialogButtonBox::StandardButton> f2);

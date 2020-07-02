@@ -22,7 +22,7 @@
 
 %If (Qt_5_5_0 -)
 
-class QGeoRoutingManager : QObject
+class QGeoRoutingManager : QObject /NoDefaultCtors/
 {
 %TypeHeaderCode
 #include <qgeoroutingmanager.h>
@@ -48,9 +48,6 @@ public:
 signals:
     void finished(QGeoRouteReply *reply);
     void error(QGeoRouteReply *reply, QGeoRouteReply::Error error, QString errorString = QString());
-
-private:
-    QGeoRoutingManager(const QGeoRoutingManager &);
 };
 
 %End

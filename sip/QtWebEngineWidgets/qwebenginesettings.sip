@@ -96,6 +96,15 @@ public:
 %If (Qt_5_10_0 -)
         ShowScrollBars,
 %End
+%If (Qt_5_11_0 -)
+        PlaybackRequiresUserGesture,
+%End
+%If (Qt_5_11_0 -)
+        WebRTCPublicInterfacesOnly,
+%End
+%If (Qt_5_11_0 -)
+        JavascriptCanPaste,
+%End
     };
 
     enum FontSize
@@ -121,6 +130,25 @@ public:
     void resetAttribute(QWebEngineSettings::WebAttribute attr);
     void setDefaultTextEncoding(const QString &encoding);
     QString defaultTextEncoding() const;
+%If (Qt_5_11_0 -)
+
+    enum UnknownUrlSchemePolicy
+    {
+        DisallowUnknownUrlSchemes,
+        AllowUnknownUrlSchemesFromUserInteraction,
+        AllowAllUnknownUrlSchemes,
+    };
+
+%End
+%If (Qt_5_11_0 -)
+    QWebEngineSettings::UnknownUrlSchemePolicy unknownUrlSchemePolicy() const;
+%End
+%If (Qt_5_11_0 -)
+    void setUnknownUrlSchemePolicy(QWebEngineSettings::UnknownUrlSchemePolicy policy);
+%End
+%If (Qt_5_11_0 -)
+    void resetUnknownUrlSchemePolicy();
+%End
 
 private:
     QWebEngineSettings(const QWebEngineSettings &);

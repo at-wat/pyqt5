@@ -243,7 +243,7 @@ static PyObject *pyqtBoundSignal_get_doc(PyObject *self, void *)
 }
 
 
-// The __signal__ getter.
+// The 'signal' getter.
 static PyObject *pyqtBoundSignal_get_signal(PyObject *self, void *)
 {
     qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)self;
@@ -418,14 +418,15 @@ static PyObject *pyqtBoundSignal_connect(PyObject *self, PyObject *args,
 
     // Connect the signal to the slot and handle any errors.
 
-    bool ok;
+    QMetaObject::Connection connection;
 
     Py_BEGIN_ALLOW_THREADS
-    ok = QObject::connect(q_tx, signal_signature->signature.constData(), q_rx,
+    connection = QObject::connect(q_tx,
+            signal_signature->signature.constData(), q_rx,
             slot_signature.constData(), q_type);
     Py_END_ALLOW_THREADS
 
-    if (!ok)
+    if (!connection)
     {
         QByteArray slot_name = Chimera::Signature::name(slot_signature);
 
@@ -436,8 +437,12 @@ static PyObject *pyqtBoundSignal_connect(PyObject *self, PyObject *args,
         return 0;
     }
 
-    Py_INCREF(Py_None);
-    return Py_None;
+    // Save the connection in any proxy.
+    if (qstrcmp(q_rx->metaObject()->className(), "PyQtSlotProxy") == 0)
+        static_cast<PyQtSlotProxy *>(q_rx)->connection = connection;
+
+    return sipConvertFromNewType(new QMetaObject::Connection(connection),
+            sipType_QMetaObject_Connection, NULL);
 }
 
 
@@ -578,6 +583,30 @@ static PyObject *pyqtBoundSignal_disconnect(PyObject *self, PyObject *args)
                 signal_signature->signature);
 
         return res_obj;
+    }
+
+    // See if the slot is a connection.
+    if (sipCanConvertToType(py_slot, sipType_QMetaObject_Connection, 0))
+    {
+        int is_error = 0;
+        QMetaObject::Connection *connection = reinterpret_cast<QMetaObject::Connection *>(sipConvertToType(py_slot, sipType_QMetaObject_Connection, NULL, 0, NULL, &is_error));
+
+        if (is_error)
+            return 0;
+
+        if (!QObject::disconnect(*connection))
+        {
+            PyErr_SetString(PyExc_TypeError,
+                    "disconnect() of connection failed");
+
+            return 0;
+        }
+
+        // Delete any connected slot proxy.
+        PyQtSlotProxy::deleteSlotProxy(connection);
+
+        Py_INCREF(Py_None);
+        return Py_None;
     }
 
     // See if the slot is a signal.

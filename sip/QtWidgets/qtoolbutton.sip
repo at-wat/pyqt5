@@ -70,7 +70,4 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *);
     virtual void nextCheckState();
     virtual bool hitButton(const QPoint &pos) const;
-
-private:
-    QToolButton(const QToolButton &);
 };

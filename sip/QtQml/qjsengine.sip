@@ -107,9 +107,6 @@ public:
 %If (Qt_5_8_0 -)
     QJSValue newQMetaObject(const QMetaObject *metaObject);
 %End
-
-private:
-    QJSEngine(const QJSEngine &);
 };
 
 %If (Qt_5_5_0 -)

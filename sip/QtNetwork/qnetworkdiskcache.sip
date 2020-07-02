@@ -47,7 +47,4 @@ public slots:
 
 protected:
     virtual qint64 expire();
-
-private:
-    QNetworkDiskCache(const QNetworkDiskCache &);
 };

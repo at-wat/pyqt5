@@ -78,7 +78,4 @@ public:
 %If (Qt_5_4_0 -)
     virtual Qt::DropActions supportedDragActions() const;
 %End
-
-private:
-    QAbstractProxyModel(const QAbstractProxyModel &);
 };

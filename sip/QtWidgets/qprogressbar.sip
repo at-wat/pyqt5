@@ -69,7 +69,4 @@ protected:
     void initStyleOption(QStyleOptionProgressBar *option) const;
     virtual bool event(QEvent *e);
     virtual void paintEvent(QPaintEvent *);
-
-private:
-    QProgressBar(const QProgressBar &);
 };

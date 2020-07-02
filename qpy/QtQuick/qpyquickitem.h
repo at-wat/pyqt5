@@ -56,6 +56,7 @@ class QPyQuickItem##n : public QPyQuickItem \
 public: \
     QPyQuickItem##n(QQuickItem *parent = 0); \
     static QMetaObject staticMetaObject; \
+    virtual const QMetaObject *metaObject() const; \
     virtual int typeNr() const {return n##U;} \
 private: \
     QPyQuickItem##n(const QPyQuickItem##n &); \

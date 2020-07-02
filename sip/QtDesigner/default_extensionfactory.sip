@@ -27,7 +27,12 @@ class QExtensionFactory : QObject, QAbstractExtensionFactory
 %End
 
 public:
+%If (Qt_5_11_0 -)
+    explicit QExtensionFactory(QExtensionManager *parent /TransferThis/ = 0);
+%End
+%If (- Qt_5_11_0)
     QExtensionFactory(QExtensionManager *parent /TransferThis/ = 0);
+%End
     virtual QObject *extension(QObject *object, const QString &iid) const;
     QExtensionManager *extensionManager() const;
 

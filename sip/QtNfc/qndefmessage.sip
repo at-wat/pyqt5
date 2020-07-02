@@ -62,9 +62,7 @@ public:
 
     void __delitem__(int i);
 %MethodCode
-        int len = sipCpp->count();
-        
-        if ((a0 = (int)sipConvertFromSequenceIndex(a0, len)) < 0)
+        if ((a0 = (int)sipConvertFromSequenceIndex(a0, sipCpp->count())) < 0)
             sipIsErr = 1;
         else
             sipCpp->removeAt(a0);

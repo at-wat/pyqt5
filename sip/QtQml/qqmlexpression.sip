@@ -49,7 +49,4 @@ public:
 
 signals:
     void valueChanged();
-
-private:
-    QQmlExpression(const QQmlExpression &);
 };

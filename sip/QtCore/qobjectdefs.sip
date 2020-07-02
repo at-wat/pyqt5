@@ -136,6 +136,18 @@ static void qtcore_invokeMethod_exception()
 %If (Qt_5_7_0 -)
     bool inherits(const QMetaObject *metaObject) const;
 %End
+
+    class Connection
+    {
+%TypeHeaderCode
+#include <qobjectdefs.h>
+%End
+
+    public:
+        Connection();
+        Connection(const QMetaObject::Connection &other);
+        ~Connection();
+    };
 };
 
 // The support for Q_ARG(), Q_RETURN_ARG() and supporting classes.

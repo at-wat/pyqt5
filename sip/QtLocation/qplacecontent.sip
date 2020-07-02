@@ -37,6 +37,9 @@ public:
         ImageType,
         ReviewType,
         EditorialType,
+%If (Qt_5_11_0 -)
+        CustomType,
+%End
     };
 
     QPlaceContent();

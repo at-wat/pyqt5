@@ -43,7 +43,4 @@ protected:
     virtual void contextMenuEvent(QContextMenuEvent *);
     virtual void wheelEvent(QWheelEvent *);
     virtual void sliderChange(QAbstractSlider::SliderChange change);
-
-private:
-    QScrollBar(const QScrollBar &);
 };

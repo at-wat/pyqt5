@@ -56,7 +56,4 @@ protected:
 %If (WS_MACX)
 bool hitButton(const QPoint &pos) const;
 %End
-
-private:
-    QPushButton(const QPushButton &);
 };

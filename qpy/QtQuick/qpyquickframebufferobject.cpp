@@ -37,6 +37,10 @@ static QList<PyTypeObject *> pyqt_types;
 
 // The registration data for the canned types.
 static QQmlPrivate::RegisterType canned_types[NrOfQuickFramebufferObjectTypes];
+ 
+// External declarations.
+extern const QMetaObject *qpyquick_pick_metaobject(const QMetaObject *super_mo,
+        const QMetaObject *static_mo);
 
 
 #define QPYQUICKFRAMEBUFFEROBJECT_INIT(n) \
@@ -142,6 +146,10 @@ void QPyQuickFramebufferObject::createPyObject(QQuickItem *parent)
 QPyQuickFramebufferObject##n::QPyQuickFramebufferObject##n(QQuickItem *parent) : QPyQuickFramebufferObject(parent) \
 { \
     createPyObject(parent); \
+} \
+const QMetaObject *QPyQuickFramebufferObject##n::metaObject() const \
+{ \
+    return qpyquick_pick_metaobject(QPyQuickFramebufferObject::metaObject(), &staticMetaObject); \
 } \
 QMetaObject QPyQuickFramebufferObject##n::staticMetaObject
 

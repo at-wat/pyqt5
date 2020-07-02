@@ -65,9 +65,6 @@ signals:
 
 protected:
     QPlaceManager *manager() const;
-
-private:
-    QPlaceManagerEngine(const QPlaceManagerEngine &);
 };
 
 %End

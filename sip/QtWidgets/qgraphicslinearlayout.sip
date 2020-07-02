@@ -76,7 +76,4 @@ public:
     virtual QGraphicsLayoutItem *itemAt(int index) const;
     virtual void invalidate();
     virtual QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint = QSizeF()) const;
-
-private:
-    QGraphicsLinearLayout(const QGraphicsLinearLayout &);
 };

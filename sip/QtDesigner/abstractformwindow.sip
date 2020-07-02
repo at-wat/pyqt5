@@ -86,7 +86,7 @@ public slots:
 signals:
     void mainContainerChanged(QWidget *mainContainer);
     void fileNameChanged(const QString &fileName);
-    void featureChanged(QDesignerFormWindowInterface::Feature f);
+    void featureChanged(QDesignerFormWindowInterface::Feature f /ScopesStripped=1/);
     void selectionChanged();
     void geometryChanged();
     void resourceFilesChanged();

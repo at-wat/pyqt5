@@ -62,9 +62,6 @@ signals:
     void targetDetected(QNearFieldShareTarget *shareTarget);
     void shareModesChanged(QNearFieldShareManager::ShareModes modes);
     void error(QNearFieldShareManager::ShareError error);
-
-private:
-    QNearFieldShareManager(const QNearFieldShareManager &);
 };
 
 %End

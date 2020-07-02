@@ -188,9 +188,6 @@ signals:
 %If (Qt_5_1_0 -)
     void rubberBandChanged(QRect viewportRect, QPointF fromScenePoint, QPointF toScenePoint);
 %End
-
-private:
-    QGraphicsView(const QGraphicsView &);
 };
 
 QFlags<QGraphicsView::CacheModeFlag> operator|(QGraphicsView::CacheModeFlag f1, QFlags<QGraphicsView::CacheModeFlag> f2);

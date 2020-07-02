@@ -118,9 +118,6 @@ public:
 %If (Qt_5_3_0 -)
     static bool isSetuidAllowed();
 %End
-
-private:
-    QCoreApplication(const QCoreApplication &);
 };
 
 void qAddPostRoutine(SIP_PYCALLABLE);

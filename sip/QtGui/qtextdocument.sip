@@ -198,9 +198,6 @@ public:
 %If (Qt_5_9_0 -)
     QString toRawText() const;
 %End
-
-private:
-    QTextDocument(const QTextDocument &);
 };
 
 QFlags<QTextDocument::FindFlag> operator|(QTextDocument::FindFlag f1, QFlags<QTextDocument::FindFlag> f2);

@@ -33,9 +33,6 @@ public:
     virtual ~QMaskGenerator();
     virtual bool seed() = 0;
     virtual quint32 nextMask() = 0;
-
-private:
-    QMaskGenerator(const QMaskGenerator &);
 };
 
 %End

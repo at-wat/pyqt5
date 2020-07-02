@@ -43,7 +43,4 @@ protected:
     virtual void initStyleOption(QStyleOptionViewItem *option, const QModelIndex &index) const;
     virtual bool eventFilter(QObject *object, QEvent *event);
     virtual bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option /NoCopy/, const QModelIndex &index);
-
-private:
-    QStyledItemDelegate(const QStyledItemDelegate &);
 };

@@ -3,7 +3,7 @@
 
 #############################################################################
 ##
-## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2018 Riverbank Computing Limited.
 ## Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
 ##
 ## This file is part of the examples of PyQt.
@@ -41,6 +41,7 @@
 #############################################################################
 
 
+import os
 import sys
 
 from PyQt5.QtCore import QUrl
@@ -49,6 +50,11 @@ from PyQt5.QtQuick import QQuickView
 
 import stringlistmodel_rc
 
+
+# This is necessary to avoid a possible crash when running from another
+# directory by ensuring the compiled version of the embedded QML file doesn't
+# get mixed up with another of the same name.
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 app = QGuiApplication(sys.argv)
 

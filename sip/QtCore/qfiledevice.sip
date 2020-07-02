@@ -194,9 +194,6 @@ public:
 %If (Qt_5_10_0 -)
     bool setFileTime(const QDateTime &newDate, QFileDevice::FileTime fileTime);
 %End
-
-private:
-    QFileDevice(const QFileDevice &);
 };
 
 QFlags<QFileDevice::Permission> operator|(QFileDevice::Permission f1, QFlags<QFileDevice::Permission> f2);

@@ -40,7 +40,4 @@ public:
     virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
     virtual Qt::DropActions supportedDropActions() const;
     virtual QModelIndex sibling(int row, int column, const QModelIndex &idx) const;
-
-private:
-    QStringListModel(const QStringListModel &);
 };

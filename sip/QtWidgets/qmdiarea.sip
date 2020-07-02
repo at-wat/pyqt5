@@ -122,9 +122,6 @@ public:
     bool tabsClosable() const;
     void setTabsMovable(bool movable);
     bool tabsMovable() const;
-
-private:
-    QMdiArea(const QMdiArea &);
 };
 
 QFlags<QMdiArea::AreaOption> operator|(QMdiArea::AreaOption f1, QFlags<QMdiArea::AreaOption> f2);

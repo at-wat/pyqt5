@@ -114,9 +114,6 @@ protected:
     virtual void focusInEvent(QFocusEvent *focusInEvent);
     virtual void focusOutEvent(QFocusEvent *focusOutEvent);
     virtual void childEvent(QChildEvent *childEvent);
-
-private:
-    QMdiSubWindow(const QMdiSubWindow &);
 };
 
 QFlags<QMdiSubWindow::SubWindowOption> operator|(QMdiSubWindow::SubWindowOption f1, QFlags<QMdiSubWindow::SubWindowOption> f2);

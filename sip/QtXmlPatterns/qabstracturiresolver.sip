@@ -30,7 +30,4 @@ public:
     QAbstractUriResolver(QObject *parent /TransferThis/ = 0);
     virtual ~QAbstractUriResolver();
     virtual QUrl resolve(const QUrl &relative, const QUrl &baseURI) const = 0;
-
-private:
-    QAbstractUriResolver(const QAbstractUriResolver &);
 };

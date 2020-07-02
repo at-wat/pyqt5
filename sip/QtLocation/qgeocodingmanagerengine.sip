@@ -42,9 +42,6 @@ public:
 signals:
     void finished(QGeoCodeReply *reply);
     void error(QGeoCodeReply *reply, QGeoCodeReply::Error error, QString errorString = QString());
-
-private:
-    QGeoCodingManagerEngine(const QGeoCodingManagerEngine &);
 };
 
 %End

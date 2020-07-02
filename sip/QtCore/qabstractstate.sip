@@ -46,7 +46,4 @@ protected:
     virtual void onEntry(QEvent *event) = 0;
     virtual void onExit(QEvent *event) = 0;
     virtual bool event(QEvent *e);
-
-private:
-    QAbstractState(const QAbstractState &);
 };

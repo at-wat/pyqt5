@@ -65,9 +65,6 @@ public:
 %If (Qt_5_10_0 -)
     qintptr socketDescriptor() const;
 %End
-
-private:
-    QLocalServer(const QLocalServer &);
 };
 
 QFlags<QLocalServer::SocketOption> operator|(QLocalServer::SocketOption f1, QFlags<QLocalServer::SocketOption> f2);

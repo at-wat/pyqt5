@@ -113,7 +113,4 @@ signals:
     void stationFound(int frequency, QString stationId);
     void antennaConnectedChanged(bool connectionStatus);
     void error(QRadioTuner::Error error);
-
-private:
-    QRadioTuner(const QRadioTuner &);
 };

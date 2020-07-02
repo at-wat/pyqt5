@@ -28,9 +28,9 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.10.1"
+PYQT_VERSION_STR = "5.11.2"
 
-SIP_MIN_VERSION = '4.19.4'
+SIP_MIN_VERSION = '4.19.11'
 
 
 class ModuleMetadata:
@@ -634,6 +634,23 @@ class TargetConfiguration:
     def from_introspection(self, verbose, debug):
         """ Initialise the configuration by introspecting the system. """
 
+        # Check that the enum module is available.
+        try:
+            import enum
+        except ImportError:
+            error(
+                    "Unable to import enum.  Please install the enum34 "
+                    "package from PyPI.")
+
+        # Check there is a private copy of the sip module already installed.
+        try:
+            from PyQt5 import sip
+        except ImportError:
+            error(
+                    "Unable to import PyQt5.sip.  Make sure you have "
+                    "configured SIP to create a private copy of the sip "
+                    "module.")
+
         # Get the details of the Python interpreter library.
         py_major = self.py_version >> 16
         py_minor = (self.py_version >> 8) & 0x0ff
@@ -1214,6 +1231,9 @@ def create_optparser(target_config):
             action='callback', callback=store_abspath, metavar="DIR",
             help="install the PyQt5 .sip files in DIR [default: %s]" %
                     target_config.pyqt_sip_dir)
+    g.add_option("--no-dist-info", action="store_false", default=True,
+            dest="distinfo",
+            help="do not install the dist-info directory")
     g.add_option("--no-stubs", action="store_false", default=True,
             dest="install_stubs", help="disable the installation of the PEP "
             "484 stub files [default: enabled]")
@@ -1474,12 +1494,13 @@ def check_5_10_modules(target_config, disabled_modules, verbose):
             'const char *v = QTNETWORKAUTH_VERSION_STR')
 
 
-def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings):
+def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings, distinfo):
     """ Generate the makefiles to build everything.  target_config is the
     target configuration.  verbose is set if the output is to be displayed.
     parts is the number of parts the generated code should be split into.
     tracing is set if the generated code should include tracing calls.
-    fatal_warnings is set if warnings are fatal.
+    fatal_warnings is set if warnings are fatal.  distinfo is set if a
+    .dist-info directory should be created.
     """
 
     # For the top-level .pro file.
@@ -1604,10 +1625,19 @@ def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings):
         subdirs.append(mname)
 
     # Generate the top-level .pro file.
+    all_installs = []
+
     inform("Generating the top-level .pro file...")
     out_f = open_for_writing(toplevel_pro)
 
     root_dir = qmake_quote(target_config.pyqt_module_dir + '/PyQt5')
+
+    mod_ext = '.pyd' if sys.platform == 'win32' else '.so'
+
+    for mname in pyqt_modules:
+        all_installs.append(root_dir + '/' + mname + mod_ext)
+
+    all_installs.append(root_dir + '/Qt' + mod_ext)
 
     out_f.write('''TEMPLATE = subdirs
 CONFIG += ordered nostrip
@@ -1618,6 +1648,8 @@ init_py.path = %s
 INSTALLS += init_py
 ''' % (' '.join(subdirs), source_path('__init__.py'), root_dir))
 
+    all_installs.append(root_dir + '/__init__.py')
+
     # Install the uic module.
     out_f.write('''
 uic_package.files = %s
@@ -1625,18 +1657,25 @@ uic_package.path = %s
 INSTALLS += uic_package
 ''' % (source_path('pyuic', 'uic'), root_dir))
 
+    all_installs.append(root_dir + '/uic')
+
     # Install the tool main scripts and wrappers.
     if wrappers:
         wrapper_exes = []
         for tool, wrapper in wrappers:
             if tool != 'pyuic':
+                tool_main = tool + '_main.py'
+
                 out_f.write('''
 %s.files = %s
 %s.path = %s
 INSTALLS += %s
-''' % (tool, source_path('sip', tool, tool + '_main.py'), tool, root_dir, tool))
+''' % (tool, source_path('sip', tool, tool_main), tool, root_dir, tool))
+
+                all_installs.append(root_dir + '/' + tool_main)
 
             wrapper_exes.append(wrapper)
+            all_installs.append(target_config.pyqt_bin_dir + '/' + wrapper)
 
         out_f.write('''
 tools.files = %s
@@ -1651,32 +1690,67 @@ INSTALLS += tools
                 sip_files = matching_files(source_path('sip', mname, '*.sip'))
 
                 if len(sip_files) != 0:
+                    mdir = target_config.pyqt_sip_dir + '/' + mname
+
                     out_f.write('''
 sip%s.path = %s
 sip%s.files = %s
 INSTALLS += sip%s
 ''' % (
-    mname, qmake_quote(target_config.pyqt_sip_dir + '/' + mname),
-    mname, ' '.join(sip_files),
+    mname, qmake_quote(mdir),
+    mname, ' '.join([qmake_quote(s) for s in sip_files]),
     mname
 ))
 
+                    all_installs.append(mdir)
+
     # Install the stub files.
     if target_config.py_version >= 0x030500 and target_config.pyqt_stubs_dir:
+        pyi_names = [mname + '.pyi'
+                for mname in target_config.pyqt_modules if mname[0] != '_']
+
         out_f.write('''
-pep484_stubs.files = %s Qt.pyi
+pep484_stubs.files = %s
 pep484_stubs.path = %s
 INSTALLS += pep484_stubs
-''' % (' '.join([mname + '.pyi' for mname in target_config.pyqt_modules]),
+''' % (' '.join(pyi_names),
             qmake_quote(target_config.pyqt_stubs_dir)))
+
+        all_installs.extend(
+                [target_config.pyqt_stubs_dir + '/' + pyi
+                        for pyi in pyi_names])
 
     # Install the QScintilla .api file.
     if target_config.qsci_api:
+        api_dir = target_config.qsci_api_dir + '/api/python'
+
         out_f.write('''
 qscintilla_api.files = PyQt5.api
 qscintilla_api.path = %s
 INSTALLS += qscintilla_api
-''' % qmake_quote(target_config.qsci_api_dir + '/api/python'))
+''' % qmake_quote(api_dir))
+
+        all_installs.append(api_dir + '/PyQt5.api')
+
+    if distinfo:
+        # The command to run to generate the .dist-info directory.
+        distinfo_dir = os.path.join(target_config.pyqt_module_dir,
+                'PyQt5-' + PYQT_VERSION_STR + '.dist-info')
+        mk_distinfo = sys.executable + ' mk_distinfo.py $(INSTALL_ROOT)' + distinfo_dir + ' installed.txt'
+
+        out_f.write('''
+distinfo.extra = %s
+distinfo.path = %s
+INSTALLS += distinfo
+''' % (mk_distinfo, root_dir))
+
+        # Create the file containing all installed files.
+        installed = open('installed.txt', 'w')
+
+        for install in all_installs:
+            installed.write(install + '\n')
+
+        installed.close()
 
     out_f.close()
 
@@ -1779,13 +1853,13 @@ def pro_sources(src_dir, other_headers=None, other_sources=None):
         sources += other_sources
 
     if len(sources) != 0:
-        pro_lines.append('SOURCES = %s' % ' '.join(sources))
+        pro_lines.append('SOURCES = %s' % ' '.join([qmake_quote(s) for s in sources]))
 
     objective_sources = [
             os.path.basename(f) for f in matching_files('%s/*.mm' % src_dir)]
 
     if len(objective_sources) != 0:
-        pro_lines.append('OBJECTIVE_SOURCES = %s' % ' '.join(objective_sources))
+        pro_lines.append('OBJECTIVE_SOURCES = %s' % ' '.join([qmake_quote(s) for s in objective_sources]))
 
     return pro_lines
 
@@ -2290,7 +2364,7 @@ def compile_test_program(target_config, verbose, mname, source=None, debug=None,
     if uses_sip_h:
         target_config.add_sip_h_directives(pro_lines)
 
-    pro_lines.append('SOURCES = %s' % name_source)
+    pro_lines.append('SOURCES = %s' % qmake_quote(name_source))
 
     f = open_for_writing(name_pro)
     f.write('\n'.join(pro_lines))
@@ -2364,7 +2438,7 @@ def get_sip_flags(target_config):
     the target configuration.
     """
 
-    sip_flags = []
+    sip_flags = ['-n', 'PyQt5.sip']
 
     # If we don't check for signed interpreters, we exclude the 'VendorID'
     # feature
@@ -2401,7 +2475,7 @@ def get_sip_flags(target_config):
         sip_flags.append('-x')
         sip_flags.append('Py_v3')
 
-    return ' '.join(sip_flags)
+    return sip_flags
 
 
 def mk_clean_dir(name):
@@ -2437,7 +2511,7 @@ def generate_sip_module_code(target_config, verbose, parts, tracing, mname, fata
     the number of parts the generated code should be split into.  tracing is
     set if the generated code should include tracing calls.  mname is the name
     of the module to generate the code for.  fatal_warnings is set if warnings
-    are fatal.  sip_flags is the string of flags to pass to sip.  doc_support
+    are fatal.  sip_flags is the list of flags to pass to sip.  doc_support
     is set if documentation support is to be generated for the module.
     qpy_sources is the optional list of QPy support code source files.
     qpy_headers is the optional list of QPy support code header files.
@@ -2448,7 +2522,9 @@ def generate_sip_module_code(target_config, verbose, parts, tracing, mname, fata
     mk_clean_dir(mname)
 
     # Build the SIP command line.
-    argv = [quote(target_config.sip), '-w', sip_flags]
+    argv = [target_config.sip, '-w']
+
+    argv.extend(sip_flags)
 
     if fatal_warnings:
         argv.append('-f')
@@ -2502,7 +2578,7 @@ def generate_sip_module_code(target_config, verbose, parts, tracing, mname, fata
     # Add the name of the .sip file.
     argv.append('%s/%s/%smod.sip' % (sip_dir, mname, mname))
 
-    run_command(' '.join(argv), verbose)
+    run_command(' '.join([quote(a) for a in argv]), verbose)
 
     # Check the result.
     if mname == 'Qt':
@@ -2522,7 +2598,7 @@ def generate_sip_module_code(target_config, verbose, parts, tracing, mname, fata
                 os.path.join('QtCore', 'qpycore_post_init.cpp'))
 
         for line in in_f:
-            line = line.replace('@@PYQT_SIP_FLAGS@@', sip_flags)
+            line = line.replace('@@PYQT_SIP_FLAGS@@', ' '.join(sip_flags))
             out_f.write(line)
 
         in_f.close()
@@ -2674,7 +2750,7 @@ target.files = $$PY_MODULE
     if metadata.qpy_lib:
         # This is the easiest way to make sure it is set for handwritten code.
         if not target_config.py_debug:
-            pro_lines.append('DEFINES += Py_LIMITED_API=0x03040000')
+            pro_lines.append('DEFINES += Py_LIMITED_API=0x03070000')
 
         pro_lines.append('INCLUDEPATH += %s' %
                 qmake_quote(os.path.relpath(source_path('qpy', mname), mname)))
@@ -2838,6 +2914,14 @@ def check_sip(target_config):
     target_config is the target configuration.
     """
 
+    # Check there is a private copy of the sip module already installed.
+    try:
+        from PyQt5 import sip
+    except ImportError:
+        error(
+                "Unable to import PyQt5.sip.  Make sure you have configured "
+                "SIP to create a private copy of the sip module.")
+
     if target_config.sip is None:
         error(
                 "Make sure you have a working sip on your PATH or use the "
@@ -2983,7 +3067,7 @@ def main(argv):
     # Generate the makefiles.
     generate_makefiles(target_config, opts.verbose,
             opts.split if opts.concat else 0, opts.tracing,
-            opts.fatal_warnings)
+            opts.fatal_warnings, opts.distinfo)
 
 
 ###############################################################################

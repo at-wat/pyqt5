@@ -63,6 +63,12 @@ public:
     qreal distanceToNextInstruction() const;
     void setWaypoint(const QGeoCoordinate &coordinate);
     QGeoCoordinate waypoint() const;
+%If (Qt_5_11_0 -)
+    void setExtendedAttributes(const QVariantMap &extendedAttributes);
+%End
+%If (Qt_5_11_0 -)
+    QVariantMap extendedAttributes() const;
+%End
 };
 
 %End

@@ -69,9 +69,6 @@ public:
     explicit QAmbientLightSensor(QObject *parent /TransferThis/ = 0);
     virtual ~QAmbientLightSensor();
     QAmbientLightReading *reading() const;
-
-private:
-    QAmbientLightSensor(const QAmbientLightSensor &);
 };
 
 %End

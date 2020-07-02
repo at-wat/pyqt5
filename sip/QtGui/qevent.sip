@@ -764,7 +764,7 @@ public:
 %End
     };
 
-    QTouchEvent(QEvent::Type eventType, QTouchDevice *device = 0, Qt::KeyboardModifiers modifiers = Qt::NoModifier, Qt::TouchPointStates touchPointStates = 0, const QList<QTouchEvent::TouchPoint> &touchPoints = QList<QTouchEvent::TouchPoint>());
+    QTouchEvent(QEvent::Type eventType, QTouchDevice *device = 0, Qt::KeyboardModifiers modifiers = Qt::NoModifier, Qt::TouchPointStates touchPointStates = Qt::TouchPointStates(), const QList<QTouchEvent::TouchPoint> &touchPoints = QList<QTouchEvent::TouchPoint>());
     virtual ~QTouchEvent();
     QObject *target() const;
     Qt::TouchPointStates touchPointStates() const;

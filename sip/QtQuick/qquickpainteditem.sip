@@ -107,9 +107,6 @@ signals:
 %If (Qt_5_6_0 -)
     void textureSizeChanged();
 %End
-
-private:
-    QQuickPaintedItem(const QQuickPaintedItem &);
 };
 
 QFlags<QQuickPaintedItem::PerformanceHint> operator|(QQuickPaintedItem::PerformanceHint f1, QFlags<QQuickPaintedItem::PerformanceHint> f2);

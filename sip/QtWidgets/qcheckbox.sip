@@ -48,7 +48,4 @@ protected:
     virtual void paintEvent(QPaintEvent *);
     virtual void mouseMoveEvent(QMouseEvent *);
     void initStyleOption(QStyleOptionButton *option) const;
-
-private:
-    QCheckBox(const QCheckBox &);
 };

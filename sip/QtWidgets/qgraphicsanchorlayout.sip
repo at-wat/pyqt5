@@ -64,7 +64,4 @@ public:
 
 protected:
     virtual QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint = QSizeF()) const;
-
-private:
-    QGraphicsAnchorLayout(const QGraphicsAnchorLayout &);
 };

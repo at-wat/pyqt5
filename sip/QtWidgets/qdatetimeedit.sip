@@ -119,9 +119,6 @@ public:
     void setCalendarWidget(QCalendarWidget *calendarWidget /Transfer/);
     Qt::TimeSpec timeSpec() const;
     void setTimeSpec(Qt::TimeSpec spec);
-
-private:
-    QDateTimeEdit(const QDateTimeEdit &);
 };
 
 class QTimeEdit : QDateTimeEdit

@@ -66,7 +66,4 @@ public slots:
 
 signals:
     void currentIndexChanged(int index);
-
-private:
-    QDataWidgetMapper(const QDataWidgetMapper &);
 };

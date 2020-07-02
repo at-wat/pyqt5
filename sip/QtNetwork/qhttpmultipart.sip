@@ -61,7 +61,4 @@ public:
     void setContentType(QHttpMultiPart::ContentType contentType);
     QByteArray boundary() const;
     void setBoundary(const QByteArray &boundary);
-
-private:
-    QHttpMultiPart(const QHttpMultiPart &);
 };

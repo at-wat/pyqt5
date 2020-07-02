@@ -71,9 +71,6 @@ protected:
     void moveSplitter(int pos, int index);
     void setRubberBand(int position);
     int closestLegalPosition(int, int);
-
-private:
-    QSplitter(const QSplitter &);
 };
 
 class QSplitterHandle : QWidget
@@ -100,7 +97,4 @@ protected:
     void moveSplitter(int p);
     int closestLegalPosition(int p);
     virtual void resizeEvent(QResizeEvent *);
-
-private:
-    QSplitterHandle(const QSplitterHandle &);
 };

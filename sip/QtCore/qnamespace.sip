@@ -864,6 +864,96 @@ namespace Qt
 %If (Qt_5_4_0 -)
         Key_Redo,
 %End
+%If (Qt_5_11_0 -)
+        Key_Dead_Stroke,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Abovecomma,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Abovereversedcomma,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Doublegrave,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Belowring,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Belowmacron,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Belowcircumflex,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Belowtilde,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Belowbreve,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Belowdiaeresis,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Invertedbreve,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Belowcomma,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Currency,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_a,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_A,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_e,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_E,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_i,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_I,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_o,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_O,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_u,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_U,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Small_Schwa,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Capital_Schwa,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Greek,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Lowline,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Aboveverticalline,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Belowverticalline,
+%End
+%If (Qt_5_11_0 -)
+        Key_Dead_Longsolidusoverlay,
+%End
     };
 
     enum ArrowType
@@ -1449,6 +1539,12 @@ namespace Qt
         ImhLatinOnly,
 %If (Qt_5_1_0 -)
         ImhMultiLine,
+%End
+%If (Qt_5_11_0 -)
+        ImhNoEditMenu,
+%End
+%If (Qt_5_11_0 -)
+        ImhNoTextHandles,
 %End
     };
 

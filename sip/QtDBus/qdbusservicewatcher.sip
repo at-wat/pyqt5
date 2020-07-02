@@ -51,9 +51,6 @@ signals:
     void serviceRegistered(const QString &service);
     void serviceUnregistered(const QString &service);
     void serviceOwnerChanged(const QString &service, const QString &oldOwner, const QString &newOwner);
-
-private:
-    QDBusServiceWatcher(const QDBusServiceWatcher &);
 };
 
 QFlags<QDBusServiceWatcher::WatchModeFlag> operator|(QDBusServiceWatcher::WatchModeFlag f1, QFlags<QDBusServiceWatcher::WatchModeFlag> f2);

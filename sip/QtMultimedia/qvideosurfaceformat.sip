@@ -72,4 +72,10 @@ public:
     QList<QByteArray> propertyNames() const;
     QVariant property(const char *name) const;
     void setProperty(const char *name, const QVariant &value);
+%If (Qt_5_11_0 -)
+    bool isMirrored() const;
+%End
+%If (Qt_5_11_0 -)
+    void setMirrored(bool mirrored);
+%End
 };

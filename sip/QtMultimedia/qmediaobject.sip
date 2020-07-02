@@ -44,7 +44,8 @@ signals:
     void metaDataAvailableChanged(bool available);
     void metaDataChanged();
     void metaDataChanged(const QString &key, const QVariant &value);
-    void availabilityChanged(QMultimedia::AvailabilityStatus availability);
+    void availabilityChanged(QMultimedia::AvailabilityStatus availability /Constrained/);
+    void availabilityChanged(bool available);
 
 protected:
     QMediaObject(QObject *parent /TransferThis/, QMediaService *service);

@@ -37,6 +37,7 @@ public:
     QBitArray(const QBitArray &other);
     int size() const;
     int count() const /__len__/;
+    int count(bool on) const;
     bool isEmpty() const;
     bool isNull() const;
     void resize(int size);
@@ -68,13 +69,22 @@ public:
 %End
 
     bool at(int i) const;
-    int count(bool on) const;
     long __hash__() const;
 %MethodCode
         sipRes = qHash(*sipCpp);
 %End
 
     void swap(QBitArray &other /Constrained/);
+%If (Qt_5_11_0 -)
+    SIP_PYOBJECT bits() const /TypeHint="bytes"/;
+%MethodCode
+        return PyBytes_FromStringAndSize(sipCpp->bits(), (sipCpp->size() + 7) / 8);
+%End
+
+%End
+%If (Qt_5_11_0 -)
+    static QBitArray fromBits(const char *data /Encoding="None"/, SIP_SSIZE_T len) [QBitArray (const char *data, qsizetype len)];
+%End
 };
 
 QBitArray operator&(const QBitArray &, const QBitArray &);

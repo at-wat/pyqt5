@@ -78,9 +78,6 @@ public:
 %End
 
     virtual void setVisible(bool visible);
-
-private:
-    QColorDialog(const QColorDialog &);
 };
 
 QFlags<QColorDialog::ColorDialogOption> operator|(QColorDialog::ColorDialogOption f1, QFlags<QColorDialog::ColorDialogOption> f2);

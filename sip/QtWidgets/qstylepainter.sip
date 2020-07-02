@@ -38,7 +38,4 @@ public:
     void drawComplexControl(QStyle::ComplexControl cc, const QStyleOptionComplex &opt);
     void drawItemText(const QRect &rect, int flags, const QPalette &pal, bool enabled, const QString &text, QPalette::ColorRole textRole = QPalette::NoRole);
     void drawItemPixmap(const QRect &r, int flags, const QPixmap &pixmap);
-
-private:
-    QStylePainter(const QStylePainter &);
 };

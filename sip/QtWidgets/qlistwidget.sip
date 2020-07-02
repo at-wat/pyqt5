@@ -193,5 +193,4 @@ public:
 
 private:
     virtual void setModel(QAbstractItemModel *model /KeepReference/);
-    QListWidget(const QListWidget &);
 };

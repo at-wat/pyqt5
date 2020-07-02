@@ -40,7 +40,4 @@ public:
     QString errorString() const;
     void setLoadHints(QLibrary::LoadHints loadHints);
     QLibrary::LoadHints loadHints() const;
-
-private:
-    QPluginLoader(const QPluginLoader &);
 };

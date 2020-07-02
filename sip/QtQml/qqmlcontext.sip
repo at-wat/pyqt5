@@ -42,7 +42,20 @@ public:
     QUrl resolvedUrl(const QUrl &);
     void setBaseUrl(const QUrl &);
     QUrl baseUrl() const;
+%If (Qt_5_11_0 -)
 
-private:
-    QQmlContext(const QQmlContext &);
+    struct PropertyPair
+    {
+%TypeHeaderCode
+#include <qqmlcontext.h>
+%End
+
+        QString name;
+        QVariant value;
+    };
+
+%End
+%If (Qt_5_11_0 -)
+    void setContextProperties(const QVector<QQmlContext::PropertyPair> &properties);
+%End
 };

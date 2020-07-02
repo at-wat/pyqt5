@@ -86,9 +86,6 @@ public:
 signals:
     void currentFontChanged(const QFont &font);
     void fontSelected(const QFont &font);
-
-private:
-    QFontDialog(const QFontDialog &);
 };
 
 QFlags<QFontDialog::FontDialogOption> operator|(QFontDialog::FontDialogOption f1, QFlags<QFontDialog::FontDialogOption> f2);

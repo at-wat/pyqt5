@@ -69,10 +69,10 @@ public:
         ServiceMissingError,
     };
 
-    QMediaPlayer(QObject *parent /TransferThis/ = 0, QMediaPlayer::Flags flags = 0);
+    QMediaPlayer(QObject *parent /TransferThis/ = 0, QMediaPlayer::Flags flags = QMediaPlayer::Flags());
     virtual ~QMediaPlayer();
-    static QMultimedia::SupportEstimate hasSupport(const QString &mimeType, const QStringList &codecs = QStringList(), QMediaPlayer::Flags flags = 0);
-    static QStringList supportedMimeTypes(QMediaPlayer::Flags flags = 0);
+    static QMultimedia::SupportEstimate hasSupport(const QString &mimeType, const QStringList &codecs = QStringList(), QMediaPlayer::Flags flags = QMediaPlayer::Flags());
+    static QStringList supportedMimeTypes(QMediaPlayer::Flags flags = QMediaPlayer::Flags());
     void setVideoOutput(QVideoWidget *);
     void setVideoOutput(QGraphicsVideoItem *);
     void setVideoOutput(QAbstractVideoSurface *surface);
@@ -143,6 +143,19 @@ signals:
     void audioRoleChanged(QAudio::Role role);
 %End
 
-private:
-    QMediaPlayer(const QMediaPlayer &);
+public:
+%If (Qt_5_11_0 -)
+    QString customAudioRole() const;
+%End
+%If (Qt_5_11_0 -)
+    void setCustomAudioRole(const QString &audioRole);
+%End
+%If (Qt_5_11_0 -)
+    QStringList supportedCustomAudioRoles() const;
+%End
+
+signals:
+%If (Qt_5_11_0 -)
+    void customAudioRoleChanged(const QString &role);
+%End
 };

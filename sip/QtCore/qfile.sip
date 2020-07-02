@@ -58,7 +58,4 @@ public:
     static QFileDevice::Permissions permissions(const QString &filename);
     virtual bool setPermissions(QFileDevice::Permissions permissionSpec);
     static bool setPermissions(const QString &filename, QFileDevice::Permissions permissionSpec);
-
-private:
-    QFile(const QFile &);
 };

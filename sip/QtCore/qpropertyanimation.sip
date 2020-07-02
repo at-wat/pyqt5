@@ -39,7 +39,4 @@ protected:
     virtual bool event(QEvent *event);
     virtual void updateCurrentValue(const QVariant &value);
     virtual void updateState(QAbstractAnimation::State newState, QAbstractAnimation::State oldState);
-
-private:
-    QPropertyAnimation(const QPropertyAnimation &);
 };

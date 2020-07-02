@@ -112,7 +112,4 @@ public:
 
 public slots:
     void setNavigationBarVisible(bool visible);
-
-private:
-    QCalendarWidget(const QCalendarWidget &);
 };

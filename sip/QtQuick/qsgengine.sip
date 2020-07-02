@@ -50,8 +50,8 @@ public:
     void initialize(QOpenGLContext *context);
     void invalidate();
     QSGAbstractRenderer *createRenderer() const;
-    QSGTexture *createTextureFromImage(const QImage &image, QSGEngine::CreateTextureOptions options = QSGEngine::CreateTextureOption(0)) const /Factory/;
-    QSGTexture *createTextureFromId(uint id, const QSize &size, QSGEngine::CreateTextureOptions options = QSGEngine::CreateTextureOption(0)) const /Factory/;
+    QSGTexture *createTextureFromImage(const QImage &image, QSGEngine::CreateTextureOptions options = QSGEngine::CreateTextureOption()) const;
+    QSGTexture *createTextureFromId(uint id, const QSize &size, QSGEngine::CreateTextureOptions options = QSGEngine::CreateTextureOption()) const;
 %If (Qt_5_8_0 -)
     QSGRendererInterface *rendererInterface() const;
 %End

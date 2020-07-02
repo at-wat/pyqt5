@@ -317,9 +317,6 @@ public slots:
 
 protected:
     virtual bool event(QEvent *);
-
-private:
-    QApplication(const QApplication &);
 };
 
 %ModuleHeaderCode

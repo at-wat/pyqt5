@@ -347,9 +347,6 @@ public:
 %If (Qt_5_9_0 -)
     QString selectedMimeTypeFilter() const;
 %End
-
-private:
-    QFileDialog(const QFileDialog &);
 };
 
 QFlags<QFileDialog::Option> operator|(QFileDialog::Option f1, QFlags<QFileDialog::Option> f2);

@@ -238,7 +238,4 @@ public:
 %If (Qt_5_10_0 -)
     void setWindowStates(Qt::WindowStates states);
 %End
-
-private:
-    QWindow(const QWindow &);
 };

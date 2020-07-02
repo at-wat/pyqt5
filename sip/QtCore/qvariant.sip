@@ -171,7 +171,6 @@ public:
 
 typedef QList<QVariant> QVariantList /TypeHint="List[QVariant]"/;
 typedef QHash<QString, QVariant> QVariantHash /TypeHint="Dict[QString, QVariant]"/;
-typedef QMap<QString, QVariant> QVariantMap /TypeHint="Dict[QString, QVariant]"/;
 QDataStream &operator>>(QDataStream &s, QVariant &p /Constrained/) /ReleaseGIL/;
 QDataStream &operator<<(QDataStream &s, const QVariant &p /Constrained/) /ReleaseGIL/;
 QDataStream &operator>>(QDataStream &s, QVariant::Type &p /Constrained,In/) /ReleaseGIL/;

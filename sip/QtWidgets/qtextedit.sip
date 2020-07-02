@@ -214,9 +214,6 @@ public:
 %If (Qt_5_10_0 -)
     void setTabStopDistance(qreal distance);
 %End
-
-private:
-    QTextEdit(const QTextEdit &);
 };
 
 QFlags<QTextEdit::AutoFormattingFlag> operator|(QTextEdit::AutoFormattingFlag f1, QFlags<QTextEdit::AutoFormattingFlag> f2);

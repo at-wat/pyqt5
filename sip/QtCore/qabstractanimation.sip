@@ -79,7 +79,4 @@ protected:
     virtual void updateCurrentTime(int currentTime) = 0;
     virtual void updateState(QAbstractAnimation::State newState, QAbstractAnimation::State oldState);
     virtual void updateDirection(QAbstractAnimation::Direction direction);
-
-private:
-    QAbstractAnimation(const QAbstractAnimation &);
 };

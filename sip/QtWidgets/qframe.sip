@@ -76,7 +76,4 @@ protected:
 %If (Qt_5_5_0 -)
     void initStyleOption(QStyleOptionFrame *option) const;
 %End
-
-private:
-    QFrame(const QFrame &);
 };

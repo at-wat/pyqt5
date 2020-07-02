@@ -38,7 +38,4 @@ public:
 protected:
     virtual void onTransition(QEvent *event);
     virtual bool eventTest(QEvent *event);
-
-private:
-    QKeyEventTransition(const QKeyEventTransition &);
 };

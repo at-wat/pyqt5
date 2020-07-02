@@ -36,9 +36,6 @@ public:
 
 protected:
     virtual int metric(QPaintDevice::PaintDeviceMetric metric) const;
-
-private:
-    QRasterWindow(const QRasterWindow &);
 };
 
 %End

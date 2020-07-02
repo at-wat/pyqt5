@@ -80,7 +80,4 @@ public:
     void setTimerType(Qt::TimerType atype);
     Qt::TimerType timerType() const;
     int remainingTime() const;
-
-private:
-    QTimer(const QTimer &);
 };

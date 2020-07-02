@@ -201,8 +201,18 @@ public:
     virtual qint64 bytesAvailable() const;
     virtual qint64 bytesToWrite() const;
     virtual bool canReadLine() const;
+%If (- Qt_5_11_0)
     virtual bool waitForReadyRead(int msecs) /ReleaseGIL/;
+%End
+%If (Qt_5_11_0 -)
+    virtual bool waitForReadyRead(int msecs = 30000) /ReleaseGIL/;
+%End
+%If (- Qt_5_11_0)
     virtual bool waitForBytesWritten(int msecs) /ReleaseGIL/;
+%End
+%If (Qt_5_11_0 -)
+    virtual bool waitForBytesWritten(int msecs = 30000) /ReleaseGIL/;
+%End
     bool sendBreak(int duration = 0) /ReleaseGIL/;
     bool setBreakEnabled(bool enabled = true);
 
@@ -319,9 +329,6 @@ signals:
 %If (Qt_5_8_0 -)
     void errorOccurred(QSerialPort::SerialPortError error);
 %End
-
-private:
-    QSerialPort(const QSerialPort &);
 };
 
 %End

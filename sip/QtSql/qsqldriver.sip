@@ -157,7 +157,4 @@ public:
 %If (Qt_5_4_0 -)
     QSqlDriver::DbmsType dbmsType() const;
 %End
-
-private:
-    QSqlDriver(const QSqlDriver &);
 };

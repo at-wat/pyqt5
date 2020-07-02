@@ -63,8 +63,8 @@ signals:
     void nameChanged(const QString &name);
     void sourceUrlChanged(const QUrl &url);
     void sourceCodeChanged(const QString &code);
-    void injectionPointChanged(QQuickWebEngineScript::InjectionPoint injectionPoint);
-    void worldIdChanged(QQuickWebEngineScript::ScriptWorldId scriptWorldId);
+    void injectionPointChanged(QQuickWebEngineScript::InjectionPoint injectionPoint /ScopesStripped=1/);
+    void worldIdChanged(QQuickWebEngineScript::ScriptWorldId scriptWorldId /ScopesStripped=1/);
     void runOnSubframesChanged(bool on);
 
 protected:

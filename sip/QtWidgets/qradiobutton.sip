@@ -39,7 +39,4 @@ protected:
     virtual bool event(QEvent *e);
     virtual void paintEvent(QPaintEvent *);
     virtual void mouseMoveEvent(QMouseEvent *);
-
-private:
-    QRadioButton(const QRadioButton &);
 };

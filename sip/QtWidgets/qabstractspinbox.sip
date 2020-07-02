@@ -119,9 +119,6 @@ public:
 %If (Qt_5_3_0 -)
     bool isGroupSeparatorShown() const;
 %End
-
-private:
-    QAbstractSpinBox(const QAbstractSpinBox &);
 };
 
 QFlags<QAbstractSpinBox::StepEnabledFlag> operator|(QAbstractSpinBox::StepEnabledFlag f1, QFlags<QAbstractSpinBox::StepEnabledFlag> f2);

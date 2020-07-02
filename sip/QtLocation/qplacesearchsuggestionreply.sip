@@ -36,9 +36,6 @@ public:
 
 protected:
     void setSuggestions(const QStringList &suggestions);
-
-private:
-    QPlaceSearchSuggestionReply(const QPlaceSearchSuggestionReply &);
 };
 
 %End

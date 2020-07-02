@@ -234,5 +234,4 @@ public:
 
 private:
     virtual void setModel(QAbstractItemModel *model /KeepReference/);
-    QTableWidget(const QTableWidget &);
 };

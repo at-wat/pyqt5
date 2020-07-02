@@ -64,9 +64,6 @@ public:
 %If (Qt_5_2_0 -)
     void setDisplayIntegerBase(int base);
 %End
-
-private:
-    QSpinBox(const QSpinBox &);
 };
 
 class QDoubleSpinBox : QAbstractSpinBox
@@ -104,7 +101,4 @@ public slots:
 signals:
     void valueChanged(double);
     void valueChanged(const QString &);
-
-private:
-    QDoubleSpinBox(const QDoubleSpinBox &);
 };

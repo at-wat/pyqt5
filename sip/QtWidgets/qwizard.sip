@@ -157,9 +157,6 @@ public:
 signals:
     void pageAdded(int id);
     void pageRemoved(int id);
-
-private:
-    QWizard(const QWizard &);
 };
 
 QFlags<QWizard::WizardOption> operator|(QWizard::WizardOption f1, QFlags<QWizard::WizardOption> f2);
@@ -237,7 +234,4 @@ protected:
 %End
 
     QWizard *wizard() const;
-
-private:
-    QWizardPage(const QWizardPage &);
 };

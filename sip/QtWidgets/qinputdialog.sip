@@ -131,9 +131,6 @@ public:
 %If (Qt_5_10_0 -)
     double doubleStep() const;
 %End
-
-private:
-    QInputDialog(const QInputDialog &);
 };
 
 QFlags<QInputDialog::InputDialogOption> operator|(QInputDialog::InputDialogOption f1, QFlags<QInputDialog::InputDialogOption> f2);

@@ -44,9 +44,6 @@ protected:
     void setRequest(const QPlaceContentRequest &request);
     void setPreviousPageRequest(const QPlaceContentRequest &previous);
     void setNextPageRequest(const QPlaceContentRequest &next);
-
-private:
-    QPlaceContentReply(const QPlaceContentReply &);
 };
 
 %End

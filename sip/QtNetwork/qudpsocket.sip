@@ -79,7 +79,4 @@ public:
 %If (Qt_5_8_0 -)
     qint64 writeDatagram(const QNetworkDatagram &datagram) /ReleaseGIL/;
 %End
-
-private:
-    QUdpSocket(const QUdpSocket &);
 };

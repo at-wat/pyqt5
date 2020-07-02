@@ -58,7 +58,4 @@ public:
 
 protected:
     virtual bool event(QEvent *e);
-
-private:
-    QProxyStyle(const QProxyStyle &);
 };

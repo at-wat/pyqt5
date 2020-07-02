@@ -42,9 +42,6 @@ public:
     void recordTimestamp();
     bool isResultAvailable() const;
     GLuint64 waitForResult() const /ReleaseGIL/;
-
-private:
-    QOpenGLTimerQuery(const QOpenGLTimerQuery &);
 };
 
 %End
@@ -72,9 +69,6 @@ public:
     QVector<GLuint64> waitForSamples() const /ReleaseGIL/;
     QVector<GLuint64> waitForIntervals() const /ReleaseGIL/;
     void reset();
-
-private:
-    QOpenGLTimeMonitor(const QOpenGLTimeMonitor &);
 };
 
 %End

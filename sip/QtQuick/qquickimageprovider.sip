@@ -45,7 +45,7 @@ class QQuickImageProvider : QQmlImageProviderBase
 %End
 
 public:
-    QQuickImageProvider(QQmlImageProviderBase::ImageType type, QQmlImageProviderBase::Flags flags = 0);
+    QQuickImageProvider(QQmlImageProviderBase::ImageType type, QQmlImageProviderBase::Flags flags = QQmlImageProviderBase::Flags());
     virtual ~QQuickImageProvider();
     virtual QQmlImageProviderBase::ImageType imageType() const;
     virtual QQmlImageProviderBase::Flags flags() const;

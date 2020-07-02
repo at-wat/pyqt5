@@ -1,4 +1,5 @@
-// This defines the interfaces to the Q_ENUMS and Q_FLAGS support.
+// This defines the interfaces to the Q_ENUM, Q_ENUMS, Q_FLAG and Q_FLAGS
+// support.
 //
 // Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
@@ -27,19 +28,20 @@
 #include <QList>
 
 
-struct EnumsFlags
+struct EnumFlag
 {
-    EnumsFlags(const char *name_, bool isFlag_) : name(name_), isFlag(isFlag_)
+    EnumFlag(const char *name_, bool isFlag_) : name(name_), isFlag(isFlag_), isScoped(false)
     {
     }
 
     QByteArray name;
     bool isFlag;
+    bool isScoped;
     QHash<QByteArray, int> keys;
 };
 
 
-QList<EnumsFlags> qpycore_get_enums_flags_list();
+QList<EnumFlag> qpycore_get_enums_flags_list();
 
 
 #endif
