@@ -1,4 +1,137 @@
+2020-01-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.14.1.
+	[71a24375c1af] [5.14.1] <5.14-maint>
+
+2019-12-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Updated the NEWS file.
+	[07df2e7706a8] <5.14-maint>
+
+2019-12-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	QThread.run() now releases the GIL.
+	[11d237de6d73] <5.14-maint>
+
+2019-12-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/pyproject.toml:
+	Fixed 'requires' in pyproject.toml.
+	[2a2cb22e6c11] <5.14-maint>
+
+2019-12-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.14.0 for changeset ddf73b461beb
+	[96f0bf5fb354]
+
+	* NEWS:
+	Released as v5.14.0.
+	[ddf73b461beb] [5.14.0]
+
+	* PyQt5.msp:
+	Implemented QColorConstants.
+	[fdb00424303d]
+
+2019-12-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Updated the NEWS file.
+	[b43235d6d719]
+
+	* lib/project.py:
+	Don't check that the user can write to the directory where a plugin
+	will be installed because they might have different permissions when
+	that is actually done.
+	[e8f16629a54e]
+
+	* lib/pyproject.toml:
+	Require PyQt-builder v1.1 for a bug fix affecting the dbus module.
+	[efc9cf987547]
+
+	* PyQt5.msp, qpy/QtCore/qpycore_init.cpp,
+	qpy/QtCore/qpycore_onexit.sip, qpy/QtCore/qpycore_public_api.cpp,
+	qpy/QtCore/qpycore_public_api.h:
+	Removed pyqt5_enable_new_onexit_scheme() and made the new scheme the
+	default.
+	[f8b71afd02a5]
+
+2019-12-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Completed the implementation of undocumented QCalendar-related
+	methods.
+	[ace88f6d228b]
+
+	* PyQt5.msp:
+	Completed the implementation of QCalendar.
+	[5984363fccad]
+
+	* PyQt5.msp:
+	Implemented the missing QCalendar ctor.
+	[f9931f445257]
+
+	* PyQt5.msp:
+	Added support for QRecursiveMutex.
+	[43614cd9a889]
+
+2019-12-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated QtWidgets for Qr v5.14.0.
+	[6ed3119f8822]
+
+2019-12-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated QtQml, QtQuick, QtQuickWidgets, QtRemoteObjects, QtSensors,
+	QtSerialPort, QtSql, QtSvg, QtTest, QtWebChannel, QtWebSockets,
+	QtXml and QtXmlPatterns for Qt v5.14.0.
+	[0f9c3f164789]
+
+	* PyQt5.msp:
+	Updated QtNetwork, QtNetworkAuth, QtNfc, QtOpenGL, QtPositioning and
+	QtPrintSupport for Qt v5.14.0.
+	[ea10989ad81e]
+
+	* PyQt5.msp:
+	Updated QtHelp, QtLocation, QtMultimedia and QtMultimediaWidgets for
+	Qt v5.14.0.
+	[b0ac383abf51]
+
+	* PyQt5.msp:
+	Updated QtGui for Qt v5.14.0.
+	[bd7ac1a672e3]
+
+	* lib/pyproject.toml, rb-product:
+	SIP v4.19.20 or v5.0.1 are now required.
+	[310e5b1b1cc3]
+
+	* PyQt5.msp:
+	Updated QtDBus and QtDesigner for Qt v5.14.0.
+	[ed74cb384bcc]
+
+	* PyQt5.msp:
+	Completed the majority of QtCore updates for Qt v5.14.0.
+	[341ea44f7c40]
+
+2019-12-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Updated QtBluetooth for Qt v5.14.0.
+	[3d879dd3da75]
+
+	* Merged the 5.13-maint branch.
+	[acdf5a9b8653]
+
 2019-11-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.13.2 for changeset ed56ea659bb0
+	[7e8b5fe8dc3e] <5.13-maint>
 
 	* NEWS:
 	Released as v5.13.2.

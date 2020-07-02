@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -31,7 +31,7 @@ public:
     QModelIndex child(int arow, int acolumn) const;
     int row() const;
     int column() const;
-    QVariant data(int role = Qt::DisplayRole) const;
+    QVariant data(int role = Qt::ItemDataRole::DisplayRole) const;
     Qt::ItemFlags flags() const;
     SIP_PYOBJECT internalPointer() const;
 %MethodCode
@@ -83,7 +83,7 @@ public:
     ~QPersistentModelIndex();
     int row() const;
     int column() const;
-    QVariant data(int role = Qt::DisplayRole) const;
+    QVariant data(int role = Qt::ItemDataRole::DisplayRole) const;
     Qt::ItemFlags flags() const;
     QModelIndex parent() const;
     QModelIndex sibling(int row, int column) const;
@@ -129,10 +129,10 @@ public:
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const = 0;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const = 0;
     virtual bool hasChildren(const QModelIndex &parent = QModelIndex()) const;
-    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const = 0;
-    virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
-    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-    virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
+    virtual QVariant data(const QModelIndex &index, int role = Qt::ItemDataRole::DisplayRole) const = 0;
+    virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::ItemDataRole::EditRole);
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::ItemDataRole::DisplayRole) const;
+    virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::ItemDataRole::EditRole);
     virtual QMap<int, QVariant> itemData(const QModelIndex &index) const;
     virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles);
     virtual QStringList mimeTypes() const;

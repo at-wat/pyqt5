@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -321,12 +321,18 @@ public:
         GagarinView,
         FabledSunset,
         PerfectBlue,
+%If (Qt_5_14_0 -)
+        NumPresets,
+%End
     };
 
 %End
     QGradient();
 %If (Qt_5_12_0 -)
     QGradient(QGradient::Preset);
+%End
+%If (Qt_5_14_0 -)
+    ~QGradient();
 %End
     QGradient::Type type() const;
     QGradient::Spread spread() const;
@@ -350,6 +356,9 @@ public:
     QLinearGradient();
     QLinearGradient(const QPointF &start, const QPointF &finalStop);
     QLinearGradient(qreal xStart, qreal yStart, qreal xFinalStop, qreal yFinalStop);
+%If (Qt_5_14_0 -)
+    ~QLinearGradient();
+%End
     QPointF start() const;
     QPointF finalStop() const;
     void setStart(const QPointF &start);
@@ -372,6 +381,9 @@ public:
     QRadialGradient(qreal cx, qreal cy, qreal radius, qreal fx, qreal fy);
     QRadialGradient(qreal cx, qreal cy, qreal centerRadius, qreal fx, qreal fy, qreal focalRadius);
     QRadialGradient(qreal cx, qreal cy, qreal radius);
+%If (Qt_5_14_0 -)
+    ~QRadialGradient();
+%End
     QPointF center() const;
     QPointF focalPoint() const;
     qreal radius() const;
@@ -396,6 +408,9 @@ public:
     QConicalGradient();
     QConicalGradient(const QPointF &center, qreal startAngle);
     QConicalGradient(qreal cx, qreal cy, qreal startAngle);
+%If (Qt_5_14_0 -)
+    ~QConicalGradient();
+%End
     QPointF center() const;
     qreal angle() const;
     void setCenter(const QPointF &center);

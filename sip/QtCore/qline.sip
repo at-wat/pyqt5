@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -117,6 +117,12 @@ public:
     qreal length() const;
     QLineF unitVector() const;
     QLineF::IntersectType intersect(const QLineF &l, QPointF *intersectionPoint) const;
+%If (Qt_5_14_0 -)
+    typedef QLineF::IntersectType IntersectionType;
+%End
+%If (Qt_5_14_0 -)
+    QLineF::IntersectionType intersects(const QLineF &l, QPointF *intersectionPoint /Out/) const;
+%End
     bool operator!=(const QLineF &d) const;
     QLineF();
     QLineF(const QPointF &apt1, const QPointF &apt2);

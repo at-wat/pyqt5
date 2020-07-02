@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -37,6 +37,17 @@ public:
     };
 
     typedef QFlags<QSGAbstractRenderer::ClearModeBit> ClearMode;
+%If (Qt_5_14_0 -)
+
+    enum MatrixTransformFlag
+    {
+        MatrixTransformFlipY,
+    };
+
+%End
+%If (Qt_5_14_0 -)
+    typedef QFlags<QSGAbstractRenderer::MatrixTransformFlag> MatrixTransformFlags;
+%End
     virtual ~QSGAbstractRenderer();
     void setDeviceRect(const QRect &rect);
     void setDeviceRect(const QSize &size);
@@ -45,6 +56,9 @@ public:
     void setViewportRect(const QSize &size);
     QRect viewportRect() const;
     void setProjectionMatrixToRect(const QRectF &rect);
+%If (Qt_5_14_0 -)
+    void setProjectionMatrixToRect(const QRectF &rect, QSGAbstractRenderer::MatrixTransformFlags flags);
+%End
     void setProjectionMatrix(const QMatrix4x4 &matrix);
     QMatrix4x4 projectionMatrix() const;
     void setClearColor(const QColor &color);

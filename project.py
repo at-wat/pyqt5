@@ -1,6 +1,6 @@
 # This is the PyQt5 build script.
 #
-# Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -301,14 +301,9 @@ del find_qt
             self.progress("The {0} plugin was disabled because a shared Python library couldn't be found.".format(user_name))
             return
 
-        # Where the plugin will be installed.  Check the user has write
-        # permission.
+        # Where the plugin will (eventually) be installed.
         target_plugin_dir = os.path.join(
                 builder.qt_configuration['QT_INSTALL_PLUGINS'], target_subdir)
-
-        if not os.access(target_plugin_dir, os.W_OK):
-            self.progress("The {0} plugin was disabled because you do not have write permission on '{1}'.".format(user_name, target_plugin_dir))
-            return
 
         # Create the buildable and add it to the builder.
         buildable = Buildable(self, name)

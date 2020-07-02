@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -619,6 +619,21 @@ public:
 %If (Qt_5_13_0 -)
         WesternBalochi,
 %End
+%If (Qt_5_14_0 -)
+        Cebuano,
+%End
+%If (Qt_5_14_0 -)
+        Erzya,
+%End
+%If (Qt_5_14_0 -)
+        Chickasaw,
+%End
+%If (Qt_5_14_0 -)
+        Muscogee,
+%End
+%If (Qt_5_14_0 -)
+        Silesian,
+%End
     };
 
     enum Country
@@ -968,9 +983,31 @@ public:
     };
 
     QString toString(const QDateTime &dateTime, const QString &format) const;
+%If (Qt_5_14_0 -)
+    QString toString(const QDateTime &dateTime, const QString &formatStr, QCalendar cal) const;
+%MethodCode
+        // QStringView has issues being implemented as a mapped type.
+        sipRes = new QString(sipCpp->toString(*a0, QStringView(*a1), *a2));
+%End
+
+%End
     QString toString(const QDateTime &dateTime, QLocale::FormatType format = QLocale::LongFormat) const;
+%If (Qt_5_14_0 -)
+    QString toString(const QDateTime &dateTime, QLocale::FormatType format, QCalendar cal) const;
+%End
     QString toString(const QDate &date, const QString &formatStr) const;
+%If (Qt_5_14_0 -)
+    QString toString(const QDate &date, const QString &formatStr, QCalendar cal) const;
+%MethodCode
+        // QStringView has issues being implemented as a mapped type.
+        sipRes = new QString(sipCpp->toString(*a0, QStringView(*a1), *a2));
+%End
+
+%End
     QString toString(const QDate &date, QLocale::FormatType format = QLocale::LongFormat) const;
+%If (Qt_5_14_0 -)
+    QString toString(const QDate &date, QLocale::FormatType format, QCalendar cal) const;
+%End
     QString toString(const QTime &time, const QString &formatStr) const;
     QString toString(const QTime &time, QLocale::FormatType format = QLocale::LongFormat) const;
     QString dateFormat(QLocale::FormatType format = QLocale::LongFormat) const;
@@ -1418,7 +1455,7 @@ public:
 
 %End
 %If (Qt_5_7_0 -)
-    void swap(QLocale &other);
+    void swap(QLocale &other /Constrained/);
 %End
     QString toString(SIP_PYOBJECT i /TypeHint="int"/) const;
 %MethodCode
@@ -1553,6 +1590,27 @@ public:
 %End
 %If (Qt_5_13_0 -)
     ulong toULong(const QString &s, bool *ok = 0) const;
+%End
+%If (Qt_5_14_0 -)
+    QDate toDate(const QString &string, QLocale::FormatType format, QCalendar cal) const;
+%End
+%If (Qt_5_14_0 -)
+    QTime toTime(const QString &string, QLocale::FormatType format, QCalendar cal) const;
+%End
+%If (Qt_5_14_0 -)
+    QDateTime toDateTime(const QString &string, QLocale::FormatType format, QCalendar cal) const;
+%End
+%If (Qt_5_14_0 -)
+    QDate toDate(const QString &string, const QString &format, QCalendar cal) const;
+%End
+%If (Qt_5_14_0 -)
+    QTime toTime(const QString &string, const QString &format, QCalendar cal) const;
+%End
+%If (Qt_5_14_0 -)
+    QDateTime toDateTime(const QString &string, const QString &format, QCalendar cal) const;
+%End
+%If (Qt_5_14_0 -)
+    QLocale collation() const;
 %End
 };
 

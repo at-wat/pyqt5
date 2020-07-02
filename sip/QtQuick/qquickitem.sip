@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -201,7 +201,7 @@ protected:
     virtual bool event(QEvent *);
     bool isComponentComplete() const;
     virtual void itemChange(QQuickItem::ItemChange, const QQuickItem::ItemChangeData &);
-    void updateInputMethod(Qt::InputMethodQueries queries = Qt::ImQueryInput);
+    void updateInputMethod(Qt::InputMethodQueries queries = Qt::InputMethodQuery::ImQueryInput);
     bool widthValid() const;
     bool heightValid() const;
     virtual void classBegin();

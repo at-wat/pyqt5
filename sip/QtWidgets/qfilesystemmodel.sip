@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -45,10 +45,10 @@ public:
     virtual void fetchMore(const QModelIndex &parent);
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant myComputer(int role = Qt::DisplayRole) const;
-    virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    virtual bool setData(const QModelIndex &idx, const QVariant &value, int role = Qt::EditRole);
-    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+    QVariant myComputer(int role = Qt::ItemDataRole::DisplayRole) const;
+    virtual QVariant data(const QModelIndex &index, int role = Qt::ItemDataRole::DisplayRole) const;
+    virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::ItemDataRole::EditRole);
+    virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::ItemDataRole::DisplayRole) const;
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
     virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
     virtual QStringList mimeTypes() const;
@@ -96,4 +96,33 @@ public:
 %If (Qt_5_7_0 -)
     virtual QModelIndex sibling(int row, int column, const QModelIndex &idx) const;
 %End
+%If (Qt_5_14_0 -)
+
+    enum Option
+    {
+        DontWatchForChanges,
+        DontResolveSymlinks,
+        DontUseCustomDirectoryIcons,
+    };
+
+%End
+%If (Qt_5_14_0 -)
+    typedef QFlags<QFileSystemModel::Option> Options;
+%End
+%If (Qt_5_14_0 -)
+    void setOption(QFileSystemModel::Option option, bool on = true);
+%End
+%If (Qt_5_14_0 -)
+    bool testOption(QFileSystemModel::Option option) const;
+%End
+%If (Qt_5_14_0 -)
+    void setOptions(QFileSystemModel::Options options);
+%End
+%If (Qt_5_14_0 -)
+    QFileSystemModel::Options options() const;
+%End
 };
+
+%If (Qt_5_14_0 -)
+QFlags<QFileSystemModel::Option> operator|(QFileSystemModel::Option f1, QFlags<QFileSystemModel::Option> f2);
+%End

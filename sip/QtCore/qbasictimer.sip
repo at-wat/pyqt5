@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,10 +28,16 @@ class QBasicTimer
 
 public:
     QBasicTimer();
+%If (Qt_5_14_0 -)
+    QBasicTimer(const QBasicTimer &);
+%End
     ~QBasicTimer();
     bool isActive() const;
     int timerId() const;
     void start(int msec, Qt::TimerType timerType, QObject *obj);
     void start(int msec, QObject *obj);
     void stop();
+%If (Qt_5_14_0 -)
+    void swap(QBasicTimer &other /Constrained/);
+%End
 };

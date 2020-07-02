@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -51,6 +51,9 @@ public:
     };
 
     QDBusReply<QStringList> registeredServiceNames() const /ReleaseGIL/;
+%If (Qt_5_14_0 -)
+    QDBusReply<QStringList> activatableServiceNames() const /ReleaseGIL/;
+%End
     QDBusReply<bool> isServiceRegistered(const QString &serviceName) const /ReleaseGIL/;
     QDBusReply<QString> serviceOwner(const QString &name) const /ReleaseGIL/;
     QDBusReply<bool> unregisterService(const QString &serviceName) /ReleaseGIL/;

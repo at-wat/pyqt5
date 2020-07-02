@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -25,7 +25,7 @@
 %Import QtCore/QtCoremod.sip
 
 %Copying
-Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt5.
 
@@ -54,6 +54,8 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 %Include qcolor.sip
 %Include qbrush.sip
 %Include qclipboard.sip
+%Include qcolorspace.sip
+%Include qcolortransform.sip
 %Include qcursor.sip
 %Include qdesktopservices.sip
 %Include qdrag.sip

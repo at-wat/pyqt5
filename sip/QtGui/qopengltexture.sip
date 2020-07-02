@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -614,6 +614,21 @@ public:
 %End
 %If (Qt_5_9_0 -)
     void setCompressedData(int mipLevel, int layer, int layerCount, QOpenGLTexture::CubeMapFace cubeFace, int dataSize, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
+%End
+%If (Qt_5_14_0 -)
+    void setData(int xOffset, int yOffset, int zOffset, int width, int height, int depth, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
+%End
+%If (Qt_5_14_0 -)
+    void setData(int xOffset, int yOffset, int zOffset, int width, int height, int depth, int mipLevel, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
+%End
+%If (Qt_5_14_0 -)
+    void setData(int xOffset, int yOffset, int zOffset, int width, int height, int depth, int mipLevel, int layer, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
+%End
+%If (Qt_5_14_0 -)
+    void setData(int xOffset, int yOffset, int zOffset, int width, int height, int depth, int mipLevel, int layer, QOpenGLTexture::CubeMapFace cubeFace, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
+%End
+%If (Qt_5_14_0 -)
+    void setData(int xOffset, int yOffset, int zOffset, int width, int height, int depth, int mipLevel, int layer, QOpenGLTexture::CubeMapFace cubeFace, int layerCount, QOpenGLTexture::PixelFormat sourceFormat, QOpenGLTexture::PixelType sourceType, const void *data, const QOpenGLPixelTransferOptions * const options = 0);
 %End
 
 private:

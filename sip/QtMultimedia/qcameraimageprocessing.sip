@@ -2,7 +2,7 @@
 //
 // This file is part of the QtMultimedia Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -58,7 +58,16 @@ public:
 
 private:
     QCameraImageProcessing(QCamera *camera);
+
+protected:
+%If (Qt_5_14_0 -)
     virtual ~QCameraImageProcessing();
+%End
+
+private:
+%If (- Qt_5_14_0)
+    virtual ~QCameraImageProcessing();
+%End
     QCameraImageProcessing(const QCameraImageProcessing &);
 
 public:

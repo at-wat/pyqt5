@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -118,6 +118,12 @@ public:
 %End
 %If (Qt_5_12_0 -)
     void throwError(QJSValue::ErrorType errorType, const QString &message = QString());
+%End
+%If (Qt_5_14_0 -)
+    void setInterrupted(bool interrupted);
+%End
+%If (Qt_5_14_0 -)
+    bool isInterrupted() const;
 %End
 };
 

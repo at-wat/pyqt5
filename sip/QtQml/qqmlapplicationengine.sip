@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQml Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -44,6 +44,9 @@ public slots:
     void load(const QUrl &url) /ReleaseGIL/;
     void load(const QString &filePath) /ReleaseGIL/;
     void loadData(const QByteArray &data, const QUrl &url = QUrl()) /ReleaseGIL/;
+%If (Qt_5_14_0 -)
+    void setInitialProperties(const QVariantMap &initialProperties);
+%End
 
 signals:
     void objectCreated(QObject *object, const QUrl &url);

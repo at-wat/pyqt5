@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -183,6 +183,63 @@ public:
 %End
 %If (Qt_5_13_0 -)
         FontStyleName,
+%End
+%If (Qt_5_14_0 -)
+        BlockQuoteLevel,
+%End
+%If (Qt_5_14_0 -)
+        BlockCodeLanguage,
+%End
+%If (Qt_5_14_0 -)
+        BlockCodeFence,
+%End
+%If (Qt_5_14_0 -)
+        BlockMarker,
+%End
+%If (Qt_5_14_0 -)
+        TableBorderCollapse,
+%End
+%If (Qt_5_14_0 -)
+        TableCellTopBorder,
+%End
+%If (Qt_5_14_0 -)
+        TableCellBottomBorder,
+%End
+%If (Qt_5_14_0 -)
+        TableCellLeftBorder,
+%End
+%If (Qt_5_14_0 -)
+        TableCellRightBorder,
+%End
+%If (Qt_5_14_0 -)
+        TableCellTopBorderStyle,
+%End
+%If (Qt_5_14_0 -)
+        TableCellBottomBorderStyle,
+%End
+%If (Qt_5_14_0 -)
+        TableCellLeftBorderStyle,
+%End
+%If (Qt_5_14_0 -)
+        TableCellRightBorderStyle,
+%End
+%If (Qt_5_14_0 -)
+        TableCellTopBorderBrush,
+%End
+%If (Qt_5_14_0 -)
+        TableCellBottomBorderBrush,
+%End
+%If (Qt_5_14_0 -)
+        TableCellLeftBorderBrush,
+%End
+%If (Qt_5_14_0 -)
+        TableCellRightBorderBrush,
+%End
+%If (Qt_5_14_0 -)
+        ImageTitle,
+%End
+%If (Qt_5_14_0 -)
+        ImageAltText,
 %End
         UserProperty,
     };
@@ -419,6 +476,22 @@ public:
 %If (Qt_5_12_0 -)
     int headingLevel() const;
 %End
+%If (Qt_5_14_0 -)
+
+    enum class MarkerType
+    {
+        NoMarker,
+        Unchecked,
+        Checked,
+    };
+
+%End
+%If (Qt_5_14_0 -)
+    void setMarker(QTextBlockFormat::MarkerType marker);
+%End
+%If (Qt_5_14_0 -)
+    QTextBlockFormat::MarkerType marker() const;
+%End
 };
 
 class QTextListFormat : QTextFormat
@@ -561,6 +634,12 @@ public:
     void setAlignment(Qt::Alignment aalignment);
     void setHeaderRowCount(int count);
     int headerRowCount() const;
+%If (Qt_5_14_0 -)
+    void setBorderCollapse(bool borderCollapse);
+%End
+%If (Qt_5_14_0 -)
+    bool borderCollapse() const;
+%End
 };
 
 QFlags<QTextFormat::PageBreakFlag> operator|(QTextFormat::PageBreakFlag f1, QFlags<QTextFormat::PageBreakFlag> f2);
@@ -583,4 +662,85 @@ public:
     void setRightPadding(qreal padding);
     qreal rightPadding() const;
     void setPadding(qreal padding);
+%If (Qt_5_14_0 -)
+    void setTopBorder(qreal width);
+%End
+%If (Qt_5_14_0 -)
+    qreal topBorder() const;
+%End
+%If (Qt_5_14_0 -)
+    void setBottomBorder(qreal width);
+%End
+%If (Qt_5_14_0 -)
+    qreal bottomBorder() const;
+%End
+%If (Qt_5_14_0 -)
+    void setLeftBorder(qreal width);
+%End
+%If (Qt_5_14_0 -)
+    qreal leftBorder() const;
+%End
+%If (Qt_5_14_0 -)
+    void setRightBorder(qreal width);
+%End
+%If (Qt_5_14_0 -)
+    qreal rightBorder() const;
+%End
+%If (Qt_5_14_0 -)
+    void setBorder(qreal width);
+%End
+%If (Qt_5_14_0 -)
+    void setTopBorderStyle(QTextFrameFormat::BorderStyle style);
+%End
+%If (Qt_5_14_0 -)
+    QTextFrameFormat::BorderStyle topBorderStyle() const;
+%End
+%If (Qt_5_14_0 -)
+    void setBottomBorderStyle(QTextFrameFormat::BorderStyle style);
+%End
+%If (Qt_5_14_0 -)
+    QTextFrameFormat::BorderStyle bottomBorderStyle() const;
+%End
+%If (Qt_5_14_0 -)
+    void setLeftBorderStyle(QTextFrameFormat::BorderStyle style);
+%End
+%If (Qt_5_14_0 -)
+    QTextFrameFormat::BorderStyle leftBorderStyle() const;
+%End
+%If (Qt_5_14_0 -)
+    void setRightBorderStyle(QTextFrameFormat::BorderStyle style);
+%End
+%If (Qt_5_14_0 -)
+    QTextFrameFormat::BorderStyle rightBorderStyle() const;
+%End
+%If (Qt_5_14_0 -)
+    void setBorderStyle(QTextFrameFormat::BorderStyle style);
+%End
+%If (Qt_5_14_0 -)
+    void setTopBorderBrush(const QBrush &brush);
+%End
+%If (Qt_5_14_0 -)
+    QBrush topBorderBrush() const;
+%End
+%If (Qt_5_14_0 -)
+    void setBottomBorderBrush(const QBrush &brush);
+%End
+%If (Qt_5_14_0 -)
+    QBrush bottomBorderBrush() const;
+%End
+%If (Qt_5_14_0 -)
+    void setLeftBorderBrush(const QBrush &brush);
+%End
+%If (Qt_5_14_0 -)
+    QBrush leftBorderBrush() const;
+%End
+%If (Qt_5_14_0 -)
+    void setRightBorderBrush(const QBrush &brush);
+%End
+%If (Qt_5_14_0 -)
+    QBrush rightBorderBrush() const;
+%End
+%If (Qt_5_14_0 -)
+    void setBorderBrush(const QBrush &brush);
+%End
 };

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -60,6 +60,9 @@ return 0;
 public:
     QDate();
     QDate(int y, int m, int d);
+%If (Qt_5_14_0 -)
+    QDate(int y, int m, int d, QCalendar cal);
+%End
     SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
@@ -108,22 +111,55 @@ public:
 
     bool isValid() const;
     int year() const;
+%If (Qt_5_14_0 -)
+    int year(QCalendar cal) const;
+%End
     int month() const;
+%If (Qt_5_14_0 -)
+    int month(QCalendar cal) const;
+%End
     int day() const;
+%If (Qt_5_14_0 -)
+    int day(QCalendar cal) const;
+%End
     int dayOfWeek() const;
+%If (Qt_5_14_0 -)
+    int dayOfWeek(QCalendar cal) const;
+%End
     int dayOfYear() const;
+%If (Qt_5_14_0 -)
+    int dayOfYear(QCalendar cal) const;
+%End
     int daysInMonth() const;
+%If (Qt_5_14_0 -)
+    int daysInMonth(QCalendar cal) const;
+%End
     int daysInYear() const;
+%If (Qt_5_14_0 -)
+    int daysInYear(QCalendar cal) const;
+%End
     int weekNumber(int *yearNumber = 0) const;
     static QString shortMonthName(int month, QDate::MonthNameType type = QDate::DateFormat);
     static QString shortDayName(int weekday, QDate::MonthNameType type = QDate::DateFormat);
     static QString longMonthName(int month, QDate::MonthNameType type = QDate::DateFormat);
     static QString longDayName(int weekday, QDate::MonthNameType type = QDate::DateFormat);
     QString toString(Qt::DateFormat format = Qt::TextDate) const;
+%If (Qt_5_14_0 -)
+    QString toString(Qt::DateFormat f, QCalendar cal) const;
+%End
     QString toString(const QString &format) const;
+%If (Qt_5_14_0 -)
+    QString toString(const QString &format, QCalendar cal) const;
+%End
     QDate addDays(qint64 days) const;
     QDate addMonths(int months) const;
+%If (Qt_5_14_0 -)
+    QDate addMonths(int months, QCalendar cal) const;
+%End
     QDate addYears(int years) const;
+%If (Qt_5_14_0 -)
+    QDate addYears(int years, QCalendar cal) const;
+%End
     qint64 daysTo(const QDate &) const;
     bool operator==(const QDate &other) const;
     bool operator!=(const QDate &other) const;
@@ -134,15 +170,16 @@ public:
     static QDate currentDate();
     static QDate fromString(const QString &string, Qt::DateFormat format = Qt::TextDate);
     static QDate fromString(const QString &s, const QString &format);
+%If (Qt_5_14_0 -)
+    static QDate fromString(const QString &s, const QString &format, QCalendar cal);
+%End
     static bool isValid(int y, int m, int d);
     static bool isLeapYear(int year);
     static QDate fromJulianDay(qint64 jd);
     qint64 toJulianDay() const;
     bool setDate(int year, int month, int date);
 %If (- Qt_5_7_0)
-%If (Qt_5_11_0 -)
     void getDate(int *year, int *month, int *day);
-%End
 %End
 %If (Qt_5_7_0 -)
     void getDate(int *year, int *month, int *day) const;
@@ -153,6 +190,22 @@ public:
         DateFormat,
         StandaloneFormat,
     };
+
+%If (Qt_5_14_0 -)
+    QDateTime startOfDay(Qt::TimeSpec spec = Qt::LocalTime, int offsetSeconds = 0) const;
+%End
+%If (Qt_5_14_0 -)
+    QDateTime endOfDay(Qt::TimeSpec spec = Qt::LocalTime, int offsetSeconds = 0) const;
+%End
+%If (Qt_5_14_0 -)
+    QDateTime startOfDay(const QTimeZone &zone) const;
+%End
+%If (Qt_5_14_0 -)
+    QDateTime endOfDay(const QTimeZone &zone) const;
+%End
+%If (Qt_5_14_0 -)
+    bool setDate(int year, int month, int day, QCalendar cal);
+%End
 };
 
 class QTime /TypeHintIn="Union[QTime, datetime.time]"/
@@ -555,6 +608,18 @@ public:
 %End
 %If (Qt_5_8_0 -)
     static qint64 currentSecsSinceEpoch();
+%End
+%If (Qt_5_14_0 -)
+    static QDateTime fromString(const QString &s, const QString &format, QCalendar cal);
+%End
+%If (Qt_5_14_0 -)
+
+    enum class YearRange
+    {
+        First,
+        Last,
+    };
+
 %End
 };
 

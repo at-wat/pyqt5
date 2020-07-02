@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -96,6 +96,9 @@ public:
 %If (Qt_5_11_0 -)
         Http2DirectAttribute,
 %End
+%If (Qt_5_14_0 -)
+        AutoDeleteReplyOnFinishAttribute,
+%End
         User,
         UserMax,
     };
@@ -169,5 +172,11 @@ public:
 %End
 %If (Qt_5_13_0 -)
     void setPeerVerifyName(const QString &peerName);
+%End
+%If (Qt_5_14_0 -)
+    QHttp2Configuration http2Configuration() const;
+%End
+%If (Qt_5_14_0 -)
+    void setHttp2Configuration(const QHttp2Configuration &configuration);
 %End
 };

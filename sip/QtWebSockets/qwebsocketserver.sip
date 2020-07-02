@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebSockets Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -39,7 +39,7 @@ public:
 
     QWebSocketServer(const QString &serverName, QWebSocketServer::SslMode secureMode, QObject *parent /TransferThis/ = 0);
     virtual ~QWebSocketServer();
-    bool listen(const QHostAddress &address = QHostAddress::Any, quint16 port = 0);
+    bool listen(const QHostAddress &address = QHostAddress::SpecialAddress::Any, quint16 port = 0);
     void close();
     bool isListening() const;
     void setMaxPendingConnections(int numConnections);
@@ -97,6 +97,12 @@ public:
 %End
 %If (Qt_5_12_0 -)
     qintptr nativeDescriptor() const;
+%End
+%If (Qt_5_14_0 -)
+    void setHandshakeTimeout(int msec);
+%End
+%If (Qt_5_14_0 -)
+    int handshakeTimeoutMS() const;
 %End
 };
 

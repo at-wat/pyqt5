@@ -2,7 +2,7 @@
 //
 // This file is part of the QtPositioning Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -88,7 +88,13 @@ public:
     virtual int minimumUpdateInterval() const = 0;
     QString sourceName() const;
     static QGeoPositionInfoSource *createDefaultSource(QObject *parent /TransferThis/) /Factory/;
+%If (Qt_5_14_0 -)
+    static QGeoPositionInfoSource *createDefaultSource(const QVariantMap &parameters, QObject *parent /TransferThis/) /Factory/;
+%End
     static QGeoPositionInfoSource *createSource(const QString &sourceName, QObject *parent /TransferThis/) /Factory/;
+%If (Qt_5_14_0 -)
+    static QGeoPositionInfoSource *createSource(const QString &sourceName, const QVariantMap &parameters, QObject *parent /TransferThis/) /Factory/;
+%End
     static QStringList availableSources();
     virtual QGeoPositionInfoSource::Error error() const = 0;
 
@@ -103,6 +109,14 @@ signals:
     void error(QGeoPositionInfoSource::Error);
 %If (Qt_5_12_0 -)
     void supportedPositioningMethodsChanged();
+%End
+
+public:
+%If (Qt_5_14_0 -)
+    bool setBackendProperty(const QString &name, const QVariant &value);
+%End
+%If (Qt_5_14_0 -)
+    QVariant backendProperty(const QString &name) const;
 %End
 
 private:

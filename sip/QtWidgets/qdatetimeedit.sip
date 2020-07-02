@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWidgets Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -119,6 +119,12 @@ public:
     void setCalendarWidget(QCalendarWidget *calendarWidget /Transfer/);
     Qt::TimeSpec timeSpec() const;
     void setTimeSpec(Qt::TimeSpec spec);
+%If (Qt_5_14_0 -)
+    QCalendar calendar() const;
+%End
+%If (Qt_5_14_0 -)
+    void setCalendar(QCalendar calendar);
+%End
 };
 
 class QTimeEdit : QDateTimeEdit

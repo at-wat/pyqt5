@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -124,6 +124,14 @@ public:
 signals:
 %If (Qt_5_13_0 -)
     void showShortcutsInContextMenusChanged(bool);
+%End
+
+public:
+%If (Qt_5_14_0 -)
+    int mouseDoubleClickDistance() const;
+%End
+%If (Qt_5_14_0 -)
+    int touchDoubleTapDistance() const;
 %End
 
 private:

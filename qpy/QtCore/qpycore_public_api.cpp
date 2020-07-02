@@ -1,6 +1,6 @@
 // This implements the public API provided by PyQt to external packages.
 //
-// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -70,22 +70,12 @@ static void cleanup_qobject(sipSimpleWrapper *sw, void *closure)
 
 // Call the C++ dtors of all QObject instances (except for QCoreApplication
 // instances) owned by Python.
-//void pyqt5_cleanup_qobjects()
-bool pyqt5_cleanup_qobjects()
+void pyqt5_cleanup_qobjects()
 {
-    if (pyqt5_get_scheme_state())
-    {
-        // Disable any monitoring.
-        PyQtMonitor::enabled = false;
+    // Disable any monitoring.
+    PyQtMonitor::enabled = false;
 
-        sipVisitWrappers(cleanup_qobject, QCoreApplication::instance());
-
-        // The new scheme is in use.
-        return true;
-    }
-
-    // The old scheme is in use.
-    return false;
+    sipVisitWrappers(cleanup_qobject, QCoreApplication::instance());
 }
 
 
