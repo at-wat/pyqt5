@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## Copyright (C) 2017 Riverbank Computing Limited.
+## Copyright (C) 2019 Riverbank Computing Limited.
 ## Copyright (C) 2006 Thorsten Marek.
 ## All right reserved.
 ##
@@ -436,7 +436,7 @@ class Properties(object):
     # These properties will be set with a widget.setProperty call rather than
     # calling the set<property> function.
     def _setViaSetProperty(self, widget, prop):
-        prop_value = self.convert(prop)
+        prop_value = self.convert(prop, widget)
         if prop_value is not None:
             prop_name = prop.attrib['name']
 

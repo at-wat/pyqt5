@@ -62,23 +62,21 @@ QPyQmlObjectProxy::~QPyQmlObjectProxy()
 // connection was itself being destroyed.
 void QPyQmlObjectProxy::connectNotify(const QMetaMethod &sig)
 {
-    QByteArray signal_sig = signalSignature(sig);
+    QByteArray signal_sig(sig.methodSignature());
+
+    // Avoid a warning message from QObject::connect().  This seems to happen
+    // when a notification signal of the proxied object gets connected to a
+    // property that is defined in QML.  I think it is benign...
+    if (signal_sig.isEmpty())
+        return;
+
+    signal_sig.prepend('2');
 
     // The signal has actually been connected to the proxy, so do the same from
     // the proxied object to the proxy.  Use Qt::UniqueConnection in case the
     // object (ie. model) is used in more than one view.
     QObject::connect(proxied, signal_sig.constData(), this,
             signal_sig.constData(), Qt::UniqueConnection);
-}
-
-
-// Return what SIGNAL() would return for a method.
-QByteArray QPyQmlObjectProxy::signalSignature(const QMetaMethod &signal)
-{
-    QByteArray signal_sig(signal.methodSignature());
-    signal_sig.prepend('2');
-
-    return signal_sig;
 }
 
 

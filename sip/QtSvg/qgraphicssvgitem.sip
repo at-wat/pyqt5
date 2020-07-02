@@ -29,9 +29,9 @@ class QGraphicsSvgItem : QGraphicsObject
 %ConvertToSubClassCode
     if (sipCpp->type() == 13)
     {
-        // We need to explicitly cast because of the multiple inheritance.
+        // Switch to the QObject convertor.
         *sipCppRet = static_cast<QGraphicsSvgItem *>(sipCpp);
-        sipType = sipType_QGraphicsSvgItem;
+        sipType = sipType_QObject;
     }
     else
         sipType = 0;
@@ -51,7 +51,7 @@ public:
     virtual int type() const;
 };
 
-%ModuleHeaderCode
+%ModuleCode
 // This is needed by the %ConvertToSubClassCode.
 #include <qgraphicssvgitem.h>
 %End
