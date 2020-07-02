@@ -1,3 +1,6 @@
+// This is the SIP interface definition for the QtAndroidExtras module of
+// PyQt v5.
+//
 // Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
@@ -16,7 +19,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Module(name=PyQt5.pyrcc, keyword_arguments="None", use_limited_api=True)
+%Module(name=PyQt5.QtAndroidExtras, keyword_arguments="Optional", use_limited_api=True)
 
 %Import QtCore/QtCoremod.sip
 
@@ -41,31 +44,5 @@ WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 %DefaultSupertype sip.simplewrapper
 
-
-const int CONSTANT_COMPRESSLEVEL_DEFAULT;
-const int CONSTANT_COMPRESSTHRESHOLD_DEFAULT;
-
-
-class RCCResourceLibrary
-{
-%TypeHeaderCode
-#include "rcc.h"
-%End
-
-public:
-    RCCResourceLibrary();
-    ~RCCResourceLibrary();
-
-    bool output(const QString &out_name);
-
-    bool readFiles();
-
-    void setInputFiles(QStringList files);
-
-    QStringList dataFiles() const;
-
-    void setVerbose(bool b);
-    void setCompressLevel(int c);
-    void setCompressThreshold(int t);
-    void setResourceRoot(QString str);
-};
+%Include qtandroid.sip
+%Include qandroidjniobject.sip
