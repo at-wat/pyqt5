@@ -28,8 +28,8 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.14.2"
-SIP_MIN_VERSION = '4.19.20'
+PYQT_VERSION_STR = "5.15.0"
+SIP_MIN_VERSION = '4.19.23'
 
 
 class ModuleMetadata:
@@ -88,6 +88,7 @@ MODULE_METADATA = {
     'QtPrintSupport':       ModuleMetadata(qmake_QT=['printsupport']),
     'QtQml':                ModuleMetadata(qmake_QT=['qml'], qpy_lib=True),
     'QtQuick':              ModuleMetadata(qmake_QT=['quick'], qpy_lib=True),
+    'QtQuick3D':            ModuleMetadata(qmake_QT=['quick3d']),
     'QtQuickWidgets':       ModuleMetadata(qmake_QT=['quickwidgets']),
     'QtRemoteObjects':      ModuleMetadata(qmake_QT=['remoteobjects', '-gui']),
     'QtSensors':            ModuleMetadata(qmake_QT=['sensors']),
@@ -160,8 +161,8 @@ COMPOSITE_COMPONENTS = (
     'QtHelp', 'QtMultimediaWidgets', 'QtOpenGL',
         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
-        'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets',
-        'Enginio', 'QtWebChannel',
+        'QtWinExtras', 'QtX11Extras', 'QtQuick3D', 'QtQuickWidgets',
+        'QtWebSockets', 'Enginio', 'QtWebChannel',
     'QtLocation', 'QtNfc', 'QtRemoteObjects'
 )
 
@@ -1353,6 +1354,9 @@ def check_modules(target_config, disabled_modules, verbose):
     if target_config.qt_version >= 0x050c00:
         check_5_12_modules(target_config, disabled_modules, verbose)
 
+    if target_config.qt_version >= 0x050f00:
+        check_5_15_modules(target_config, disabled_modules, verbose)
+
     # QtWebEngine needs to know if QtWebChannel is available.
     if 'QtWebChannel' not in target_config.pyqt_modules:
         target_config.pyqt_disabled_features.append('PyQt_WebChannel')
@@ -1480,6 +1484,17 @@ def check_5_12_modules(target_config, disabled_modules, verbose):
     check_module(target_config, disabled_modules, verbose, 'QtRemoteObjects',
             'qtremoteobjectsversion.h',
             'const char *v = QTREMOTEOBJECTS_VERSION_STR')
+
+
+def check_5_15_modules(target_config, disabled_modules, verbose):
+    """ Check which modules introduced in Qt v5.15 can be built and update the
+    target configuration accordingly.  target_config is the target
+    configuration.  disabled_modules is the list of modules that have been
+    explicitly disabled.  verbose is set if the output is to be displayed.
+    """
+
+    check_module(target_config, disabled_modules, verbose, 'QtQuick3D',
+            'qquick3d.h', 'QQuick3D::idealSurfaceFormat()')
 
 
 def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings, distinfo):

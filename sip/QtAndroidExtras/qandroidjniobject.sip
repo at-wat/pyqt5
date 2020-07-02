@@ -24,6 +24,7 @@ class QAndroidJniObject
 {
 %TypeHeaderCode
 #include <qandroidjniobject.h>
+#include <qjsondocument.h>
 %End
 
 public:
@@ -39,6 +40,20 @@ public:
     static int callStaticMethod(const char *className, const char *methodName);
 %MethodCode
         sipRes = QAndroidJniObject::callStaticMethod<int>(a0, a1);
+%End
+
+    static QJsonDocument callStaticMethod(const char *className, const char *methodName, const QJsonDocument &json);
+%MethodCode
+        QByteArray in = a2->toJson(QJsonDocument::Compact);
+        QAndroidJniObject jin = QAndroidJniObject::fromString(
+                QString::fromUtf8(in));
+
+        QAndroidJniObject jout = QAndroidJniObject::callStaticObjectMethod(a0,
+                a1, "(Ljava/lang/String;)Ljava/lang/String;",
+                jin.object<jstring>());
+
+        sipRes = new QJsonDocument(
+                QJsonDocument::fromJson(jout.toString().toUtf8()));
 %End
 
     bool isValid() const;
