@@ -1,6 +1,6 @@
 // This is the post-initialisation support code for the QtCore module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -47,6 +47,9 @@ PyObject *qpycore_dunder_pyqtsignature;
 // Perform any required post-initialisation.
 void qpycore_post_init(PyObject *module_dict)
 {
+    // Enable overflow checking on int conversions.
+    sipEnableOverflowChecking(1);
+
     // Disable the automatic destruction of C++ objects.
     sipSetDestroyOnExit(0);
 

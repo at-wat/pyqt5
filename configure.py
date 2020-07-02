@@ -1,6 +1,6 @@
 # This script generates the Makefiles for building PyQt5.
 #
-# Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -28,9 +28,9 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.11.3"
+PYQT_VERSION_STR = "5.12"
 
-SIP_MIN_VERSION = '4.19.11'
+SIP_MIN_VERSION = '4.19.14'
 
 
 class ModuleMetadata:
@@ -90,6 +90,7 @@ MODULE_METADATA = {
     'QtQml':                ModuleMetadata(qmake_QT=['qml'], qpy_lib=True),
     'QtQuick':              ModuleMetadata(qmake_QT=['quick'], qpy_lib=True),
     'QtQuickWidgets':       ModuleMetadata(qmake_QT=['quickwidgets']),
+    'QtRemoteObjects':      ModuleMetadata(qmake_QT=['remoteobjects', '-gui']),
     'QtSensors':            ModuleMetadata(qmake_QT=['sensors']),
     'QtSerialPort':         ModuleMetadata(qmake_QT=['serialport']),
     'QtSql':                ModuleMetadata(qmake_QT=['sql', 'widgets']),
@@ -98,12 +99,6 @@ MODULE_METADATA = {
     'QtWebChannel':         ModuleMetadata(
                                     qmake_QT=['webchannel', 'network',
                                             '-gui']),
-    'QtWebEngine':          ModuleMetadata(qmake_QT=['webengine', '-gui']),
-    'QtWebEngineCore':      ModuleMetadata(qmake_QT=['webenginecore', '-gui']),
-    'QtWebEngineWidgets':   ModuleMetadata(
-                                    qmake_QT=['webenginewidgets', 'webchannel',
-                                            'network', 'widgets'],
-                                    cpp11=True),
     'QtWebKit':             ModuleMetadata(qmake_QT=['webkit', 'network']),
     'QtWebKitWidgets':      ModuleMetadata(
                                     qmake_QT=['webkitwidgets',
@@ -167,9 +162,8 @@ COMPOSITE_COMPONENTS = (
         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
         'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets',
-        'Enginio', 'QtWebChannel', 'QtWebEngineCore', 'QtWebEngineWidgets',
-        'QtWebEngine',
-    'QtLocation', 'QtNfc'
+        'Enginio', 'QtWebChannel',
+    'QtLocation', 'QtNfc', 'QtRemoteObjects'
 )
 
 
@@ -1346,11 +1340,11 @@ def check_modules(target_config, disabled_modules, verbose):
     if target_config.qt_version >= 0x050500:
         check_5_5_modules(target_config, disabled_modules, verbose)
 
-    if target_config.qt_version >= 0x050600:
-        check_5_6_modules(target_config, disabled_modules, verbose)
-
     if target_config.qt_version >= 0x050a00:
         check_5_10_modules(target_config, disabled_modules, verbose)
+
+    if target_config.qt_version >= 0x050c00:
+        check_5_12_modules(target_config, disabled_modules, verbose)
 
 
 def check_5_1_modules(target_config, disabled_modules, verbose):
@@ -1438,8 +1432,6 @@ def check_5_4_modules(target_config, disabled_modules, verbose):
 
     check_module(target_config, disabled_modules, verbose, 'QtWebChannel',
             'qwebchannel.h', 'new QWebChannel()')
-    check_module(target_config, disabled_modules, verbose,
-            'QtWebEngineWidgets', 'qwebengineview.h', 'new QWebEngineView()')
 
 
 def check_5_5_modules(target_config, disabled_modules, verbose):
@@ -1455,24 +1447,6 @@ def check_5_5_modules(target_config, disabled_modules, verbose):
             'qnearfieldmanager.h', 'new QNearFieldManager()')
 
 
-def check_5_6_modules(target_config, disabled_modules, verbose):
-    """ Check which modules introduced in Qt v5.6 can be built and update the
-    target configuration accordingly.  target_config is the target
-    configuration.  disabled_modules is the list of modules that have been
-    explicitly disabled.  verbose is set if the output is to be displayed.
-    """
-
-    check_module(target_config, disabled_modules, verbose, 'QtWebEngineCore',
-            'qtwebenginecoreversion.h',
-            'const char *v = QTWEBENGINECORE_VERSION_STR')
-
-    # This may have appeared in an earlier version but this is as far back as
-    # choose to go.
-    check_module(target_config, disabled_modules, verbose, 'QtWebEngine',
-            'qtwebengineversion.h',
-            'const char *v = QTWEBENGINE_VERSION_STR')
-
-
 def check_5_10_modules(target_config, disabled_modules, verbose):
     """ Check which modules introduced in Qt v5.10 can be built and update the
     target configuration accordingly.  target_config is the target
@@ -1483,6 +1457,18 @@ def check_5_10_modules(target_config, disabled_modules, verbose):
     check_module(target_config, disabled_modules, verbose, 'QtNetworkAuth',
             'qtnetworkauthversion.h',
             'const char *v = QTNETWORKAUTH_VERSION_STR')
+
+
+def check_5_12_modules(target_config, disabled_modules, verbose):
+    """ Check which modules introduced in Qt v5.12 can be built and update the
+    target configuration accordingly.  target_config is the target
+    configuration.  disabled_modules is the list of modules that have been
+    explicitly disabled.  verbose is set if the output is to be displayed.
+    """
+
+    check_module(target_config, disabled_modules, verbose, 'QtRemoteObjects',
+            'qtremoteobjectsversion.h',
+            'const char *v = QTREMOTEOBJECTS_VERSION_STR')
 
 
 def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings, distinfo):
@@ -2128,12 +2114,7 @@ def run_command(cmd, verbose):
 
         lout = fout.readline()
 
-    fout.close()
-
-    try:
-        os.wait()
-    except:
-        pass
+    close_command_pipe(fout)
 
 
 def remove_file(fname):
@@ -2204,6 +2185,17 @@ def get_command_output(cmd, and_stderr=False):
     return p.stdout
 
 
+def close_command_pipe(pipe):
+    """ Close the pipe returned by get_command_output(). """
+
+    pipe.close()
+
+    try:
+        os.wait()
+    except:
+        pass
+
+
 def source_path(*names):
     """ Return the native path for a list of components rooted at the directory
     containing this script.  names is the sequence of component names.
@@ -2232,6 +2224,7 @@ def check_dbus(target_config, verbose):
 
     sout = get_command_output(cmd)
     iflags = sout.read().strip()
+    close_command_pipe(sout)
 
     if not iflags:
         inform("DBus v1 does not seem to be installed.")
@@ -2452,8 +2445,8 @@ def get_sip_flags(target_config):
     if target_config.py_debug:
         sip_flags.append('-D')
 
-    # Handle the platform tag.
-    if target_config.py_platform == 'win32':
+    # Handle the platform tag.  (Allow for win32-g++.)
+    if target_config.py_platform.startswith('win32'):
         plattag = 'WS_WIN'
     elif target_config.py_platform == 'darwin':
         plattag = 'WS_MACX'

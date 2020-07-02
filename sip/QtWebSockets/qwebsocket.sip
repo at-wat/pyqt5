@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebSockets Python extension module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -134,6 +134,11 @@ signals:
 %If (PyQt_SSL)
     void preSharedKeyAuthenticationRequired(QSslPreSharedKeyAuthenticator *authenticator);
 %End
+%End
+
+public:
+%If (Qt_5_12_0 -)
+    qint64 bytesToWrite() const;
 %End
 };
 

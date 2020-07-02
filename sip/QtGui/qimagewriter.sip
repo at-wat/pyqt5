@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -89,6 +89,9 @@ public:
 %End
 %If (Qt_5_5_0 -)
     void setTransformation(QImageIOHandler::Transformations orientation);
+%End
+%If (Qt_5_12_0 -)
+    static QList<QByteArray> imageFormatsForMimeType(const QByteArray &mimeType);
 %End
 
 private:

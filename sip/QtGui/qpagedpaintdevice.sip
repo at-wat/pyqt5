@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -357,6 +357,9 @@ public:
     {
         PdfVersion_1_4,
         PdfVersion_A1b,
+%If (Qt_5_12_0 -)
+        PdfVersion_1_6,
+%End
     };
 
 %End
