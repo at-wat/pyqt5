@@ -53,10 +53,11 @@ int qpycore_canConvertTo_QJsonValue(PyObject *py)
     if (sipCanConvertToType(py, sipType_QJsonObject, 0))
         return 1;
 
-    if (sipCanConvertToType(py, sipType_QJsonArray, 0))
+    // We must check for QJsonValue before QJsonArray.
+    if (sipCanConvertToType(py, sipType_QJsonValue, SIP_NO_CONVERTORS))
         return 1;
 
-    return sipCanConvertToType(py, sipType_QJsonValue, SIP_NO_CONVERTORS);
+    return sipCanConvertToType(py, sipType_QJsonArray, 0);
 }
 
 
@@ -116,10 +117,7 @@ int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
                 sipType_QString, 0, 0, &state, isErr));
 
         if (*isErr)
-        {
-            sipReleaseType(q, sipType_QString, state);
             return 0;
-        }
 
         *cpp = new QJsonValue(*q);
 
@@ -136,10 +134,7 @@ int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
                 sipType_QJsonObject, 0, 0, &state, isErr));
 
         if (*isErr)
-        {
-            sipReleaseType(q, sipType_QJsonObject, state);
             return 0;
-        }
 
         *cpp = new QJsonValue(*q);
 
@@ -148,17 +143,23 @@ int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
         return sipGetState(transferObj);
     }
 
-    if (sipCanConvertToType(py, sipType_QJsonArray, 0))
+    // We must check for QJsonValue before QJsonArray.
+    if (sipCanConvertToType(py, sipType_QJsonValue, SIP_NO_CONVERTORS))
+    {
+        *cpp = reinterpret_cast<QJsonValue *>(sipConvertToType(py,
+                sipType_QJsonValue, transferObj, SIP_NO_CONVERTORS, 0, isErr));
+
+        return 0;
+    }
+
+    // Now it is safe to convert to QJsonArray.
     {
         int state;
         QJsonArray *q = reinterpret_cast<QJsonArray *>(sipConvertToType(py,
                 sipType_QJsonArray, 0, 0, &state, isErr));
 
         if (*isErr)
-        {
-            sipReleaseType(q, sipType_QJsonArray, state);
             return 0;
-        }
 
         *cpp = new QJsonValue(*q);
 
@@ -166,9 +167,4 @@ int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
 
         return sipGetState(transferObj);
     }
-
-    *cpp = reinterpret_cast<QJsonValue *>(sipConvertToType(py, sipType_QJsonValue,
-            transferObj, SIP_NO_CONVERTORS, 0, isErr));
-
-    return 0;
 }
