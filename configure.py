@@ -28,8 +28,7 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.12.2"
-
+PYQT_VERSION_STR = "5.12.3"
 SIP_MIN_VERSION = '4.19.14'
 
 
@@ -509,6 +508,7 @@ class TargetConfiguration:
         self.pyuic_interpreter = py_config.pyuic_interpreter
 
         # Remaining values.
+        self.abi_version = None
         self.dbus_inc_dirs = []
         self.dbus_lib_dirs = []
         self.dbus_libs = []
@@ -537,7 +537,6 @@ class TargetConfiguration:
         self.qml_plugin_dir = ''
         self.qsci_api = False
         self.qsci_api_dir = ''
-        self.qtconf_prefix = ''
         self.qt_shared = False
         self.qt_version = 0
         self.sip = self._find_exe('sip5', 'sip')
@@ -920,9 +919,6 @@ class TargetConfiguration:
         if opts.qsciapidir is not None:
             self.qsci_api_dir = opts.qsciapidir
 
-        if opts.qtconf_prefix is not None:
-            self.qtconf_prefix = opts.qtconf_prefix
-
         if opts.stubsdir is not None:
             self.pyqt_stubs_dir = opts.stubsdir
         elif not opts.install_stubs:
@@ -930,6 +926,12 @@ class TargetConfiguration:
 
         if opts.sip is not None:
             self.sip = opts.sip
+
+        if opts.abi_version is not None:
+            if os.path.basename(self.sip) != 'sip5':
+                error("The --abi-version argument can only be used with sip5.")
+
+            self.abi_version = opts.abi_version
 
         if opts.sipdir is not None:
             self.pyqt_sip_dir = opts.sipdir
@@ -1047,6 +1049,9 @@ def create_optparser(target_config):
             "[name+=value]", version=PYQT_VERSION_STR)
 
     # Note: we don't use %default to be compatible with Python 2.3.
+    p.add_option("--abi-version", dest='abi_version', default=None,
+            metavar="VERSION",
+            help="the SIP ABI version to use (sip5 only)")
     p.add_option("--static", "-k", dest='static', default=False,
             action='store_true',
             help="build modules as static libraries")
@@ -1123,10 +1128,6 @@ def create_optparser(target_config):
             action='store_true',
             help="assume that the Qt libraries have been built as shared "
                     "libraries [default: check]")
-    g.add_option("--qtconf-prefix", dest='qtconf_prefix', default=None,
-            action='store', metavar="DIR",
-            help="embed a qt.conf file in the QtCore module that has Prefix "
-                    "set to DIR")
     g.add_option("--no-timestamp", "-T", dest='notimestamp', default=False,
             action='store_true',
             help="suppress timestamps in the header comments of generated "
@@ -1533,6 +1534,46 @@ def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings, d
             fatal_warnings, sip_flags, False)
     subdirs.append('Qt')
 
+    # Generate the top-level __init__.py.
+    inf = open(source_path('__init__.py'))
+    contents = inf.read()
+    inf.close()
+
+    inf = open_for_writing('__init__.py')
+    inf.write(contents)
+
+    if target_config.py_platform == 'win32':
+        inf.write("""
+
+def find_qt():
+    import os
+
+    path = os.environ['PATH']
+
+    dll_dir = os.path.dirname(__file__) + '\\\\Qt\\\\bin'
+    if os.path.isfile(dll_dir + '\\\\Qt5Core.dll'):
+        path = dll_dir + ';' + path
+        os.environ['PATH'] = path
+    else:
+        for dll_dir in path.split(';'):
+            if os.path.isfile(dll_dir + '\\\\Qt5Core.dll'):
+                break
+        else:
+            raise ImportError("unable to find Qt5Core.dll on PATH")
+
+    try:
+        os.add_dll_directory(dll_dir)
+    except AttributeError:
+        pass
+
+
+find_qt()
+del find_qt
+""")
+
+    inf.close()
+
+    # Generate any executable wrappers.
     wrappers = []
     if not target_config.no_tools:
         # Generate the pylupdate5 and pyrcc5 wrappers.
@@ -1613,10 +1654,10 @@ def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings, d
 CONFIG += ordered nostrip
 SUBDIRS = %s
 
-init_py.files = %s
+init_py.files = __init__.py
 init_py.path = %s
 INSTALLS += init_py
-''' % (' '.join(subdirs), source_path('__init__.py'), root_dir))
+''' % (' '.join(subdirs), root_dir))
 
     all_installs.append(root_dir + '/__init__.py')
 
@@ -2510,6 +2551,10 @@ def generate_sip_module_code(target_config, verbose, parts, tracing, mname, fata
     # Build the SIP command line.
     argv = [target_config.sip, '-w']
 
+    if target_config.abi_version:
+        argv.append('--abi-version')
+        argv.append(target_config.abi_version)
+
     argv.extend(sip_flags)
 
     if fatal_warnings:
@@ -2725,9 +2770,6 @@ target.files = $$PY_MODULE
     if target_config.prot_is_public:
         pro_lines.append('DEFINES += SIP_PROTECTED_IS_PUBLIC protected=public')
 
-    if mname == 'QtCore' and target_config.qtconf_prefix != '':
-        pro_lines.append('DEFINES += PYQT_QTCONF_PREFIX=\\\\\\"%s\\\\\\"' % target_config.qtconf_prefix)
-
     # This is needed for Windows.
     pro_lines.append('INCLUDEPATH += .')
 
@@ -2917,7 +2959,7 @@ def check_sip(target_config, verbose):
 
     if '.dev' in version_str or 'snapshot' in version_str:
         # We only need to distinguish between sip v4 and sip v5.
-        if version_str.startswith('5.') or version_str.startswith('4.20.'):
+        if os.path.basename(target_config.sip) == 'sip5':
             version = 0x050000
         else:
             version = 0x040000
@@ -2943,13 +2985,22 @@ def check_sip(target_config, verbose):
             inform("Installing sip.h in %s..." % target_config.sip_inc_dir)
 
             os.makedirs(target_config.sip_inc_dir, exist_ok=True)
-            run_command(
-                    'sip5-module --include-dir %s PyQt5.sip' % target_config.sip_inc_dir,
-                    verbose)
+
+            argv = ['sip5-header']
+
+            if target_config.abi_version:
+                argv.append('--abi-version')
+                argv.append(target_config.abi_version)
+
+            argv.append('--include-dir')
+            argv.append(quote(target_config.sip_inc_dir)),
+            argv.append('PyQt5.sip')
+
+            run_command(' '.join(argv), verbose)
 
             if not os.access(os.path.join(target_config.sip_inc_dir, 'sip.h'), os.F_OK):
                 error(
-                        "sip5-module failed to install sip.h int %s." %
+                        "sip5-header failed to install sip.h in %s." %
                                 target_config.sip_inc_dir)
     else:
         if target_config.sip_inc_dir is None:

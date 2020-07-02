@@ -359,6 +359,9 @@ namespace Qt
 %If (Qt_5_9_0 -)
         WA_TabletTracking,
 %End
+%If (Qt_5_11_0 -)
+        WA_ContentsMarginsRespectsSafeArea,
+%End
 %If (Qt_5_12_0 -)
         WA_StyleSheetTarget,
 %End
