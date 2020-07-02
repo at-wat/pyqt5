@@ -1,3 +1,12 @@
+v5.10.1 26th February 2018
+  - Added support for Qt v5.10.1.
+  - Added the missing qmlClearTypeRegistrations() to the QtQml module.
+  - Added the --disabled-feature option to configure.py.
+
+v5.10 23rd January 2018
+  - Added support for Qt v5.10.0.
+  - Added the QtNetworkAuth module.
+
 v5.9.2 23rd November 2017
   - Added support for Qt v5.9.3.
   - Added the QtAndroidExtras module.

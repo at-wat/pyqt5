@@ -1,6 +1,6 @@
 # This script generates the Makefiles for building PyQt5.
 #
-# Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt5.
 # 
@@ -28,7 +28,7 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.9.2"
+PYQT_VERSION_STR = "5.10.1"
 
 SIP_MIN_VERSION = '4.19.4'
 
@@ -79,6 +79,10 @@ MODULE_METADATA = {
                                     qmake_QT=['multimediawidgets',
                                             'multimedia']),
     'QtNetwork':            ModuleMetadata(qmake_QT=['network', '-gui']),
+    'QtNetworkAuth':        ModuleMetadata(
+                                    qmake_QT=['network', 'networkauth',
+                                            '-gui'],
+                                    cpp11=True),
     'QtNfc':                ModuleMetadata(qmake_QT=['nfc', '-gui']),
     'QtOpenGL':             ModuleMetadata(qmake_QT=['opengl']),
     'QtPositioning':        ModuleMetadata(qmake_QT=['positioning']),
@@ -156,10 +160,10 @@ MODULE_METADATA = {
 # any modules that depend on it.
 COMPOSITE_COMPONENTS = (
     'QtCore',
-    'QtAndroidExtras', 'QtDBus', 'QtGui', 'QtNetwork', 'QtSensors',
-    'QtSerialPort', 'QtMultimedia', 'QtQml', 'QtWebKit', 'QtWidgets', 'QtXml',
-    'QtXmlPatterns', 'QtAxContainer', 'QtDesigner', 'QtHelp',
-    'QtMultimediaWidgets', 'QtOpenGL',
+    'QtAndroidExtras', 'QtDBus', 'QtGui', 'QtNetwork', 'QtNetworkAuth',
+    'QtSensors', 'QtSerialPort', 'QtMultimedia', 'QtQml', 'QtWebKit',
+    'QtWidgets', 'QtXml', 'QtXmlPatterns', 'QtAxContainer', 'QtDesigner',
+    'QtHelp', 'QtMultimediaWidgets', 'QtOpenGL',
         'QtPrintSupport', 'QtQuick', 'QtSql', 'QtSvg', 'QtTest',
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
         'QtWinExtras', 'QtX11Extras', 'QtQuickWidgets', 'QtWebSockets',
@@ -411,9 +415,29 @@ class HostPythonConfiguration:
         self.debug = hasattr(sys, 'gettotalrefcount')
 
         if sys.platform == 'win32':
-            self.bin_dir = sys.exec_prefix
+            bin_dir = sys.exec_prefix
+
+            try:
+                # Python v3.3 and later.
+                base_prefix = sys.base_prefix
+
+                if sys.exec_prefix != sys.base_exec_prefix:
+                    bin_dir += '\\Scripts'
+
+            except AttributeError:
+                try:
+                    # virtualenv for Python v2.
+                    base_prefix = sys.real_prefix
+                    bin_dir += '\\Scripts'
+
+                except AttributeError:
+                    # We can't detect the base prefix in Python v3 prior to
+                    # v3.3.
+                    base_prefix = sys.prefix
+
+            self.bin_dir = bin_dir
             self.data_dir = sys.prefix
-            self.lib_dir = sys.prefix + '\\libs'
+            self.lib_dir = base_prefix + '\\libs'
         else:
             self.bin_dir = sys.exec_prefix + '/bin'
             self.data_dir = sys.prefix + '/share'
@@ -834,6 +858,8 @@ class TargetConfiguration:
         configuration.  opts are the command line options.
         """
 
+        self.pyqt_disabled_features.extend(opts.disabled_features)
+
         if opts.assumeshared:
             self.qt_shared = True
 
@@ -1082,6 +1108,9 @@ def create_optparser(target_config):
             action='append', metavar="MODULE",
             help="disable the specified MODULE [default: checks for all "
                     "modules will be enabled]")
+    g.add_option("--disable-feature", dest='disabled_features', default=[],
+            action='append', metavar="FEATURE",
+            help="disable the specified FEATURE")
     g.add_option("--enable", "-e", dest='modules', default=[], action='append',
             metavar="MODULE",
             help="enable checks for the specified MODULE [default: checks for "
@@ -1309,6 +1338,9 @@ def check_modules(target_config, disabled_modules, verbose):
     if target_config.qt_version >= 0x050600:
         check_5_6_modules(target_config, disabled_modules, verbose)
 
+    if target_config.qt_version >= 0x050a00:
+        check_5_10_modules(target_config, disabled_modules, verbose)
+
 
 def check_5_1_modules(target_config, disabled_modules, verbose):
     """ Check which modules introduced in Qt v5.1 can be built and update the
@@ -1428,6 +1460,18 @@ def check_5_6_modules(target_config, disabled_modules, verbose):
     check_module(target_config, disabled_modules, verbose, 'QtWebEngine',
             'qtwebengineversion.h',
             'const char *v = QTWEBENGINE_VERSION_STR')
+
+
+def check_5_10_modules(target_config, disabled_modules, verbose):
+    """ Check which modules introduced in Qt v5.10 can be built and update the
+    target configuration accordingly.  target_config is the target
+    configuration.  disabled_modules is the list of modules that have been
+    explicitly disabled.  verbose is set if the output is to be displayed.
+    """
+
+    check_module(target_config, disabled_modules, verbose, 'QtNetworkAuth',
+            'qtnetworkauthversion.h',
+            'const char *v = QTNETWORKAUTH_VERSION_STR')
 
 
 def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings):
@@ -2232,7 +2276,7 @@ def compile_test_program(target_config, verbose, mname, source=None, debug=None,
 
     # Create the source file if necessary.
     if source is None:
-        name_source = 'config-tests/' + name_source
+        name_source = source_path('config-tests', name_source)
     else:
         f = open_for_writing(name_source)
         f.write(source)
