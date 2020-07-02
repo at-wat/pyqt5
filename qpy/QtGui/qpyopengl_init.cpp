@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtGui module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -32,7 +32,7 @@
 void qpyopengl_init()
 {
     // Initialise the OpenGL data cache type.
-    if (PyType_Ready(&qpyopengl_dataCache_Type) < 0)
+    if (!qpyopengl_dataCache_init_type())
         Py_FatalError("PyQt5.QtGui: Failed to initialise dataCache type");
 
     // Export the private helpers, ie. those that should not be used by
@@ -41,6 +41,7 @@ void qpyopengl_init()
     sipExportSymbol("qpyopengl_value_array", (void *)qpyopengl_value_array);
     sipExportSymbol("qpyopengl_value_array_cached",
             (void *)qpyopengl_value_array_cached);
+    sipExportSymbol("qpyopengl_get", (void *)qpyopengl_get);
     sipExportSymbol("qpyopengl_from_GLint", (void *)qpyopengl_from_GLint);
     sipExportSymbol("qpyopengl_from_GLuint", (void *)qpyopengl_from_GLuint);
     sipExportSymbol("qpyopengl_from_GLboolean",

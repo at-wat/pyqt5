@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -28,11 +28,11 @@ class QBuffer : QIODevice
 
 public:
     explicit QBuffer(QObject *parent /TransferThis/ = 0);
-    QBuffer(QByteArray *byteArray, QObject *parent /TransferThis/ = 0);
+    QBuffer(QByteArray *byteArray /Constrained/, QObject *parent /TransferThis/ = 0);
     virtual ~QBuffer();
     QByteArray &buffer();
     const QByteArray &data() const;
-    void setBuffer(QByteArray *a);
+    void setBuffer(QByteArray *a /Constrained/);
     void setData(const QByteArray &data);
     void setData(const char *adata /Array/, int alen /ArraySize/);
     virtual bool open(QIODevice::OpenMode openMode);

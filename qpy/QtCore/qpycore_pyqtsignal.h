@@ -1,6 +1,6 @@
 // This defines the interfaces for the pyqtSignal type.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -64,13 +64,16 @@ typedef struct _qpycore_pyqtSignal {
 } qpycore_pyqtSignal;
 
 
-extern PyTypeObject qpycore_pyqtSignal_Type;
-
 int qpycore_get_lazy_attr(const sipTypeDef *td, PyObject *dict);
 
 }
 
 
+// The type object.
+extern PyTypeObject *qpycore_pyqtSignal_TypeObject;
+
+
+bool qpycore_pyqtSignal_init_type();
 qpycore_pyqtSignal *qpycore_pyqtSignal_New(const char *signature,
         bool *fatal = 0);
 qpycore_pyqtSignal *qpycore_find_signal(qpycore_pyqtSignal *ps,

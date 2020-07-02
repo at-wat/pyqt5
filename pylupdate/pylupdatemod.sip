@@ -1,6 +1,6 @@
 // This defines the API exposed by the Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -18,12 +18,12 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Module(name=PyQt5.pylupdate, keyword_arguments="None")
+%Module(name=PyQt5.pylupdate, keyword_arguments="None", use_limited_api=True)
 
 %Import QtCore/QtCoremod.sip
 
 %Copying
-Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt5.
 
@@ -58,7 +58,8 @@ void fetchtr_ui(const char *fileName, MetaTranslator *tor,
         const char *defaultContext, bool mustExist);
 
 void merge(const MetaTranslator *tor, const MetaTranslator *virginTor,
-        MetaTranslator *out, bool verbose, bool noObsolete);
+        MetaTranslator *out, bool noObsolete, bool verbose,
+        const QString &filename);
 
 QMap<QString, QString> proFileTagMap(const QString &text);
 

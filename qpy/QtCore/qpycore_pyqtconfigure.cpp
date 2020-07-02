@@ -1,6 +1,6 @@
 // This implements the helper for QObject.pyqtConfigure().
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -221,7 +221,7 @@ static ArgStatus handle_argument(PyObject *self, QObject *qobj,
 
         if (sig)
         {
-            if (PyObject_TypeCheck(sig, &qpycore_pyqtBoundSignal_Type))
+            if (PyObject_TypeCheck(sig, qpycore_pyqtBoundSignal_TypeObject))
             {
                 static PyObject *connect_obj = NULL;
 

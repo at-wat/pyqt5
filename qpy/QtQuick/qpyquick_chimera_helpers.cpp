@@ -1,6 +1,6 @@
 // This is the implementation of the various Chimera helpers.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -58,7 +58,7 @@ bool qpyquick_from_qvariant_convertor(const QVariant *varp, PyObject **objp)
                 break;
             }
 
-            PyList_SET_ITEM(obj, i, itm);
+            PyList_SetItem(obj, i, itm);
         }
     }
 
@@ -132,12 +132,12 @@ static int QList_QObject_metatype()
 // QtCore module to handle.
 static bool to_QList_QObject(PyObject *obj, QList<QObject *>&cpp)
 {
-    if (!PyList_CheckExact(obj) || PyList_GET_SIZE(obj) == 0)
+    if (!PyList_CheckExact(obj) || PyList_Size(obj) == 0)
         return false;
 
-    for (Py_ssize_t i = 0; i < PyList_GET_SIZE(obj); ++i)
+    for (Py_ssize_t i = 0; i < PyList_Size(obj); ++i)
     {
-        PyObject *val_obj = PyList_GET_ITEM(obj, i);
+        PyObject *val_obj = PyList_GetItem(obj, i);
 
         if (!val_obj)
             return false;

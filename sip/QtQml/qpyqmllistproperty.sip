@@ -1,6 +1,6 @@
 // This is the SIP specification of the QQmlListProperty mapped type.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -30,7 +30,7 @@
 
 %ConvertToTypeCode
     if (sipIsErr == NULL)
-        return PyObject_IsInstance(sipPy, (PyObject *)&qpyqml_QQmlListPropertyWrapper_Type);
+        return PyObject_IsInstance(sipPy, (PyObject *)qpyqml_QQmlListPropertyWrapper_TypeObject);
 
     *sipCppPtr = ((qpyqml_QQmlListPropertyWrapper *)sipPy)->qml_list_property;
 

@@ -1,6 +1,6 @@
 // This contains the support for QOpenGL value arrays.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -30,6 +30,7 @@
 
 #include "qpyopengl_api.h"
 #include "qpyopengl_data_cache.h"
+#include "qpyopengl_misc.h"
 
 
 // Forward declarations.
@@ -92,6 +93,8 @@ const GLvoid *qpyopengl_value_array_cached(sipErrorState *estate,
     if (!PyErr_Occurred())
         return data;
 
+    PyErr_Clear();
+
     qpyopengl_dataCache *data_cache = get_cache(bindings);
 
     if (!data_cache)
@@ -142,14 +145,15 @@ const GLvoid *qpyopengl_value_array_cached(sipErrorState *estate,
 static qpyopengl_dataCache *get_cache(PyObject *bindings)
 {
     // Create the cache if it doesn't already exist.
-    qpyopengl_dataCache *data_cache = (qpyopengl_dataCache *)((sipSimpleWrapper *)bindings)->user;
+    qpyopengl_dataCache *data_cache = (qpyopengl_dataCache *)sipGetUserObject((sipSimpleWrapper *)bindings);
 
     if (!data_cache)
     {
         data_cache = qpyopengl_dataCache_New();
 
         if (data_cache)
-            ((sipSimpleWrapper *)bindings)->user = (PyObject *)data_cache;
+            sipSetUserObject((sipSimpleWrapper *)bindings,
+                    (PyObject *)data_cache);
     }
 
     return data_cache;
@@ -161,19 +165,20 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
         sipErrorState *estate)
 {
 #if PY_VERSION_HEX >= 0x02060300
-    if (PyObject_GetBuffer(values, &array->buffer, PyBUF_FORMAT) != -1)
+    int rc = sipGetBufferInfo(values, &array->buffer);
+
+    if (rc < 0)
+    {
+        *estate = sipErrorFail;
+        return 0;
+    }
+
+    if (rc > 0)
     {
         // Check the buffer is compatible with what we need.
-        if (array->buffer.ndim != 1)
-        {
-            PyErr_SetString(PyExc_TypeError, "1-dimensional buffer required");
-            *estate = sipErrorFail;
-            return 0;
-        }
-
         GLenum array_type;
 
-        switch (*array->buffer.format)
+        switch (*array->buffer.bi_format)
         {
         case 'b':
             array_type = GL_BYTE;
@@ -211,7 +216,7 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
 
         default:
             PyErr_Format(PyExc_TypeError, "unsupported buffer type '%s'",
-                    array->buffer.format);
+                    array->buffer.bi_format);
             *estate = sipErrorFail;
             return 0;
         }
@@ -224,7 +229,7 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
             return 0;
         }
 
-        return array->buffer.buf;
+        return array->buffer.bi_buf;
     }
 #else
     PyBufferProcs *bf = Py_TYPE(values)->tp_as_buffer;
@@ -261,7 +266,7 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
         return 0;
     }
 
-    Py_ssize_t nr_items = PySequence_Fast_GET_SIZE(seq);
+    Py_ssize_t nr_items = Sequence_Fast_Size(seq);
 
     if (nr_items < 1)
     {
@@ -344,7 +349,7 @@ static void *convert_values(Array *array, PyObject *values, GLenum gl_type,
     {
         PyErr_Clear();
 
-        convertor(PySequence_Fast_GET_ITEM(seq, i), data, i);
+        convertor(Sequence_Fast_GetItem(seq, i), data, i);
 
         if (PyErr_Occurred())
         {

@@ -1,6 +1,6 @@
 // This is the support for QJsonValue.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -95,7 +95,7 @@ int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
 
     if (PyFloat_Check(py))
     {
-        *cpp = new QJsonValue((double)PyFloat_AS_DOUBLE(py));
+        *cpp = new QJsonValue((double)PyFloat_AsDouble(py));
 
         return sipGetState(transferObj);
     }

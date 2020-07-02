@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -83,16 +83,16 @@ if (sipIsErr == NULL)
 
 if (PyByteArray_Check(sipPy))
 {
-    *sipCppPtr = new QByteArray(PyByteArray_AS_STRING(sipPy),
-            PyByteArray_GET_SIZE(sipPy));
+    *sipCppPtr = new QByteArray(PyByteArray_AsString(sipPy),
+            PyByteArray_Size(sipPy));
 
     return sipGetState(sipTransferObj);
 }
 
 if (SIPBytes_Check(sipPy))
 {
-    *sipCppPtr = new QByteArray(SIPBytes_AS_STRING(sipPy),
-            SIPBytes_GET_SIZE(sipPy));
+    *sipCppPtr = new QByteArray(SIPBytes_AsString(sipPy),
+            SIPBytes_Size(sipPy));
 
     return sipGetState(sipTransferObj);
 }
@@ -104,7 +104,17 @@ return 0;
 %End
 
 %BIGetBufferCode
-    sipRes = PyBuffer_FillInfo(sipBuffer, sipSelf, sipCpp->data(), sipCpp->size(), 0, sipFlags);
+    #if defined(Py_LIMITED_API)
+        Q_UNUSED(sipSelf);
+    
+        sipBuffer->bd_buffer = sipCpp->data();
+        sipBuffer->bd_length = sipCpp->size();
+        sipBuffer->bd_readonly = 0;
+        sipRes = 0;
+    #else
+        sipRes = PyBuffer_FillInfo(sipBuffer, sipSelf, sipCpp->data(),
+                sipCpp->size(), 0, sipFlags);
+    #endif
 %End
 
 %BIGetReadBufferCode

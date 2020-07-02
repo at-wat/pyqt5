@@ -79,6 +79,12 @@ The following describes the command line options of :program:`pyqtlicense`.
 
     Display the version number and exit.
 
+.. cmdoption:: --build-tag TAG
+
+    This specifies that ``TAG`` should be used as the build tag in the name of
+    the generated wheel.  If ``TAG`` is an empty string then the build tag is
+    omitted.
+
 .. cmdoption:: --license FILE
 
     This specifies that ``FILE`` is the license file.
@@ -109,17 +115,31 @@ The following describes the command line options of :program:`pyqtlicense`.
 .. cmdoption:: --qt DIR
 
     This specifies that ``DIR`` contains the LGPL or commercial Qt installation
-    to be included in the licensed wheel.  It must be specified.
+    to be included in the licensed wheel.  The directory is what Qt refers to
+    as the *prefix* directory, i.e. the architecture specific directory
+    containing the ``bin``, ``lib`` etc. directories.  It must be specified.
+
+.. cmdoption:: --qt-version VERSION
+
+    This specifies the 3-part version number of the Qt installation.  If it is
+    not specified then it will be extracted from the value specified by the
+    :option:`--qt` option.
 
 .. cmdoption:: --quiet
 
     This specifies that all progress messages should be suppressed.
 
+.. cmdoption:: --wheel-qt-version VERSION
+
+    This specifies the 3-part version number of the Qt installation that the
+    wheel was built against.  If it is not specified then it will be extracted
+    from the name of the wheel file.
+
 .. cmdoption:: --verbose
 
     This specifies that additional progress messages should be displayed.
 
-The remaining arguments are the names of the unlicensed wheel files to license.
+The remaining argument is the name of the unlicensed wheel file to license.
 
 To uninstall the commercial version, run::
 
@@ -136,17 +156,17 @@ Downloading SIP
 
 SIP must be installed before building and using PyQt5.  You can get the latest
 release of the SIP source code from
-http://www.riverbankcomputing.com/software/sip/download.
+https://www.riverbankcomputing.com/software/sip/download.
 
 The SIP installation instructions can be found at
-http://pyqt.sourceforge.net/Docs/sip4/installation.html.
+https://pyqt.sourceforge.net/Docs/sip4/installation.html.
 
 
 Downloading PyQt5
 .................
 
 You can get the latest release of the GPL version of the PyQt5 source code from
-http://www.riverbankcomputing.com/software/pyqt/download5.
+https://www.riverbankcomputing.com/software/pyqt/download5.
 
 If you are using the commercial version of PyQt5 then you should use the
 download instructions which were sent to you when you made your purchase.  You
@@ -176,7 +196,7 @@ In order to configure the build of PyQt5 you need to run the
 This assumes that the Python interpreter is on your path.  Something like the
 following may be appropriate on Windows::
 
-    c:\Python35\python configure.py
+    c:\Python36\python configure.py
 
 If you have multiple versions of Python installed then make sure you use the
 interpreter for which you wish to build PyQt5 for.
@@ -230,8 +250,8 @@ The full set of command line options is:
 
 .. cmdoption:: --debug
 
-    The PyQt5 modules will be built with debugging symbols.  On Windows this
-    requires that a debug version of Python is installed.
+    The PyQt5 modules will be built with debugging symbols.  On Windows
+    :program:`configure.py` must be run using a debug version of Python.
 
 .. cmdoption:: --designer-plugindir <DIR>
 
@@ -264,6 +284,16 @@ The full set of command line options is:
 
     The license files needed by the commercial version of PyQt5 can be found in
     the directory ``<DIR>``.
+
+.. cmdoption:: --link-full-dll
+
+    .. versionadded:: 5.8
+
+    On Windows the full Python API and the limited API (as used by PyQt) are
+    implemented in different DLLs.  Normally the limited DLL is linked (unless
+    a debug version of the Python interpreter is being used to run 
+    :program:`configure.py`).  This option forces the full API DLL to be linked
+    instead.
 
 .. cmdoption:: --no-designer-plugin
 
@@ -333,6 +363,13 @@ The full set of command line options is:
     is laid out.  Normally :program:`qmake` is found on your :envvar:`PATH`.
     This option can be used to specify a particular instance of
     :program:`qmake` to use.
+
+.. cmdoption:: --qml-debug
+
+    .. versionadded:: 5.8
+
+    Enable the QML debugging infrastructure.  This should not be enabled in a
+    production environment.
 
 .. cmdoption:: --qml-plugindir <DIR>
 
@@ -546,6 +583,9 @@ The following values can be specified in the configuration file:
 
 ``py_platform``
     is the target Python platform.
+
+``py_debug``
+    is set if a debug version of the target Python is being used.
 
 ``py_inc_dir``
     is the target Python include directory, i.e. the directory containing the

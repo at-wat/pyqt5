@@ -1,6 +1,6 @@
 // This contains the main implementation of qmlRegisterSingletonType.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -115,7 +115,7 @@ static QQmlPrivate::RegisterSingletonType *init_type(PyTypeObject *py_type,
 
     const QMetaObject *mo = pyqt5_qtqml_get_qmetaobject(py_type);
 
-    QByteArray ptr_name(py_type->tp_name);
+    QByteArray ptr_name(sipPyTypeName(py_type));
     ptr_name.append('*');
 
     // Initialise those members that depend on the C++ type.

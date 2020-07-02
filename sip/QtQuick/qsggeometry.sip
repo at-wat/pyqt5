@@ -2,7 +2,7 @@
 //
 // This file is part of the QtQuick Python extension module.
 //
-// Copyright (c) 2016 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt5.
 // 
@@ -59,7 +59,13 @@ enum /NoScope/
         int tupleSize;
         int type;
         uint isVertexCoordinate;
+%If (Qt_5_8_0 -)
+        QSGGeometry::AttributeType attributeType;
+%End
         static QSGGeometry::Attribute create(int pos, int tupleSize, int primitiveType, bool isPosition = false) /Factory/;
+%If (Qt_5_8_0 -)
+        static QSGGeometry::Attribute createWithAttributeType(int pos, int tupleSize, int primitiveType, QSGGeometry::AttributeType attributeType) /Factory/;
+%End
     };
 
     struct AttributeSet /NoDefaultCtors/
@@ -112,7 +118,7 @@ enum /NoScope/
                     {
                         PyErr_Format(PyExc_TypeError,
                                 "index %zd has type '%s' but 'QSGGeometry.Attribute' is expected",
-                                i, Py_TYPE(itm)->tp_name);
+                                i, sipPyTypeName(Py_TYPE(itm)));
             
                         Py_DECREF(itm);
                         sipError = sipErrorFail;
@@ -199,9 +205,9 @@ enum /NoScope/
                             sipCpp->count = attrs.size();
                             sipCpp->stride = (a1 > 0 ? a1 : stride);
                             sipCpp->attributes = reinterpret_cast<QSGGeometry::Attribute *>(
-                                    SIPBytes_AS_STRING(bytes));
+                                    SIPBytes_AsString(bytes));
             
-                            sipSelf->user = bytes;
+                            sipSetUserObject(sipSelf, bytes);
                         }
                     }
                 }
@@ -339,4 +345,48 @@ enum /NoScope/
 %End
 
     int sizeOfIndex() const;
+%If (Qt_5_8_0 -)
+
+    enum AttributeType
+    {
+        UnknownAttribute,
+        PositionAttribute,
+        ColorAttribute,
+        TexCoordAttribute,
+        TexCoord1Attribute,
+        TexCoord2Attribute,
+    };
+
+%End
+%If (Qt_5_8_0 -)
+
+    enum DrawingMode
+    {
+        DrawPoints,
+        DrawLines,
+        DrawLineLoop,
+        DrawLineStrip,
+        DrawTriangles,
+        DrawTriangleStrip,
+        DrawTriangleFan,
+    };
+
+%End
+%If (Qt_5_8_0 -)
+
+    enum Type
+    {
+        ByteType,
+        UnsignedByteType,
+        ShortType,
+        UnsignedShortType,
+        IntType,
+        UnsignedIntType,
+        FloatType,
+    };
+
+%End
+%If (Qt_5_8_0 -)
+    static void updateColoredRectGeometry(QSGGeometry *g, const QRectF &rect);
+%End
 };
