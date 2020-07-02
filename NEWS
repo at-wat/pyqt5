@@ -1,3 +1,8 @@
+v5.12.2 6th May 2019
+  - Added support for Qt v5.12.3.
+  - Added QOpenGLContext.getProcAddress().
+  - Added support for Python fstrings to pylupdate.
+
 v5.12.1 19th March 2019
   - Added support for Qt v5.12.2.
 

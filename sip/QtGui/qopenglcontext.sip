@@ -62,6 +62,7 @@ public:
     bool makeCurrent(QSurface *surface);
     void doneCurrent();
     void swapBuffers(QSurface *surface);
+    QFunctionPointer getProcAddress(const QByteArray &procName) const;
     QSurface *surface() const;
     static QOpenGLContext *currentContext();
     static bool areSharing(QOpenGLContext *first, QOpenGLContext *second);
