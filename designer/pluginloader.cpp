@@ -167,7 +167,7 @@ bool PyCustomWidgets::importPlugins(const QString &dir, const QStringList &plugi
     // Make sure we have sip.unwrapinstance.
     if (!sip_unwrapinstance)
     {
-        sip_unwrapinstance = getModuleAttr("sip", "unwrapinstance");
+        sip_unwrapinstance = getModuleAttr("PyQt5.sip", "unwrapinstance");
 
         if (!sip_unwrapinstance)
             return true;

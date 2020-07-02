@@ -1,4 +1,142 @@
+2018-10-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.11.3.
+	[f1e0b5e6688c] [5.11.3] <5.11-maint>
+
+2018-09-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Updated the NEWS file.
+	[231e5ffd7681] <5.11-maint>
+
+2018-09-29  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* examples/draganddrop/dropsite.py:
+	Backed out changeset e2ced9c16e81 The root cause was the bug in
+	QByteArray.__getitem__().
+	[9e7736e27ccc] <5.11-maint>
+
+	* PyQt5.msp:
+	Fixed QByteArrat.at() and __getitem__() to return a byte with Python
+	v3.
+	[8dd77fcfeebb] <5.11-maint>
+
+	* examples/draganddrop/dropsite.py:
+	Fixed a bug in dropsite.py when dropping unknown binary data.
+	[e2ced9c16e81] <5.11-maint>
+
+	* examples/opengl/grabber.py, examples/opengl/hellogl.py,
+	examples/opengl/openglwindow.py, examples/opengl/overpainting.py,
+	examples/opengl/textures/textures.py:
+	Updated the OpenGL examples to explicitly set a supported OpenGL
+	version.
+	[555ef35e97c1] <5.11-maint>
+
+	* PyQt5.msp:
+	Added support for Qt v5.11.2.
+	[8038a93084ba] <5.11-maint>
+
+2018-09-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Added the missing qInfo().
+	[46bbf46f79e7] <5.11-maint>
+
+2018-08-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_enums_flags.cpp:
+	Fixed a build problem with Python v2.
+	[972751e6e1a4] <5.11-maint>
+
+2018-07-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_chimera.cpp:
+	Fixed a regression in the handling of signals with 'const char *'
+	arguments.
+	[2c91b80b4e5d] <5.11-maint>
+
+2018-07-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_enums_flags.cpp:
+	Work around a build problem with Python v2.7 and later (unsupported)
+	versions of MSVC.
+	[744cc5f4c8fa] <5.11-maint>
+
+	* lib/configure.py:
+	Removed the checks for PyQt5.sip as (for a clean installation) there
+	won't be a __init__.py file.
+	[dd65db4cd291] <5.11-maint>
+
+2018-07-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Fixed a regression in the handling of extension module names on
+	Windows.
+	[80b4604973e5] <5.11-maint>
+
+2018-07-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure.py:
+	Fixed the dist-info support for static builds.
+	[03b569aa406e] <5.11-maint>
+
+	* lib/configure.py:
+	Don't try to import PyQt5.sip when building a static version.
+	[802e93d1791d] <5.11-maint>
+
+2018-07-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp:
+	Renamed QRandomGenerator.global() to global_().
+	[598e976dbe41] <5.11-maint>
+
+2018-07-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qmetaobjectbuilder.h,
+	qpy/QtCore/qpycore_types.cpp:
+	Fixes for when building against Qt v5.8.* and v5.9.*.
+	[d61ea9439728] <5.11-maint>
+
+2018-07-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* designer/pluginloader.cpp, qmlscene/pluginloader.cpp:
+	Fixed the qmlscene and designer plugins to use the private copy of
+	the sip module.
+	[079b562d29c9] <5.11-maint>
+
+	* lib/configure.py:
+	Reverted the limited API version to v3.4.
+	[599442a49892] <5.11-maint>
+
+	* lib/configure.py:
+	Fixed a quoting problem when invoking mk_distinfo.py.
+	[b04abe4f35ad] <5.11-maint>
+
+	* test/tests/classes/test_QByteArray.py:
+	Added the unit test for QByteArray slicing.
+	[aab96301063b] <5.11-maint>
+
+	* lib/configure.py:
+	The mk_distinfo.py script now takes a temporary installation
+	directory as an additional argument.
+	[bd3096b5b8aa] <5.11-maint>
+
+	* lib/configure.py:
+	Fixes for invoking mk_distinfo.py with out-of-tree builds.
+	[3ca1bb19225f] <5.11-maint>
+
+2018-07-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qvariant_value.cpp:
+	Fixed a bug detecting a failed conversion to a QVariantMap.
+	[0ebb8b9619d8] <5.11-maint>
+
 2018-06-29  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.11.2 for changeset eae29c8c2da9
+	[f9dd92207f27] <5.11-maint>
 
 	* NEWS:
 	Released as v5.11.2.

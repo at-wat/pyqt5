@@ -141,7 +141,7 @@ static qpycore_metaobject *create_dynamic_metaobject(sipWrapperType *wt)
 
         QMetaEnumBuilder enum_builder = builder.addEnumerator(ef.name);
         enum_builder.setIsFlag(ef.isFlag);
-#if QT_VERSION >= 0x050800
+#if QT_VERSION >= 0x050a00
         enum_builder.setIsScoped(ef.isScoped);
 #endif
 

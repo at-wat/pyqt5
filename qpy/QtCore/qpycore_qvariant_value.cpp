@@ -202,7 +202,7 @@ static int add_variant_to_dict(const Chimera *ct, PyObject *dict,
     if (!key_obj)
     {
         delete key_heap;
-        return 0;
+        return -1;
     }
 
     PyObject *value_obj = convert(ct, value);
@@ -210,7 +210,7 @@ static int add_variant_to_dict(const Chimera *ct, PyObject *dict,
     if (!value_obj)
     {
         Py_DECREF(key_obj);
-        return 0;
+        return -1;
     }
 
     int rc = PyDict_SetItem(dict, key_obj, value_obj);

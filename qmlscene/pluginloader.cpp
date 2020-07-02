@@ -412,9 +412,9 @@ PyObject *PyQt5QmlPlugin::getModuleAttr(const char *module, const char *attr)
 void PyQt5QmlPlugin::getSipAPI()
 {
 #if defined(SIP_USE_PYCAPSULE)
-    sip = (const sipAPIDef *)PyCapsule_Import("sip._C_API", 0);
+    sip = (const sipAPIDef *)PyCapsule_Import("PyQt5.sip._C_API", 0);
 #else
-    PyObject *c_api = getModuleAttr("sip", "_C_API");
+    PyObject *c_api = getModuleAttr("PyQt5.sip", "_C_API");
 
     if (c_api)
     {
