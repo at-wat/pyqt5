@@ -164,4 +164,10 @@ public:
     };
 
 %End
+%If (Qt_5_13_0 -)
+    QString peerVerifyName() const;
+%End
+%If (Qt_5_13_0 -)
+    void setPeerVerifyName(const QString &peerName);
+%End
 };

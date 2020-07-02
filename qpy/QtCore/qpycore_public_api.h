@@ -36,6 +36,11 @@ class QVariant;
 QT_END_NAMESPACE
 
 
+// Call the C++ dtors of all QObject instances (except for QCoreApplication
+// instances) owned by Python.
+//void pyqt5_cleanup_qobjects();
+bool pyqt5_cleanup_qobjects();
+
 // A replacement for PyErr_Print().  In PyQt v5.4 it raises a deprecation
 // warning and calls PyErr_Print().  In PyQt v5.5 and later it passes the text
 // of the exception and traceback to qFatal().

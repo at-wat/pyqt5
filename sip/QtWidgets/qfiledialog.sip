@@ -250,7 +250,7 @@ signals:
 
 public:
 %If (Qt_5_2_0 -)
-    static SIP_PYTUPLE getOpenFileUrl(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0, const QStringList &supportedSchemes = QStringList()) /TypeHint="Tuple[QUrl, QString]", ReleaseGIL/;
+    static SIP_PYTUPLE getOpenFileUrl(QWidget *parent = 0, const QString &caption = QString(), const QUrl &directory = QUrl(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0, const QStringList &supportedSchemes = QStringList()) /TypeHint="Tuple[QUrl, QString]", ReleaseGIL/;
 %MethodCode
         QUrl *url;
         QString *filter = new QString(*a4);
@@ -273,7 +273,7 @@ public:
 
 %End
 %If (Qt_5_2_0 -)
-    static SIP_PYTUPLE getOpenFileUrls(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0, const QStringList &supportedSchemes = QStringList()) /TypeHint="Tuple[List[QUrl], QString]", ReleaseGIL/;
+    static SIP_PYTUPLE getOpenFileUrls(QWidget *parent = 0, const QString &caption = QString(), const QUrl &directory = QUrl(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0, const QStringList &supportedSchemes = QStringList()) /TypeHint="Tuple[List[QUrl], QString]", ReleaseGIL/;
 %MethodCode
         QList<QUrl> url_list;
         QString *filter = new QString(*a4);
@@ -316,7 +316,7 @@ public:
 
 %End
 %If (Qt_5_2_0 -)
-    static SIP_PYTUPLE getSaveFileUrl(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0, const QStringList &supportedSchemes = QStringList()) /TypeHint="Tuple[QUrl, QString]", ReleaseGIL/;
+    static SIP_PYTUPLE getSaveFileUrl(QWidget *parent = 0, const QString &caption = QString(), const QUrl &directory = QUrl(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0, const QStringList &supportedSchemes = QStringList()) /TypeHint="Tuple[QUrl, QString]", ReleaseGIL/;
 %MethodCode
         QUrl *url;
         QString *filter = new QString(*a4);

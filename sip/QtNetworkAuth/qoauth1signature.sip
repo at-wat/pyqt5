@@ -64,6 +64,12 @@ public:
     QByteArray plainText() const;
     static QByteArray plainText(const QString &clientSharedSecret, const QString &tokenSecret);
     void swap(QOAuth1Signature &other /Constrained/);
+%If (Qt_5_13_0 -)
+    QByteArray customMethodString() const;
+%End
+%If (Qt_5_13_0 -)
+    void setCustomMethodString(const QByteArray &verb);
+%End
 };
 
 %End

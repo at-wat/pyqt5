@@ -144,6 +144,11 @@ public:
     void disableClassInfo();
     void disableEventSink();
 
+%If (Qt_5_13_0 -)
+    unsigned long classContext() const;
+    void setClassContext(unsigned long classContext);
+%End
+
 protected:
     //virtual bool initialize(IUnknown** ptr);
     //bool initializeRemote(IUnknown** ptr);

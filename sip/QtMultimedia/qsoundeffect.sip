@@ -41,6 +41,9 @@ public:
     };
 
     explicit QSoundEffect(QObject *parent /TransferThis/ = 0);
+%If (Qt_5_13_0 -)
+    QSoundEffect(const QAudioDeviceInfo &audioDevice, QObject *parent /TransferThis/ = 0);
+%End
     virtual ~QSoundEffect();
     static QStringList supportedMimeTypes();
     QUrl source() const;

@@ -82,6 +82,12 @@ public:
 %If (Qt_5_4_0 -)
     QList<QPrinter::DuplexMode> supportedDuplexModes() const;
 %End
+%If (Qt_5_13_0 -)
+    QPrinter::ColorMode defaultColorMode() const;
+%End
+%If (Qt_5_13_0 -)
+    QList<QPrinter::ColorMode> supportedColorModes() const;
+%End
 };
 
 %End

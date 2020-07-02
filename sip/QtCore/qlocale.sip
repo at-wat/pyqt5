@@ -604,6 +604,21 @@ public:
 %If (Qt_5_7_0 -)
         Tangut,
 %End
+%If (Qt_5_13_0 -)
+        Ido,
+%End
+%If (Qt_5_13_0 -)
+        Lojban,
+%End
+%If (Qt_5_13_0 -)
+        Sicilian,
+%End
+%If (Qt_5_13_0 -)
+        SouthernKurdish,
+%End
+%If (Qt_5_13_0 -)
+        WesternBalochi,
+%End
     };
 
     enum Country
@@ -1532,6 +1547,12 @@ public:
 %End
 %If (Qt_5_10_0 -)
     QString formattedDataSize(qint64 bytes, int precision = 2, QLocale::DataSizeFormats format = QLocale::DataSizeIecFormat);
+%End
+%If (Qt_5_13_0 -)
+    long toLong(const QString &s, bool *ok = 0) const;
+%End
+%If (Qt_5_13_0 -)
+    ulong toULong(const QString &s, bool *ok = 0) const;
 %End
 };
 

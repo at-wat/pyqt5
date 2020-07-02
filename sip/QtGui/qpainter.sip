@@ -71,6 +71,9 @@ public:
         HighQualityAntialiasing,
         NonCosmeticDefaultPen,
         Qt4CompatiblePainting,
+%If (Qt_5_13_0 -)
+        LosslessImageRendering,
+%End
     };
 
     typedef QFlags<QPainter::RenderHint> RenderHints;
@@ -443,15 +446,11 @@ public:
     void drawPixmap(int x, int y, const QPixmap &pm, int sx, int sy, int sw, int sh);
     void drawPixmap(const QPointF &p, const QPixmap &pm, const QRectF &sr);
     void drawPixmap(const QPoint &p, const QPixmap &pm, const QRect &sr);
-    void drawImage(const QRectF &targetRect, const QImage &image, const QRectF &sourceRect, Qt::ImageConversionFlags flags = Qt::AutoColor);
-    void drawImage(const QRect &targetRect, const QImage &image, const QRect &sourceRect, Qt::ImageConversionFlags flags = Qt::AutoColor);
-    void drawImage(const QPointF &p, const QImage &image, const QRectF &sr, Qt::ImageConversionFlags flags = Qt::AutoColor);
-    void drawImage(const QPoint &p, const QImage &image, const QRect &sr, Qt::ImageConversionFlags flags = Qt::AutoColor);
     void drawImage(const QRectF &r, const QImage &image);
     void drawImage(const QRect &r, const QImage &image);
     void drawImage(const QPointF &p, const QImage &image);
     void drawImage(const QPoint &p, const QImage &image);
-    void drawImage(int x, int y, const QImage &image, int sx = 0, int sy = 0, int sw = -1, int sh = -1, Qt::ImageConversionFlags flags = Qt::AutoColor);
+    void drawImage(int x, int y, const QImage &image, int sx = 0, int sy = 0, int sw = -1, int sh = -1, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor);
     void drawText(const QPoint &p, const QString &s);
     void drawText(int x, int y, int width, int height, int flags, const QString &text, QRect *boundingRect /Out/ = 0);
     void drawText(int x, int y, const QString &s);
@@ -557,6 +556,10 @@ public:
 %If (Qt_5_12_0 -)
     void fillRect(const QRectF &r, QGradient::Preset preset);
 %End
+    void drawImage(const QRectF &targetRect, const QImage &image, const QRectF &sourceRect, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor);
+    void drawImage(const QRect &targetRect, const QImage &image, const QRect &sourceRect, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor);
+    void drawImage(const QPointF &p, const QImage &image, const QRectF &sr, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor);
+    void drawImage(const QPoint &p, const QImage &image, const QRect &sr, Qt::ImageConversionFlags flags = Qt::ImageConversionFlag::AutoColor);
 
 private:
     QPainter(const QPainter &);

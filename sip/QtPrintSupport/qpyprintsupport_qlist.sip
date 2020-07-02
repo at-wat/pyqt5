@@ -137,7 +137,7 @@
         TypeHintOut="List[QPrinter.DuplexMode]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
-#include <qprinterinfo.h>
+#include <qprinter.h>
 %End
 
 %ConvertFromTypeCode
@@ -224,6 +224,119 @@
         }
 
         ql->append(static_cast<QPrinter::DuplexMode>(v));
+
+        Py_DECREF(itm);
+    }
+
+    Py_DECREF(iter);
+
+    *sipCppPtr = ql;
+
+    return sipGetState(sipTransferObj);
+%End
+};
+
+%End
+
+%End
+
+
+%If (PyQt_Printer)
+
+%If (Qt_5_13_0 -)
+
+%MappedType QList<QPrinter::ColorMode>
+        /TypeHintIn="Iterable[QPrinter.ColorMode]",
+        TypeHintOut="List[QPrinter.ColorMode]", TypeHintValue="[]"/
+{
+%TypeHeaderCode
+#include <qprinter.h>
+%End
+
+%ConvertFromTypeCode
+    PyObject *l = PyList_New(sipCpp->size());
+
+    if (!l)
+        return 0;
+
+    for (int i = 0; i < sipCpp->size(); ++i)
+    {
+        PyObject *eobj = sipConvertFromEnum(sipCpp->at(i),
+                sipType_QPrinter_ColorMode);
+
+        if (!eobj)
+        {
+            Py_DECREF(l);
+
+            return 0;
+        }
+
+        PyList_SetItem(l, i, eobj);
+    }
+
+    return l;
+%End
+
+%ConvertToTypeCode
+    PyObject *iter = PyObject_GetIter(sipPy);
+
+    if (!sipIsErr)
+    {
+        PyErr_Clear();
+        Py_XDECREF(iter);
+
+        return (iter
+#if PY_MAJOR_VERSION < 3
+                && !PyString_Check(sipPy)
+#endif
+                && !PyUnicode_Check(sipPy));
+    }
+
+    if (!iter)
+    {
+        *sipIsErr = 1;
+
+        return 0;
+    }
+
+    QList<QPrinter::ColorMode> *ql = new QList<QPrinter::ColorMode>;
+
+    for (Py_ssize_t i = 0; ; ++i)
+    {
+        PyErr_Clear();
+        PyObject *itm = PyIter_Next(iter);
+
+        if (!itm)
+        {
+            if (PyErr_Occurred())
+            {
+                delete ql;
+                Py_DECREF(iter);
+                *sipIsErr = 1;
+
+                return 0;
+            }
+
+            break;
+        }
+
+        int v = sipConvertToEnum(itm, sipType_QPrinter_ColorMode);
+
+        if (PyErr_Occurred())
+        {
+            PyErr_Format(PyExc_TypeError,
+                    "index %zd has type '%s' but 'QPrinter.ColorMode' is expected",
+                    i, sipPyTypeName(Py_TYPE(itm)));
+
+            Py_DECREF(itm);
+            delete ql;
+            Py_DECREF(iter);
+            *sipIsErr = 1;
+
+            return 0;
+        }
+
+        ql->append(static_cast<QPrinter::ColorMode>(v));
 
         Py_DECREF(itm);
     }

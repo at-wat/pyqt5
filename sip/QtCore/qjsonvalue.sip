@@ -93,3 +93,10 @@ public:
 
 %End
 };
+
+%If (Qt_5_13_0 -)
+QDataStream &operator<<(QDataStream &, const QJsonValue & /Constrained/) /ReleaseGIL/;
+%End
+%If (Qt_5_13_0 -)
+QDataStream &operator>>(QDataStream &, QJsonValue & /Constrained/) /ReleaseGIL/;
+%End

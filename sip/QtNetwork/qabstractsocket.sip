@@ -302,6 +302,12 @@ public:
     void setPauseMode(QAbstractSocket::PauseModes pauseMode);
     bool bind(const QHostAddress &address, quint16 port = 0, QAbstractSocket::BindMode mode = QAbstractSocket::DefaultForPlatform);
     bool bind(quint16 port = 0, QAbstractSocket::BindMode mode = QAbstractSocket::DefaultForPlatform);
+%If (Qt_5_13_0 -)
+    QString protocolTag() const;
+%End
+%If (Qt_5_13_0 -)
+    void setProtocolTag(const QString &tag);
+%End
 };
 
 QFlags<QAbstractSocket::BindFlag> operator|(QAbstractSocket::BindFlag f1, QFlags<QAbstractSocket::BindFlag> f2);

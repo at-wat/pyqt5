@@ -199,6 +199,9 @@ public:
 
     QAbstractOAuth::ContentType contentType() const;
     void setContentType(QAbstractOAuth::ContentType contentType);
+%If (Qt_5_13_0 -)
+    void prepareRequest(QNetworkRequest *request, const QByteArray &verb, const QByteArray &body = QByteArray());
+%End
 
 public slots:
     virtual void grant() = 0;

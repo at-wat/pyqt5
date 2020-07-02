@@ -174,6 +174,36 @@ public:
 %If (Qt_5_11_0 -)
     QNavigationManager *navigationManager() const;
 %End
+%If (Qt_5_13_0 -)
+    QGeoServiceProvider::Error mappingError() const;
+%End
+%If (Qt_5_13_0 -)
+    QString mappingErrorString() const;
+%End
+%If (Qt_5_13_0 -)
+    QGeoServiceProvider::Error geocodingError() const;
+%End
+%If (Qt_5_13_0 -)
+    QString geocodingErrorString() const;
+%End
+%If (Qt_5_13_0 -)
+    QGeoServiceProvider::Error routingError() const;
+%End
+%If (Qt_5_13_0 -)
+    QString routingErrorString() const;
+%End
+%If (Qt_5_13_0 -)
+    QGeoServiceProvider::Error placesError() const;
+%End
+%If (Qt_5_13_0 -)
+    QString placesErrorString() const;
+%End
+%If (Qt_5_13_0 -)
+    QGeoServiceProvider::Error navigationError() const;
+%End
+%If (Qt_5_13_0 -)
+    QString navigationErrorString() const;
+%End
 };
 
 %End

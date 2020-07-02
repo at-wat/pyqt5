@@ -67,6 +67,19 @@ public:
 %If (Qt_5_8_0 -)
     QDateTime lastModified() const;
 %End
+%If (Qt_5_13_0 -)
+
+    enum Compression
+    {
+        NoCompression,
+        ZlibCompression,
+        ZstdCompression,
+    };
+
+%End
+%If (Qt_5_13_0 -)
+    QResource::Compression compressionAlgorithm() const;
+%End
 
 private:
     QResource(const QResource &);

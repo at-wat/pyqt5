@@ -1540,6 +1540,12 @@ PyObject *Chimera::toPyObject(void *cpp) const
             py = sipConvertFromType(*reinterpret_cast<void **>(cpp),
                     sipType_QObject, 0);
         }
+        else if (_name.endsWith('*'))
+        {
+            // It's a pointer to an unknown type so convert it to a voidptr in
+            // case that can be used.
+            py = sipConvertFromVoidPtr(cpp);
+        }
     }
 
     if (!py)

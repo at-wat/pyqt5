@@ -172,6 +172,10 @@ public:
 %End
 
     virtual ~QGuiApplication() /ReleaseGIL/;
+%MethodCode
+        pyqt5_qtgui_cleanup_qobjects();
+%End
+
     static QWindowList allWindows();
     static QWindowList topLevelWindows();
     static QWindow *topLevelAt(const QPoint &pos);
@@ -307,6 +311,10 @@ signals:
 
 %ModuleHeaderCode
 // Imports from QtCore.
+//typedef void (*pyqt5_qtgui_cleanup_qobjects_t)();
+typedef bool (*pyqt5_qtgui_cleanup_qobjects_t)();
+extern pyqt5_qtgui_cleanup_qobjects_t pyqt5_qtgui_cleanup_qobjects;
+
 typedef char **(*pyqt5_qtgui_from_argv_list_t)(PyObject *, int &);
 extern pyqt5_qtgui_from_argv_list_t pyqt5_qtgui_from_argv_list;
 
@@ -316,6 +324,7 @@ extern pyqt5_qtgui_update_argv_list_t pyqt5_qtgui_update_argv_list;
 
 %ModuleCode
 // Imports from QtCore.
+pyqt5_qtgui_cleanup_qobjects_t pyqt5_qtgui_cleanup_qobjects;
 pyqt5_qtgui_from_argv_list_t pyqt5_qtgui_from_argv_list;
 pyqt5_qtgui_update_argv_list_t pyqt5_qtgui_update_argv_list;
 
@@ -330,6 +339,9 @@ sipExportSymbol("qtgui_wrap_ancestors", (void *)qtgui_wrap_ancestors);
 
 %PostInitialisationCode
 // Imports from QtCore.
+pyqt5_qtgui_cleanup_qobjects = (pyqt5_qtgui_cleanup_qobjects_t)sipImportSymbol("pyqt5_cleanup_qobjects");
+Q_ASSERT(pyqt5_qtgui_cleanup_qobjects);
+
 pyqt5_qtgui_from_argv_list = (pyqt5_qtgui_from_argv_list_t)sipImportSymbol("pyqt5_from_argv_list");
 Q_ASSERT(pyqt5_qtgui_from_argv_list);
 

@@ -140,6 +140,15 @@ public:
     void translate(const QPointF &offset);
     QPainterPath translated(const QPointF &offset) const;
     void swap(QPainterPath &other /Constrained/);
+%If (Qt_5_13_0 -)
+    void clear();
+%End
+%If (Qt_5_13_0 -)
+    void reserve(int size);
+%End
+%If (Qt_5_13_0 -)
+    int capacity() const;
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QPainterPath & /Constrained/) /ReleaseGIL/;

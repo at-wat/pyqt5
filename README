@@ -1,59 +1,55 @@
-                  PyQt5 - Python Bindings for the Qt v5 Toolkit
+PyQt5 - Comprehensive Python Bindings for Qt v5
+===============================================
+
+Qt is set of cross-platform C++ libraries that implement high-level APIs for
+accessing many aspects of modern desktop and mobile systems.  These include
+location and positioning services, multimedia, NFC and Bluetooth connectivity,
+a Chromium based web browser, as well as traditional UI development.
+
+PyQt5 is a comprehensive set of Python bindings for Qt v5.  It is implemented
+as more than 35 extension modules and enables Python to be used as an
+alternative application development language to C++ on all supported platforms
+including iOS and Android.
+
+PyQt5 may also be embedded in C++ based applications to allow users of those
+applications to configure or enhance the functionality of those applications.
 
 
-INTRODUCTION
+Author
+------
 
-These are the Python bindings for Qt v5.  Python v2.6 or later is required.
-You must also have the SIP Python bindings generator installed.  PyQt4 is also
-available which supports earlier versions of Python, and Qt v4 and the
-compatible subset of Qt v5.
+PyQt5 is copyright (c) Riverbank Computing Limited.  Its homepage is
+https://www.riverbankcomputing.com/software/pyqt/.
 
-The homepage is https://www.riverbankcomputing.com/software/pyqt/.
-
-The homepage of SIP is https://www.riverbankcomputing.com/software/sip/.
+Support may be obtained from the PyQt mailing list at
+https://www.riverbankcomputing.com/mailman/listinfo/pyqt/.
 
 
-COMMERCIAL VERSION
+License
+-------
 
-If you have the Commercial version of PyQt5 then you should also have a
-license file that you downloaded separately.  The license file must be copied
-to the "sip" directory before starting to build PyQt5.
-
-
-INSTALLATION
-
-Check for any other README files in this directory that relate to your
-particular platform.  Feel free to contribute a README for your platform or to
-provide updates to any existing documentation.
-
-The first step is to configure PyQt5 by running the following command.
-
-	python configure.py
-
-This assumes that the correct Python interpreter is on your path.  Something
-like the following may be appropriate on Windows.
-
-	c:\python36\python configure.py
-
-If you have multiple versions of Python installed then make sure you use the
-interpreter for which you wish to generate bindings for.
-
-The configure.py script takes many options.  Use the "--help" command line
-option to display a full list of the available options.
-
-The next step is to build PyQt5 using your platform's make command.
-
-	make
-
-The final step is to install PyQt5 by running the following command.
-(Depending on your system you may require root or administrator privileges.)
-
-	make install
+PyQt5 is released under the GPL v3 license and under a commercial license that
+allows for the development of proprietary applications.
 
 
-THE REST OF THE DISTRIBUTION
+Documentation
+-------------
 
-The "examples" directory contain some examples of Python scripts, including
-versions of the standard Qt tutorials and examples.
+The documentation for the latest release can be found
+`here <https://www.riverbankcomputing.com/static/Docs/PyQt5/>`__.
 
-The "doc" directory contains HTML documentation for the bindings.
+
+Installation
+------------
+
+The GPL version of PyQt5 can be installed from PyPI::
+
+    pip install PyQt5
+
+The wheels include a copy of the required parts of the LGPL version of Qt.
+
+``pip`` will also build and install the bindings from the sdist package but
+Qt's ``qmake`` tool must be on ``PATH``.
+
+The ``sip-install`` tool will also install the bindings from the sdist package
+but will allow you to configure many aspects of the installation.

@@ -224,6 +224,12 @@ public:
 %End
 
 %End
+%If (Qt_5_13_0 -)
+    QStringList families() const;
+%End
+%If (Qt_5_13_0 -)
+    void setFamilies(const QStringList &);
+%End
 };
 
 QDataStream &operator<<(QDataStream &, const QFont & /Constrained/) /ReleaseGIL/;

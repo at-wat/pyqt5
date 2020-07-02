@@ -70,6 +70,9 @@ public:
         Format_Jpeg,
         Format_CameraRaw,
         Format_AdobeDng,
+%If (Qt_5_13_0 -)
+        Format_ABGR32,
+%End
         Format_User,
     };
 
@@ -138,5 +141,8 @@ public:
 %End
 %If (Qt_5_5_0 -)
     bool operator!=(const QVideoFrame &other) const;
+%End
+%If (Qt_5_13_0 -)
+    QAbstractVideoBuffer *buffer() const;
 %End
 };

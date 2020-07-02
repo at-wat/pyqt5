@@ -174,7 +174,7 @@ public:
     QFontMetrics fontMetrics;
     QPalette palette;
     QObject *styleObject;
-    QStyleOption(int version = QStyleOption::Version, int type = SO_Default);
+    QStyleOption(int version = QStyleOption::StyleOptionVersion::Version, int type = QStyleOption::OptionType::SO_Default);
     QStyleOption(const QStyleOption &other);
     ~QStyleOption();
     void initFrom(const QWidget *w);
@@ -706,7 +706,7 @@ public:
 
     QStyle::SubControls subControls;
     QStyle::SubControls activeSubControls;
-    QStyleOptionComplex(int version = QStyleOptionComplex::Version, int type = SO_Complex);
+    QStyleOptionComplex(int version = QStyleOptionComplex::StyleOptionVersion::Version, int type = QStyleOption::OptionType::SO_Complex);
     QStyleOptionComplex(const QStyleOptionComplex &other);
 };
 
@@ -885,7 +885,7 @@ public:
         Version,
     };
 
-    QStyleHintReturn(int version = QStyleOption::Version, int type = SH_Default);
+    QStyleHintReturn(int version = QStyleOption::StyleOptionVersion::Version, int type = QStyleHintReturn::HintReturnType::SH_Default);
     ~QStyleHintReturn();
     int version;
     int type;
