@@ -1,3 +1,9 @@
+pyqt5 (5.15.0+dfsg-1+exp2) experimental; urgency=medium
+
+  * Rebuild against Qt 5.14, to make module-tags in Qt*.toml files updated.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Fri, 03 Jul 2020 18:22:46 +0300
+
 pyqt5 (5.15.0+dfsg-1+exp1) experimental; urgency=medium
 
   * Switch from sip4 to sip5:
