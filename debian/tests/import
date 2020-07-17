@@ -5,13 +5,17 @@ set -e
 cd $AUTOPKGTEST_TMP
 
 cat <<EOF >test_import.py
+from PyQt5.QtBluetooth import QBluetoothAddress
 from PyQt5.QtCore import QFile
 from PyQt5.QtDBus import QDBusConnection
 from PyQt5.QtGui import QColor
 from PyQt5.QtMultimedia import QAudio
 from PyQt5.QtMultimediaWidgets import QGraphicsVideoItem
 from PyQt5.QtNetwork import QLocalSocket
+from PyQt5.QtNetworkAuth import QAbstractOAuth2
+from PyQt5.QtNfc import QNearFieldTarget
 from PyQt5.QtPositioning import QGeoCoordinate
+from PyQt5.QtRemoteObjects import QRemoteObjectHost
 from PyQt5.QtQml import QQmlEngine
 from PyQt5.QtQuick import QQuickView
 from PyQt5.QtSensors import QSensor
