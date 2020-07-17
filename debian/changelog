@@ -1,3 +1,14 @@
+pyqt5 (5.15.0+dfsg-1+exp3) experimental; urgency=medium
+
+  * Add new binary packages:
+    - python3-pyqt5.qtbluetooth
+    - python3-pyqt5.qtnetworkauth
+    - python3-pyqt5.qtnfc
+    - python3-pyqt5.qtremoteobjects (thanks Alexander Volkov)
+  * Bump years in debian/copyright.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Fri, 17 Jul 2020 13:37:15 +0300
+
 pyqt5 (5.15.0+dfsg-1+exp2) experimental; urgency=medium
 
   * Rebuild against Qt 5.14, to make module-tags in Qt*.toml files updated.

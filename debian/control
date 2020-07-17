@@ -11,7 +11,9 @@ Build-Depends: debhelper-compat (= 13),
                libicu-dev,
                libjs-jquery,
                libpulse-dev,
+               libqt5networkauth5-dev,
                libqt5opengl5-dev (>= 5.9.1),
+               libqt5remoteobjects5-dev,
                libqt5sensors5-dev (>= 5.9.1),
                libqt5serialport5-dev (>= 5.9.1),
                libqt5svg5-dev (>= 5.9.1),
@@ -32,6 +34,7 @@ Build-Depends: debhelper-compat (= 13),
                python3-pyqtbuild,
                python3-sipbuild (>= 5.3),
                python3-sipbuild-dbg (>= 5.3),
+               qtconnectivity5-dev,
                qtdeclarative5-dev (>= 5.9.1),
                qtlocation5-dev (>= 5.9.1),
                qtmultimedia5-dev (>= 5.9.1),
@@ -166,6 +169,32 @@ Depends: python3-dbg,
 Description: Python 3 bindings for Qt5's OpenGL module (debug extension)
  The OpenGL module of PyQt5 provides widgets and utility classes
  for OpenGL rendering in a PyQt5 application.
+ .
+ This package contains the extension built for the Python 3 debug interpreter.
+
+Package: python3-pyqt5.qtremoteobjects
+Architecture: any
+Depends: python3-pyqt5 (= ${binary:Version}),
+         ${misc:Depends},
+         ${python3:Depends},
+         ${shlibs:Depends}
+Description: Python 3 bindings for Qt5's RemoteObjects module
+ The QtRemoteObjects module extends Qt's existing functionalities to enable
+ information exchange between processes or computers.
+ .
+ This package contains the Python 3 version of this module.
+
+Package: python3-pyqt5.qtremoteobjects-dbg
+Section: debug
+Architecture: any
+Depends: python3-dbg,
+         python3-pyqt5-dbg (= ${binary:Version}),
+         python3-pyqt5.qtremoteobjects (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Python 3 bindings for Qt5's RemoteObjects module (debug extensions)
+ The QtRemoteObjects module extends Qt's existing functionalities to enable
+ information exchange between processes or computers.
  .
  This package contains the extension built for the Python 3 debug interpreter.
 
@@ -482,5 +511,81 @@ Depends: python3-dbg,
 Description: Python 3 bindings for QtPositioning module (debug extension)
  The QtPositioning module of PyQt5 provides an API to access location and
  positioning information.
+ .
+ This package contains the extension built for the Python 3 debug interpreter.
+
+Package: python3-pyqt5.qtbluetooth
+Architecture: any
+Depends: python3-pyqt5 (= ${binary:Version}),
+         ${misc:Depends},
+         ${python3:Depends},
+         ${shlibs:Depends}
+Description: Python bindings for Qt Bluetooth module
+ The Qt Bluetooth API provides connectivity between Bluetooth enabled devices.
+ .
+ This package contains the Python 3 version of this module.
+
+Package: python3-pyqt5.qtbluetooth-dbg
+Section: debug
+Architecture: any
+Depends: python3-dbg,
+         python3-pyqt5-dbg (= ${binary:Version}),
+         python3-pyqt5.qtbluetooth (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Python bindings for Qt Bluetooth module (debug extension)
+ The Qt Bluetooth API provides connectivity between Bluetooth enabled devices.
+ .
+ This package contains the extension built for the Python 3 debug interpreter.
+
+Package: python3-pyqt5.qtnfc
+Architecture: any
+Depends: python3-pyqt5 (= ${binary:Version}),
+         ${misc:Depends},
+         ${python3:Depends},
+         ${shlibs:Depends}
+Description: Python bindings for Qt NFC module
+ The Qt NFC API provides connectivity between NFC enabled devices.
+ .
+ This package contains the Python 3 version of this module.
+
+Package: python3-pyqt5.qtnfc-dbg
+Section: debug
+Architecture: any
+Depends: python3-dbg,
+         python3-pyqt5-dbg (= ${binary:Version}),
+         python3-pyqt5.qtnfc (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Python bindings for Qt NFC module (debug extension)
+ The Qt NFC API provides connectivity between NFC enabled devices.
+ .
+ This package contains the extension built for the Python 3 debug interpreter.
+
+Package: python3-pyqt5.qtnetworkauth
+Architecture: any
+Depends: python3-pyqt5 (= ${binary:Version}),
+         ${misc:Depends},
+         ${python3:Depends},
+         ${shlibs:Depends}
+Description: Python bindings for Qt Network Authorization module
+ Qt Network Authorization provides a set of APIs that enable Qt applications
+ to obtain limited access to online accounts and HTTP services without
+ exposing users' passwords.
+ .
+ This package contains the Python 3 version of this module.
+
+Package: python3-pyqt5.qtnetworkauth-dbg
+Section: debug
+Architecture: any
+Depends: python3-dbg,
+         python3-pyqt5-dbg (= ${binary:Version}),
+         python3-pyqt5.qtnetworkauth (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Python bindings for Qt Network Authorization module (debug extension)
+ Qt Network Authorization provides a set of APIs that enable Qt applications
+ to obtain limited access to online accounts and HTTP services without
+ exposing users' passwords.
  .
  This package contains the extension built for the Python 3 debug interpreter.
