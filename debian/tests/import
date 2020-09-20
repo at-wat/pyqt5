@@ -22,6 +22,7 @@ from PyQt5.QtSensors import QSensor
 from PyQt5.QtSerialPort import QSerialPortInfo
 from PyQt5.QtSql import QSqlQuery
 from PyQt5.QtSvg import QSvgRenderer
+from PyQt5.QtTextToSpeech import QTextToSpeech
 from PyQt5.QtWebChannel import QWebChannel
 from PyQt5.QtWebKit import QWebSettings
 from PyQt5.QtWebKitWidgets import QWebView

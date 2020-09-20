@@ -33,7 +33,8 @@ class PyQt(PyQtProject):
     def __init__(self):
         """ Initialise the project. """
 
-        super().__init__(abi_version='12.8', dunder_init=True, tag_prefix='Qt',
+        super().__init__(sip_module='PyQt5.sip', abi_version='12.8',
+                dunder_init=True, tag_prefix='Qt',
                 console_scripts=[
                     'pylupdate5 = PyQt5.pylupdate_main:main',
                     'pyrcc5 = PyQt5.pyrcc_main:main',
@@ -46,10 +47,11 @@ class PyQt(PyQtProject):
             QtMultimediaWidgets, QtNetworkAuth, QtNfc, QtOpenGL, QtPositioning,
             QtLocation, QtPrintSupport, QtQuick, QtQuick3D, QtQuickWidgets,
             QtRemoteObjects, QtSensors, QtSerialPort, QtSql, QtSvg, QtTest,
-            QtWebChannel, QtWebKit, QtWebKitWidgets, QtWebSockets, QtWinExtras,
-            QtX11Extras, QtXml, QtXmlPatterns, _QOpenGLFunctions_2_0,
-            _QOpenGLFunctions_2_1, _QOpenGLFunctions_4_1_Core,
-            _QOpenGLFunctions_ES2, pylupdate, pyrcc]
+            QtTextToSpeech, QtWebChannel, QtWebKit, QtWebKitWidgets,
+            QtWebSockets, QtWinExtras, QtX11Extras, QtXml, QtXmlPatterns,
+            _QOpenGLFunctions_2_0, _QOpenGLFunctions_2_1,
+            _QOpenGLFunctions_4_1_Core, _QOpenGLFunctions_ES2, pylupdate,
+            pyrcc]
 
     def apply_user_defaults(self, tool):
         """ Set default values where needed. """
@@ -172,7 +174,7 @@ del find_qt
         self.bindings['QtCore'].tags.append(plattag)
 
         # Make sure the bindings are buildable.
-        self.update_buildable_bindings()
+        super().update(tool)
 
         # PyQtWebEngine needs to know if QtWebChannel is available.
         if 'QtWebChannel' not in self.bindings:
@@ -916,6 +918,18 @@ class QtTest(PyQtBindings):
 
         super().__init__(project, 'QtTest', qmake_QT=['testlib', 'widgets'],
                 test_headers=['QtTest'], test_statement='QTest::qSleep(0)')
+
+
+class QtTextToSpeech(PyQtBindings):
+    """ The QtTextToSpeech bindings. """
+
+    def __init__(self, project):
+        """ Initialise the bindings. """
+
+        super().__init__(project, 'QtTextToSpeech',
+                qmake_QT=['texttospeech', '-gui'],
+                test_headers=['QTextToSpeech'],
+                test_statement='new QTextToSpeech()')
 
 
 class QtWebChannel(PyQtBindings):

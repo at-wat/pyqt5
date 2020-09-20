@@ -1,0 +1,36 @@
+From: Dmitry Shachnev <mitya57@debian.org>
+Date: Sat, 19 Sep 2020 15:38:41 +0300
+Subject: Do not require Qt 5.15 for QtTextToSpeech module
+
+The public API has not changed between 5.14 and 5.15.
+---
+ sip/QtTextToSpeech/qtexttospeech.sip | 2 +-
+ sip/QtTextToSpeech/qvoice.sip        | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sip/QtTextToSpeech/qtexttospeech.sip b/sip/QtTextToSpeech/qtexttospeech.sip
+index 729996e..5b0fb3e 100644
+--- a/sip/QtTextToSpeech/qtexttospeech.sip
++++ b/sip/QtTextToSpeech/qtexttospeech.sip
+@@ -20,7 +20,7 @@
+ // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ 
+ 
+-%If (Qt_5_15_0 -)
++%If (Qt_5_14_0 -)
+ 
+ class QTextToSpeech : QObject
+ {
+diff --git a/sip/QtTextToSpeech/qvoice.sip b/sip/QtTextToSpeech/qvoice.sip
+index e5416ff..14025be 100644
+--- a/sip/QtTextToSpeech/qvoice.sip
++++ b/sip/QtTextToSpeech/qvoice.sip
+@@ -20,7 +20,7 @@
+ // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ 
+ 
+-%If (Qt_5_15_0 -)
++%If (Qt_5_14_0 -)
+ 
+ class QVoice
+ {

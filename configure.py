@@ -28,7 +28,7 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "5.15.0"
+PYQT_VERSION_STR = "5.15.1"
 SIP_MIN_VERSION = '4.19.23'
 
 
@@ -96,6 +96,7 @@ MODULE_METADATA = {
     'QtSql':                ModuleMetadata(qmake_QT=['sql', 'widgets']),
     'QtSvg':                ModuleMetadata(qmake_QT=['svg']),
     'QtTest':               ModuleMetadata(qmake_QT=['testlib', 'widgets']),
+    'QtTextToSpeech':       ModuleMetadata(qmake_QT=['texttospeech', '-gui']),
     'QtWebChannel':         ModuleMetadata(
                                     qmake_QT=['webchannel', 'network',
                                             '-gui']),
@@ -163,7 +164,7 @@ COMPOSITE_COMPONENTS = (
     'QtWebKitWidgets', 'QtBluetooth', 'QtMacExtras', 'QtPositioning',
         'QtWinExtras', 'QtX11Extras', 'QtQuick3D', 'QtQuickWidgets',
         'QtWebSockets', 'Enginio', 'QtWebChannel',
-    'QtLocation', 'QtNfc', 'QtRemoteObjects'
+    'QtLocation', 'QtNfc', 'QtRemoteObjects', 'QtTextToSpeech'
 )
 
 
@@ -1495,6 +1496,8 @@ def check_5_15_modules(target_config, disabled_modules, verbose):
 
     check_module(target_config, disabled_modules, verbose, 'QtQuick3D',
             'qquick3d.h', 'QQuick3D::idealSurfaceFormat()')
+    check_module(target_config, disabled_modules, verbose, 'QtTextToSpeech',
+            'QTextToSpeech', 'new QTextToSpeech()')
 
 
 def generate_makefiles(target_config, verbose, parts, tracing, fatal_warnings, distinfo):

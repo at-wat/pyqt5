@@ -38,5 +38,9 @@ int main(int argc, char **argv)
         out << "PyQt_qreal_double\n";
 #endif
 
+#if !defined(Q_COMPILER_CONSTEXPR) || !defined(Q_COMPILER_UNIFORM_INIT)
+    out << "PyQt_CONSTEXPR\n";
+#endif
+
     return 0;
 }

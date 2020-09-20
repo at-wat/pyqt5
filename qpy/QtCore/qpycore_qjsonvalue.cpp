@@ -65,6 +65,13 @@ int qpycore_canConvertTo_QJsonValue(PyObject *py)
 int qpycore_convertTo_QJsonValue(PyObject *py, PyObject *transferObj,
         QJsonValue **cpp, int *isErr)
 {
+    if (py == Py_None)
+    {
+        *cpp = new QJsonValue();
+
+        return sipGetState(transferObj);
+    }
+
     if (PyObject_TypeCheck(py, sipTypeAsPyTypeObject(sipType_QJsonValue_Type)))
     {
         int v = sipConvertToEnum(py, sipType_QJsonValue_Type);
