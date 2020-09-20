@@ -52,6 +52,7 @@ extern "C" {
 static PyObject *pyqtBoundSignal_call(PyObject *self, PyObject *args,
         PyObject *kw);
 static void pyqtBoundSignal_dealloc(PyObject *self);
+static Py_hash_t pyqtBoundSignal_hash(PyObject *self);
 static PyObject *pyqtBoundSignal_repr(PyObject *self);
 static PyObject *pyqtBoundSignal_richcompare(PyObject *self, PyObject *other,
         int op);
@@ -139,6 +140,7 @@ static PyType_Slot qpycore_pyqtBoundSignal_Slots[] = {
     {Py_tp_dealloc,     (void *)pyqtBoundSignal_dealloc},
     {Py_tp_repr,        (void *)pyqtBoundSignal_repr},
     {Py_tp_richcompare, (void *)pyqtBoundSignal_richcompare},
+    {Py_tp_hash,        (void *)pyqtBoundSignal_hash},
     {Py_tp_call,        (void *)pyqtBoundSignal_call},
     {Py_mp_subscript,   (void *)pyqtBoundSignal_mp_subscript},
     {Py_tp_methods,     pyqtBoundSignal_methods},
@@ -179,7 +181,7 @@ static PyTypeObject qpycore_pyqtBoundSignal_Type = {
     0,                      /* tp_as_number */
     0,                      /* tp_as_sequence */
     &pyqtBoundSignal_as_mapping,    /* tp_as_mapping */
-    0,                      /* tp_hash */
+    pyqtBoundSignal_hash,   /* tp_hash */
     pyqtBoundSignal_call,   /* tp_call */
     0,                      /* tp_str */
     0,                      /* tp_getattro */
@@ -312,6 +314,27 @@ static PyObject *pyqtBoundSignal_richcompare(PyObject *self, PyObject *other,
 
     Py_INCREF(res);
     return res;
+}
+
+
+// The type hash slot.
+static Py_hash_t pyqtBoundSignal_hash(PyObject *self)
+{
+    qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)self;
+
+    Py_hash_t signal_hash = PyObject_Hash((PyObject *)(bs->unbound_signal));
+    if (signal_hash == -1)
+        return -1;
+
+    Py_hash_t object_hash = PyObject_Hash((PyObject *)(bs->bound_pyobject));
+    if (object_hash == -1)
+        return -1;
+
+    Py_hash_t hash = signal_hash ^ object_hash;
+    if (hash == -1)
+        hash = -2;
+
+    return hash;
 }
 
 
