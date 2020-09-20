@@ -1,4 +1,71 @@
+2020-09-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS:
+	Released as v5.15.1.
+	[f99d8e2299f1] [5.15.1] <5.15-maint>
+
+	* NEWS:
+	Updated the NEWS file.
+	[51b9d0e4a153] <5.15-maint>
+
+	* PyQt5.msp:
+	Fixed bugs related to QSGNode.
+	[a8a92e00511e] <5.15-maint>
+
+2020-08-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt5.msp, config-tests/cfgtest_QtCore.cpp:
+	Fixed building with compilers without constexpr support (ie. MSVC
+	2015).
+	[ae7bb0399061] <5.15-maint>
+
+2020-08-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/project.py:
+	Set the name of the sip module explicitly.
+	[16811c7f937c] <5.15-maint>
+
+2020-08-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Fix a signal disconnect() when None is passed as the argument.
+	[22794b6d6a6c] <5.15-maint>
+
+2020-07-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS, qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Bound signals can now be tested for equality.
+	[2651d9efa223] <5.15-maint>
+
+	* NEWS, qpy/QtCore/qpycore_classinfo.cpp,
+	qpy/QtCore/qpycore_enums_flags.cpp:
+	Raise an appropriate exception if Q_CLASSINFO, Q_ENUM, Q_ENUMS,
+	Q_FLAG or Q_FLAGS are used on PyPy.
+	[1d22af022477] <5.15-maint>
+
+2020-06-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS, PyQt5.msp, lib/configure.py, lib/project.py:
+	Added the QtTextToSpeech module.
+	[d31c28251af2] <5.15-maint>
+
+2020-06-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS, PyQt5.msp, qpy/QtCore/qpycore_qjsonvalue.cpp:
+	None is now interpreted as a null QJsonValue.
+	[1b4fdf6609d4] <5.15-maint>
+
+2020-06-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/project.py:
+	Fixed the platform tag for macOS wheels.
+	[72fd5bbd2388] <5.15-maint>
+
 2020-05-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 5.15.0 for changeset 5e7e90d17d36
+	[720e8a99e5df]
 
 	* NEWS:
 	Released as v5.15.0.

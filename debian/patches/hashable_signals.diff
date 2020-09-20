@@ -1,0 +1,66 @@
+From: Phil Thompson <phil@riverbankcomputing.com>
+Date: Fri, 18 Sep 2020 14:45:36 +0300
+Subject: Make bound signals hashable
+
+Origin: upstream, changeset 4318b62d0575
+---
+ qpy/QtCore/qpycore_pyqtboundsignal.cpp | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+
+diff --git a/qpy/QtCore/qpycore_pyqtboundsignal.cpp b/qpy/QtCore/qpycore_pyqtboundsignal.cpp
+index 31fb819..b30cdc8 100644
+--- a/qpy/QtCore/qpycore_pyqtboundsignal.cpp
++++ b/qpy/QtCore/qpycore_pyqtboundsignal.cpp
+@@ -52,6 +52,7 @@ extern "C" {
+ static PyObject *pyqtBoundSignal_call(PyObject *self, PyObject *args,
+         PyObject *kw);
+ static void pyqtBoundSignal_dealloc(PyObject *self);
++static Py_hash_t pyqtBoundSignal_hash(PyObject *self);
+ static PyObject *pyqtBoundSignal_repr(PyObject *self);
+ static PyObject *pyqtBoundSignal_richcompare(PyObject *self, PyObject *other,
+         int op);
+@@ -139,6 +140,7 @@ static PyType_Slot qpycore_pyqtBoundSignal_Slots[] = {
+     {Py_tp_dealloc,     (void *)pyqtBoundSignal_dealloc},
+     {Py_tp_repr,        (void *)pyqtBoundSignal_repr},
+     {Py_tp_richcompare, (void *)pyqtBoundSignal_richcompare},
++    {Py_tp_hash,        (void *)pyqtBoundSignal_hash},
+     {Py_tp_call,        (void *)pyqtBoundSignal_call},
+     {Py_mp_subscript,   (void *)pyqtBoundSignal_mp_subscript},
+     {Py_tp_methods,     pyqtBoundSignal_methods},
+@@ -179,7 +181,7 @@ static PyTypeObject qpycore_pyqtBoundSignal_Type = {
+     0,                      /* tp_as_number */
+     0,                      /* tp_as_sequence */
+     &pyqtBoundSignal_as_mapping,    /* tp_as_mapping */
+-    0,                      /* tp_hash */
++    pyqtBoundSignal_hash,   /* tp_hash */
+     pyqtBoundSignal_call,   /* tp_call */
+     0,                      /* tp_str */
+     0,                      /* tp_getattro */
+@@ -315,6 +317,27 @@ static PyObject *pyqtBoundSignal_richcompare(PyObject *self, PyObject *other,
+ }
+ 
+ 
++// The type hash slot.
++static Py_hash_t pyqtBoundSignal_hash(PyObject *self)
++{
++    qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)self;
++
++    Py_hash_t signal_hash = PyObject_Hash((PyObject *)(bs->unbound_signal));
++    if (signal_hash == -1)
++        return -1;
++
++    Py_hash_t object_hash = PyObject_Hash((PyObject *)(bs->bound_pyobject));
++    if (object_hash == -1)
++        return -1;
++
++    Py_hash_t hash = signal_hash ^ object_hash;
++    if (hash == -1)
++        hash = -2;
++
++    return hash;
++}
++
++
+ // The type call slot.
+ static PyObject *pyqtBoundSignal_call(PyObject *self, PyObject *args,
+         PyObject *kw)

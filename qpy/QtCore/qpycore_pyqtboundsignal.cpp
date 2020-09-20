@@ -52,7 +52,10 @@ extern "C" {
 static PyObject *pyqtBoundSignal_call(PyObject *self, PyObject *args,
         PyObject *kw);
 static void pyqtBoundSignal_dealloc(PyObject *self);
+static Py_hash_t pyqtBoundSignal_hash(PyObject *self);
 static PyObject *pyqtBoundSignal_repr(PyObject *self);
+static PyObject *pyqtBoundSignal_richcompare(PyObject *self, PyObject *other,
+        int op);
 static PyObject *pyqtBoundSignal_get_doc(PyObject *self, void *);
 static PyObject *pyqtBoundSignal_get_signal(PyObject *self, void *);
 static PyObject *pyqtBoundSignal_connect(PyObject *self, PyObject *args,
@@ -136,6 +139,8 @@ static PyType_Slot qpycore_pyqtBoundSignal_Slots[] = {
     {Py_tp_new,         (void *)PyType_GenericNew},
     {Py_tp_dealloc,     (void *)pyqtBoundSignal_dealloc},
     {Py_tp_repr,        (void *)pyqtBoundSignal_repr},
+    {Py_tp_richcompare, (void *)pyqtBoundSignal_richcompare},
+    {Py_tp_hash,        (void *)pyqtBoundSignal_hash},
     {Py_tp_call,        (void *)pyqtBoundSignal_call},
     {Py_mp_subscript,   (void *)pyqtBoundSignal_mp_subscript},
     {Py_tp_methods,     pyqtBoundSignal_methods},
@@ -176,7 +181,7 @@ static PyTypeObject qpycore_pyqtBoundSignal_Type = {
     0,                      /* tp_as_number */
     0,                      /* tp_as_sequence */
     &pyqtBoundSignal_as_mapping,    /* tp_as_mapping */
-    0,                      /* tp_hash */
+    pyqtBoundSignal_hash,   /* tp_hash */
     pyqtBoundSignal_call,   /* tp_call */
     0,                      /* tp_str */
     0,                      /* tp_getattro */
@@ -186,7 +191,7 @@ static PyTypeObject qpycore_pyqtBoundSignal_Type = {
     0,                      /* tp_doc */
     0,                      /* tp_traverse */
     0,                      /* tp_clear */
-    0,                      /* tp_richcompare */
+    pyqtBoundSignal_richcompare,    /* tp_richcompare */
     0,                      /* tp_weaklistoffset */
     0,                      /* tp_iter */
     0,                      /* tp_iternext */
@@ -274,6 +279,62 @@ static PyObject *pyqtBoundSignal_repr(PyObject *self)
             ("<bound PYQT_SIGNAL %s of %s object at %p>", name.constData() + 1,
                     sipPyTypeName(Py_TYPE(bs->bound_pyobject)),
                     bs->bound_pyobject);
+}
+
+
+// The type richcompare slot.
+static PyObject *pyqtBoundSignal_richcompare(PyObject *self, PyObject *other,
+        int op)
+{
+    if ((op != Py_EQ && op != Py_NE) || !PyObject_TypeCheck(other, qpycore_pyqtBoundSignal_TypeObject))
+    {
+        Py_INCREF(Py_NotImplemented);
+        return Py_NotImplemented;
+    }
+
+    qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)self;
+    qpycore_pyqtBoundSignal *other_bs = (qpycore_pyqtBoundSignal *)other;
+
+    int eq = PyObject_RichCompareBool((PyObject *)(bs->unbound_signal),
+                (PyObject *)(other_bs->unbound_signal), Py_EQ);
+
+    if (eq == 1)
+        eq = PyObject_RichCompareBool(bs->bound_pyobject,
+                other_bs->bound_pyobject, Py_EQ);
+
+    if (eq < 0)
+        return 0;
+
+    PyObject *res;
+
+    if (op == Py_EQ)
+        res = eq ? Py_True : Py_False;
+    else
+        res = eq ? Py_False : Py_True;
+
+    Py_INCREF(res);
+    return res;
+}
+
+
+// The type hash slot.
+static Py_hash_t pyqtBoundSignal_hash(PyObject *self)
+{
+    qpycore_pyqtBoundSignal *bs = (qpycore_pyqtBoundSignal *)self;
+
+    Py_hash_t signal_hash = PyObject_Hash((PyObject *)(bs->unbound_signal));
+    if (signal_hash == -1)
+        return -1;
+
+    Py_hash_t object_hash = PyObject_Hash((PyObject *)(bs->bound_pyobject));
+    if (object_hash == -1)
+        return -1;
+
+    Py_hash_t hash = signal_hash ^ object_hash;
+    if (hash == -1)
+        hash = -2;
+
+    return hash;
 }
 
 
@@ -586,7 +647,7 @@ static PyObject *pyqtBoundSignal_disconnect(PyObject *self, PyObject *args)
     }
 
     // See if the slot is a connection.
-    if (sipCanConvertToType(py_slot, sipType_QMetaObject_Connection, 0))
+    if (sipCanConvertToType(py_slot, sipType_QMetaObject_Connection, SIP_NOT_NONE))
     {
         int is_error = 0;
         QMetaObject::Connection *connection = reinterpret_cast<QMetaObject::Connection *>(sipConvertToType(py_slot, sipType_QMetaObject_Connection, NULL, 0, NULL, &is_error));

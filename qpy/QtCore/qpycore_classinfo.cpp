@@ -34,6 +34,11 @@ static QMultiHash<const struct _frame *, ClassInfo> class_info_hash;
 // Add the given name/value pair to the current class info hash.
 PyObject *qpycore_ClassInfo(const char *name, const char *value)
 {
+#if defined(PYPY_VERSION)
+    PyErr_SetString(PyExc_AttributeError,
+            "Q_CLASSINFO is not supported on PyPy");
+    return 0;
+#else
     // We need the frame we were called from, not the current one.
     struct _frame *frame = sipGetFrame(1);
 
@@ -48,16 +53,21 @@ PyObject *qpycore_ClassInfo(const char *name, const char *value)
 
     Py_INCREF(Py_None);
     return Py_None;
+#endif
 }
 
 
 // Return the current class info list.
 QList<ClassInfo> qpycore_get_class_info_list()
 {
-    struct _frame *frame = sipGetFrame(0);
-    QList<ClassInfo> class_info_list = class_info_hash.values(frame);
+    QList<ClassInfo> class_info_list;
 
+#if !defined(PYPY_VERSION)
+    struct _frame *frame = sipGetFrame(0);
+
+    class_info_list = class_info_hash.values(frame);
     class_info_hash.remove(frame);
+#endif
 
     return class_info_list;
 }

@@ -6,7 +6,7 @@ build-backend = "sipbuild.api"
 # Specify the PEP 566 metadata for the project.
 [tool.sip.metadata]
 name = "PyQt5"
-version = "5.15.0"
+version = "5.15.1"
 summary = "Python bindings for the Qt cross platform application toolkit"
 home-page = "https://www.riverbankcomputing.com/software/pyqt/"
 author = "Riverbank Computing Limited"

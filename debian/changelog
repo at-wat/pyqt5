@@ -1,3 +1,20 @@
+pyqt5 (5.15.1+dfsg-1) experimental; urgency=medium
+
+  [ Debian Janitor ]
+  * Set field Upstream-Name in debian/copyright.
+  * Drop unnecessary dh arguments: --parallel, --parallel
+  * Fix day-of-week for changelog entry 5.0-1.
+
+  [ Dmitry Shachnev ]
+  * New upstream release.
+  * Backport upstream patch to make bound signals hashable.
+  * Add a patch to make QtTextToSpeech module buildable with Qt 5.14.
+
+  [ Alexander Volkov ]
+  * Add python3-pyqt5.qttexttospeech package for QtTextToSpeech module.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Sun, 20 Sep 2020 11:23:00 +0300
+
 pyqt5 (5.15.0+dfsg-1+exp3) experimental; urgency=medium
 
   * Add new binary packages:
@@ -766,4 +783,4 @@ pyqt5 (5.0-1) experimental; urgency=low
   * Set X-Python3-Version: >= 3.3 in debian/control as a temporary workaround
     to a dh_python3 issue with extension renaming
 
- -- Dmitry Shachnev <mitya57@gmail.com>  Sat, 28 Jul 2013 13:15:13 +0400
+ -- Dmitry Shachnev <mitya57@gmail.com>  Sun, 28 Jul 2013 13:15:13 +0400

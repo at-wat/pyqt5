@@ -17,6 +17,7 @@ Build-Depends: debhelper-compat (= 13),
                libqt5sensors5-dev (>= 5.9.1),
                libqt5serialport5-dev (>= 5.9.1),
                libqt5svg5-dev (>= 5.9.1),
+               libqt5texttospeech5-dev,
                libqt5webchannel5-dev (>= 5.9.1),
                libqt5webkit5-dev (>= 5.9.1),
                libqt5websockets5-dev (>= 5.9.1),
@@ -459,6 +460,32 @@ Depends: python3-dbg,
 Description: Python 3 bindings for QtSensors module (debug extension)
  The QtSensors module of PyQt5 provides a set of APIs to access sensors
  hardware from PyQt applications.
+ .
+ This package contains the extension built for the Python 3 debug interpreter.
+
+Package: python3-pyqt5.qttexttospeech
+Architecture: any
+Depends: python3-pyqt5 (= ${binary:Version}),
+         ${misc:Depends},
+         ${python3:Depends},
+         ${shlibs:Depends}
+Description: Python 3 bindings for QtSpeech module
+ The QtSpeech module of PyQt5 provides a set of APIs for text-to-speech
+ in PyQt applications.
+ .
+ This package contains the Python 3 version of this module.
+
+Package: python3-pyqt5.qttexttospeech-dbg
+Section: debug
+Architecture: any
+Depends: python3-dbg,
+         python3-pyqt5-dbg (= ${binary:Version}),
+         python3-pyqt5.qttexttospeech (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Python 3 bindings for QtSpeech module (debug extension)
+ The QtSpeech module of PyQt5 provides a set of APIs for text-to-speech
+ in PyQt applications.
  .
  This package contains the extension built for the Python 3 debug interpreter.
 

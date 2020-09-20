@@ -26,7 +26,7 @@ DEFAULT_PYTHON := $(shell py3versions -vd)
 ALLPYTHONS := $(shell py3versions -vr)
 
 PYQT_MODULES := opengl remoteobjects sql webchannel webkit websockets xmlpatterns svg \
-	multimedia quick serialport sensors x11extras positioning bluetooth nfc networkauth
+	multimedia quick serialport sensors texttospeech x11extras positioning bluetooth nfc networkauth
 
 PY_PACKAGE_NAMES := pyqt5 $(PYQT_MODULES:%=pyqt5.qt%) dbus.mainloop.pyqt5
 
@@ -72,12 +72,12 @@ override_dh_auto_build-indep: build-$(DEFAULT_PYTHON)/build-stamp
 
 build-%/build-stamp: build-%/configure-stamp
 	dh_testdir
-	dh_auto_build --parallel -B build-$*
+	dh_auto_build -B build-$*
 	touch $@
 
 dbg-build-%/build-stamp: dbg-build-%/configure-stamp
 	dh_testdir
-	dh_auto_build --parallel -B dbg-build-$*
+	dh_auto_build -B dbg-build-$*
 	touch $@
 
 override_dh_auto_install-indep:

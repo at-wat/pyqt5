@@ -93,6 +93,10 @@ static struct _frame *get_calling_frame()
 // Add the given Q_ENUM() or Q_FLAG() argument to the current enums/flags hash.
 static PyObject *parse_enum_flag(PyObject *arg, bool flag, const char *context)
 {
+#if defined(PYPY_VERSION)
+    PyErr_Format(PyExc_AttributeError, "%s is not supported on PyPy", context);
+    return 0;
+#else
     struct _frame *frame = get_calling_frame();
 
     if (!frame)
@@ -103,6 +107,7 @@ static PyObject *parse_enum_flag(PyObject *arg, bool flag, const char *context)
 
     Py_INCREF(Py_None);
     return Py_None;
+#endif
 }
 
 
@@ -111,6 +116,10 @@ static PyObject *parse_enum_flag(PyObject *arg, bool flag, const char *context)
 static PyObject *parse_enums_flags(PyObject *args, bool flags,
         const char *context)
 {
+#if defined(PYPY_VERSION)
+    PyErr_Format(PyExc_AttributeError, "%s is not supported on PyPy", context);
+    return 0;
+#else
     struct _frame *frame = get_calling_frame();
 
     if (!frame)
@@ -127,6 +136,7 @@ static PyObject *parse_enums_flags(PyObject *args, bool flags,
 
     Py_INCREF(Py_None);
     return Py_None;
+#endif
 }
 
 
@@ -320,10 +330,14 @@ static bool objectify(const char *s, PyObject **objp)
 // Return the current enums/flags list.
 QList<EnumFlag> qpycore_get_enums_flags_list()
 {
-    struct _frame *frame = sipGetFrame(0);
-    QList<EnumFlag> enums_flags_list = enums_flags_hash.values(frame);
+    QList<EnumFlag> enums_flags_list;
 
+#if !defined(PYPY_VERSION)
+    struct _frame *frame = sipGetFrame(0);
+
+    enums_flags_list = enums_flags_hash.values(frame);
     enums_flags_hash.remove(frame);
+#endif
 
     return enums_flags_list;
 }

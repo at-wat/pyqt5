@@ -2,6 +2,7 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Contact: pyqt@riverbankcomputing.com
 Files-Excluded: examples/webkit/fancybrowser/jquery.min.js
                 examples/webkit/fancybrowser/jquery_rc.py
+Upstream-Name: PyQt5
 
 Files: *
 Copyright: 2020, Riverbank Computing Limited
