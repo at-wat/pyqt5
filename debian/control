@@ -1,7 +1,7 @@
 Source: pyqt5
 Section: python
 Priority: optional
-Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+Maintainer: Debian Python Team <team+python@tracker.debian.org>
 Uploaders: Dmitry Shachnev <mitya57@debian.org>
 Build-Depends: debhelper-compat (= 13),
                dh-python,
@@ -45,8 +45,8 @@ Build-Depends: debhelper-compat (= 13),
 Build-Depends-Indep: fdupes, python3-pyqt5.sip (>= 12.8)
 Standards-Version: 4.5.0
 Homepage: https://riverbankcomputing.com/software/pyqt/intro
-Vcs-Git: https://salsa.debian.org/python-team/modules/pyqt5.git
-Vcs-Browser: https://salsa.debian.org/python-team/modules/pyqt5
+Vcs-Git: https://salsa.debian.org/python-team/packages/pyqt5.git
+Vcs-Browser: https://salsa.debian.org/python-team/packages/pyqt5
 
 Package: pyqt5-dev
 Architecture: all
