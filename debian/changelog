@@ -1,3 +1,15 @@
+pyqt5 (5.15.1+dfsg-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+  [ Ondřej Nový ]
+  * d/control: Update Maintainer field with new Debian Python Team
+    contact address.
+  * d/control: Update Vcs-* fields with new Debian Python Team Salsa
+    layout.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Thu, 24 Sep 2020 16:00:35 +0300
+
 pyqt5 (5.15.1+dfsg-1) experimental; urgency=medium
 
   [ Debian Janitor ]
